@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="color-scheme" content="light">
+<title>Phone Agent</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --bg: #eef1f5;
+    --card: #ffffff;
+    --text: #111111;
+    --muted: #6b7280;
+    --line: #dde3ea;
+    --blue: #0a84ff;
+    --blue-deep: #0666c9;
+    --green: #18a957;
+    --red: #e14d46;
+    --orange: #f39a2d;
+    --ink-soft: #f6f8fb;
+}
+
+body {
+    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    color-scheme: light;
+    background:
+        radial-gradient(circle at top, #ffffff 0, #f3f5f8 32%, #e9edf2 100%);
+    color: var(--text);
+    max-width: 430px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    padding-bottom: 92px;
+}
+
+.page {
+    display: none;
+    min-height: 100vh;
+    padding: 18px 16px 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.page.active {
+    display: block;
+}
+
+.page.AI-call-page.active,
+.page.Normal-call-page.active {
+    display: flex;
+}
+
+.page-content {
+    position: relative;
+    z-index: 2;
+}
+
+.page-robot {
+    position: fixed;
+    left: 50%;
+    bottom: 74px;
+    transform: translateX(-50%);
+    width: 70%;
+    max-width: 300px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.98;
+}
+
+.page-robot img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0 18px;
+}
+
+.nav-title {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nav-side {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.nav-action {
+    border: none;
+    background: rgba(255, 255, 255, 0.82);
+    color: #304355;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 8px 12px;
+    box-shadow: 0 8px 18px rgba(31, 41, 55, 0.06);
+}
+
+.hero-card,
+.panel-card,
+.list-card,
+.call-shell {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(31, 41, 55, 0.08);
+    backdrop-filter: blur(18px);
+}
+
+.hero-card {
+    padding: 22px;
+    margin-bottom: 18px;
+    min-height: 540px;
+    background:
+        linear-gradient(180deg, rgba(10, 132, 255, 0.08), rgba(255, 255, 255, 0.95) 32%),
+        rgba(255, 255, 255, 0.94);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: min-height 320ms ease;
+}
+
+.dial-card {
+    min-height: calc(100vh - 240px);
+    position: relative;
+    z-index: 0;
+}
+
+.hero-title {
+    font-size: clamp(20px, 5.8vw, 26px);
+    font-weight: 700;
+    line-height: 1.1;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    padding: 24px 12px;
+    white-space: nowrap;
+    transition: flex 320ms ease, padding 320ms ease, align-items 320ms ease;
+}
+
+.hero-subtitle {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+.voice-stage {
+    margin-top: auto;
+    padding: 20px 16px 16px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #f7fbff, #edf5ff);
+    border: 1px solid #dcebff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    transition: margin-top 320ms ease, transform 320ms ease;
+}
+
+.voice-stage.clarifying {
+    padding-top: 14px;
+    padding-bottom: 12px;
+}
+
+.voice-stage.clarifying .tips-row {
+    display: none;
+}
+
+.voice-stage.hidden-state {
+    display: none;
+}
+
+.page-ai-compact .hero-card {
+    min-height: 360px;
+}
+
+.page-ai-compact .hero-title {
+    flex: 0 0 auto;
+    align-items: flex-start;
+    padding: 4px 12px 0;
+}
+
+.page-ai-compact .voice-stage {
+    margin-top: 22px;
+    transform: translateY(0);
+}
+
+.stage-status {
+    font-size: 13px;
+    color: var(--blue-deep);
+    margin-bottom: 12px;
+}
+
+.voice-dialog {
+    display: none;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto 14px;
+    text-align: left;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.voice-dialog.show {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.voice-bubble {
+    flex: 0 0 auto;
+    max-width: 88%;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.55;
+    box-shadow: 0 8px 20px rgba(31, 41, 55, 0.06);
+    animation: bubbleIn 220ms ease;
+}
+
+.voice-bubble.ai {
+    margin-right: auto;
+    border-bottom-left-radius: 6px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid #dce8f5;
+    color: #274055;
+}
+
+.voice-bubble.user {
+    margin-left: auto;
+    border-bottom-right-radius: 6px;
+    background: linear-gradient(180deg, #0a84ff, #2a5cff);
+    color: #fff;
+}
+
+.voice-bubble-role {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    opacity: 0.72;
+}
+
+@keyframes bubbleIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mic-btn {
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 92px;
+    width: 92px;
+    min-width: 92px;
+    height: 92px;
+    min-height: 92px;
+    margin: 0 auto;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--blue), #2a5cff);
+    color: #fff;
+    font-size: 36px;
+    box-shadow: 0 16px 26px rgba(10, 132, 255, 0.28);
+}
+
+.mic-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: opacity 180ms ease;
+}
+
+.mic-btn.listening .mic-icon {
+    opacity: 0;
+}
+
+.mic-icon svg,
+.dial-delete svg,
+.tab-icon svg,
+.back-btn svg {
+    width: 1em;
+    height: 1em;
+    display: block;
+}
+
+.wave {
+    position: absolute;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.wave.show {
+    display: flex;
+}
+
+.wave span {
+    width: 5px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.95);
+    animation: wave 1s infinite ease-in-out;
+}
+
+.wave span:nth-child(1) { height: 16px; }
+.wave span:nth-child(2) { height: 32px; animation-delay: 0.15s; }
+.wave span:nth-child(3) { height: 44px; animation-delay: 0.3s; }
+.wave span:nth-child(4) { height: 28px; animation-delay: 0.45s; }
+.wave span:nth-child(5) { height: 18px; animation-delay: 0.6s; }
+
+@keyframes wave {
+    0%, 100% { transform: scaleY(0.55); opacity: 0.55; }
+    50% { transform: scaleY(1.08); opacity: 1; }
+}
+
+.tips-row {
+    margin-top: 14px;
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid #e6ebf2;
+    text-align: left;
+    flex: 0 0 auto;
+}
+
+.panel-card {
+    padding: 18px;
+    margin-bottom: 16px;
+}
+
+.panel-card.hidden {
+    display: none;
+}
+
+.task-panel-enter {
+    display: block;
+    animation: slideUpCard 320ms ease forwards;
+}
+
+@keyframes slideUpCard {
+    0% {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.section-tip {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--muted);
+}
+
+.summary-card {
+    display: none;
+    margin-top: 14px;
+    padding: 16px;
+    border-radius: 18px;
+    background: var(--ink-soft);
+    border: 1px solid var(--line);
+}
+
+.summary-card.show {
+    display: block;
+}
+
+.hero-summary {
+    margin-top: auto;
+    padding: 18px 16px 16px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #f7fbff, #edf5ff);
+    border: 1px solid #dcebff;
+}
+
+.hero-summary.show {
+    display: block;
+    animation: slideUpCard 320ms ease forwards;
+}
+
+.summary-top {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.summary-item {
+    padding: 12px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid #e8edf3;
+}
+
+.summary-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+.summary-value {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.summary-actions,
+.action-row,
+.call-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.btn {
+    border: none;
+    border-radius: 16px;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(180deg, var(--blue), #2a5cff);
+    color: #fff;
+}
+
+.btn-secondary {
+    background: #eef3f9;
+    color: #304355;
+}
+
+.btn-success {
+    background: linear-gradient(180deg, #21be66, var(--green));
+    color: #fff;
+}
+
+.btn-danger {
+    background: linear-gradient(180deg, #f26c66, var(--red));
+    color: #fff;
+}
+
+.example-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 10px;
+    margin-bottom: 6px;
+}
+
+.example-text {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #334155;
+}
+
+.dial-display {
+    margin: 8px 0 20px;
+}
+
+.dial-label {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+}
+
+.dial-display-row {
+    position: relative;
+    margin-top: 8px;
+    min-height: 46px;
+}
+
+.dial-number {
+    font-size: 34px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-align: center;
+    width: 100%;
+    line-height: 46px;
+}
+
+.dial-delete {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #5f6b7a;
+    font-size: 22px;
+    padding: 8px 2px;
+    min-width: 32px;
+}
+
+.dial-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px 18px;
+    justify-items: center;
+    margin-top: 18px;
+}
+
+.dial-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.dial-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.dial-actions-bottom {
+    margin-top: 18px;
+    padding: 0 6px 18px;
+}
+
+.dial-key {
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(180deg, #fbfcfd, #ebf0f5);
+    color: var(--text);
+    font-size: 30px;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.dial-key span {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+}
+
+.list-card {
+    padding: 14px;
+    margin-bottom: 12px;
+}
+
+.history-item,
+.contact-item {
+    background: #fff;
+    border: 1px solid #edf1f5;
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.settings-card {
+    background: #fff;
+    border: 1px solid #edf1f5;
+    border-radius: 20px;
+    padding: 18px;
+}
+
+.settings-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.settings-title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.settings-desc {
+    display: none;
+}
+
+.settings-btn {
+    border: none;
+    border-radius: 14px;
+    padding: 12px 16px;
+    min-width: 86px;
+    background: linear-gradient(180deg, var(--blue), #2a5cff);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.settings-btn.done {
+    background: #eef3f9;
+    color: #475467;
+}
+
+.history-head,
+.contact-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.history-title,
+.contact-name {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.history-meta,
+.contact-meta {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.status-pill,
+.tag-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-success {
+    color: var(--green);
+    background: rgba(24, 169, 87, 0.12);
+}
+
+.status-fail {
+    color: var(--red);
+    background: rgba(225, 77, 70, 0.12);
+}
+
+.tag-ai {
+    color: var(--blue-deep);
+    background: rgba(10, 132, 255, 0.1);
+}
+
+.tag-phone {
+    color: #475467;
+    background: #eef2f6;
+}
+
+.AI-call-page,
+.Normal-call-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 24px;
+    background: #fff;
+}
+
+.top-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.back-btn {
+    border: none;
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #223042;
+    box-shadow: 0 8px 18px rgba(31, 41, 55, 0.08);
+}
+
+.call-shell {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.AI-call-page .call-shell,
+.Normal-call-page .call-shell {
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.call-header {
+    text-align: center;
+    padding: 8px 8px 18px;
+}
+
+.call-mode {
+    display: inline-flex;
+    padding: 7px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.mode-normal {
+    color: #475467;
+    background: #eef2f6;
+}
+
+.mode-ai {
+    color: #9a5800;
+    background: rgba(243, 154, 45, 0.14);
+}
+
+.call-name {
+    margin-top: 16px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.call-sub {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.call-status {
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.call-status.normal {
+    color: var(--green);
+}
+
+.call-status.ai {
+    color: var(--orange);
+}
+
+.transcript-box {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 20px;
+    background: #eef3f8;
+    border: 1px solid #e1e8f0;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 320px;
+    height: 320px;
+    min-height: 320px;
+    max-height: 320px;
+}
+
+.transcript-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.chat-stream {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.chat-bubble {
+    max-width: 82%;
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    clear: both;
+}
+
+.bubble-left {
+    float: left;
+    background: #fff;
+    color: #243447;
+    border-bottom-left-radius: 6px;
+}
+
+.bubble-right {
+    float: right;
+    background: linear-gradient(180deg, #0a84ff, #2a5cff);
+    color: #fff;
+    border-bottom-right-radius: 6px;
+}
+
+.bubble-note {
+    float: left;
+    max-width: 100%;
+    background: rgba(243, 154, 45, 0.12);
+    color: #9a5800;
+    border: 1px dashed rgba(243, 154, 45, 0.35);
+}
+
+.stream-divider {
+    clear: both;
+}
+
+.call-actions {
+    margin-top: auto;
+    padding-top: 24px;
+    padding-bottom: clamp(72px, 12vh, 132px);
+}
+
+.call-actions .btn {
+    flex: 1;
+}
+
+.call-footer-btn {
+    margin-top: 12px;
+}
+
+.AI-call-page .call-actions {
+    padding-bottom: 12px;
+}
+
+.AI-call-page .call-footer-btn {
+    margin-top: 6px;
+}
+
+.tabbar {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 430px;
+    height: 84px;
+    padding-bottom: 18px;
+    background: rgba(255, 255, 255, 0.92);
+    border-top: 1px solid rgba(208, 216, 226, 0.9);
+    display: flex;
+    backdrop-filter: blur(14px);
+    z-index: 100;
+}
+
+.tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: #7c8795;
+    font-size: 12px;
+}
+
+.tab.active {
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.tab-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+</style>
+</head>
+<body>
+
+<div class="page active" id="page-ai">
+    <div class="page-content">
+        <div class="nav-bar">
+        <div class="nav-title">Phone Agent</div>
+            <button class="nav-action" onclick="openPage('page-settings')">设置</button>
+        </div>
+
+        <div class="hero-card">
+            <div class="hero-title">说出需求，AI 帮你打电话</div>
+            <div class="hero-subtitle"></div>
+
+            <div class="voice-stage">
+                <div class="stage-status" id="voice-status">点击麦克风开始描述任务</div>
+                <div class="voice-dialog" id="voice-dialog"></div>
+                <button class="mic-btn" id="mic-btn" onclick="startVoiceFlow()">
+                    <span class="mic-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 1 1-6 0V6a3 3 0 0 1 3-3Z" fill="currentColor"/><path d="M6.5 11.5a.75.75 0 0 1 1.5 0 4 4 0 1 0 8 0 .75.75 0 0 1 1.5 0A5.5 5.5 0 0 1 12.75 17v2.25h2a.75.75 0 0 1 0 1.5h-5.5a.75.75 0 0 1 0-1.5h2V17a5.5 5.5 0 0 1-4.75-5.5Z" fill="currentColor"/></svg></span>
+                    <div class="wave" id="voice-wave">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+            <div class="tips-row" id="voice-tips">
+                    <div class="example-label">例如</div>
+                    <div class="example-text" id="example-text">帮我打给老吉士，预订明晚 7 点两个人的位置。</div>
+                </div>
+            </div>
+            <div class="summary-card hero-summary" id="hero-summary">
+                <div class="summary-top">任务确认</div>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-label">任务</div>
+                        <div class="summary-value" id="summary-task">预订餐厅</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label" id="summary-target-label">对象</div>
+                        <div class="summary-value" id="summary-target">老吉士</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label" id="summary-time-label">时间</div>
+                        <div class="summary-value" id="summary-time">明晚 19:00</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label" id="summary-extra-label">人数</div>
+                        <div class="summary-value" id="summary-extra">2 人</div>
+                    </div>
+                </div>
+                <div class="summary-actions">
+                    <button class="btn btn-secondary btn-block" onclick="resetVoiceFlow()">重新说一遍</button>
+                    <button class="btn btn-primary btn-block" onclick="syncAICallPage(currentScenario.callPage);document.querySelectorAll('.page').forEach(function(page){page.classList.remove('active');});document.querySelector('.AI-call-page').classList.add('active');document.getElementById('main-tabbar').style.display='none';syncHomeHeroCardBounds();">确认并发起</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-robot">
+        <img src="robot.png" alt="">
+    </div>
+</div>
+
+<div class="page" id="page-settings">
+    <div class="top-actions">
+        <button class="back-btn" onclick="openPage('page-ai')">返回</button>
+    </div>
+
+    <div class="settings-card">
+        <div class="settings-item">
+            <div>
+                <div class="settings-title">设为默认电话应用</div>
+            </div>
+            <button class="settings-btn" id="default-phone-btn" onclick="requestDefaultPhoneApp()">去设置</button>
+        </div>
+    </div>
+</div>
+
+<div class="page" id="page-dial">
+    <div class="nav-bar">
+        <div class="nav-title">拨号</div>
+    </div>
+
+    <div class="hero-card dial-card">
+        <div class="dial-display">
+            <div class="dial-label">当前号码</div>
+            <div class="dial-display-row">
+                <div class="dial-number" id="dial-number">138 0000 0000</div>
+                <button class="dial-delete" onclick="deleteDigit()" aria-label="删除"><svg viewBox="0 0 24 24" fill="none"><path d="M9.2 5.5h7.55A2.25 2.25 0 0 1 19 7.75v8.5a2.25 2.25 0 0 1-2.25 2.25H9.2a2.25 2.25 0 0 1-1.59-.66l-4.11-4.09a2.5 2.5 0 0 1 0-3.54l4.11-4.05A2.25 2.25 0 0 1 9.2 5.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m10.75 9.25 4.5 4.5m0-4.5-4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+            </div>
+        </div>
+        <div class="dial-card-body">
+        <div class="dial-pad">
+            <button class="dial-key" onclick="appendDigit('1')">1</button>
+            <button class="dial-key" onclick="appendDigit('2')">2<span>ABC</span></button>
+            <button class="dial-key" onclick="appendDigit('3')">3<span>DEF</span></button>
+            <button class="dial-key" onclick="appendDigit('4')">4<span>GHI</span></button>
+            <button class="dial-key" onclick="appendDigit('5')">5<span>JKL</span></button>
+            <button class="dial-key" onclick="appendDigit('6')">6<span>MNO</span></button>
+            <button class="dial-key" onclick="appendDigit('7')">7<span>PQRS</span></button>
+            <button class="dial-key" onclick="appendDigit('8')">8<span>TUV</span></button>
+            <button class="dial-key" onclick="appendDigit('9')">9<span>WXYZ</span></button>
+            <button class="dial-key" onclick="appendDigit('*')">*</button>
+            <button class="dial-key" onclick="appendDigit('0')">0</button>
+            <button class="dial-key" onclick="appendDigit('#')">#</button>
+        </div>
+        </div>
+        <div class="action-row dial-actions-bottom">
+            <button class="btn btn-success btn-block" onclick="document.querySelectorAll('.page').forEach(function(page){page.classList.remove('active');});document.querySelector('.Normal-call-page').classList.add('active');document.getElementById('main-tabbar').style.display='none';syncHomeHeroCardBounds();">普通呼叫</button>
+            <button class="btn btn-primary btn-block" onclick="openPage('page-ai')">转到 AI助理</button>
+        </div>
+    </div>
+</div>
+
+<div class="page" id="page-history">
+    <div class="nav-bar">
+        <div class="nav-title">历史</div>
+    </div>
+
+    <div class="history-item">
+        <div class="history-head">
+            <div class="history-title">预订餐厅 · 老吉士</div>
+            <div class="status-pill status-success">已完成</div>
+        </div>
+        <div class="history-meta">昨天 19:10 · AI代打完成预约，2 人，明晚 19:00 到店。</div>
+    </div>
+
+    <div class="history-item">
+        <div class="history-head">
+            <div class="history-title">拨打顺丰快递</div>
+            <div class="status-pill status-fail">未接通</div>
+        </div>
+        <div class="history-meta">前天 12:30 · AI代打尝试联系配送员，3 次呼叫未接通。</div>
+    </div>
+
+    <div class="history-item">
+        <div class="history-head">
+            <div class="history-title">拨打 138 0000 0000</div>
+            <div class="status-pill status-success">普通通话</div>
+        </div>
+        <div class="history-meta">今天 09:45 · 手动呼叫，通话时长 03:12。</div>
+    </div>
+</div>
+
+<div class="page" id="page-contacts">
+    <div class="nav-bar">
+        <div class="nav-title">联系人</div>
+    </div>
+
+    <div class="contact-item">
+        <div class="contact-head">
+            <div class="contact-name">老吉士餐厅</div>
+            <div class="tag-pill tag-ai">AI代拨</div>
+        </div>
+        <div class="contact-meta">021-xxxx-xxxx · 适合预订、确认营业时间、询问排队情况。</div>
+    </div>
+
+    <div class="contact-item">
+        <div class="contact-head">
+            <div class="contact-name">妈妈</div>
+            <div class="tag-pill tag-phone">普通电话</div>
+        </div>
+        <div class="contact-meta">138-xxxx-xxxx · 直接呼叫即可，也可切换到 AI 代打流程。</div>
+    </div>
+
+    <div class="contact-item">
+        <div class="contact-head">
+            <div class="contact-name">顺丰快递员</div>
+            <div class="tag-pill tag-ai">AI代拨</div>
+        </div>
+        <div class="contact-meta">153-xxxx-xxxx · 适合催件、改派、协商投递时间。</div>
+    </div>
+</div>
+
+<div class="page AI-call-page">
+    <div class="top-actions">
+        <button class="back-btn" onclick="openPage('page-ai')">返回</button>
+    </div>
+
+    <div class="call-shell">
+        <div class="call-header">
+            <div class="call-mode mode-ai">AI助理通话中</div>
+            <div class="call-name" id="ai-call-name">老吉士餐厅</div>
+            <div class="call-sub" id="ai-call-sub">021-xxxx-xxxx · 预订餐厅任务</div>
+            <div class="call-status ai" id="ai-call-status">已接通 · AI 正在沟通中</div>
+        </div>
+
+        <div class="transcript-box">
+            <div class="transcript-title">AI代理通话过程</div>
+            <div class="chat-stream" id="ai-chat-stream">
+                <div class="chat-bubble bubble-right">您好，我想帮用户预订明晚 7 点两位的晚餐。</div>
+                <div class="chat-bubble bubble-left">可以的，请问姓什么？</div>
+                <div class="chat-bubble bubble-note">AI 正在根据任务卡片自动补充信息，当前无需人工介入。</div>
+                <div class="chat-bubble bubble-right">姓张。如果靠窗位置有空位的话，希望优先安排。</div>
+                <div class="chat-bubble bubble-left">好的，我帮您备注，明晚 7 点两位，张女士，对吗？</div>
+                <div class="stream-divider"></div>
+            </div>
+        </div>
+
+        <div class="call-actions">
+            <button class="btn btn-secondary" id="sound-btn" onclick="toggleSound()">关闭声音</button>
+            <button class="btn btn-secondary">免提</button>
+            <button class="btn btn-danger" onclick="takeOverCall()">一键接管</button>
+        </div>
+        <button class="btn btn-danger btn-block call-footer-btn" onclick="openPage('page-ai')">挂断</button>
+    </div>
+</div>
+
+<div class="page Normal-call-page">
+    <div class="top-actions">
+        <button class="back-btn" onclick="openPage('page-dial')">返回拨号</button>
+    </div>
+
+    <div class="call-shell">
+        <div class="call-header">
+            <div class="call-mode mode-normal">普通电话通话中</div>
+            <div class="call-name">138 0000 0000</div>
+            <div class="call-sub">移动号码 · 上海</div>
+            <div class="call-status normal">已接通 · 00:43</div>
+        </div>
+
+        <div class="call-actions">
+            <button class="btn btn-secondary">静音</button>
+            <button class="btn btn-secondary">免提</button>
+            <button class="btn btn-danger">挂断</button>
+        </div>
+    </div>
+</div>
+
+<div class="tabbar" id="main-tabbar">
+    <div class="tab active" data-page="page-ai" onclick="openPage('page-ai')">
+        <div class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m12 3 1.9 4.85L19 9.75l-4.1 2.7L16.3 18 12 15.1 7.7 18l1.4-5.55L5 9.75l5.1-1.9L12 3Z" fill="currentColor"/></svg></div>
+        <div>助理</div>
+    </div>
+    <div class="tab" data-page="page-dial" onclick="openPage('page-dial')">
+        <div class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6.36 4.72a1.75 1.75 0 0 1 2.42-.2l1.65 1.39a1.75 1.75 0 0 1 .46 2.12l-.73 1.4a1.5 1.5 0 0 0 .15 1.58 14.8 14.8 0 0 0 2.68 3.04 1.5 1.5 0 0 0 1.58.28l1.5-.63a1.75 1.75 0 0 1 2.08.59l1.27 1.76a1.75 1.75 0 0 1-.37 2.4l-.93.7a3.5 3.5 0 0 1-3.25.42c-2.84-1.08-5.28-3.1-7.2-5.77-1.89-2.62-2.98-5.37-3.2-8.02a3.5 3.5 0 0 1 1.24-2.96l.65-.56Z" fill="currentColor"/></svg></div>
+        <div>拨号</div>
+    </div>
+    <div class="tab" data-page="page-history" onclick="openPage('page-history')">
+        <div class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5.25a6.75 6.75 0 1 0 6.75 6.75A6.76 6.76 0 0 0 12 5.25Zm0-1.5A8.25 8.25 0 1 1 3.75 12 8.25 8.25 0 0 1 12 3.75Z" fill="currentColor"/><path d="M12 8.25a.75.75 0 0 1 .75.75v3.03l2.06 1.37a.75.75 0 0 1-.82 1.26l-2.4-1.6a.75.75 0 0 1-.34-.62V9a.75.75 0 0 1 .75-.75Z" fill="currentColor"/></svg></div>
+        <div>通话</div>
+    </div>
+    <div class="tab" data-page="page-contacts" onclick="openPage('page-contacts')">
+        <div class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 4.5a3.25 3.25 0 1 1-3.25 3.25A3.25 3.25 0 0 1 12 4.5Zm0 8a6.5 6.5 0 0 1 5.99 3.98.75.75 0 0 1-.69 1.02H6.7a.75.75 0 0 1-.7-1.02A6.5 6.5 0 0 1 12 12.5Z" fill="currentColor"/></svg></div>
+        <div>联系人</div>
+    </div>
+</div>
+
+<script>
+var exampleScenarios = [
+    {
+        text: '帮我打给老吉士，订周六晚上 7 点两位，姓张，尽量安排靠窗，海鲜过敏。',
+        summary: {
+            task: '餐厅订位',
+            targetLabel: '餐厅',
+            target: '老吉士',
+            timeLabel: '时间',
+            time: '周六 19:00',
+            extraLabel: '要点',
+            extra: '2 位，靠窗，海鲜过敏'
+        },
+        callPage: {
+            name: '老吉士餐厅',
+            sub: '021-xxxx-xxxx · 餐厅订位',
+            status: '已接通 · AI 正在确认座位偏好',
+            transcript: [
+                { side: 'right', text: '您好，我想帮用户预订周六晚上 7 点两位的晚餐。' },
+                { side: 'left', text: '可以的，请问预订人怎么称呼？' },
+                { side: 'note', text: 'AI 正在补充姓名、座位偏好和过敏信息。' },
+                { side: 'right', text: '姓张，想尽量安排靠窗位置，另外用户海鲜过敏。' },
+                { side: 'left', text: '好的，周六 7 点两位，张女士，靠窗优先，我这边帮您备注。' }
+            ]
+        }
+    },
+    {
+        text: '帮我联系华住酒店，确认下周五入住一晚，大床房，两人，需要早餐，晚上 10 点前到店，不带宠物。',
+        summary: {
+            task: '酒店预订/确认',
+            targetLabel: '酒店',
+            target: '华住酒店',
+            timeLabel: '入住',
+            time: '下周五入住 1 晚',
+            extraLabel: '要点',
+            extra: '大床房，2 人，含早餐'
+        },
+        callPage: {
+            name: '华住酒店',
+            sub: '400-xxxx-xxxx · 酒店预订/确认',
+            status: '已接通 · AI 正在确认房型与到店时间',
+            transcript: [
+                { side: 'right', text: '您好，我想确认下周五入住一晚的大床房，两位入住。' },
+                { side: 'left', text: '可以，请问是否需要早餐？最晚几点到店？' },
+                { side: 'note', text: 'AI 正在补充早餐、到店时间和宠物信息。' },
+                { side: 'right', text: '需要早餐，预计晚上 10 点前到店，不携带宠物。' },
+                { side: 'left', text: '好的，已为您备注大床房、双人入住、含早餐。' }
+            ]
+        }
+    },
+    {
+        text: '帮我联系航司，把订单 MU48291 改签到周日下午，尽量 3 点后起飞，经济舱，补差价不超过 300 元，可接受中转。',
+        summary: {
+            task: '航司/高铁改签',
+            targetLabel: '订单号',
+            target: 'MU48291',
+            timeLabel: '目标时间',
+            time: '周日下午 15:00 后',
+            extraLabel: '要点',
+            extra: '经济舱，补差价 <= 300'
+        },
+        callPage: {
+            name: '东方航空客服',
+            sub: '95530 · 航司改签',
+            status: '已接通 · AI 正在查询改签方案',
+            transcript: [
+                { side: 'right', text: '您好，我想处理订单 MU48291 的改签，目标是周日下午 3 点后的航班。' },
+                { side: 'left', text: '好的，请问舱位和中转方面有什么要求？' },
+                { side: 'note', text: 'AI 正在补充价格上限和中转接受范围。' },
+                { side: 'right', text: '希望是经济舱，补差价不超过 300 元，可以接受中转。' },
+                { side: 'left', text: '明白，我帮您筛选符合条件的班次。' }
+            ]
+        }
+    },
+    {
+        text: '帮我打给悦木 SPA，预约周日晚上 8 点双人护理，指定 12 号技师，两个位置尽量安排一起。',
+        summary: {
+            task: '生活美容预约',
+            targetLabel: '店铺',
+            target: '悦木 SPA',
+            timeLabel: '时间',
+            time: '周日 20:00',
+            extraLabel: '要点',
+            extra: '双人护理，12 号技师'
+        },
+        callPage: {
+            name: '悦木 SPA',
+            sub: '021-xxxx-xxxx · 生活美容预约',
+            status: '已接通 · AI 正在确认技师与并排位',
+            transcript: [
+                { side: 'right', text: '您好，我想预约周日晚上 8 点的双人护理。' },
+                { side: 'left', text: '可以，请问是否指定技师？两位客人要安排在一起吗？' },
+                { side: 'note', text: 'AI 正在补充技师编号和并排位需求。' },
+                { side: 'right', text: '指定 12 号技师，如果可以的话，两张床位尽量安排在一起。' },
+                { side: 'left', text: '好的，我帮您查一下 12 号技师当晚档期。' }
+            ]
+        }
+    },
+    {
+        text: '帮我联系 4S 店，给我的特斯拉 Model Y 预约保养，车牌沪 A12345，里程 28000 公里，这周六上午到店，不需要取送车。',
+        summary: {
+            task: '汽车保养预约',
+            targetLabel: '车辆',
+            target: 'Model Y · 沪A12345',
+            timeLabel: '到店时间',
+            time: '本周六上午',
+            extraLabel: '要点',
+            extra: '28000 公里，不要取送车'
+        },
+        callPage: {
+            name: '特斯拉服务中心',
+            sub: '400-xxxx-xxxx · 汽车保养预约',
+            status: '已接通 · AI 正在确认车型与到店时间',
+            transcript: [
+                { side: 'right', text: '您好，我想给一辆特斯拉 Model Y 预约本周六上午保养。' },
+                { side: 'left', text: '可以，请提供车牌号和当前里程。是否需要取送车？' },
+                { side: 'note', text: 'AI 正在补充车牌、里程和服务偏好。' },
+                { side: 'right', text: '车牌是沪 A12345，当前 28000 公里，不需要取送车。' },
+                { side: 'left', text: '好的，我帮您安排周六上午到店保养。' }
+            ]
+        }
+    },
+    {
+        text: '帮我联系瑞金医院，预约下周二上午心内科张医生，患者身份证号尾号 2368，最近有胸闷症状。',
+        summary: {
+            task: '医疗/挂号预约',
+            targetLabel: '医院',
+            target: '瑞金医院 · 心内科',
+            timeLabel: '就诊时间',
+            time: '下周二上午',
+            extraLabel: '要点',
+            extra: '张医生，胸闷，尾号 2368'
+        },
+        callPage: {
+            name: '瑞金医院',
+            sub: '021-xxxx-xxxx · 医疗预约',
+            status: '已接通 · AI 正在确认医生与就诊信息',
+            transcript: [
+                { side: 'right', text: '您好，我想预约下周二上午心内科张医生的门诊。' },
+                { side: 'left', text: '请问患者证件信息和主要症状是什么？' },
+                { side: 'note', text: 'AI 正在补充证件尾号与症状描述。' },
+                { side: 'right', text: '患者身份证号尾号 2368，最近有胸闷症状。' },
+                { side: 'left', text: '好的，我帮您查询张医生下周二上午的号源。' }
+            ]
+        }
+    },
+    {
+        text: '帮我联系骑手，订单 875421，已经下单 50 分钟了，请尽快送达，如果联系不上就放门口。',
+        summary: {
+            task: '快递/外卖催单',
+            targetLabel: '订单号',
+            target: '875421',
+            timeLabel: '当前状态',
+            time: '已等待 50 分钟',
+            extraLabel: '诉求',
+            extra: '尽快送达，联系不上放门口'
+        },
+        callPage: {
+            name: '骑手',
+            sub: '订单 875421 · 快递/外卖催单',
+            status: '已接通 · AI 正在催促配送',
+            transcript: [
+                { side: 'right', text: '您好，这边是订单 875421，用户已经等待 50 分钟了，想确认大概多久送达。' },
+                { side: 'left', text: '抱歉，路上有点堵，我大概还有十分钟。' },
+                { side: 'note', text: 'AI 正在确认更快送达方案和备用交付方式。' },
+                { side: 'right', text: '好的，麻烦尽快。如果到时联系不上用户，可以直接放在门口。' },
+                { side: 'left', text: '收到，我尽量尽快送到，联系不上就按您说的处理。' }
+            ]
+        }
+    },
+    {
+        text: '帮我打给羽毛球馆，订周三晚上 7 点 2 小时，4 个人，最好 3 号场，顺便租 4 支球拍。',
+        summary: {
+            task: '场馆预订',
+            targetLabel: '场馆',
+            target: '羽毛球馆',
+            timeLabel: '时间',
+            time: '周三 19:00，2 小时',
+            extraLabel: '要点',
+            extra: '4 人，3 号场，租 4 支球拍'
+        },
+        callPage: {
+            name: '羽毛球馆',
+            sub: '021-xxxx-xxxx · 场馆预订',
+            status: '已接通 · AI 正在确认场地与器材',
+            transcript: [
+                { side: 'right', text: '您好，我想预订周三晚上 7 点开始 2 小时的羽毛球场地。' },
+                { side: 'left', text: '可以，请问几个人？是否指定场地号？' },
+                { side: 'note', text: 'AI 正在补充人数、场地号和租拍需求。' },
+                { side: 'right', text: '4 个人，最好 3 号场，另外还需要租 4 支球拍。' },
+                { side: 'left', text: '好的，我帮您查 3 号场是否空闲，并一起备注租拍。' }
+            ]
+        }
+    },
+    {
+        text: '帮我联系家政公司，预约周六上午做深度清洁，120 平，地址在浦东花木路，家里有一只猫和一个小孩。',
+        summary: {
+            task: '家政服务预约',
+            targetLabel: '服务方',
+            target: '家政公司',
+            timeLabel: '上门时间',
+            time: '周六上午',
+            extraLabel: '要点',
+            extra: '120 平，家有猫和小孩'
+        },
+        callPage: {
+            name: '家政公司',
+            sub: '400-xxxx-xxxx · 家政服务预约',
+            status: '已接通 · AI 正在确认服务范围',
+            transcript: [
+                { side: 'right', text: '您好，我想预约周六上午上门做一次深度清洁。' },
+                { side: 'left', text: '好的，请问房屋面积和地址是哪里？家里有什么需要注意的吗？' },
+                { side: 'note', text: 'AI 正在补充面积、地址和家庭情况。' },
+                { side: 'right', text: '面积 120 平，地址在浦东花木路，家里有一只猫和一个小孩。' },
+                { side: 'left', text: '明白，我帮您安排适合的阿姨，并备注上门注意事项。' }
+            ]
+        }
+    },
+    {
+        text: '帮我打给王总，邀请他参加下周一下午 3 点的项目复盘会，地点在 8 楼会议室，也可以线上，麻烦确认是否出席。',
+        summary: {
+            task: '商务会议邀约',
+            targetLabel: '联系人',
+            target: '王总',
+            timeLabel: '会议时间',
+            time: '下周一 15:00',
+            extraLabel: '要点',
+            extra: '8 楼会议室，可线上，需确认回执'
+        },
+        callPage: {
+            name: '王总',
+            sub: '商务会议邀约 · 项目复盘会',
+            status: '已接通 · AI 正在确认参会回复',
+            transcript: [
+                { side: 'right', text: '您好，想邀请您参加下周一下午 3 点的项目复盘会。' },
+                { side: 'left', text: '会议地点在哪里？如果我赶不过去，能线上参加吗？' },
+                { side: 'note', text: 'AI 正在补充地点、线上方式和回执需求。' },
+                { side: 'right', text: '地点在 8 楼会议室，也支持线上参加，想和您确认一下是否出席。' },
+                { side: 'left', text: '好的，我稍后确认下时间，尽快给您回复。' }
+            ]
+        }
+    }
+];
+
+var exampleStorageKey = 'index9-example-index';
+var exampleIndex = 0;
+var currentScenario = exampleScenarios[0];
+var voiceFlowTimers = [];
+
+function syncHomeHeroCardBounds() {
+    var page = document.getElementById('page-ai');
+    var heroCard = page ? page.querySelector('.hero-card') : null;
+    var tabbar = document.getElementById('main-tabbar');
+
+    if (!page || !heroCard || !tabbar) {
+        return;
+    }
+
+    if (!page.classList.contains('active')) {
+        heroCard.style.maxHeight = '';
+        return;
+    }
+
+    var heroTop = heroCard.getBoundingClientRect().top;
+    var tabbarTop = tabbar.getBoundingClientRect().top;
+    var safeGap = 16;
+    var maxHeight = Math.floor(tabbarTop - heroTop - safeGap);
+
+    if (maxHeight > 320) {
+        heroCard.style.maxHeight = maxHeight + 'px';
+    } else {
+        heroCard.style.maxHeight = '';
+    }
+}
+
+function openPage(pageId) {
+    document.querySelectorAll('.page').forEach(function(page) {
+        page.classList.remove('active');
+    });
+    document.getElementById(pageId).classList.add('active');
+
+    var tabbar = document.getElementById('main-tabbar');
+    var tabPages = ['page-ai', 'page-dial', 'page-history', 'page-contacts'];
+    if (tabPages.indexOf(pageId) >= 0) {
+        tabbar.style.display = 'flex';
+        document.querySelectorAll('.tab').forEach(function(tab) {
+            tab.classList.toggle('active', tab.getAttribute('data-page') === pageId);
+        });
+    } else {
+        tabbar.style.display = 'none';
+    }
+
+    syncHomeHeroCardBounds();
+}
+
+function showAICallPage() {
+    document.querySelectorAll('.page').forEach(function(page) {
+        page.classList.remove('active');
+    });
+
+    document.querySelector('.AI-call-page').classList.add('active');
+    document.getElementById('main-tabbar').style.display = 'none';
+    syncHomeHeroCardBounds();
+}
+
+function showNormalCallPage() {
+    document.querySelectorAll('.page').forEach(function(page) {
+        page.classList.remove('active');
+    });
+
+    document.querySelector('.Normal-call-page').classList.add('active');
+    document.getElementById('main-tabbar').style.display = 'none';
+    syncHomeHeroCardBounds();
+}
+
+function toggleSound() {
+    var btn = document.getElementById('sound-btn');
+    btn.innerText = btn.innerText === '关闭声音' ? '打开声音' : '关闭声音';
+}
+
+function takeOverCall() {
+    showNormalCallPage();
+}
+
+function rotateExample() {
+    var savedIndex = window.localStorage.getItem(exampleStorageKey);
+    if (savedIndex !== null) {
+        exampleIndex = parseInt(savedIndex, 10);
+        if (isNaN(exampleIndex) || exampleIndex < 0 || exampleIndex >= exampleScenarios.length) {
+            exampleIndex = 0;
+        }
+    }
+
+    currentScenario = exampleScenarios[exampleIndex];
+    document.getElementById('example-text').innerText = currentScenario.text;
+    syncTaskSummary(currentScenario.summary);
+    syncAICallPage(currentScenario.callPage);
+    resetVoiceFlow();
+
+    exampleIndex = (exampleIndex + 1) % exampleScenarios.length;
+    window.localStorage.setItem(exampleStorageKey, String(exampleIndex));
+}
+
+function syncTaskSummary(summary) {
+    document.getElementById('summary-task').innerText = summary.task;
+    document.getElementById('summary-target-label').innerText = summary.targetLabel;
+    document.getElementById('summary-target').innerText = summary.target;
+    document.getElementById('summary-time-label').innerText = summary.timeLabel;
+    document.getElementById('summary-time').innerText = summary.time;
+    document.getElementById('summary-extra-label').innerText = summary.extraLabel;
+    document.getElementById('summary-extra').innerText = summary.extra;
+}
+
+function syncAICallPage(callPage) {
+    document.getElementById('ai-call-name').innerText = callPage.name;
+    document.getElementById('ai-call-sub').innerText = callPage.sub;
+    document.getElementById('ai-call-status').innerText = callPage.status;
+
+    var stream = document.getElementById('ai-chat-stream');
+    var html = '';
+
+    callPage.transcript.forEach(function(item) {
+        var bubbleClass = item.side === 'left'
+            ? 'chat-bubble bubble-left'
+            : item.side === 'note'
+                ? 'chat-bubble bubble-note'
+                : 'chat-bubble bubble-right';
+        html += '<div class="' + bubbleClass + '">' + item.text + '</div>';
+    });
+
+    html += '<div class="stream-divider"></div>';
+    stream.innerHTML = html;
+}
+
+function confirmAndLaunchAICall() {
+    syncAICallPage(currentScenario.callPage);
+    showAICallPage();
+}
+
+function appendDigit(value) {
+    var numberEl = document.getElementById('dial-number');
+    var current = numberEl.innerText.replace(/\s/g, '');
+    current += value;
+    numberEl.innerText = formatDialNumber(current);
+}
+
+function deleteDigit() {
+    var numberEl = document.getElementById('dial-number');
+    var current = numberEl.innerText.replace(/\s/g, '');
+    current = current.slice(0, -1);
+    numberEl.innerText = formatDialNumber(current);
+}
+
+function formatDialNumber(value) {
+    if (!value) {
+        return '';
+    }
+    return value.replace(/(.{3})/g, '$1 ').trim();
+}
+
+function requestDefaultPhoneApp() {
+    var btn = document.getElementById('default-phone-btn');
+    var done = btn.classList.toggle('done');
+    btn.innerText = done ? '已设置' : '去设置';
+}
+
+function clearVoiceFlowTimers() {
+    voiceFlowTimers.forEach(function(timer) {
+        clearTimeout(timer);
+    });
+    voiceFlowTimers = [];
+}
+
+function getClarificationFlow(scenario) {
+    return [
+        {
+            role: 'user',
+            text: scenario.text,
+            status: '已收到你的需求，AI 正在理解任务...'
+        },
+        {
+            role: 'ai',
+            text: '我准备帮你处理这通电话。先确认一下，要联系的是“' + scenario.summary.target + '”吗？',
+            status: 'AI 正在反问关键对象...'
+        },
+        {
+            role: 'user',
+            text: '对，就是 ' + scenario.summary.target + '。',
+            status: '已收到对象信息，继续补充细节...'
+        },
+        {
+            role: 'ai',
+            text: '再帮你确认一下，' + scenario.summary.timeLabel + '是“' + scenario.summary.time + '”，另外需要我重点说明“' + scenario.summary.extra + '”，对吗？',
+            status: 'AI 正在确认时间和关键要求...'
+        },
+        {
+            role: 'user',
+            text: '对，重点就是 ' + scenario.summary.time + '，还有 ' + scenario.summary.extra + '。',
+            status: '细节已补充完成，AI 正在整理任务...'
+        },
+        {
+            role: 'ai',
+            text: '明白了，我已经把这次代打任务整理清楚，马上生成确认卡片。',
+            status: 'AI 已确认任务，正在生成任务卡片...'
+        }
+    ];
+}
+
+function appendVoiceBubble(role, text) {
+    var dialog = document.getElementById('voice-dialog');
+    var bubble = document.createElement('div');
+    bubble.className = 'voice-bubble ' + role;
+    bubble.innerHTML =
+        '<span class="voice-bubble-role">' + (role === 'ai' ? 'AI 追问' : '你说') + '</span>' +
+        '<div>' + text + '</div>';
+    dialog.appendChild(bubble);
+    dialog.classList.add('show');
+}
+
+function completeVoiceFlow() {
+    var voiceStage = document.querySelector('.voice-stage');
+    var heroSummary = document.getElementById('hero-summary');
+    var micBtn = document.getElementById('mic-btn');
+
+    syncTaskSummary(currentScenario.summary);
+    voiceStage.classList.remove('clarifying');
+    voiceStage.classList.add('hidden-state');
+    heroSummary.classList.remove('show');
+    void heroSummary.offsetWidth;
+    heroSummary.classList.add('show');
+    document.getElementById('voice-wave').classList.remove('show');
+    micBtn.classList.remove('listening');
+    document.getElementById('voice-status').innerText = '任务已准备好，确认后发起通话';
+    syncHomeHeroCardBounds();
+}
+
+function startVoiceFlow() {
+    var dialog = document.getElementById('voice-dialog');
+    var micBtn = document.getElementById('mic-btn');
+    var voiceStage = document.querySelector('.voice-stage');
+    var flow = getClarificationFlow(currentScenario);
+    var elapsed = 0;
+
+    clearVoiceFlowTimers();
+    dialog.innerHTML = '';
+    dialog.classList.remove('show');
+    document.getElementById('hero-summary').classList.remove('show');
+    voiceStage.classList.remove('hidden-state');
+    voiceStage.classList.add('clarifying');
+    micBtn.classList.add('listening');
+    document.getElementById('voice-wave').classList.add('show');
+    document.getElementById('voice-status').innerText = '正在聆听你的需求...';
+    syncHomeHeroCardBounds();
+
+    flow.forEach(function(step, index) {
+        var delay = index === 0 ? 700 : step.role === 'ai' ? 1350 : 1100;
+        elapsed += delay;
+        voiceFlowTimers.push(setTimeout(function() {
+            appendVoiceBubble(step.role, step.text);
+            document.getElementById('voice-status').innerText = step.status;
+        }, elapsed));
+    });
+
+    voiceFlowTimers.push(setTimeout(function() {
+        completeVoiceFlow();
+    }, elapsed + 950));
+}
+
+function resetVoiceFlow() {
+    clearVoiceFlowTimers();
+    document.getElementById('mic-btn').classList.remove('listening');
+    document.querySelector('.voice-stage').classList.remove('hidden-state');
+    document.querySelector('.voice-stage').classList.remove('clarifying');
+    document.getElementById('hero-summary').classList.remove('show');
+    document.getElementById('voice-wave').classList.remove('show');
+    document.getElementById('voice-status').innerText = '点击麦克风开始描述任务';
+    document.getElementById('voice-dialog').innerHTML = '';
+    document.getElementById('voice-dialog').classList.remove('show');
+    syncHomeHeroCardBounds();
+}
+
+rotateExample();
+window.addEventListener('resize', syncHomeHeroCardBounds);
+</script>
+</body>
+</html>

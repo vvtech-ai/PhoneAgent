@@ -1,0 +1,123 @@
+{
+  "commonIdentityFields": [
+    "committedAt", "eventId", "eventType", "idempotencyKey",
+    "occurredAt", "schemaVersion", "sequence", "sessionId"
+  ],
+  "events": [
+    {
+      "eventType": "USER_TURN_ACCEPTED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["inputKind", "modelTurnId", "text"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["commandId"]
+    },
+    {
+      "eventType": "ASSISTANT_TURN_COMMITTED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["finishReason", "modelTurnId", "text"],
+      "optionalPayloadFields": ["batchCallResult"],
+      "requiredCorrelationFields": ["commandId"]
+    },
+    {
+      "eventType": "TOOL_REQUESTED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["arguments", "modelTurnId", "ordinal", "toolCallId", "toolName"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["commandId"]
+    },
+    {
+      "eventType": "TOOL_RESULT_RECORDED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["modelTurnId", "ordinal", "result", "resultStatus", "toolCallId", "toolName"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["commandId"]
+    },
+    {
+      "eventType": "CALL_REQUESTED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["provider", "recipientRef"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["callAttemptId", "commandId", "taskId"]
+    },
+    {
+      "eventType": "CALL_STARTED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["provider"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["callAttemptId", "commandId", "taskId"]
+    },
+    {
+      "eventType": "CALL_COMPLETED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["provider", "resultCode"],
+      "optionalPayloadFields": ["summary"],
+      "requiredCorrelationFields": ["callAttemptId", "callId", "commandId", "taskId"]
+    },
+    {
+      "eventType": "CALL_FAILED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["provider", "reason"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["callAttemptId", "commandId", "taskId"]
+    },
+    {
+      "eventType": "CALL_CANCELLED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["reason"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["callAttemptId", "commandId", "taskId"]
+    },
+    {
+      "eventType": "CALL_REJECTED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["reason"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["callAttemptId", "commandId", "taskId"]
+    },
+    {
+      "eventType": "CALL_OUTCOME_REPORTED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["headline", "outcome"],
+      "optionalPayloadFields": ["reason", "receiptFields"],
+      "requiredCorrelationFields": ["callAttemptId", "commandId", "taskId"]
+    },
+    {
+      "eventType": "CONVERSATION_INTERRUPTED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["reason"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["commandId"]
+    },
+    {
+      "eventType": "CONVERSATION_RESUMED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["reason"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["commandId"]
+    },
+    {
+      "eventType": "OCR_IMAGE_COMMITTED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": [
+        "anchorStepCount", "attachmentId", "contentPath", "contentType",
+        "createdOrdinal", "fields", "fileSize", "fullText", "segments"
+      ],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["commandId"]
+    },
+    {
+      "eventType": "RUN_FAILED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["reason", "retryable", "stage"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["commandId"]
+    },
+    {
+      "eventType": "RUN_CANCELLED",
+      "schemaVersion": 1,
+      "requiredPayloadFields": ["reason", "stage"],
+      "optionalPayloadFields": [],
+      "requiredCorrelationFields": ["commandId"]
+    }
+  ]
+}

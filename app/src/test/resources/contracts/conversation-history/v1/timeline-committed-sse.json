@@ -1,0 +1,24 @@
+{
+  "event": "timeline_committed",
+  "data": {
+    "eventId": "event-0004",
+    "sessionId": "session-23065",
+    "sequence": 4,
+    "eventType": "CALL_COMPLETED",
+    "schemaVersion": 1,
+    "idempotencyKey": "conv:v1:physical-terminal:d5215daa1dd9a809546bbbcaaae161deb09e9546b7ef85e58fbd5cac0eb8ffae",
+    "occurredAt": "2026-07-21T00:00:00Z",
+    "committedAt": "2026-07-21T00:00:01Z",
+    "commandId": "command-call-0004",
+    "traceId": "trace-0004",
+    "taskId": "task-0001",
+    "callAttemptId": "attempt-0004",
+    "callId": "call-0004",
+    "providerCallId": "provider-call-0004",
+    "payload": {
+      "provider": "embedded_sip",
+      "resultCode": "connected",
+      "summary": "call record reference available"
+    }
+  }
+}

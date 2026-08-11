@@ -1,0 +1,10 @@
+[
+  {"wireName":"commandId","generatedBy":"client_or_ingress","scope":"one accepted business command","retryStable":true,"wirePresence":"required_when_applicable"},
+  {"wireName":"eventId","generatedBy":"ledger_writer","scope":"global durable event","retryStable":true,"wirePresence":"required"},
+  {"wireName":"sessionId","generatedBy":"conversation_service","scope":"account-owned conversation","retryStable":true,"wirePresence":"required"},
+  {"wireName":"sequence","generatedBy":"ledger_writer","scope":"session, starting at 1","retryStable":true,"wirePresence":"required"},
+  {"wireName":"idempotencyKey","generatedBy":"ingress_or_deterministic_deriver","scope":"session and operation","retryStable":true,"wirePresence":"required"},
+  {"wireName":"callAttemptId","generatedBy":"call_command_creator","scope":"one recipient attempt","retryStable":true,"wirePresence":"required_for_call_events"},
+  {"wireName":"callId","generatedBy":"call_persistence_service","scope":"one physical call record","retryStable":true,"wirePresence":"required_after_connected_terminal"},
+  {"wireName":"providerCallId","generatedBy":"external_provider","scope":"provider account and physical call","retryStable":true,"wirePresence":"optional_when_known"}
+]

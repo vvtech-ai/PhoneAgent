@@ -1,0 +1,34 @@
+[
+  {
+    "kind": "command",
+    "expected": "conv:v1:command:b0f3ac6af4aabbbc6db710b965435fcd684d931795055448402734aa0804e570"
+  },
+  {
+    "kind": "event",
+    "expected": "conv:v1:event:a89a6527e8fe9cb82af7106f7ebec935f4912debc2e39315a226cede363b3bba"
+  },
+  {
+    "kind": "outbox",
+    "expected": "conv:v1:outbox:73391b1e4fc18c6410606a3949949ab0bd935ae5ba1cbc8598feb77bb687cc13"
+  },
+  {
+    "kind": "physical-terminal",
+    "expected": "conv:v1:physical-terminal:d5215daa1dd9a809546bbbcaaae161deb09e9546b7ef85e58fbd5cac0eb8ffae"
+  },
+  {
+    "kind": "outcome-report",
+    "expected": "conv:v1:outcome-report:52c8d23308b063df0ffe26a1f21374db2c7e3dc589ac7e65e4925073ac37987c"
+  },
+  {
+    "kind": "dispatch-failure",
+    "expected": "conv:v1:dispatch-failure:d504cb1cef6d0d0e30d18685145f48282ef8c99c900ea689f93dfb29702fa875"
+  },
+  {
+    "kind": "migration",
+    "expected": "conv:v1:migration:3cf0fe0f882eb0040120768dd294003ce582e875bd3f4a34df04382a61f3ed58"
+  },
+  {
+    "kind": "reconciliation",
+    "expected": "conv:v1:reconciliation:786aafd7f49de00dacf1202aee5e08f9d2331314acc561a7106b10833783b096"
+  }
+]

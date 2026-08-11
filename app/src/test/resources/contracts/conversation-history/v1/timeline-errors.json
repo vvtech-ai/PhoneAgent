@@ -1,0 +1,10 @@
+[
+  {"errorCode":"TIMELINE_NOT_FOUND","httpStatus":404,"retryable":false,"recoveryAction":"NONE","sideEffect":"NONE"},
+  {"errorCode":"TIMELINE_CURSOR_INVALID","httpStatus":400,"retryable":false,"recoveryAction":"FULL_RESYNC","sideEffect":"NONE"},
+  {"errorCode":"TIMELINE_CURSOR_AHEAD","httpStatus":409,"retryable":false,"recoveryAction":"FULL_RESYNC","sideEffect":"NONE"},
+  {"errorCode":"TIMELINE_SEQUENCE_GAP","httpStatus":409,"retryable":false,"recoveryAction":"FULL_RESYNC","sideEffect":"NONE"},
+  {"errorCode":"TIMELINE_LIMIT_INVALID","httpStatus":400,"retryable":false,"recoveryAction":"NONE","sideEffect":"NONE"},
+  {"errorCode":"TIMELINE_MIGRATION_INCOMPLETE","httpStatus":409,"retryable":true,"recoveryAction":"WAIT_FOR_MIGRATION","sideEffect":"NONE"},
+  {"errorCode":"TIMELINE_SCHEMA_UNSUPPORTED","httpStatus":422,"retryable":false,"recoveryAction":"NONE","sideEffect":"NONE"},
+  {"errorCode":"TIMELINE_UNAVAILABLE","httpStatus":503,"retryable":true,"recoveryAction":"RETRY","sideEffect":"NONE"}
+]

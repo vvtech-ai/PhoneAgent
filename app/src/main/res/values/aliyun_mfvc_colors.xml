@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aliyun MFVC wish page accent resources. App resources override the bundled orange palette. -->
+    <color name="dtf_color_fa6">#0A84FF</color>
+    <color name="dtf_color_fb5">#60A5FA</color>
+    <color name="dtf_color_ff6">#0A84FF</color>
+</resources>

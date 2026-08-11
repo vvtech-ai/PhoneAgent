@@ -1,0 +1,58 @@
+[
+  {
+    "errorCode": "CONVERSATION_WRITE_NOT_FOUND",
+    "httpStatus": 404,
+    "retryable": false,
+    "sideEffect": "NONE",
+    "commandErrorSseEvent": "conversation_command_error"
+  },
+  {
+    "errorCode": "CONVERSATION_SCOPE_MISMATCH",
+    "httpStatus": 400,
+    "retryable": false,
+    "sideEffect": "NONE",
+    "commandErrorSseEvent": "conversation_command_error"
+  },
+  {
+    "errorCode": "CONVERSATION_SCHEMA_INVALID",
+    "httpStatus": 422,
+    "retryable": false,
+    "sideEffect": "NONE",
+    "commandErrorSseEvent": "conversation_command_error"
+  },
+  {
+    "errorCode": "CONVERSATION_PAYLOAD_INVALID",
+    "httpStatus": 422,
+    "retryable": false,
+    "sideEffect": "NONE",
+    "commandErrorSseEvent": "conversation_command_error"
+  },
+  {
+    "errorCode": "CONVERSATION_IDEMPOTENCY_CONFLICT",
+    "httpStatus": 409,
+    "retryable": false,
+    "sideEffect": "NONE",
+    "commandErrorSseEvent": "conversation_command_error"
+  },
+  {
+    "errorCode": "CONVERSATION_SEQUENCE_CONFLICT",
+    "httpStatus": 409,
+    "retryable": true,
+    "sideEffect": "NONE",
+    "commandErrorSseEvent": "conversation_command_error"
+  },
+  {
+    "errorCode": "CONVERSATION_APPEND_ROLLED_BACK",
+    "httpStatus": 503,
+    "retryable": true,
+    "sideEffect": "NONE",
+    "commandErrorSseEvent": "conversation_command_error"
+  },
+  {
+    "errorCode": "CONVERSATION_APPEND_UNAVAILABLE",
+    "httpStatus": 503,
+    "retryable": true,
+    "sideEffect": "NONE",
+    "commandErrorSseEvent": "conversation_command_error"
+  }
+]

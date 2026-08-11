@@ -1,0 +1,10 @@
+allprojects {
+    afterEvaluate { p ->
+        if (p.path == ':app') {
+            def cfg = p.configurations.findByName('releaseCompileClasspath')
+            if (cfg != null) {
+                cfg.resolve().each { println it.absolutePath }
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "event": "conversation_command_error",
+  "data": {
+    "errorCode": "CONVERSATION_APPEND_ROLLED_BACK",
+    "retryable": true,
+    "sideEffect": "NONE",
+    "traceId": "trace-1"
+  }
+}

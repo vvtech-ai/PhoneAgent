@@ -1,0 +1,22 @@
+{
+  "forbiddenRawFields": [
+    "arguments", "authorization", "dispatchPayloadJson", "idempotencyKey", "messageText", "payload", "payloadJson",
+    "phone", "phoneNumber", "prompt", "recipient", "recipientRef", "resultJson", "token", "transcript"
+  ],
+  "events": [
+    {"logEvent":"CONVERSATION_EVENT_APPEND","requiredFields":["durableEventType","eventId","idempotencyKeyHash","result","sequence","sessionId"]},
+    {"logEvent":"CONVERSATION_EVENT_IDEMPOTENT_HIT","requiredFields":["durableEventType","eventId","idempotencyKeyHash","sequence","sessionId"]},
+    {"logEvent":"CONVERSATION_EVENT_APPEND_FAILED","requiredFields":["durableEventType","idempotencyKeyHash","reason","retryable","sessionId"]},
+    {"logEvent":"CONVERSATION_SEQUENCE_CONFLICT","requiredFields":["idempotencyKeyHash","reason","retryable","sessionId"]},
+    {"logEvent":"MODEL_CONTEXT_PROJECT","requiredFields":["eventCount","result","sessionId","toSequence"]},
+    {"logEvent":"CALL_COMMAND_OUTBOX_STATE","requiredFields":["callAttemptId","commandId","provider","reason","stateAfter","stateBefore"]},
+    {"logEvent":"CALL_OUTCOME_COMMIT","requiredFields":["callAttemptId","durableEventType","eventId","provider","reason","result","sequence","sessionId","stateAfter","stateBefore"]},
+    {"logEvent":"TASK_STATUS_PROJECTED","requiredFields":["callAttemptId","eventId","from","reason","reducerVersion","sequence","sessionId","taskId","to"]},
+    {"logEvent":"CONVERSATION_MIGRATION_RESULT","requiredFields":["migrationStatus","reason","resolution","result","sessionId","sourceType"]},
+    {"logEvent":"CONVERSATION_RECONCILE_RESULT","requiredFields":["reason","resolution","result","sourceType"]},
+    {"logEvent":"TIMELINE_SYNC","requiredFields":["eventCount","fromSequence","reason","result","sessionId","syncSource","toSequence"]},
+    {"logEvent":"TIMELINE_GAP_RESYNC","requiredFields":["fromSequence","reason","sessionId","syncSource","toSequence"]},
+    {"logEvent":"LEGACY_HISTORY_READ","requiredFields":["migrationStatus","reason","sessionId","sourceType"]},
+    {"logEvent":"LEGACY_DIRECT_WRITE_REJECTED","requiredFields":["reason","sessionId","sourceType"]}
+  ]
+}

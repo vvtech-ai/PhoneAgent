@@ -1,0 +1,18 @@
+# Android SDK location is normally written by Android Studio.
+# sdk.dir=C:\\Users\\your-name\\AppData\\Local\\Android\\Sdk
+
+# Optional: override the hosted service used by prod/dev flavors.
+# hostedServerBaseUrl=https://chaken.ai/aiassistant-api/
+
+# Optional: point the local flavor at an authorized compatible service.
+# serverBaseUrl=https://your-compatible-service.example/
+
+# Optional proprietary in-call SDK integration. Do not commit real values.
+# Values embedded in an APK are extractable; use only revocable client-scoped credentials.
+# optionalIncallSdkAppKey=
+# optionalIncallSdkAppSecret=
+
+# Optional translation endpoints.
+# assistantTranslationWebRtcDefaultUrl=https://translate-us-webrtc.vvtech.tech
+# assistantTranslationWebRtcUsUrl=https://translate-us-webrtc.vvtech.tech
+# assistantTranslationWebRtcJpUrl=https://translate-us-webrtc.vvtech.tech

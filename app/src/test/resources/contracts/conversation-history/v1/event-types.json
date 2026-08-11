@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "unknownEventStrategy": "preserve_raw_identity_advance_cursor_skip_projection",
+  "wireNames": [
+    "USER_TURN_ACCEPTED",
+    "ASSISTANT_TURN_COMMITTED",
+    "TOOL_REQUESTED",
+    "TOOL_RESULT_RECORDED",
+    "CALL_REQUESTED",
+    "CALL_STARTED",
+    "CALL_COMPLETED",
+    "CALL_FAILED",
+    "CALL_CANCELLED",
+    "CALL_REJECTED",
+    "CALL_OUTCOME_REPORTED",
+    "CONVERSATION_INTERRUPTED",
+    "CONVERSATION_RESUMED",
+    "OCR_IMAGE_COMMITTED",
+    "RUN_FAILED",
+    "RUN_CANCELLED"
+  ]
+}

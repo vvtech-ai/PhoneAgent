@@ -1,0 +1,33 @@
+name: Android CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "11"
+          cache: gradle
+      - uses: android-actions/setup-android@v3
+      - name: Make Gradle wrapper executable
+        run: chmod +x gradlew
+      - name: Compile app and all unit-test sources
+        run: ./gradlew --no-daemon :app:compileProdDebugUnitTestKotlin :app:assembleProdDebug
+      - name: Public-boundary smoke tests
+        run: >-
+          ./gradlew --no-daemon :app:testProdDebugUnitTest
+          --tests "com.vvtech.aiassistant.OptionalIncallSdkBoundaryGuardTest"
+          --tests "com.vvtech.aiassistant.features.assistant_settings.AssistantSipAccountOptionsTest"
+          --tests "com.vvtech.aiassistant.callengine.AssistantSipCallEnginePolicyTest"
+          --tests "com.vvtech.aiassistant.features.translation_call.TranslationWebRtcEndpointBuildConfigGuardTest"
+          --tests "com.vvtech.aiassistant.data.homeconfig.HomeConfigMapperTest"
+          --tests "com.vvtech.aiassistant.NetworkSecurityFlavorConfigTest"

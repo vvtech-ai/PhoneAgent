@@ -1,0 +1,406 @@
+import java.text.SimpleDateFormat
+import java.util.Locale
+
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { stream ->
+        localProperties.load(stream)
+    }
+}
+def localOrProjectProperty = { String name, String defaultValue ->
+    (project.findProperty(name) ?: localProperties.getProperty(name) ?: defaultValue).toString()
+}
+def hostedServerBaseUrl = localOrProjectProperty(
+        "hostedServerBaseUrl",
+        "https://chaken.ai/aiassistant-api/"
+)
+if (!hostedServerBaseUrl.endsWith("/")) {
+    hostedServerBaseUrl += "/"
+}
+def optionalIncallSdkAppKey = localOrProjectProperty("optionalIncallSdkAppKey", "")
+def optionalIncallSdkAppSecret = localOrProjectProperty("optionalIncallSdkAppSecret", "")
+def escapedBuildConfigValue = { String value ->
+    value.replace("\\", "\\\\").replace("\"", "\\\"")
+}
+def qwenRealtimeModel = localOrProjectProperty(
+        "assistantQwenRealtimeModel",
+        "qwen3-livetranslate-flash-realtime"
+)
+def doubaoRealtimeResourceId = localOrProjectProperty(
+        "assistantDoubaoRealtimeResourceId",
+        "volc.service_type.10053"
+)
+def translationWebRtcDefaultUrl = localOrProjectProperty(
+        "assistantTranslationWebRtcDefaultUrl",
+        "https://translate-us-webrtc.vvtech.tech"
+)
+def translationWebRtcUsUrl = localOrProjectProperty(
+        "assistantTranslationWebRtcUsUrl",
+        translationWebRtcDefaultUrl
+)
+def translationWebRtcJpUrl = localOrProjectProperty(
+        "assistantTranslationWebRtcJpUrl",
+        translationWebRtcDefaultUrl
+)
+
+// dev 环境 URL 优先级：命令行 -PserverBaseUrl > android/local.properties > 模拟器默认值。
+// android/local.properties 已被 .gitignore 忽略，适合每位开发同事保存自己的本机地址。
+def isIgnoredNetworkInterface = { java.net.NetworkInterface networkInterface ->
+    def name = "${networkInterface.getDisplayName() ?: ''}/${networkInterface.getName() ?: ''}".toLowerCase(Locale.ROOT)
+    return name.contains("loopback") ||
+            name.contains("virtual") ||
+            name.contains("vmware") ||
+            name.contains("vbox") ||
+            name.contains("virtualbox") ||
+            name.contains("hyper-v") ||
+            name.contains("wsl") ||
+            name.contains("docker") ||
+            name.contains("npcap") ||
+            name.contains("wintun") ||
+            name.contains("wireguard") ||
+            name.contains("zerotier") ||
+            name.contains("tailscale") ||
+            name.contains("clash") ||
+            name.contains("tap") ||
+            name.contains("tun")
+}
+
+def scoreLocalServerAddress = { java.net.NetworkInterface networkInterface, java.net.InetAddress address ->
+    def ip = address.getHostAddress()
+    def name = "${networkInterface.getDisplayName() ?: ''}/${networkInterface.getName() ?: ''}".toLowerCase(Locale.ROOT)
+    def score = 0
+    if (address.isSiteLocalAddress()) {
+        score += 100
+    }
+    if (ip.startsWith("192.168.")) {
+        score += 45
+    } else if (ip.startsWith("10.")) {
+        score += 35
+    } else if (ip ==~ /^172\.(1[6-9]|2[0-9]|3[0-1])\..*/) {
+        score += 35
+    }
+    if (name.contains("wi-fi") || name.contains("wifi") || name.contains("wlan") ||
+            name.contains("wireless") || name.contains("ethernet") ||
+            name.contains("以太网") || name.contains("无线")) {
+        score += 20
+    }
+    return score
+}
+
+def detectLocalServerIp = {
+    def candidates = []
+    def interfaces = java.net.NetworkInterface.getNetworkInterfaces()
+    while (interfaces != null && interfaces.hasMoreElements()) {
+        def networkInterface = interfaces.nextElement()
+        if (!networkInterface.isUp() || networkInterface.isLoopback() || networkInterface.isVirtual() ||
+                networkInterface.isPointToPoint() || isIgnoredNetworkInterface(networkInterface)) {
+            continue
+        }
+        def addresses = networkInterface.getInetAddresses()
+        while (addresses.hasMoreElements()) {
+            def address = addresses.nextElement()
+            if (!(address instanceof java.net.Inet4Address) ||
+                    address.isAnyLocalAddress() ||
+                    address.isLoopbackAddress() ||
+                    address.isLinkLocalAddress() ||
+                    address.isMulticastAddress() ||
+                    !address.isSiteLocalAddress()) {
+                continue
+            }
+            def score = scoreLocalServerAddress(networkInterface, address)
+            if (score > 0) {
+                candidates << [ip: address.getHostAddress(), score: score, nic: "${networkInterface.getDisplayName() ?: networkInterface.getName()}"]
+            }
+        }
+    }
+    candidates.sort { a, b -> b.score <=> a.score }
+    return candidates.isEmpty() ? "" : candidates.first().ip
+}
+
+def autoLocalServerBaseUrl = {
+    def ip = detectLocalServerIp()
+    return ip ? "http://${ip}:8080/" : "http://10.0.2.2:8080/"
+}
+
+def configuredServerBaseUrl = (
+        project.findProperty("serverBaseUrl")
+                ?: localProperties.getProperty("serverBaseUrl")
+                ?: "auto"
+).toString().trim()
+def devServerBaseUrl = configuredServerBaseUrl.equalsIgnoreCase("auto") || configuredServerBaseUrl.isEmpty()
+        ? autoLocalServerBaseUrl()
+        : configuredServerBaseUrl
+if (!devServerBaseUrl.endsWith("/")) {
+    devServerBaseUrl += "/"
+}
+logger.lifecycle("Using local/dev serverBaseUrl=${devServerBaseUrl}")
+
+def signingStoreFilePath = (
+        project.findProperty("signingStoreFile")
+                ?: localProperties.getProperty("signingStoreFile")
+                ?: ""
+).toString()
+def signingStorePassword = (
+        project.findProperty("signingStorePassword")
+                ?: localProperties.getProperty("signingStorePassword")
+                ?: ""
+).toString()
+def signingKeyAlias = (
+        project.findProperty("signingKeyAlias")
+                ?: localProperties.getProperty("signingKeyAlias")
+                ?: ""
+).toString()
+def signingKeyPassword = (
+        project.findProperty("signingKeyPassword")
+                ?: localProperties.getProperty("signingKeyPassword")
+                ?: ""
+).toString()
+def signingStoreFile = signingStoreFilePath ? rootProject.file(signingStoreFilePath) : null
+if (signingStoreFilePath && !signingStoreFile.exists()) {
+    throw new GradleException("Configured signingStoreFile does not exist: ${signingStoreFile}")
+}
+def vvtechSigningConfigured = signingStoreFile != null &&
+        signingStoreFile.exists() &&
+        signingStorePassword &&
+        signingKeyAlias &&
+        signingKeyPassword
+
+def apkArchiveDir = layout.projectDirectory.dir("apks")
+def apkArchiveTimestamp = providers.provider {
+    new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date())
+}
+def sanitizeApkNamePart = { Object value ->
+    def normalized = (value == null ? "" : value.toString().trim())
+    if (!normalized) {
+        return "unknown"
+    }
+    return normalized
+            .replaceAll(/[\\/:*?"<>|]+/, "_")
+            .replaceAll(/\s+/, "_")
+}
+
+android {
+    namespace 'com.vvtech.aiassistant'
+    compileSdk 33
+
+    sourceSets {
+        test {
+            resources.srcDir 'src/test/resources/contracts'
+            java {
+                exclude 'com/vvtech/aiassistant/features/assistant/StreamingAsrBargeInHintsTest.kt'
+                exclude 'com/vvtech/aiassistant/features/assistant/speech/StreamingTaskAsrAuthHeadersTest.kt'
+                exclude 'com/vvtech/aiassistant/features/assistant/speech/StreamingTaskAsrProtocolTest.kt'
+            }
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.vvtech.aiassistant"
+        minSdk 26
+        targetSdk 33
+        versionCode 30
+        versionName "1.0.36"
+        ndk {
+            abiFilters 'arm64-v8a'
+        }
+        // 默认 URL（dev flavor 继承此值）
+        buildConfigField "String", "BASE_URL", "\"${devServerBaseUrl}\""
+        buildConfigField "String", "VOLC_TTS_SPEAKER", "\"${project.findProperty('volcTtsSpeaker') ?: 'zh_male_taocheng_uranus_bigtts'}\""
+        buildConfigField "String", "TASK_VOICE_PROVIDER", "\"${project.findProperty('taskVoiceProvider') ?: 'qwen'}\""
+        buildConfigField "String", "ASSISTANT_QWEN_REALTIME_MODEL", "\"${escapedBuildConfigValue(qwenRealtimeModel)}\""
+        buildConfigField "String", "ASSISTANT_DOUBAO_REALTIME_RESOURCE_ID", "\"${escapedBuildConfigValue(doubaoRealtimeResourceId)}\""
+        buildConfigField "String", "TRANSLATION_WEBRTC_DEFAULT_URL", "\"${escapedBuildConfigValue(translationWebRtcDefaultUrl)}\""
+        buildConfigField "String", "TRANSLATION_WEBRTC_US_URL", "\"${escapedBuildConfigValue(translationWebRtcUsUrl)}\""
+        buildConfigField "String", "TRANSLATION_WEBRTC_JP_URL", "\"${escapedBuildConfigValue(translationWebRtcJpUrl)}\""
+        buildConfigField "String", "OPTIONAL_INCALL_SDK_APP_KEY", "\"${escapedBuildConfigValue(optionalIncallSdkAppKey)}\""
+        buildConfigField "String", "OPTIONAL_INCALL_SDK_APP_SECRET", "\"${escapedBuildConfigValue(optionalIncallSdkAppSecret)}\""
+        manifestPlaceholders = [appLabel: "Phone Agent"]
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+
+    // ── 环境 Flavor：dev（本地开发）/ prod（生产服务器）──────────────
+    flavorDimensions "env"
+    productFlavors {
+        prod {
+            dimension "env"
+            // Public hosted service. Override with -PhostedServerBaseUrl when authorized.
+            buildConfigField "String", "BASE_URL", "\"${escapedBuildConfigValue(hostedServerBaseUrl)}\""
+            manifestPlaceholders = [appLabel: "Phone Agent"]
+        }
+        local {
+            dimension "env"
+            // 使用 defaultConfig 里的 devServerBaseUrl，包名加 .dev 与生产包区分
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            manifestPlaceholders = [appLabel: "Phone Agent Test"]
+        }
+        dev {
+            dimension "env"
+            // Open-source development flavor also uses the hosted service by default.
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            buildConfigField "String", "BASE_URL", "\"${escapedBuildConfigValue(hostedServerBaseUrl)}\""
+            manifestPlaceholders = [appLabel: "Phone Agent Dev"]
+        }
+    }
+
+    signingConfigs {
+        vvtech {
+            if (vvtechSigningConfigured) {
+                storeFile signingStoreFile
+                storePassword signingStorePassword
+                keyAlias signingKeyAlias
+                keyPassword signingKeyPassword
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig vvtechSigningConfigured ? signingConfigs.vvtech : signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            signingConfig vvtechSigningConfigured ? signingConfigs.vvtech : signingConfigs.debug
+        }
+    }
+
+    buildFeatures {
+        compose true
+        buildConfig true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.8'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+        pickFirst 'lib/arm64-v8a/libbytertc_fdk-aac_extension.so'
+        pickFirst 'lib/arm64-v8a/libbytertc_nico_extension.so'
+        pickFirst 'lib/arm64-v8a/libbytertc_vp8codec_extension.so'
+        pickFirst 'lib/arm64-v8a/libh265enc.so'
+        pickFirst 'lib/armeabi-v7a/libbytertc_fdk-aac_extension.so'
+        pickFirst 'lib/armeabi-v7a/libbytertc_nico_extension.so'
+        pickFirst 'lib/armeabi-v7a/libbytertc_vp8codec_extension.so'
+        pickFirst 'lib/armeabi-v7a/libh265enc.so'
+        pickFirst 'lib/x86/libbytertc_fdk-aac_extension.so'
+        pickFirst 'lib/x86/libbytertc_nico_extension.so'
+        pickFirst 'lib/x86/libbytertc_vp8codec_extension.so'
+        pickFirst 'lib/x86/libh265enc.so'
+        pickFirst 'lib/x86_64/libbytertc_fdk-aac_extension.so'
+        pickFirst 'lib/x86_64/libbytertc_nico_extension.so'
+        pickFirst 'lib/x86_64/libbytertc_vp8codec_extension.so'
+        pickFirst 'lib/x86_64/libh265enc.so'
+
+        doNotStrip "*/armeabi/*.so"
+        doNotStrip "*/armeabi-v7a/*.so"
+        doNotStrip "*/arm64-v8a/*.so"
+    }
+}
+
+android.applicationVariants.all { variant ->
+    def flavorName = variant.flavorName ?: "noflavor"
+    def buildTypeName = variant.buildType.name
+    def appName = variant.mergedFlavor.manifestPlaceholders.get("appLabel")
+            ?: android.defaultConfig.manifestPlaceholders.get("appLabel")
+            ?: "app"
+    def versionName = variant.versionName ?: android.defaultConfig.versionName ?: "0"
+    def versionCode = variant.versionCode ?: android.defaultConfig.versionCode ?: 0
+    def archiveFileName = "${sanitizeApkNamePart(appName)}_${sanitizeApkNamePart(versionName)}_${sanitizeApkNamePart(versionCode)}_${sanitizeApkNamePart(flavorName)}_${apkArchiveTimestamp.get()}.apk"
+    def apkOutputDirPath = flavorName == "noflavor"
+            ? "outputs/apk/${buildTypeName}"
+            : "outputs/apk/${flavorName}/${buildTypeName}"
+
+    variant.outputs.all { output ->
+        output.outputFileName = archiveFileName
+    }
+
+    def archiveTaskName = "archive${variant.name.capitalize()}Apk"
+    def archiveTaskProvider = tasks.register(archiveTaskName, Copy) {
+        group = "build"
+        description = "Copy ${variant.name} APK to app/apks with a release-friendly name."
+        mustRunAfter variant.assembleProvider
+        from(layout.buildDirectory.file("${apkOutputDirPath}/${archiveFileName}"))
+        into(apkArchiveDir)
+    }
+
+    variant.assembleProvider.configure {
+        finalizedBy archiveTaskProvider
+    }
+}
+
+dependencies {
+    // Proprietary SDKs are intentionally excluded from the public repository.
+    // Authorized integrators may place vendor-provided AAR/JAR files in private-libs/.
+    implementation fileTree(dir: "private-libs", include: ["*.jar","*.aar"])
+
+    implementation platform('androidx.compose:compose-bom:2023.06.01')
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-compose:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-process:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+    implementation 'androidx.activity:activity-compose:1.7.2'
+    implementation 'androidx.camera:camera-camera2:1.2.3'
+    implementation 'androidx.camera:camera-lifecycle:1.2.3'
+    implementation 'androidx.camera:camera-view:1.2.3'
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-graphics'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.foundation:foundation'
+    implementation 'androidx.compose.material:material'
+    implementation 'androidx.compose.material:material-icons-extended'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.google.mlkit:face-detection:16.1.6'
+    implementation 'com.google.mlkit:text-recognition-chinese:16.0.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+    implementation 'io.livekit:livekit-android:2.3.0'
+    implementation 'com.google.protobuf:protobuf-javalite:3.25.3'
+    implementation 'io.github.biezhi:TinyPinyin:2.0.3.RELEASE'
+    implementation 'com.volcengine:VolcEngineRTC:3.60.102.4900'
+
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    testImplementation files(
+        "${gradle.gradleHomeDir}/lib/junit-4.13.2.jar",
+        "${gradle.gradleHomeDir}/lib/hamcrest-core-1.3.jar"
+    )
+    testImplementation 'org.robolectric:robolectric:4.10.3'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.12.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+    testImplementation 'org.json:json:20231013'
+
+    implementation 'com.alibaba:fastjson:2.0.31'
+    implementation 'com.squareup.okio:okio:2.2.2'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.65'
+    implementation 'org.bouncycastle:bcpkix-jdk15on:1.60'
+    implementation 'com.github.bumptech.glide:glide:4.15.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
+}
