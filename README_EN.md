@@ -33,7 +33,7 @@ The hosted service is separate from the Apache-2.0 license of this repository. A
 - Dialing, call-model selection, and real-time translated calls.
 - Call history, transcripts, task results, and recording playback.
 - Identity, AI voice, trusted-call, OTA update, and log-upload settings.
-- Optional voice-clone identity verification and commercial trusted-call SDK integration.
+- Bundled first-party hardened CHAKEN trusted-call SDK, with optional voice-clone identity verification integration.
 
 See the [English project introduction](docs/PROJECT_INTRODUCTION.en.md) or the [中文项目介绍](docs/PROJECT_INTRODUCTION.zh-CN.md) for the full product overview.
 
@@ -96,11 +96,11 @@ See [Build and configuration](docs/BUILD_AND_CONFIGURATION.md) for details.
 | `dev` | Phone Agent hosted service | Development build with a separate application ID |
 | `local` | Auto-detected LAN address or an explicit build property | Authorized compatible-service integration |
 
-## Proprietary SDKs
+## SDK boundary
 
-The public repository does not redistribute the CHAKEN trusted-call SDK, Alibaba Cloud financial-grade identity SDK, or related protection components. Reflection boundaries keep the base project buildable without them. When a commercial SDK is absent, only its optional feature is unavailable; sign-in, task handling, backend AI calls, and history remain available.
+The public repository redistributes the company's own hardened CHAKEN trusted-call SDK under `app/libs/`. Client AppKey/Secret values are not committed; builders must inject authorized, revocable, least-privileged client parameters through local `local.properties` or Gradle properties.
 
-Authorized integrators may place vendor-provided AAR/JAR files in the Git-ignored `app/private-libs/` directory and inject vendor client parameters through local `local.properties`. See [Third-party notices](THIRD_PARTY_NOTICES.md).
+Alibaba Cloud financial-grade identity verification, face, security, and risk-control binaries are not redistributed. Authorized integrators may place those separately licensed AAR/JAR files in the Git-ignored `app/private-libs/` directory. Without them, new voice-clone identity verification is unavailable, while sign-in, task handling, hosted AI calls, and history continue to work. See [Third-party notices](THIRD_PARTY_NOTICES.md).
 
 ## Permissions and data
 
@@ -112,9 +112,10 @@ See [Privacy and permissions](docs/PRIVACY_AND_PERMISSIONS.md) and [Backend serv
 
 ```text
 app/                         Android application module
+  libs/                      Bundled CHAKEN trusted-call SDK
   src/main/                  Client source and resources
   src/test/                  Unit tests and protocol fixtures
-  private-libs/              Optional local commercial SDKs (Git-ignored)
+  private-libs/              Other optional commercial SDKs (Git-ignored)
 docs/                        Bilingual product, architecture, and usage docs
 gradle/                      Gradle Wrapper
 README.md / README_EN.md     Chinese and English entry points

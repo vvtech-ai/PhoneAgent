@@ -1,5 +1,9 @@
 Phone Agent Android
 Copyright 2026 微位（深圳）网络科技有限公司
 
+This distribution includes the copyright holder's hardened CHAKEN trusted-call
+SDK binaries under app/libs/. Their redistribution in this repository is authorized
+by the copyright holder. Service access requires separately managed authorization.
+
 This product includes software developed by third parties. See THIRD_PARTY_NOTICES.md
 and the dependency artifacts for applicable notices and license terms.

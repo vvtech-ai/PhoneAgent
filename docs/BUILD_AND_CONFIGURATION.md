@@ -42,14 +42,14 @@ macOS/Linux 将 `gradlew.bat` 替换为 `./gradlew`。
 | `assistantTranslationWebRtcDefaultUrl` | 生产翻译入口 | 默认翻译 WebRTC 服务 |
 | `assistantTranslationWebRtcUsUrl` | 默认翻译入口 | 美国区域覆盖值 |
 | `assistantTranslationWebRtcJpUrl` | 默认翻译入口 | 日本区域覆盖值 |
-| `optionalIncallSdkAppKey` | 空 | 可选商业可信来电 SDK 客户端参数 |
-| `optionalIncallSdkAppSecret` | 空 | 可选商业可信来电 SDK 客户端参数 |
+| `optionalIncallSdkAppKey` | 空 | 内置 CHAKEN 可信通信 SDK 的客户端授权参数 |
+| `optionalIncallSdkAppSecret` | 空 | 内置 CHAKEN 可信通信 SDK 的客户端授权参数 |
 
 构建参数可通过 `-Pname=value` 或本机 `local.properties` 提供。不要把模型、短信、SIP、地图或后台数据库凭据注入 APK。
 
-### 专有 SDK
+### SDK 二进制
 
-公开代码不依赖专有 AAR/JAR 即可编译。获得供应商授权后，把二进制放入 `app/private-libs/`。供应商 SDK 可能通过自己的 Manifest 自动合并 Activity、Service、Provider 或权限；发布前必须审计最终 APK。
+公司自有且已加固的 CHAKEN 可信通信 SDK 位于 `app/libs/` 并随源码构建。客户端授权参数不提交到 Git，必须通过本机或受控发布环境注入。阿里云金融级实人认证等未获公开再分发授权的二进制仍应放入 `app/private-libs/`。SDK 会通过自己的 Manifest 合并 Activity、Service、Receiver 或权限，发布前必须审计最终 APK。
 
 任何写入 `BuildConfig` 的值都能从 APK 中提取，因此只能使用供应商明确允许放在客户端、可撤销且权限受限的参数。
 
@@ -93,13 +93,13 @@ cp local.properties.example local.properties
 | `assistantTranslationWebRtcDefaultUrl` | production translation endpoint | Default translation WebRTC service |
 | `assistantTranslationWebRtcUsUrl` | default translation endpoint | US regional override |
 | `assistantTranslationWebRtcJpUrl` | default translation endpoint | Japan regional override |
-| `optionalIncallSdkAppKey` | empty | Optional commercial trusted-call client parameter |
-| `optionalIncallSdkAppSecret` | empty | Optional commercial trusted-call client parameter |
+| `optionalIncallSdkAppKey` | empty | Client authorization parameter for the bundled CHAKEN trusted-call SDK |
+| `optionalIncallSdkAppSecret` | empty | Client authorization parameter for the bundled CHAKEN trusted-call SDK |
 
 Properties may be supplied with `-Pname=value` or local `local.properties`. Never inject model, SMS, SIP, map, or backend database credentials into an APK.
 
-### Proprietary SDKs
+### SDK binaries
 
-The public source compiles without proprietary AAR/JAR files. Authorized users may place vendor binaries in `app/private-libs/`. Vendor manifests can merge activities, services, providers, or permissions into the app, so audit the final APK before distribution.
+The company's own hardened CHAKEN trusted-call SDK is bundled under `app/libs/`. Client authorization parameters are not committed and must be injected by a local or controlled release environment. Separately licensed binaries such as Alibaba Cloud financial-grade identity verification remain under `app/private-libs/`. SDK manifests can merge activities, services, receivers, or permissions into the app, so audit the final APK before distribution.
 
 Anything written to `BuildConfig` is extractable from the APK. Use only revocable, least-privileged parameters that the vendor explicitly permits in a client application.

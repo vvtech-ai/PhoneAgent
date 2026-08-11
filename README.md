@@ -33,7 +33,7 @@ https://chaken.ai/aiassistant-api/
 - 电话拨号、通话模型选择及实时翻译通话。
 - 通话记录、转写、任务结果和录音回看。
 - 身份资料、AI 音色、可信来电、版本更新和日志上报设置。
-- 可选的声音克隆身份认证和商业可信来电 SDK 集成。
+- 内置公司自有且已加固的 CHAKEN 可信通信 SDK；声音克隆身份认证 SDK 仍为可选集成。
 
 更完整的产品说明见[中文项目介绍](docs/PROJECT_INTRODUCTION.zh-CN.md)和 [English Project Introduction](docs/PROJECT_INTRODUCTION.en.md)。
 
@@ -96,11 +96,11 @@ APK 输出到 `app/build/outputs/apk/prod/debug/`，同时会归档到 `app/apks
 | `dev` | Phone Agent 托管服务 | 独立包名的开发调试 |
 | `local` | 自动探测局域网或构建参数指定 | 授权集成方连接兼容服务 |
 
-## 专有 SDK
+## SDK 边界
 
-公开仓库不分发 CHAKEN 可信来电 SDK、阿里云金融级实人认证 SDK 或相关加固组件。项目通过反射边界保持基础构建可用；缺少商业 SDK 时，对应可选功能会提示不可用，不影响登录、任务、后台 AI 通话和记录等基础功能。
+公开仓库随源码分发公司自有且已加固的 CHAKEN 可信通信 SDK，文件位于 `app/libs/`。SDK 的客户端 AppKey/Secret 不写入 Git，构建方仍须通过本机 `local.properties` 或 Gradle 参数注入获得授权的、可撤销且权限受限的客户端参数。
 
-获得合法授权后，可把供应商提供的 AAR/JAR 放到被 Git 忽略的 `app/private-libs/`，再通过本机 `local.properties` 注入供应商要求的客户端参数。详见[第三方组件说明](THIRD_PARTY_NOTICES.md)。
+阿里云金融级实人认证 SDK 及其人脸、安全和风控组件未获得公开再分发授权，因此不随仓库提供。获得合法授权后，可把这些 AAR/JAR 放到被 Git 忽略的 `app/private-libs/`。缺少它们时，新建声音克隆的身份认证不可用，但不影响登录、任务、后台 AI 通话和记录等基础功能。详见[第三方组件说明](THIRD_PARTY_NOTICES.md)。
 
 ## 权限与数据
 
@@ -112,9 +112,10 @@ APK 输出到 `app/build/outputs/apk/prod/debug/`，同时会归档到 `app/apks
 
 ```text
 app/                         Android 应用模块
+  libs/                      随源码分发的 CHAKEN 可信通信 SDK
   src/main/                  终端源码与资源
   src/test/                  单元测试和协议样例
-  private-libs/              本地可选商业 SDK（Git 忽略）
+  private-libs/              其他本地可选商业 SDK（Git 忽略）
 docs/                        中英文介绍、架构与使用文档
 gradle/                      Gradle Wrapper
 README.md / README_EN.md     中英文入口

@@ -7,11 +7,14 @@ import org.junit.Test
 
 class OptionalIncallSdkBoundaryGuardTest {
     @Test
-    fun publicBuildDoesNotRequireBundledProprietarySdk() {
+    fun publicBuildBundlesAuthorizedFirstPartyTrustedCallSdk() {
         val buildGradle = sourceFile("build.gradle").readText(Charsets.UTF_8)
 
         assertTrue(buildGradle.contains("fileTree(dir: \"private-libs\""))
-        assertFalse(buildGradle.contains("fileTree(dir: \"libs\""))
+        assertTrue(buildGradle.contains("libs/chaken-incall-1.5.aar"))
+        assertTrue(buildGradle.contains("libs/chaken-incall-ui-1.5.aar"))
+        assertTrue(sourceFile("libs/chaken-incall-1.5.aar").isFile)
+        assertTrue(sourceFile("libs/chaken-incall-ui-1.5.aar").isFile)
         assertFalse(buildGradle.contains("fileTree(dir: \"runtime\""))
     }
 
@@ -34,7 +37,7 @@ class OptionalIncallSdkBoundaryGuardTest {
     }
 
     @Test
-    fun publicManifestDoesNotDeclareVendorActivities() {
+    fun appManifestReliesOnBundledSdkManifestForVendorActivities() {
         val manifest = sourceFile("src/main/AndroidManifest.xml").readText(Charsets.UTF_8)
 
         assertFalse(manifest.contains("com.weway.chaken.incallsdk"))

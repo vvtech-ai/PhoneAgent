@@ -5,11 +5,11 @@ import android.content.Intent
 import com.vvtech.aiassistant.logging.AppFileLogger
 
 /**
- * Reflection boundary for the optional proprietary in-call SDK.
+ * Reflection boundary for the bundled first-party hardened in-call SDK.
  *
- * The public project builds and starts without the vendor binaries. Authorized
- * integrators can add the official SDK files under app/private-libs and inject
- * their own client credentials through local Gradle properties.
+ * Reflection keeps startup resilient when a downstream build intentionally omits
+ * the SDK. Service initialization still requires authorized client parameters
+ * injected through local Gradle properties; those values are never committed.
  */
 internal object OptionalIncallSdkBridge {
     private const val Tag = "OptionalIncallSdk"

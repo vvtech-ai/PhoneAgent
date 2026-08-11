@@ -19,12 +19,12 @@ Backend and provider credentials are outside the client boundary. The app stores
 - UI Layer：Compose 页面、组件、导航、`UiState`、`UiAction`、`UiEffect`。
 - Domain Layer：任务、号码、联系人、语音、通话和回执策略。
 - Data Layer：Retrofit、SSE、WebSocket、Repository、本地缓存、联系人和文件日志。
-- Integration Layer：Android 平台 API、SIP/WebRTC/音频，以及通过反射隔离的可选商业 SDK。
+- Integration Layer：Android 平台 API、SIP/WebRTC/音频、内置 CHAKEN 可信通信 SDK，以及通过反射隔离的可选商业身份认证 SDK。
 
 - UI Layer: Compose screens, components, navigation, `UiState`, `UiAction`, and `UiEffect`.
 - Domain Layer: task, number, contact, voice, call, and receipt policies.
 - Data Layer: Retrofit, SSE, WebSocket, repositories, local cache, contacts, and file logging.
-- Integration Layer: Android APIs, SIP/WebRTC/audio, and reflection-isolated optional commercial SDKs.
+- Integration Layer: Android APIs, SIP/WebRTC/audio, the bundled CHAKEN trusted-call SDK, and reflection-isolated optional commercial identity SDKs.
 
 跨层状态应由单一事实源驱动。长连接和通话状态必须能通过 `sessionId`、`taskId` 或 `callId` 关联，日志不得包含 Token、密码或完整敏感内容。
 

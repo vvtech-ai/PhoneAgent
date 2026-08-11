@@ -353,8 +353,15 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    // Proprietary SDKs are intentionally excluded from the public repository.
-    // Authorized integrators may place vendor-provided AAR/JAR files in private-libs/.
+    // First-party hardened trusted-call SDKs are redistributed with authorization
+    // from the copyright holder. Client service parameters remain build-time inputs.
+    implementation files(
+        "libs/chaken-incall-1.5.aar",
+        "libs/chaken-incall-ui-1.5.aar"
+    )
+
+    // Other proprietary SDKs remain excluded. Authorized integrators may place
+    // separately licensed vendor AAR/JAR files in the Git-ignored private-libs/.
     implementation fileTree(dir: "private-libs", include: ["*.jar","*.aar"])
 
     implementation platform('androidx.compose:compose-bom:2023.06.01')

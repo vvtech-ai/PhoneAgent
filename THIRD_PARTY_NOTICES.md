@@ -16,22 +16,16 @@ The client can interact with hosted model, SMS, map, SIP, translation, CDN, OTA,
 
 客户端可能访问模型、短信、地图、SIP、翻译、CDN、OTA 和对象存储服务。通过网络访问这些服务，不表示其服务端软件或额度属于本仓库 Apache-2.0 许可范围。
 
-## Optional proprietary SDKs / 可选商业 SDK
+## Bundled first-party SDK / 随源码分发的自有 SDK
 
-The public repository intentionally excludes proprietary binaries, including:
+`app/libs/chaken-incall-1.5.aar` and `app/libs/chaken-incall-ui-1.5.aar` are hardened CHAKEN trusted-call components owned by 微位（深圳）网络科技有限公司. The copyright holder has authorized their redistribution in this repository. Runtime service access remains subject to valid client authorization parameters and the applicable service terms.
 
-- CHAKEN trusted-call / in-call SDK binaries;
-- Alibaba Cloud financial-grade identity verification binaries;
-- related face, protection, or application-hardening components.
+`app/libs/chaken-incall-1.5.aar` 和 `app/libs/chaken-incall-ui-1.5.aar` 是微位（深圳）网络科技有限公司自有并已加固的 CHAKEN 可信通信组件，著作权人已授权随本仓库公开分发。运行时服务访问仍须使用有效的客户端授权参数并遵守相应服务条款。
 
-公开仓库明确不分发以下商业二进制：
+## Excluded proprietary SDKs / 未分发的商业 SDK
 
-- CHAKEN 可信来电/通话 SDK；
-- 阿里云金融级实人认证 SDK；
-- 相关人脸、保护或应用加固组件。
+The public repository does not redistribute Alibaba Cloud financial-grade identity verification binaries or related face, security, and risk-control components. Authorized integrators must obtain these files directly from the vendor and may place them in the Git-ignored `app/private-libs/`. Do not submit other AAR/JAR files unless redistribution rights are documented.
 
-Authorized integrators must obtain these files directly from the vendor and comply with the vendor's terms. Vendor binaries may be placed locally in `app/private-libs/`, which is excluded from Git. Do not open a pull request containing an AAR/JAR unless redistribution rights are documented.
-
-获得授权的集成方必须从供应商合法取得文件并遵守供应商条款。二进制可在本机放入已被 Git 忽略的 `app/private-libs/`。除非提供公开再分发授权证明，否则不得在 Pull Request 中提交 AAR/JAR。
+公开仓库不分发阿里云金融级实人认证 SDK 及其人脸、安全和风控组件。获得授权的集成方必须从供应商合法取得这些文件，可将其放入已被 Git 忽略的 `app/private-libs/`。除非已记录公开再分发授权，否则不得提交其他 AAR/JAR。
 
 Android and related marks are trademarks of Google LLC. Other product names and trademarks belong to their respective owners.

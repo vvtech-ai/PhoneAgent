@@ -7,8 +7,9 @@
 # Optional: point the local flavor at an authorized compatible service.
 # serverBaseUrl=https://your-compatible-service.example/
 
-# Optional proprietary in-call SDK integration. Do not commit real values.
-# Values embedded in an APK are extractable; use only revocable client-scoped credentials.
+# Bundled CHAKEN trusted-call SDK client authorization. Do not commit real values.
+# Values embedded in an APK are extractable; use only revocable client-scoped credentials
+# that the service explicitly permits in an Android application.
 # optionalIncallSdkAppKey=
 # optionalIncallSdkAppSecret=
 
