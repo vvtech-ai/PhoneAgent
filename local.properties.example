@@ -2,7 +2,7 @@
 # sdk.dir=C:\\Users\\your-name\\AppData\\Local\\Android\\Sdk
 
 # Optional: override the hosted service used by prod/dev flavors.
-# hostedServerBaseUrl=https://chaken.ai/aiassistant-api/
+# hostedServerBaseUrl=https://chaken-ai.vvtech.tech/aiassistant-api/
 
 # Optional: point the local flavor at an authorized compatible service.
 # serverBaseUrl=https://your-compatible-service.example/

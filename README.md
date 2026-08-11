@@ -20,7 +20,7 @@ Phone Agent 是一款面向电话事务处理的 Android 语音智能体终端�
 客户端默认连接已部署的 Phone Agent 托管服务：
 
 ```text
-https://chaken.ai/aiassistant-api/
+https://chaken-ai.vvtech.tech/aiassistant-api/
 ```
 
 托管服务与本仓库的 Apache-2.0 软件许可相互独立。服务可用性、账号开通、短信额度、电话资费、并发量和区域能力以实际服务策略为准。

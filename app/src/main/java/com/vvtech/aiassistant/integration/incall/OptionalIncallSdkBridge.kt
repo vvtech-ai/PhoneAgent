@@ -1,5 +1,6 @@
 package com.vvtech.aiassistant.integration.incall
 
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import com.vvtech.aiassistant.logging.AppFileLogger
@@ -19,9 +20,12 @@ internal object OptionalIncallSdkBridge {
 
     fun installProtection(context: Context) {
         runCatching {
+            val application = (context.applicationContext as? Application)
+                ?: (context as? Application)
+                ?: error("Trusted-call protection requires an Application context")
             Class.forName(ProtectionHelperClass)
-                .getMethod("install", Context::class.java)
-                .invoke(null, context)
+                .getMethod("install", Application::class.java)
+                .invoke(null, application)
         }.onFailure { logUnavailable("protection_install_skipped", it) }
     }
 

@@ -20,7 +20,7 @@ This repository contains the Android client only. It does not contain the server
 The client connects to the deployed Phone Agent hosted service by default:
 
 ```text
-https://chaken.ai/aiassistant-api/
+https://chaken-ai.vvtech.tech/aiassistant-api/
 ```
 
 The hosted service is separate from the Apache-2.0 license of this repository. Availability, account access, SMS quotas, call charges, concurrency, and regional capabilities are governed by the actual service policy.

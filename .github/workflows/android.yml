@@ -26,6 +26,7 @@ jobs:
         run: >-
           ./gradlew --no-daemon :app:testProdDebugUnitTest
           --tests "com.vvtech.aiassistant.OptionalIncallSdkBoundaryGuardTest"
+          --tests "com.vvtech.aiassistant.HostedBackendBuildConfigGuardTest"
           --tests "com.vvtech.aiassistant.features.assistant_settings.AssistantSipAccountOptionsTest"
           --tests "com.vvtech.aiassistant.callengine.AssistantSipCallEnginePolicyTest"
           --tests "com.vvtech.aiassistant.features.translation_call.TranslationWebRtcEndpointBuildConfigGuardTest"

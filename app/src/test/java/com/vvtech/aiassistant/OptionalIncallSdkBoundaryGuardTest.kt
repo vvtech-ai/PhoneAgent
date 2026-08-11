@@ -33,6 +33,7 @@ class OptionalIncallSdkBoundaryGuardTest {
         assertFalse(application.contains("import com.weway.chaken"))
         assertFalse(application.contains("com.secneo.weway.Helper.install"))
         assertTrue(bridge.contains("Class.forName(SdkClass)"))
+        assertTrue(bridge.contains("Application::class.java"))
         assertTrue(bridge.contains("OPTIONAL_INCALL_SDK").not())
     }
 

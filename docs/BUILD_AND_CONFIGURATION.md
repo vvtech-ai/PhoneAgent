@@ -37,7 +37,7 @@ macOS/Linux 将 `gradlew.bat` 替换为 `./gradlew`。
 
 | 属性 | 默认值 | 说明 |
 | --- | --- | --- |
-| `hostedServerBaseUrl` | `https://chaken.ai/aiassistant-api/` | `prod`/`dev` 使用的托管服务 |
+| `hostedServerBaseUrl` | `https://chaken-ai.vvtech.tech/aiassistant-api/` | `prod`/`dev` 使用的托管服务 |
 | `serverBaseUrl` | `auto` | `local` 服务地址；自动探测失败回退模拟器地址 |
 | `assistantTranslationWebRtcDefaultUrl` | 生产翻译入口 | 默认翻译 WebRTC 服务 |
 | `assistantTranslationWebRtcUsUrl` | 默认翻译入口 | 美国区域覆盖值 |
@@ -88,7 +88,7 @@ cp local.properties.example local.properties
 
 | Property | Default | Purpose |
 | --- | --- | --- |
-| `hostedServerBaseUrl` | `https://chaken.ai/aiassistant-api/` | Hosted endpoint for `prod`/`dev` |
+| `hostedServerBaseUrl` | `https://chaken-ai.vvtech.tech/aiassistant-api/` | Hosted endpoint for `prod`/`dev` |
 | `serverBaseUrl` | `auto` | `local` endpoint; falls back to the emulator host |
 | `assistantTranslationWebRtcDefaultUrl` | production translation endpoint | Default translation WebRTC service |
 | `assistantTranslationWebRtcUsUrl` | default translation endpoint | US regional override |

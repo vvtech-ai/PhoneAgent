@@ -5,7 +5,7 @@
 本仓库不包含后台源码。默认客户端连接：
 
 ```text
-https://chaken.ai/aiassistant-api/
+https://chaken-ai.vvtech.tech/aiassistant-api/
 ```
 
 托管后台负责短信认证、账号会话、任务理解、模型调用、地图查询、SIP 资源租约、电话任务编排、通话事件、记录和 OTA 元数据。相关账号、API Key、Secret、SIP 密码和生产数据只存在于服务端受控环境。
@@ -19,7 +19,7 @@ Apache-2.0 只授予本仓库终端源码的许可，不自动授予托管服务
 This repository does not contain backend source. The default client endpoint is:
 
 ```text
-https://chaken.ai/aiassistant-api/
+https://chaken-ai.vvtech.tech/aiassistant-api/
 ```
 
 The hosted backend handles SMS authentication, sessions, task understanding, model calls, map queries, SIP leases, call orchestration, call events, history, and OTA metadata. Accounts, API keys, secrets, SIP passwords, and production data remain in controlled server-side systems.
