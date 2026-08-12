@@ -40,11 +40,28 @@ class OptionalIncallSdkBoundaryGuardTest {
     }
 
     @Test
-    fun appManifestReliesOnBundledSdkManifestForVendorActivities() {
+    fun appManifestPinsAppCompatThemeForAllVendorActivities() {
         val manifest = sourceFile("src/main/AndroidManifest.xml").readText(Charsets.UTF_8)
+        val vendorActivities = listOf(
+            "com.weway.chaken.incallsdk.MainActivity",
+            "com.weway.chaken.incallsdk.AgreementActivity",
+            "com.weway.chaken.incallsdk.NewSplashActivity",
+            "com.weway.chaken.incallsdk.SettingActivity",
+            "com.weway.chaken.incallsdk.AboutUsActivity",
+            "com.weway.chaken.incallsdk.SettingFinishActivity",
+            "com.weway.chaken.incallsdk.WebBrowserActivity",
+            "com.weway.chaken.incallsdk.SelectSimLoginActivity",
+            "com.weway.chaken.incallsdk.login.CountrySelectActivity",
+            "com.weway.chaken.incallsdk.login.LoginActivity"
+        )
 
-        assertFalse(manifest.contains("com.weway.chaken.incallsdk"))
-        assertFalse(manifest.contains("Theme.ChakenIncall"))
+        vendorActivities.forEach { activity ->
+            assertTrue(manifest.contains("android:name=\"$activity\""))
+        }
+        val vendorThemeCount = Regex.fromLiteral(
+            "android:theme=\"@style/Theme.ChakenIncall\""
+        ).findAll(manifest).count()
+        assertTrue(vendorThemeCount == vendorActivities.size)
     }
 
     private companion object {

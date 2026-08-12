@@ -49,6 +49,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.weway.chaken.incallsdk.MainActivity"
+            android:theme="@style/Theme.ChakenIncall" />
+        <activity
+            android:name="com.weway.chaken.incallsdk.AgreementActivity"
+            android:theme="@style/Theme.ChakenIncall" />
+        <activity
+            android:name="com.weway.chaken.incallsdk.NewSplashActivity"
+            android:theme="@style/Theme.ChakenIncall" />
+        <activity
+            android:name="com.weway.chaken.incallsdk.SettingActivity"
+            android:theme="@style/Theme.ChakenIncall" />
+        <activity
+            android:name="com.weway.chaken.incallsdk.AboutUsActivity"
+            android:theme="@style/Theme.ChakenIncall" />
+        <activity
+            android:name="com.weway.chaken.incallsdk.SettingFinishActivity"
+            android:theme="@style/Theme.ChakenIncall" />
+        <activity
+            android:name="com.weway.chaken.incallsdk.WebBrowserActivity"
+            android:theme="@style/Theme.ChakenIncall" />
+        <activity
+            android:name="com.weway.chaken.incallsdk.SelectSimLoginActivity"
+            android:theme="@style/Theme.ChakenIncall" />
+        <activity
+            android:name="com.weway.chaken.incallsdk.login.CountrySelectActivity"
+            android:theme="@style/Theme.ChakenIncall" />
+        <activity
+            android:name="com.weway.chaken.incallsdk.login.LoginActivity"
+            android:theme="@style/Theme.ChakenIncall" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.ota.fileprovider"
