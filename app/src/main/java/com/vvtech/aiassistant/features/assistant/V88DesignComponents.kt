@@ -97,11 +97,6 @@ internal val V88VoiceModelOptions = listOf(
         AssistantCallModelDisplayNames.Doubao,
         "字节跳动 · 端到端双工语音模型"
     ),
-    V88VoiceModelOption(
-        "DOUBAO_SEEDUPLEX_3_0",
-        "豆包实时语音 3.0",
-        "字节跳动 · Seeduplex 全双工语音模型"
-    ),
     V88VoiceModelOption("GPT", "GPT Realtime2.0", "GPT 实时语音模型", enabled = false)
 )
 

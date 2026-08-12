@@ -35,9 +35,13 @@ internal object OptionalIncallSdkBridge {
             return false
         }
         return runCatching {
-            sdkInstance().javaClass
-                .getMethod("init", Context::class.java, String::class.java, String::class.java)
-                .invoke(sdkInstance(), context.applicationContext, appKey, appSecret)
+            val application = (context.applicationContext as? Application)
+                ?: (context as? Application)
+                ?: error("Trusted-call SDK initialization requires an Application context")
+            val sdk = sdkInstance()
+            sdk.javaClass
+                .getMethod("init", Application::class.java, String::class.java, String::class.java)
+                .invoke(sdk, application, appKey, appSecret)
             true
         }.onFailure { logUnavailable("sdk_init_failed", it) }.getOrDefault(false)
     }

@@ -89,10 +89,10 @@ class RealtimeCallModelCatalogUiMapperTest {
         val options = resolveV88VoiceModelOptions(response = null)
 
         assertEquals(
-            listOf("QWEN_OMNI_PLUS", "DOUBAO", "DOUBAO_SEEDUPLEX_3_0"),
+            listOf("QWEN_OMNI_PLUS", "DOUBAO"),
             options.map { it.id }
         )
-        assertEquals(listOf(false, false, false), options.map { it.enabled })
+        assertEquals(listOf(false, false), options.map { it.enabled })
     }
 
     @Test
@@ -112,7 +112,7 @@ class RealtimeCallModelCatalogUiMapperTest {
         )
 
         assertEquals(
-            listOf("QWEN_OMNI_PLUS", "DOUBAO", "DOUBAO_SEEDUPLEX_3_0"),
+            listOf("QWEN_OMNI_PLUS", "DOUBAO"),
             resolveV88VoiceModelOptions(response).map { it.id }
         )
     }

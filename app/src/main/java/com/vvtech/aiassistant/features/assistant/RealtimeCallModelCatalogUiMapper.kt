@@ -38,8 +38,7 @@ internal fun resolveV88VoiceModelOptions(
 
 private val SHARED_AI_CALL_MODEL_IDS = setOf(
     "QWEN_OMNI_PLUS",
-    "DOUBAO",
-    "DOUBAO_SEEDUPLEX_3_0"
+    "DOUBAO"
 )
 
 internal fun normalizeAiCallModelId(provider: String): String =

@@ -98,7 +98,7 @@ APK 输出到 `app/build/outputs/apk/prod/debug/`，同时会归档到 `app/apks
 
 ## SDK 边界
 
-公开仓库随源码分发公司自有且已加固的 CHAKEN 可信通信 SDK，文件位于 `app/libs/`。SDK 的客户端 AppKey/Secret 不写入 Git，构建方仍须通过本机 `local.properties` 或 Gradle 参数注入获得授权的、可撤销且权限受限的客户端参数。
+公开仓库随源码分发公司自有且已加固的 CHAKEN 可信通信 SDK，文件位于 `app/libs/`。经授权可公开分发的客户端 AppKey/Secret 已作为 Gradle 默认值随源码提供，直接构建即可初始化可信通信能力；需要轮换时可通过本机 `local.properties` 或 Gradle 参数覆盖。
 
 阿里云金融级实人认证 SDK 及其人脸、安全和风控组件未获得公开再分发授权，因此不随仓库提供。获得合法授权后，可把这些 AAR/JAR 放到被 Git 忽略的 `app/private-libs/`。缺少它们时，新建声音克隆的身份认证不可用，但不影响登录、任务、后台 AI 通话和记录等基础功能。详见[第三方组件说明](THIRD_PARTY_NOTICES.md)。
 

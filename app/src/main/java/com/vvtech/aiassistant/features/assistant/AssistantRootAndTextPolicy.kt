@@ -332,7 +332,7 @@ internal fun safeVoiceCloneModelText(value: Any?): String = value?.toString().or
 internal fun String.toV88VoiceModelId(): String {
     return when (uppercase(Locale.ROOT)) {
         "DOUBAO", "VOLCANO" -> "DOUBAO"
-        "DOUBAO_SEEDUPLEX_3_0" -> "DOUBAO_SEEDUPLEX_3_0"
+        "DOUBAO_SEEDUPLEX_3_0" -> "QWEN_OMNI_PLUS"
         "QWEN_OMNI_PLUS", "QWEN_OMNI_FLASH", "ALIBABA" -> "QWEN_OMNI_PLUS"
         "OPENAI_GPT_REALTIME_2", "GPT4O", "GPT" -> "GPT"
         else -> V88VoiceModelOptions.first().id
@@ -351,7 +351,7 @@ internal fun String.toRealtimeCallProviderValue(): String? {
     return when (uppercase(Locale.ROOT)) {
         "QWEN_OMNI_PLUS", "QWEN_OMNI_FLASH", "ALIBABA" -> "QWEN_OMNI_PLUS"
         "DOUBAO", "VOLCANO" -> "DOUBAO"
-        "DOUBAO_SEEDUPLEX_3_0" -> "DOUBAO_SEEDUPLEX_3_0"
+        "DOUBAO_SEEDUPLEX_3_0" -> "QWEN_OMNI_PLUS"
         "GPT", "GPT4O", "OPENAI_GPT_REALTIME_2" -> null
         else -> null
     }

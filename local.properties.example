@@ -7,11 +7,11 @@
 # Optional: point the local flavor at an authorized compatible service.
 # serverBaseUrl=https://your-compatible-service.example/
 
-# Bundled CHAKEN trusted-call SDK client authorization. Do not commit real values.
-# Values embedded in an APK are extractable; use only revocable client-scoped credentials
-# that the service explicitly permits in an Android application.
-# optionalIncallSdkAppKey=
-# optionalIncallSdkAppSecret=
+# Optional: override the public client-scoped authorization bundled for the hardened
+# CHAKEN trusted-call SDK. Values embedded in an APK are extractable, so overrides
+# must also be revocable and explicitly permitted in an Android application.
+# optionalIncallSdkAppKey=10090
+# optionalIncallSdkAppSecret=replace-with-an-authorized-client-secret
 
 # Optional translation endpoints.
 # assistantTranslationWebRtcDefaultUrl=https://translate-us-webrtc.vvtech.tech

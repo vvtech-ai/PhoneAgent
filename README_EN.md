@@ -98,7 +98,7 @@ See [Build and configuration](docs/BUILD_AND_CONFIGURATION.md) for details.
 
 ## SDK boundary
 
-The public repository redistributes the company's own hardened CHAKEN trusted-call SDK under `app/libs/`. Client AppKey/Secret values are not committed; builders must inject authorized, revocable, least-privileged client parameters through local `local.properties` or Gradle properties.
+The public repository redistributes the company's own hardened CHAKEN trusted-call SDK under `app/libs/`. The client-scoped AppKey/Secret authorized for public distribution are included as Gradle defaults, so a direct build can initialize trusted-call support. Builders may override them through local `local.properties` or Gradle properties when rotating the authorization.
 
 Alibaba Cloud financial-grade identity verification, face, security, and risk-control binaries are not redistributed. Authorized integrators may place those separately licensed AAR/JAR files in the Git-ignored `app/private-libs/` directory. Without them, new voice-clone identity verification is unavailable, while sign-in, task handling, hosted AI calls, and history continue to work. See [Third-party notices](THIRD_PARTY_NOTICES.md).
 

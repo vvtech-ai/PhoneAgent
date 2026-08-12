@@ -23,8 +23,11 @@ def hostedServerBaseUrl = localOrProjectProperty(
 if (!hostedServerBaseUrl.endsWith("/")) {
     hostedServerBaseUrl += "/"
 }
-def optionalIncallSdkAppKey = localOrProjectProperty("optionalIncallSdkAppKey", "")
-def optionalIncallSdkAppSecret = localOrProjectProperty("optionalIncallSdkAppSecret", "")
+// These client-scoped credentials belong to the company's bundled hardened SDK and
+// are intentionally published with the open-source terminal. Builders can still
+// override them with -P or local.properties when rotating the client authorization.
+def optionalIncallSdkAppKey = localOrProjectProperty("optionalIncallSdkAppKey", "10090")
+def optionalIncallSdkAppSecret = localOrProjectProperty("optionalIncallSdkAppSecret", 'S@YD7P0BKW$j%JGV')
 def escapedBuildConfigValue = { String value ->
     value.replace("\\", "\\\\").replace("\"", "\\\"")
 }
