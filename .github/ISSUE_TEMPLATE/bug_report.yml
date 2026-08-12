@@ -1,0 +1,54 @@
+name: Bug report / 问题反馈
+description: Report a reproducible Android client problem / 反馈可复现的 Android 终端问题
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include phone numbers, verification codes, tokens, credentials, recordings, transcripts, or identity material.
+        请勿提交手机号、验证码、Token、账号密钥、录音、转写或身份材料。
+  - type: input
+    id: version
+    attributes:
+      label: App version and commit / 应用版本与提交
+      placeholder: "versionName, commit SHA"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android version / 设备与 Android 版本
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps / 复现步骤
+      placeholder: "1. ...\n2. ...\n3. ..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior / 预期行为
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior / 实际行为
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Redacted diagnostics / 脱敏诊断信息
+      description: Include only redacted logs, screenshots, network type, and build variant.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Sensitive-data check / 敏感数据检查
+      options:
+        - label: I removed all credentials and personal communication data. / 我已移除所有密钥及个人通信数据。
+          required: true
