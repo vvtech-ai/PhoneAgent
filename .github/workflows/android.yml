@@ -12,12 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: android-actions/setup-android@v3
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "11"
           cache: gradle
-      - uses: android-actions/setup-android@v3
       - name: Make Gradle wrapper executable
         run: chmod +x gradlew
       - name: Compile app and all unit-test sources
