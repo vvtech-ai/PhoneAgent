@@ -89,7 +89,7 @@ Call Skill SDK 当前尚未发布。项目会先公开概念模型与提案流�
 - 本地缓存、联系人、通话记录和 OTA 集成
 - 公司自有且已加固的 CHAKEN 可信通信 SDK
 
-详细模块边界见[终端架构](ARCHITECTURE.md)。
+终端、后台、SIP/PSTN、远端模型和开源范围的完整关系见[全栈架构与开源边界](ARCHITECTURE.html)。
 
 ## 开源与服务边界
 

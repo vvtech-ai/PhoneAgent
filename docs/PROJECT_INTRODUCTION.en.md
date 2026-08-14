@@ -89,7 +89,7 @@ The Call Skill SDK has not been released. The project intends to publish the con
 - Local caching, contacts, call log, and OTA integration
 - First-party hardened CHAKEN trusted-call SDK
 
-See [Client architecture](ARCHITECTURE.md) for module boundaries.
+See [Full-stack architecture and open-source boundary](ARCHITECTURE.html) for the client, backend, SIP/PSTN, model-provider, and project-scope view.
 
 ## Open-source and service boundary
 
