@@ -1,180 +1,180 @@
-# PhoneAgent · 电话智能体，你的语音分身
+# PhoneAgent · AI Calling Agent, Your Voice Delegate
 
-**面向真实电话任务的开源智能 Agent。**
+**An open-source intelligent Agent built for real phone tasks.**
 
-用语音或文字描述预约、通知、事务协调或跨语言沟通需求。PhoneAgent 会协助补齐关键信息，在你确认后执行受支持的电话流程，并把通话状态、转写和任务结果带回终端。
+Describe an appointment, notification, coordination task, or cross-language conversation by voice or text. PhoneAgent helps complete the key details, executes a supported calling workflow after your confirmation, and returns call status, transcripts, and task results to the client.
 
-[下载 APK](https://github.com/wewayteam/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [查看源码](.) · [快速构建](#快速开始) · [申请邀请码](https://chaken.ai)
+[Download APK](https://github.com/wewayteam/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [View source](.) · [Quick start](#quick-start) · [Request an invite code](https://chaken.ai)
 
-> PhoneAgent 客户端源码公开，可自由查看、构建和参与贡献。App 当前处于受控测试阶段，需要使用邀请码激活。
+> The PhoneAgent client source is public and open for inspection, building, and contribution. The app is currently in controlled testing and requires an invite code for activation.
 
-![PhoneAgent 首页](docs/images/home.png)
+![PhoneAgent home screen](docs/images/home.png)
 
-## 用 AI 完成一项电话任务
+## Complete a phone task with AI
 
 ```text
-说出或输入需求
-  → 补齐时间、地点、联系人等信息
-  → 确认通话对象和任务内容
-  → 执行受支持的电话流程
-  → 回看状态、转写和任务结果
+Speak or type a request
+  → complete the time, location, contacts, and other details
+  → confirm the callee and task content
+  → execute a supported calling workflow
+  → review status, transcripts, and task results
 ```
 
-PhoneAgent 聚焦真实电话事务：
+PhoneAgent focuses on real telephone workflows:
 
-- 与普通聊天助手相比，它会把需求带入确认、通话和结果回传流程；
-- 与通用 Agent 产品相比，它专注 AI 电话任务和实时翻译。
+- unlike a general chat assistant, it moves a request through confirmation, calling, and result delivery;
+- unlike a general-purpose Agent product, it specializes in AI phone tasks and real-time translation.
 
-## 核心能力
+## Core capabilities
 
-- **语音或文字创建任务**：直接描述想要完成的电话事务。
-- **关键信息补齐**：整理时间、地点、联系人、号码、人数和偏好。
-- **执行前确认**：拨号前展示通话对象、关键内容和执行范围。
-- **Agent 电话任务流程**：理解目标、补齐信息、请求确认，并与托管服务协同完成受支持的电话任务。
-- **可切换语音模型**：根据电话场景和使用偏好，选择托管服务当前开放的语音模型，发挥不同模型在实时语音对话、表达和跨语言沟通中的能力。
-- **实时翻译**：在支持的模型和地区展示双方转写与译文。
-- **联系人辅助**：获得授权后读取联系人，也可以手工输入号码。
-- **结果回看**：查看任务状态、通话记录、转写和任务结果。
+- **Create tasks by voice or text**: describe the phone task you want to complete.
+- **Complete key details**: organize time, location, contacts, numbers, party size, and preferences.
+- **Confirm before execution**: review the callee, key content, and execution scope before dialing.
+- **Agent calling workflow**: understand the goal, collect missing details, request confirmation, and coordinate supported phone tasks with the hosted service.
+- **Switchable voice models**: select from voice models currently enabled by the hosted service to fit different real-time conversation, expression, and cross-language scenarios.
+- **Real-time translation**: display transcripts and translated text for both parties where supported by the model and region.
+- **Contact assistance**: read contacts after permission is granted or accept a manually entered number.
+- **Reviewable results**: inspect task state, call history, transcripts, and task results.
 
-## 典型场景
+## Typical scenarios
 
-| 场景 | PhoneAgent 如何协助 | 当前状态 |
+| Scenario | How PhoneAgent helps | Current status |
 | --- | --- | --- |
-| 餐厅预订 | 整理时间、人数、地点和偏好，确认后进入电话流程 | 已内置入口 |
-| 会议邀请 | 整理联系人和通知内容，回收通话结果 | 已内置入口 |
-| 实时翻译 | 发起翻译电话，显示双方转写和译文 | 已支持 |
-| 通用电话任务 | 用语音或文字描述事务，补齐信息后执行 | App 内未开放 |
-| 社区 Call Skill | 为预约、售后、物流等场景设计可复用流程 | 规划中，SDK 尚未发布 |
+| Restaurant reservations | Organizes time, party size, location, and preferences before entering the calling workflow | Built-in entry |
+| Meeting invitations | Organizes contacts and notification content, then collects call outcomes | Built-in entry |
+| Real-time translation | Starts a translated call and displays both transcripts and translations | Supported |
+| General phone tasks | Describes a task by voice or text, completes details, and executes it | Not exposed in the app |
+| Community Call Skills | Designs reusable workflows for appointments, support, logistics, and more | Planned; SDK not released |
 
-具体可用能力受账号、模型、线路、地区和托管服务运行状态影响。
+Actual availability depends on the account, model, telephony route, region, and hosted-service status.
 
-### Agent 与语音模型分工
+### Agent and voice-model responsibilities
 
-PhoneAgent 将电话任务能力与语音模型分开：Agent 负责理解和完成任务，语音模型负责通话中的实时语音理解与表达。用户可以切换托管服务当前开放的语音模型，发挥不同模型的能力；模型切换将在下次通话时生效。
+PhoneAgent separates phone-task intelligence from the voice model. The Agent understands and completes the task; the voice model handles real-time speech understanding and expression during the call. Users can choose among models currently enabled by the hosted service. A model change takes effect on the next call.
 
-| Agent | 语音模型 |
+| Agent | Voice model |
 | --- | --- |
-| 理解用户要完成什么任务 | 处理通话中的语音理解与生成 |
-| 补齐时间、地点等任务必要信息 | 影响语音交互、响应和表达效果 |
-| 请求用户确认任务 | 支撑实时对话或翻译 |
-| 编排电话流程并处理异常 | 提供音色、声音克隆能力 |
-| 汇总状态、转写和任务回执 | 执行 Agent 确定的任务目标和通话要求 |
+| Understands the task the user wants to complete | Handles speech understanding and generation during the call |
+| Collects required details such as time and location | Affects interaction, responsiveness, and expression |
+| Requests task confirmation from the user | Supports real-time conversation or translation |
+| Orchestrates the calling workflow and handles exceptions | Provides voices and voice-cloning capabilities |
+| Summarizes status, transcripts, and task receipts | Executes the task goal and call requirements set by the Agent |
 
-## 产品体验
+## Product experience
 
-| 创建任务 | AI 通话 |
+| Create a task | AI call |
 | --- | --- |
-| ![创建任务](docs/images/task-text.png) | ![AI 通话](docs/images/dialer.png) |
+| ![Create a task](docs/images/task-text.png) | ![AI call](docs/images/dialer.png) |
 
-| 任务回执 | 可切换语音模型 |
+| Task receipt | Switchable voice models |
 | --- | --- |
-| ![任务回执](docs/images/call-history.png) | ![可切换语音模型](docs/images/voice-settings.png) |
+| ![Task receipt](docs/images/call-history.png) | ![Switchable voice models](docs/images/voice-settings.png) |
 
-[查看完整产品导览](docs/PROJECT_INTRODUCTION.zh-CN.md)
+[View the complete product tour](docs/PROJECT_INTRODUCTION.en.md)
 
-## 下载并安装
+## Download and install
 
-[**下载 PhoneAgent v1.0.36 签名 APK**](https://github.com/wewayteam/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [查看最新 Release](https://github.com/wewayteam/PhoneAgent/releases/latest)
+[**Download the signed PhoneAgent v1.0.36 APK**](https://github.com/wewayteam/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [View the latest release](https://github.com/wewayteam/PhoneAgent/releases/latest)
 
-- 适用于 Android 8.0（API 26）及以上、`arm64-v8a` 设备；
-- 默认连接 PhoneAgent 开源托管服务，首次使用需要[申请邀请码](https://chaken.ai)；
-- 文件 SHA-256：`ee2dbd2fcd260f6d4a5b927a4567b3d7e356f1b554cdab95fe33b51f289046b6`；
-- 签名证书 SHA-256：`017bb27a94baf1549ce7021363e2efc0bf86d93e6a48834c7489288966af2a4b`。
+- Requires Android 8.0 (API 26) or later on an `arm64-v8a` device.
+- Connects to the PhoneAgent hosted open-source service by default. An [invite code](https://chaken.ai) is required for first-time activation.
+- File SHA-256: `ee2dbd2fcd260f6d4a5b927a4567b3d7e356f1b554cdab95fe33b51f289046b6`.
+- Signing certificate SHA-256: `017bb27a94baf1549ce7021363e2efc0bf86d93e6a48834c7489288966af2a4b`.
 
-下载后在 Android 系统中允许当前浏览器或文件管理器“安装未知应用”，再打开 APK 完成安装。如果设备上已有由其他证书签名的同包名版本，Android 会拒绝覆盖安装；请先备份必要数据，再卸载旧版本后安装，卸载会清除旧版本的本地数据。
+After downloading, allow your browser or file manager to install unknown apps, then open the APK. Android cannot update an installed app with an APK signed by a different certificate. If that happens, back up any required data before uninstalling the old build; uninstalling removes its local data.
 
-## 快速开始
+## Quick start
 
-### 环境要求
+### Requirements
 
 - JDK 11
-- Android Studio 或 Android SDK Command-line Tools
+- Android Studio or Android SDK command-line tools
 - Android SDK 33
-- Android 8.0（API 26）及以上真机
+- A physical device running Android 8.0 (API 26) or later
 
-### 构建调试 APK
+### Build a debug APK
 
-Windows：
+Windows:
 
 ```powershell
 Copy-Item local.properties.example local.properties
 .\gradlew.bat :app:assembleProdDebug
 ```
 
-macOS / Linux：
+macOS / Linux:
 
 ```bash
 cp local.properties.example local.properties
 ./gradlew :app:assembleProdDebug
 ```
 
-请先在 `local.properties` 中填写 Android SDK 路径。构建产物位于：
+Set the Android SDK path in `local.properties` first. The APK is generated under:
 
 ```text
 app/build/outputs/apk/prod/debug/
 ```
 
-详细配置请查看[构建与配置](docs/BUILD_AND_CONFIGURATION.md)。
+See [Build and configuration](docs/BUILD_AND_CONFIGURATION.md) for details.
 
-## 申请邀请码
+## Request an invite code
 
-App 当前需要邀请码激活。邀请码可用于体验已经接入的语音模型、SIP 通信及 PhoneAgent 电话任务流程。前往 PhoneAgent 官网，只需填写邮箱即可加入申请名单：
+The app currently requires an invite code for activation. An invite code provides access to the connected voice models, SIP communication, and PhoneAgent calling workflows. Visit the PhoneAgent website and submit your email address to join the request list:
 
-[填写邮箱，申请邀请码](https://chaken.ai)
+[Submit your email and request an invite code](https://chaken.ai)
 
-我们会根据服务承载能力分批发送邀请码。请留意申请邮箱中的通知。
+Invite codes are sent in batches according to service capacity. Watch the inbox of the email address you submit.
 
-> 官方不会出售邀请码，请勿通过第三方购买。
+> Official invite codes are not sold. Do not purchase one from a third party.
 
-## 一起验证真实电话场景
+## Help validate real phone scenarios
 
-除邀请码申请外，PhoneAgent 的场景征集、活动、讨论和成果均在开源社区进行。
+Apart from invite-code requests, PhoneAgent scenario proposals, activities, discussions, and results belong in the open-source community.
 
-### 电话场景征集：提交 Call Skill 设计
+### Scenario call: submit a Call Skill design
 
-PhoneAgent 希望把预约、通知、售后、物流和跨语言沟通等场景组织成可复用的 Call Skill。欢迎把你最想交给 AI 的一通电话整理成 Call Skill 设计，发送到指定邮箱。优秀提案有机会获得 PhoneAgent 邀请码。
+PhoneAgent aims to organize appointments, notifications, support, logistics, and cross-language communication as reusable Call Skills. Turn the call you most want AI to handle into a Call Skill design and submit it to the designated email address. Strong proposals may receive a PhoneAgent invite code.
 
-一个 Call Skill 计划描述：
+A Call Skill is expected to describe:
 
-- 匹配哪些用户需求；
-- 需要收集和确认哪些信息；
-- 通话中遵循什么策略；
-- 可以调用哪些工具；
-- 如何处理拒绝、无应答和异常；
-- 如何判断任务是否完成；
-- 返回什么结构化结果；
-- 需要哪些权限和安全约束。
+- which user requests it matches;
+- which information must be collected and confirmed;
+- which strategy the call follows;
+- which tools it may use;
+- how it handles rejection, no answer, and exceptions;
+- how it determines task completion;
+- which structured result it returns;
+- which permissions and safety constraints apply.
 
-投稿建议包含：场景与目标用户、必要输入、用户确认点、通话策略、拒绝与无应答处理、完成标准、结果格式、权限与合规风险，以及测试用例。
+We recommend including the scenario and target users, required inputs, confirmation points, calling policy, rejection and no-answer handling, completion criteria, result format, permission and compliance risks, and test cases.
 
-> **Call Skill SDK、运行时和分发平台尚未发布。** 当前征集的是场景设计提案，不是可运行的 Skill 包。
+> **The Call Skill SDK, runtime, and distribution platform have not been released.** The current call is for scenario-design proposals, not executable Skill packages.
 
-投稿邮箱待公布 · [了解 Call Skill 愿景](docs/CALL_SKILLS.zh-CN.md) · [查看路线图](docs/ROADMAP.zh-CN.md)
+Submission email to be announced · [Call Skill vision](docs/CALL_SKILLS.en.md) · [Roadmap](docs/ROADMAP.en.md)
 
-## 开源范围
+## Open-source scope
 
-| 本仓库包含 | 本仓库不包含 |
+| Included in this repository | Not included |
 | --- | --- |
-| Kotlin / Jetpack Compose Android 客户端源码 | 后台源码、管理后台和数据库结构 |
-| 任务、网络、语音、SIP、WebRTC 和界面逻辑 | 后台部署脚本、生产配置和生产数据 |
-| Android 测试样例及项目文档 | 模型、短信、SIP、地图等服务端凭据 |
-| 获授权公开分发的 CHAKEN 可信通信 SDK | 未获公开再分发授权的商业 SDK |
-| Call Skill 愿景和社区提案入口 | Call Skill SDK、运行时和分发平台 |
+| Kotlin and Jetpack Compose Android client source | Backend source, admin console, and database schema |
+| Task, networking, voice, SIP, WebRTC, and UI logic | Backend deployment scripts, production configuration, and production data |
+| Android test fixtures and project documentation | Server-side model, SMS, SIP, map, and other credentials |
+| CHAKEN trusted-call SDK authorized for public redistribution | Commercial SDKs without public redistribution permission |
+| Call Skill vision and community-proposal entry point | Call Skill SDK, runtime, and distribution platform |
 
-客户端默认连接 PhoneAgent 托管服务。开发者可以接入自行实现的兼容服务，但需要独立实现客户端使用的认证、任务、通话、事件和记录契约。
+The client connects to the PhoneAgent hosted service by default. Developers may connect an independently implemented compatible service, but must implement the authentication, task, calling, event, and history contracts used by the client.
 
-[了解后台服务边界](docs/BACKEND_SERVICE.md) · [查看终端架构](docs/ARCHITECTURE.html)
+[Hosted backend boundary](docs/BACKEND_SERVICE.md) · [Client and full-stack architecture](docs/ARCHITECTURE.html)
 
-![PhoneAgent 客户端与托管服务架构](docs/images/architecture.png)
+![PhoneAgent client and hosted-service architecture](docs/images/architecture.png)
 
-## 负责任地使用与参与贡献
+## Responsible use and contribution
 
-真实外呼、录音和翻译应遵守所在地法律、运营商规则及服务条款。请勿在 Issue、日志或测试材料中提交真实号码、验证码、Token、录音、转写或身份材料，也不得将 PhoneAgent 用于骚扰、垃圾营销、欺骗或未经授权的身份模拟。
+Real outbound calls, recordings, and translation must comply with applicable laws, carrier rules, and service terms. Never submit real phone numbers, verification codes, tokens, recordings, transcripts, or identity materials in issues, logs, or test artifacts. PhoneAgent must not be used for harassment, spam calling, deception, or unauthorized impersonation.
 
-欢迎贡献客户端改进、Bug 修复、测试、文档和 Call Skill 场景提案。开始前请阅读[贡献指南](CONTRIBUTING.md)，并关注后续公开的 Good First Issues。
+Contributions are welcome for client improvements, bug fixes, tests, documentation, and Call Skill scenario proposals. Read the [contribution guide](CONTRIBUTING.md) first and watch for future Good First Issues.
 
-[隐私与权限](docs/PRIVACY_AND_PERMISSIONS.md) · [安全策略](SECURITY.md) · [已知问题](docs/KNOWN_ISSUES.md)
+[Privacy and permissions](docs/PRIVACY_AND_PERMISSIONS.md) · [Security policy](SECURITY.md) · [Known issues](docs/KNOWN_ISSUES.md)
 
-## 许可证
+## License
 
-本仓库中由著作权人提供的终端源码采用 [Apache License 2.0](LICENSE)。第三方组件、托管服务和可选商业 SDK 适用各自许可与服务条款，详见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+First-party client source in this repository is licensed under the [Apache License 2.0](LICENSE). Third-party components, hosted services, and optional commercial SDKs remain subject to their respective licenses and service terms. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
