@@ -4,7 +4,7 @@
 
 用语音或文字描述预约、通知、事务协调或跨语言沟通需求。PhoneAgent 会协助补齐关键信息，在你确认后执行受支持的电话流程，并把通话状态、转写和任务结果带回终端。
 
-[查看源码](.) · [快速构建](#快速开始) · [申请邀请码](https://chaken.ai)
+[下载 APK](https://github.com/wewayteam/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [查看源码](.) · [快速构建](#快速开始) · [申请邀请码](https://chaken.ai)
 
 > PhoneAgent 客户端源码公开，可自由查看、构建和参与贡献。App 当前处于受控测试阶段，需要使用邀请码激活。
 
@@ -71,6 +71,17 @@ PhoneAgent 将电话任务能力与语音模型分开：Agent 负责理解和完
 | ![任务回执](docs/images/call-history.png) | ![可切换语音模型](docs/images/voice-settings.png) |
 
 [查看完整产品导览](docs/PROJECT_INTRODUCTION.zh-CN.md)
+
+## 下载并安装
+
+[**下载 PhoneAgent v1.0.36 签名 APK**](https://github.com/wewayteam/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [查看最新 Release](https://github.com/wewayteam/PhoneAgent/releases/latest)
+
+- 适用于 Android 8.0（API 26）及以上、`arm64-v8a` 设备；
+- 默认连接 PhoneAgent 开源托管服务，首次使用需要[申请邀请码](https://chaken.ai)；
+- 文件 SHA-256：`ee2dbd2fcd260f6d4a5b927a4567b3d7e356f1b554cdab95fe33b51f289046b6`；
+- 签名证书 SHA-256：`017bb27a94baf1549ce7021363e2efc0bf86d93e6a48834c7489288966af2a4b`。
+
+下载后在 Android 系统中允许当前浏览器或文件管理器“安装未知应用”，再打开 APK 完成安装。如果设备上已有由其他证书签名的同包名版本，Android 会拒绝覆盖安装；请先备份必要数据，再卸载旧版本后安装，卸载会清除旧版本的本地数据。
 
 ## 快速开始
 

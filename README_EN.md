@@ -4,7 +4,7 @@
 
 Describe an appointment, notification, coordination task, or cross-language conversation by voice or text. PhoneAgent helps complete the key details, executes a supported calling workflow after your confirmation, and returns call status, transcripts, and task results to the client.
 
-[View source](.) · [Quick start](#quick-start) · [Request an invite code](https://chaken.ai)
+[Download APK](https://github.com/wewayteam/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [View source](.) · [Quick start](#quick-start) · [Request an invite code](https://chaken.ai)
 
 > The PhoneAgent client source is public and open for inspection, building, and contribution. The app is currently in controlled testing and requires an invite code for activation.
 
@@ -71,6 +71,17 @@ PhoneAgent separates phone-task intelligence from the voice model. The Agent und
 | ![Task receipt](docs/images/call-history.png) | ![Switchable voice models](docs/images/voice-settings.png) |
 
 [View the complete product tour](docs/PROJECT_INTRODUCTION.en.md)
+
+## Download and install
+
+[**Download the signed PhoneAgent v1.0.36 APK**](https://github.com/wewayteam/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [View the latest release](https://github.com/wewayteam/PhoneAgent/releases/latest)
+
+- Requires Android 8.0 (API 26) or later on an `arm64-v8a` device.
+- Connects to the PhoneAgent hosted open-source service by default. An [invite code](https://chaken.ai) is required for first-time activation.
+- File SHA-256: `ee2dbd2fcd260f6d4a5b927a4567b3d7e356f1b554cdab95fe33b51f289046b6`.
+- Signing certificate SHA-256: `017bb27a94baf1549ce7021363e2efc0bf86d93e6a48834c7489288966af2a4b`.
+
+After downloading, allow your browser or file manager to install unknown apps, then open the APK. Android cannot update an installed app with an APK signed by a different certificate. If that happens, back up any required data before uninstalling the old build; uninstalling removes its local data.
 
 ## Quick start
 
