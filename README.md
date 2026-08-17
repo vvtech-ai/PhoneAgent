@@ -4,7 +4,7 @@
 
 Describe an appointment, notification, coordination task, or cross-language conversation by voice or text. PhoneAgent helps complete the key details, executes a supported calling workflow after your confirmation, and returns call status, transcripts, and task results to the client.
 
-[Download APK](https://github.com/wewayteam/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [View source](.) · [Quick start](#quick-start) · [Request an invite code](https://chaken.ai)
+[Download APK](https://github.com/vvtech-ai/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [View source](.) · [Quick start](#quick-start) · [Request an invite code](https://chaken.ai)
 
 > The PhoneAgent client source is public and open for inspection, building, and contribution. The app is currently in controlled testing and requires an invite code for activation.
 
@@ -70,11 +70,11 @@ PhoneAgent separates phone-task intelligence from the voice model. The Agent und
 | --- | --- |
 | ![Task receipt](docs/images/call-history.png) | ![Switchable voice models](docs/images/voice-settings.png) |
 
-[View the complete product tour](docs/PROJECT_INTRODUCTION.en.md)
+[View the complete product tour](docs/PROJECT_INTRODUCTION.md)
 
 ## Download and install
 
-[**Download the signed PhoneAgent v1.0.36 APK**](https://github.com/wewayteam/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [View the latest release](https://github.com/wewayteam/PhoneAgent/releases/latest)
+[**Download the signed PhoneAgent v1.0.36 APK**](https://github.com/vvtech-ai/PhoneAgent/releases/download/v1.0.36/PhoneAgent-1.0.36.apk) · [View the latest release](https://github.com/vvtech-ai/PhoneAgent/releases/latest)
 
 - Requires Android 8.0 (API 26) or later on an `arm64-v8a` device.
 - Connects to the PhoneAgent hosted open-source service by default. An [invite code](https://chaken.ai) is required for first-time activation.
@@ -149,7 +149,7 @@ We recommend including the scenario and target users, required inputs, confirmat
 
 > **The Call Skill SDK, runtime, and distribution platform have not been released.** The current call is for scenario-design proposals, not executable Skill packages.
 
-Submission email to be announced · [Call Skill vision](docs/CALL_SKILLS.en.md) · [Roadmap](docs/ROADMAP.en.md)
+Submission email to be announced · [Call Skill vision](docs/CALL_SKILLS.md) · [Roadmap](docs/ROADMAP.md)
 
 ## Open-source scope
 
@@ -165,7 +165,12 @@ The client connects to the PhoneAgent hosted service by default. Developers may 
 
 [Hosted backend boundary](docs/BACKEND_SERVICE.md) · [Client and full-stack architecture](docs/ARCHITECTURE.html)
 
-![PhoneAgent client and hosted-service architecture](docs/images/architecture.png)
+```mermaid
+flowchart LR
+    A[Home and tasks] --> B[Task understanding]
+    B --> C[Call execution]
+    C --> D[History and settings]
+```
 
 ## Responsible use and contribution
 

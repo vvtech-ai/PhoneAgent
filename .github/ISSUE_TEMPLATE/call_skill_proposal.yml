@@ -1,5 +1,5 @@
-name: Call Skill proposal / 通话技能提案
-description: Propose a future Call Skill scenario / 提议未来的 Call Skill 场景
+name: Call Skill proposal
+description: Propose a future Call Skill scenario
 title: "[Call Skill] "
 labels: ["call-skill", "proposal"]
 body:
@@ -7,53 +7,52 @@ body:
     attributes:
       value: |
         The Call Skill SDK is not released. This template collects design proposals, not executable packages.
-        Call Skill SDK 尚未发布。本模板用于收集设计提案，不代表提案当前可以执行。
   - type: input
     id: scenario
     attributes:
-      label: Scenario / 场景
+      label: Scenario
       placeholder: "Restaurant reservation, repair appointment, ..."
     validations:
       required: true
   - type: textarea
     id: user_value
     attributes:
-      label: User and value / 用户与价值
+      label: User and value
       description: Who needs this Skill, and what phone task should it complete?
     validations:
       required: true
   - type: textarea
     id: inputs
     attributes:
-      label: Inputs and confirmation / 输入与确认
+      label: Inputs and confirmation
       description: List required/optional fields and what must be explicitly confirmed.
     validations:
       required: true
   - type: textarea
     id: policy
     attributes:
-      label: Dialogue policy and tools / 对话策略与工具
+      label: Dialogue policy and tools
       description: Describe allowed actions, external tools, constraints, and handoff rules.
     validations:
       required: true
   - type: textarea
     id: results
     attributes:
-      label: Result schema / 结果结构
+      label: Result schema
       description: Describe success, partial, failure, and human-handoff results.
     validations:
       required: true
   - type: textarea
     id: safety
     attributes:
-      label: Safety, privacy, and compliance / 安全、隐私与合规
+      label: Safety, privacy, and compliance
       description: Cover consent, numbers, contacts, recording, location, retention, frequency, and regional limits.
     validations:
       required: true
   - type: textarea
     id: tests
     attributes:
-      label: Test scenarios / 测试场景
+      label: Test scenarios
       description: Include happy path, rejection, no answer, conflicting information, and failure recovery.
     validations:
       required: true

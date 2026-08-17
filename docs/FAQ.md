@@ -1,7 +1,5 @@
 # Frequently Asked Questions
 
-English | [简体中文](FAQ.zh-CN.md)
-
 ## What is open sourced today?
 
 This repository includes the Android client source, build configuration, test fixtures, documentation, and the first-party hardened CHAKEN trusted-call SDK authorized for public redistribution. It does not include backend source, an admin console, databases, or production operations configuration.
@@ -24,7 +22,7 @@ Those credentials belong only in controlled server-side environments. They must 
 
 ## Can I develop a Call Skill today?
 
-Not yet. Call Skills are a public roadmap direction. The current repository publishes the vision, conceptual model, and contribution path—not an executable SDK. Status changes will appear in the [roadmap](ROADMAP.en.md).
+Not yet. Call Skills are a public roadmap direction. The current repository publishes the vision, conceptual model, and contribution path—not an executable SDK. Status changes will appear in the [roadmap](ROADMAP.md).
 
 ## What can I contribute now?
 

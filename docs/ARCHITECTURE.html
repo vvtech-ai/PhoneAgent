@@ -1,303 +1,264 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>Phone Agent 全栈架构与开源边界</title>
+  <title>PhoneAgent Full-Stack Architecture and Open-Source Boundary</title>
   <style>
     :root {
-      --bg: #f4f7fb; --panel: #fff; --ink: #172033; --muted: #5e6b82;
-      --line: #dce4f1; --brand: #3157d5; --brand-soft: #edf2ff;
-      --client: #0c7c68; --client-soft: #e9f8f4; --server: #6d44c5;
-      --server-soft: #f3effd; --external: #b75f08; --external-soft: #fff4e8;
-      --open: #08783f; --closed: #a4412b; --shadow: 0 14px 42px rgba(35,55,90,.09);
+      --bg:#f4f7fb;--panel:#fff;--ink:#172033;--muted:#5e6b82;--line:#dce4f1;
+      --brand:#3157d5;--brand-soft:#edf2ff;--client:#0c7c68;--client-soft:#e9f8f4;
+      --server:#6d44c5;--server-soft:#f3effd;--external:#b75f08;--external-soft:#fff4e8;
+      --open:#08783f;--closed:#a4412b;--shadow:0 14px 42px rgba(35,55,90,.09);
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; color: var(--ink); background: var(--bg); font: 15px/1.68 Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
-    a { color: var(--brand); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    code { padding: .12em .4em; border-radius: 5px; background: #edf1f7; font: .9em/1.5 Consolas, monospace; }
-    .shell { display: grid; grid-template-columns: 245px minmax(0, 1080px); gap: 30px; max-width: 1380px; margin: auto; padding: 28px; }
-    .toc { position: sticky; top: 18px; align-self: start; max-height: calc(100vh - 36px); overflow: auto; padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.93); box-shadow: var(--shadow); }
-    .toc strong { display: block; margin-bottom: 10px; font-size: 17px; }
-    .toc a { display: block; padding: 6px 8px; color: var(--muted); border-radius: 7px; }
-    .toc a:hover { color: var(--brand); background: var(--brand-soft); text-decoration: none; }
-    main { min-width: 0; }
-    .hero { padding: 42px; border-radius: 24px; color: white; background: linear-gradient(135deg,#213a9b,#4774ed 58%,#18a28b); box-shadow: var(--shadow); }
-    .eyebrow { font-weight: 700; letter-spacing: .12em; opacity: .78; text-transform: uppercase; }
-    h1 { margin: 10px 0 12px; font-size: clamp(30px,5vw,50px); line-height: 1.12; }
-    .hero p { max-width: 820px; margin: 0; font-size: 17px; opacity: .94; }
-    .meta { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 24px; }
-    .pill { padding: 6px 11px; border-radius: 999px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.26); font-size: 13px; }
-    section { margin-top: 28px; padding: 30px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); box-shadow: var(--shadow); }
-    h2 { margin: 0 0 8px; font-size: 26px; line-height: 1.25; }
-    h3 { margin: 24px 0 8px; font-size: 19px; }
-    .lead { margin-top: 0; color: var(--muted); }
-    .legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0; color: var(--muted); }
-    .dot { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 50%; }
-    .architecture { display: grid; gap: 18px; margin-top: 22px; }
-    .zone { padding: 18px; border: 2px solid; border-radius: 18px; }
-    .zone.client { border-color: #9ad6c9; background: var(--client-soft); }
-    .zone.server { border-color: #c4b4eb; background: var(--server-soft); }
-    .zone.external { border-color: #f0c18f; background: var(--external-soft); }
-    .zone-title { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 13px; }
-    .zone-title strong { font-size: 20px; }
-    .zone-title small { color: var(--muted); }
-    .cards { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
-    .card { min-width: 0; padding: 15px; border: 1px solid rgba(95,110,140,.22); border-radius: 13px; background: rgba(255,255,255,.82); }
-    .card b { display: block; margin-bottom: 5px; color: var(--ink); }
-    .card span, .card li { color: var(--muted); font-size: 13px; }
-    .card ul { margin: 6px 0 0; padding-left: 18px; }
-    .connector { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; color: var(--muted); text-align: center; font-size: 13px; }
-    .connector::before,.connector::after { content: ""; height: 1px; background: var(--line); }
-    .flow { display: grid; grid-template-columns: repeat(5,1fr); gap: 10px; margin-top: 18px; }
-    .step { position: relative; padding: 15px; border-radius: 12px; background: var(--brand-soft); border: 1px solid #cfdaff; }
-    .step:not(:last-child)::after { content: "→"; position: absolute; right: -10px; top: 35%; z-index: 2; color: var(--brand); font-weight: 800; }
-    .step b { display: block; margin-bottom: 4px; }
-    .step small { color: var(--muted); }
-    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px; }
-    th,td { padding: 11px 12px; border: 1px solid var(--line); vertical-align: top; text-align: left; }
-    th { background: #f0f4fa; }
-    td ul { margin: 0; padding-left: 18px; }
-    .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; white-space: nowrap; }
-    .tag.open { color: var(--open); background: #e6f7ed; }
-    .tag.closed { color: var(--closed); background: #fff0ec; }
-    .tag.plan { color: #8b6100; background: #fff5cc; }
-    .note { margin-top: 16px; padding: 14px 16px; border-left: 4px solid var(--brand); background: var(--brand-soft); border-radius: 8px; }
-    .callout { padding: 17px; border-radius: 13px; background: #f7f9fc; border: 1px solid var(--line); }
-    .footer { margin: 24px 0 60px; color: var(--muted); text-align: center; font-size: 13px; }
-    @media (max-width: 1050px) { .shell { grid-template-columns: 1fr; } .toc { position: static; max-height: none; } .toc a { display: inline-block; } .cards { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 680px) { .shell { padding: 12px; } .hero,section { padding: 21px; border-radius: 16px; } .cards,.two,.flow { grid-template-columns: 1fr; } .step:not(:last-child)::after { content: "↓"; right: 50%; top: auto; bottom: -16px; } table { display: block; overflow-x: auto; } }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg:#101521;--panel:#171e2b;--ink:#edf2ff;--muted:#acb7ca;--line:#303a4d;--brand-soft:#202d50;--client-soft:#112d29;--server-soft:#261f38;--external-soft:#352618;--shadow:none; }
-      .toc,.card { background: rgba(23,30,43,.94); } code,th,.callout { background:#222b3b; }
-    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}
+    body{margin:0;color:var(--ink);background:var(--bg);font:15px/1.68 Inter,system-ui,sans-serif}
+    a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+    code{padding:.12em .4em;border-radius:5px;background:#edf1f7;font: .9em/1.5 Consolas,monospace}
+    .shell{display:grid;grid-template-columns:245px minmax(0,1080px);gap:30px;max-width:1380px;margin:auto;padding:28px}
+    .toc{position:sticky;top:18px;align-self:start;max-height:calc(100vh - 36px);overflow:auto;padding:20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.93);box-shadow:var(--shadow)}
+    .toc strong{display:block;margin-bottom:10px;font-size:17px}.toc a{display:block;padding:6px 8px;color:var(--muted);border-radius:7px}.toc a:hover{color:var(--brand);background:var(--brand-soft);text-decoration:none}
+    main{min-width:0}.hero{padding:42px;border-radius:24px;color:white;background:linear-gradient(135deg,#213a9b,#4774ed 58%,#18a28b);box-shadow:var(--shadow)}
+    .eyebrow{font-weight:700;letter-spacing:.12em;opacity:.78;text-transform:uppercase}h1{margin:10px 0 12px;font-size:clamp(30px,5vw,50px);line-height:1.12}.hero p{max-width:820px;margin:0;font-size:17px;opacity:.94}
+    .meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}.pill{padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);font-size:13px}
+    section{margin-top:28px;padding:30px;border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:var(--shadow)}
+    h2{margin:0 0 8px;font-size:26px;line-height:1.25}h3{margin:24px 0 8px;font-size:19px}.lead{margin-top:0;color:var(--muted)}
+    .legend{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0;color:var(--muted)}.dot{display:inline-block;width:10px;height:10px;margin-right:6px;border-radius:50%}
+    .architecture{display:grid;gap:18px;margin-top:22px}.zone{padding:18px;border:2px solid;border-radius:18px}.zone.client{border-color:#9ad6c9;background:var(--client-soft)}.zone.server{border-color:#c4b4eb;background:var(--server-soft)}.zone.external{border-color:#f0c18f;background:var(--external-soft)}
+    .zone-title{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin-bottom:13px}.zone-title strong{font-size:20px}.zone-title small{color:var(--muted)}
+    .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.card{min-width:0;padding:15px;border:1px solid rgba(95,110,140,.22);border-radius:13px;background:rgba(255,255,255,.82)}.card b{display:block;margin-bottom:5px}.card span,.card li{color:var(--muted);font-size:13px}.card ul{margin:6px 0 0;padding-left:18px}
+    .connector{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;color:var(--muted);text-align:center;font-size:13px}.connector::before,.connector::after{content:"";height:1px;background:var(--line)}
+    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}.step{position:relative;padding:15px;border-radius:12px;background:var(--brand-soft);border:1px solid #cfdaff}.step:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:35%;z-index:2;color:var(--brand);font-weight:800}.step b{display:block;margin-bottom:4px}.step small{color:var(--muted)}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}.callout{padding:17px;border-radius:13px;background:#f7f9fc;border:1px solid var(--line)}
+    table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px}th,td{padding:11px 12px;border:1px solid var(--line);vertical-align:top;text-align:left}th{background:#f0f4fa}td ul{margin:0;padding-left:18px}
+    .tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}.tag.open{color:var(--open);background:#e6f7ed}.tag.closed{color:var(--closed);background:#fff0ec}.tag.plan{color:#8b6100;background:#fff5cc}
+    .note{margin-top:16px;padding:14px 16px;border-left:4px solid var(--brand);background:var(--brand-soft);border-radius:8px}.footer{margin:24px 0 60px;color:var(--muted);text-align:center;font-size:13px}
+    @media(max-width:1050px){.shell{grid-template-columns:1fr}.toc{position:static;max-height:none}.toc a{display:inline-block}.cards{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:680px){.shell{padding:12px}.hero,section{padding:21px;border-radius:16px}.cards,.two,.flow{grid-template-columns:1fr}.step:not(:last-child)::after{content:"↓";right:50%;top:auto;bottom:-16px}table{display:block;overflow-x:auto}}
+    @media(prefers-color-scheme:dark){:root{--bg:#101521;--panel:#171e2b;--ink:#edf2ff;--muted:#acb7ca;--line:#303a4d;--brand-soft:#202d50;--client-soft:#112d29;--server-soft:#261f38;--external-soft:#352618;--shadow:none}.toc,.card{background:rgba(23,30,43,.94)}code,th,.callout{background:#222b3b}}
   </style>
 </head>
 <body>
 <div class="shell">
-  <nav class="toc" aria-label="文档目录">
-    <strong>架构文档</strong>
-    <a href="#overview">1. 全景架构</a>
-    <a href="#client">2. Android 终端</a>
-    <a href="#backend">3. 托管后台</a>
-    <a href="#providers">4. 外部平台</a>
-    <a href="#flows">5. 核心链路</a>
-    <a href="#data">6. 数据与安全</a>
-    <a href="#opensource">7. 开源边界</a>
-    <a href="#skills">8. Call Skill</a>
-    <a href="#deployment">9. 部署视图</a>
+  <nav class="toc" aria-label="Document navigation">
+    <strong>Architecture</strong>
+    <a href="#overview">1. System overview</a>
+    <a href="#client">2. Android client</a>
+    <a href="#backend">3. Hosted backend</a>
+    <a href="#providers">4. External platforms</a>
+    <a href="#flows">5. Core workflows</a>
+    <a href="#data">6. Data and security</a>
+    <a href="#opensource">7. Open-source scope</a>
+    <a href="#skills">8. Call Skills</a>
+    <a href="#deployment">9. Deployment view</a>
     <hr>
-    <a href="../README.md">返回中文 README</a>
-    <a href="../README_EN.md">English README</a>
+    <a href="../README.md">Back to README</a>
   </nav>
 
   <main>
     <header class="hero">
-      <div class="eyebrow">Phone Agent Architecture</div>
-      <h1>全栈架构与开源边界</h1>
-      <p>从 Android 终端、托管后台，到 SIP/PSTN、远端模型、短信、地图、身份认证和存储平台，说明一次电话智能体任务如何流转，以及公开仓库实际开放了哪些部分。</p>
+      <div class="eyebrow">PhoneAgent Architecture</div>
+      <h1>Full-Stack Architecture and Open-Source Boundary</h1>
+      <p>This document follows a phone-agent task from the Android client through the hosted backend to SIP/PSTN, remote models, SMS, maps, identity verification, and storage. It also defines exactly which components are included in this public repository.</p>
       <div class="meta">
-        <span class="pill">Android：Kotlin + Jetpack Compose</span>
-        <span class="pill">Backend：Spring Boot + Java</span>
+        <span class="pill">Android: Kotlin + Jetpack Compose</span>
+        <span class="pill">Backend: Java + Spring Boot</span>
         <span class="pill">HTTP / SSE / WebSocket</span>
         <span class="pill">SIP / RTP / WebRTC</span>
-        <span class="pill">文档基于当前代码核对</span>
+        <span class="pill">Verified against the current codebase</span>
       </div>
     </header>
 
     <section id="overview">
-      <h2>1. 全景架构</h2>
-      <p class="lead">系统由开源 Android 终端、非开源托管后台和多个外部服务组成。终端负责用户交互与设备能力，后台负责账号、Agent、任务和电话编排，外部平台提供模型及通信基础设施。</p>
+      <h2>1. System overview</h2>
+      <p class="lead">The system consists of an open-source Android client, a non-public hosted backend, and external communication and AI services. The client owns interaction and device capabilities; the backend owns accounts, Agent orchestration, task state, and telephony coordination.</p>
       <div class="legend">
-        <span><i class="dot" style="background:var(--client)"></i>公开仓库</span>
-        <span><i class="dot" style="background:var(--server)"></i>托管后台（不在本仓库）</span>
-        <span><i class="dot" style="background:var(--external)"></i>外部平台</span>
+        <span><i class="dot" style="background:var(--client)"></i>Public repository</span>
+        <span><i class="dot" style="background:var(--server)"></i>Hosted backend, outside this repository</span>
+        <span><i class="dot" style="background:var(--external)"></i>External platform</span>
       </div>
       <div class="architecture">
         <div class="zone client">
-          <div class="zone-title"><strong>Android 终端 · 开源</strong><small>用户交互、设备能力、媒体与状态呈现</small></div>
+          <div class="zone-title"><strong>Open-source Android client</strong><small>User interaction, device capabilities, media, and state presentation</small></div>
           <div class="cards">
-            <div class="card"><b>Compose UI</b><span>登录、首页、任务、拨号、翻译、记录、设置</span></div>
-            <div class="card"><b>状态与领域</b><span>ViewModel、StateFlow、任务/号码/回执策略</span></div>
-            <div class="card"><b>数据访问</b><span>Retrofit、OkHttp、SSE、WebSocket、Repository</span></div>
-            <div class="card"><b>设备与媒体</b><span>联系人、通话记录、麦克风、SIP/WebRTC、可信通信</span></div>
+            <div class="card"><b>Compose UI</b><span>Sign-in, home, tasks, dialer, translation, history, and settings</span></div>
+            <div class="card"><b>State and domain</b><span>ViewModels, StateFlow, task, number, and receipt policies</span></div>
+            <div class="card"><b>Data access</b><span>Retrofit, OkHttp, SSE, WebSocket, and repositories</span></div>
+            <div class="card"><b>Device and media</b><span>Contacts, call log, microphone, SIP/WebRTC, and trusted calling</span></div>
           </div>
         </div>
-        <div class="connector">HTTPS JSON · SSE Agent 事件 · WebSocket 双向音频/状态</div>
+        <div class="connector">HTTPS JSON · SSE Agent events · bidirectional WebSocket audio and state</div>
         <div class="zone server">
-          <div class="zone-title"><strong>Phone Agent 托管后台 · 非开源</strong><small>鉴权、任务编排、会话状态、供应商适配</small></div>
+          <div class="zone-title"><strong>Non-public hosted backend</strong><small>Authentication, task orchestration, session state, and provider adapters</small></div>
           <div class="cards">
-            <div class="card"><b>接入层</b><span>REST Controller、SSE、WebSocket、鉴权和限流</span></div>
-            <div class="card"><b>业务编排</b><span>Agent Session、Task、Skill、Call、Receipt、History</span></div>
-            <div class="card"><b>通信编排</b><span>SIP 账号池、路由、媒体桥、接管、翻译电话</span></div>
-            <div class="card"><b>基础设施</b><span>模型、短信、地图、数据库、Redis、对象存储适配</span></div>
+            <div class="card"><b>Access layer</b><span>REST, SSE, WebSocket, authentication, and rate limits</span></div>
+            <div class="card"><b>Business orchestration</b><span>Agent sessions, tasks, Skills, calls, receipts, and history</span></div>
+            <div class="card"><b>Communication</b><span>SIP pools, routing, media bridges, takeover, and translated calls</span></div>
+            <div class="card"><b>Infrastructure</b><span>Models, SMS, maps, databases, Redis, and object storage</span></div>
           </div>
         </div>
-        <div class="connector">供应商 API / WebSocket · SIP 信令 · RTP 音频 · JDBC / Redis / S3</div>
+        <div class="connector">Provider APIs and WebSockets · SIP signaling · RTP audio · JDBC / Redis / S3</div>
         <div class="zone external">
-          <div class="zone-title"><strong>外部平台</strong><small>由部署环境配置，凭据只存在服务端</small></div>
+          <div class="zone-title"><strong>External platforms</strong><small>Configured by the deployment; credentials remain server-side</small></div>
           <div class="cards">
-            <div class="card"><b>电话网络</b><span>可配置 SIP 平台/中继 → 运营商/PSTN → 被叫电话</span></div>
-            <div class="card"><b>AI 模型</b><span>DeepSeek、通义千问/百炼、豆包/火山引擎</span></div>
-            <div class="card"><b>业务服务</b><span>短信平台、高德 Web Service、阿里云身份认证</span></div>
-            <div class="card"><b>数据设施</b><span>MySQL、Redis、S3 兼容对象存储或本地存储</span></div>
+            <div class="card"><b>Telephony</b><span>Configurable SIP platform or trunk → carrier/PSTN → callee</span></div>
+            <div class="card"><b>AI models</b><span>DeepSeek, Qwen/Model Studio, and Doubao/Volcengine</span></div>
+            <div class="card"><b>Business services</b><span>SMS, AMap Web Service, and identity verification</span></div>
+            <div class="card"><b>Data services</b><span>MySQL, Redis, S3-compatible storage, or local files</span></div>
           </div>
         </div>
       </div>
     </section>
 
     <section id="client">
-      <h2>2. Android 终端架构</h2>
-      <p class="lead">终端不是模型密钥或 SIP 生产账号的持有者。它负责采集用户意图、获得确认、调用后台契约、承载实时媒体并展示结果。</p>
+      <h2>2. Android client architecture</h2>
+      <p class="lead">The client does not hold production model keys or SIP accounts. It captures user intent, obtains confirmation, invokes hosted contracts, carries authorized real-time media, and presents results.</p>
       <div class="two">
-        <div class="callout"><h3>UI Layer</h3><ul><li>Jetpack Compose 页面和导航</li><li><code>UiState / UiAction / UiEffect</code></li><li>权限引导、任务确认和结果展示</li></ul></div>
-        <div class="callout"><h3>Domain Layer</h3><ul><li>任务、号码、联系人和回执规则</li><li>通话、翻译、语音状态转换</li><li>UseCase / Coordinator / Policy</li></ul></div>
-        <div class="callout"><h3>Data Layer</h3><ul><li>Retrofit HTTP API 与 SSE Agent 流</li><li>WebSocket 音频和实时事件</li><li>Repository、DTO、Mapper、本地缓存和日志</li></ul></div>
-        <div class="callout"><h3>Integration Layer</h3><ul><li>联系人、通话记录、相机、麦克风和 OTA</li><li>LiveKit、火山 RTC、SIP/WebRTC 音频</li><li>随仓库提供的 CHAKEN 可信通信 SDK</li></ul></div>
+        <div class="callout"><h3>UI layer</h3><ul><li>Jetpack Compose screens and navigation</li><li><code>UiState / UiAction / UiEffect</code></li><li>Permission guidance, confirmation, and results</li></ul></div>
+        <div class="callout"><h3>Domain layer</h3><ul><li>Task, number, contact, and receipt rules</li><li>Call, translation, and voice state transitions</li><li>Use cases, coordinators, and policies</li></ul></div>
+        <div class="callout"><h3>Data layer</h3><ul><li>Retrofit HTTP APIs and SSE Agent streams</li><li>WebSocket audio and real-time events</li><li>Repositories, DTOs, mappers, caches, and logs</li></ul></div>
+        <div class="callout"><h3>Integration layer</h3><ul><li>Contacts, call log, camera, microphone, and OTA</li><li>LiveKit, Volcengine RTC, and SIP/WebRTC audio</li><li>Bundled CHAKEN trusted-call SDK</li></ul></div>
       </div>
       <table>
-        <thead><tr><th>终端通道</th><th>主要用途</th><th>安全边界</th></tr></thead>
+        <thead><tr><th>Client channel</th><th>Primary use</th><th>Security boundary</th></tr></thead>
         <tbody>
-          <tr><td>HTTPS / JSON</td><td>登录、设置、任务、联系人、记录、OTA、日志上传</td><td>使用账号访问令牌；服务端 Key 不下发</td></tr>
-          <tr><td>SSE</td><td>Agent 增量回复、工具事件、任务进度和通话回执</td><td>通过 <code>sessionId/taskId/callId</code> 关联</td></tr>
-          <tr><td>WebSocket</td><td>ASR/TTS、实时转写、通话监听/接管、翻译音频</td><td>握手鉴权、时长和并发限制由后台控制</td></tr>
-          <tr><td>SIP / WebRTC / RTC</td><td>终端侧拨号、媒体或实时语音能力</td><td>依场景使用；生产账号与服务能力由后台租约/配置决定</td></tr>
+          <tr><td>HTTPS / JSON</td><td>Sign-in, settings, tasks, contacts, history, OTA, and logs</td><td>Uses account tokens; server keys are never delivered</td></tr>
+          <tr><td>SSE</td><td>Agent replies, tool events, task progress, and call receipts</td><td>Correlated by <code>sessionId</code>, <code>taskId</code>, and <code>callId</code></td></tr>
+          <tr><td>WebSocket</td><td>ASR/TTS, transcripts, monitoring/takeover, and translation audio</td><td>Handshake authentication, duration, and concurrency are controlled by the backend</td></tr>
+          <tr><td>SIP / WebRTC / RTC</td><td>Client-side dialing, media, or real-time voice</td><td>Production accounts and capabilities are assigned by backend lease or configuration</td></tr>
         </tbody>
       </table>
     </section>
 
     <section id="backend">
-      <h2>3. 托管后台架构</h2>
-      <p class="lead">当前实现是 Java/Spring Boot 服务，使用 Spring MVC、WebSocket、JPA、Redis、MySQL 驱动和 JAIN SIP 等组件。下列后台代码不随本开源仓库提供。</p>
+      <h2>3. Hosted backend architecture</h2>
+      <p class="lead">The current hosted implementation is a Java/Spring Boot service using Spring MVC, WebSocket, JPA, Redis, MySQL drivers, and JAIN SIP. Its source is not included in this repository.</p>
       <table>
-        <thead><tr><th>层/子系统</th><th>职责</th><th>代表性能力</th></tr></thead>
+        <thead><tr><th>Layer or subsystem</th><th>Responsibility</th><th>Representative capabilities</th></tr></thead>
         <tbody>
-          <tr><td>接入与安全</td><td>处理 HTTP/SSE/WebSocket、登录会话、Token、限流和管理端隔离</td><td>短信登录、Agent API、Realtime API、WebSocket 握手</td></tr>
-          <tr><td>Agent 与任务</td><td>理解用户目标、补齐信息、选择内置 Skill、执行工具并推进状态</td><td>文本/流式会话、餐厅检索、会议/多路任务、回执</td></tr>
-          <tr><td>通话领域</td><td>创建单路或批量电话、维护 Call Outbox、路由模型和 SIP 资源</td><td>呼叫编排、并发限制、失败恢复、录音与评价</td></tr>
-          <tr><td>实时语音</td><td>管理语音会话、ASR/TTS、模型代理、实时电话和人工接管</td><td>千问/豆包 Provider Router、音色、监听/接管</td></tr>
-          <tr><td>实时翻译</td><td>在 SIP 音频与翻译模型之间建立双向媒体桥</td><td>语言覆盖、转写/译文、翻译语音、异常恢复</td></tr>
-          <tr><td>账号与内容</td><td>账户设置、身份、联系人、首页配置、附件和声音克隆</td><td>模型偏好、音色、OCR 图片、身份认证</td></tr>
-          <tr><td>持久化与运维</td><td>保存业务状态、短期缓存、对象文件、日志和 OTA 元数据</td><td>MySQL/JPA、Redis、S3/本地存储、客户端日志</td></tr>
+          <tr><td>Access and security</td><td>HTTP/SSE/WebSocket, sessions, tokens, rate limits, and admin isolation</td><td>SMS sign-in, Agent APIs, real-time APIs, and WebSocket handshakes</td></tr>
+          <tr><td>Agent and tasks</td><td>Understands goals, completes details, selects built-in Skills, calls tools, and advances state</td><td>Streaming sessions, restaurant search, meetings, batch tasks, and receipts</td></tr>
+          <tr><td>Call domain</td><td>Creates single or batch calls, maintains the call outbox, selects routes, and leases SIP resources</td><td>Orchestration, concurrency limits, recovery, recording, and evaluation</td></tr>
+          <tr><td>Real-time voice</td><td>Manages voice sessions, ASR/TTS, model proxies, real-time calls, and human takeover</td><td>Qwen/Doubao routing, voices, monitoring, and takeover</td></tr>
+          <tr><td>Real-time translation</td><td>Bridges SIP audio with translation models</td><td>Language coverage, transcripts, translations, synthesized audio, and recovery</td></tr>
+          <tr><td>Accounts and content</td><td>Settings, identity, contacts, home configuration, attachments, and voice cloning</td><td>Model preferences, voices, OCR images, and identity verification</td></tr>
+          <tr><td>Persistence and operations</td><td>Business state, caches, objects, logs, and OTA metadata</td><td>MySQL/JPA, Redis, S3/local storage, and client logs</td></tr>
         </tbody>
       </table>
-      <div class="note"><b>状态追踪：</b>跨终端、Agent、SIP、模型和媒体桥的关键事件应携带 <code>traceId</code>、<code>sessionId</code>、<code>taskId</code>、<code>callId</code>、Provider 和状态变化，避免各模块维护互相竞争的事实源。</div>
+      <div class="note"><b>Traceability:</b> events across the client, Agent, SIP, model, and media bridge should carry <code>traceId</code>, <code>sessionId</code>, <code>taskId</code>, <code>callId</code>, provider, and state transitions so that modules do not maintain competing sources of truth.</div>
     </section>
 
     <section id="providers">
-      <h2>4. 后台对接的外部平台</h2>
-      <p class="lead">表中列出代码已经具备的适配边界，不表示所有 Provider 在每个部署环境都已启用。可用性取决于后台配置、账号权限、区域、额度和供应商状态。</p>
+      <h2>4. External platforms connected by the backend</h2>
+      <p class="lead">These are adapter boundaries visible in the implementation, not a promise that every provider is enabled in every environment. Availability depends on configuration, account permissions, region, quota, and provider status.</p>
       <table>
-        <thead><tr><th>平台/类别</th><th>后台用途</th><th>主要协议</th><th>配置位置</th></tr></thead>
+        <thead><tr><th>Platform or category</th><th>Backend use</th><th>Primary protocols</th><th>Configuration boundary</th></tr></thead>
         <tbody>
-          <tr><td><b>可配置 SIP 平台/中继</b></td><td>SIP 注册、呼叫建立/结束、国内/国际路由、账号池与 PSTN 外呼</td><td>SIP REGISTER / INVITE / BYE；RTP 音频；UDP 等可配置传输</td><td>仅后台环境变量/Secret；代码未锁定具体服务商品牌</td></tr>
-          <tr><td><b>DeepSeek</b></td><td>Agent 任务理解、规划和工具调用的大语言模型入口</td><td>HTTPS API</td><td>后台 <code>agent.deepseek</code> 配置</td></tr>
-          <tr><td><b>阿里云百炼 / 通义千问</b></td><td>文本模型、任务 ASR/TTS、实时语音电话、实时翻译、声音克隆</td><td>HTTPS + WebSocket</td><td>后台 Text LLM、Task Voice、Realtime、Translation 配置</td></tr>
-          <tr><td><b>火山引擎 / 豆包</b></td><td>任务 ASR/TTS、全双工实时语音、电话 Agent、实时翻译和 RTC</td><td>HTTPS + WebSocket + RTC</td><td>后台 Task Voice、Realtime、Translation 配置</td></tr>
-          <tr><td><b>短信平台</b></td><td>登录验证码、账号注册/登录流程</td><td>HTTPS</td><td>后台 SMS 配置；App 不保存短信密钥</td></tr>
-          <tr><td><b>高德 Web Service</b></td><td>餐厅等周边地点搜索、距离和候选结果</td><td>HTTPS REST</td><td>后台 AMap 配置；Web Service Key 不进入 APK</td></tr>
-          <tr><td><b>阿里云身份认证</b></td><td>声音克隆相关身份核验和材料处理</td><td>HTTPS / SDK</td><td>服务端凭据；终端商业认证二进制需另行授权</td></tr>
-          <tr><td><b>S3 兼容对象存储</b></td><td>OTA APK、首页素材、附件、日志或录音对象</td><td>S3 API / HTTPS</td><td>后台可选配置，也可使用本地文件存储</td></tr>
-          <tr><td><b>MySQL / Redis</b></td><td>账户、任务、会话、通话、回执持久化与短期状态/限流</td><td>JDBC / Redis</td><td>后台私有网络与 Secret</td></tr>
+          <tr><td><b>Configurable SIP platform or trunk</b></td><td>Registration, call setup/teardown, routing, account pools, and PSTN calls</td><td>SIP REGISTER / INVITE / BYE; RTP audio; configurable transport</td><td>Backend environment or secrets only; no vendor brand is hard-coded</td></tr>
+          <tr><td><b>DeepSeek</b></td><td>Language-model entry point for Agent understanding, planning, and tool calls</td><td>HTTPS API</td><td>Backend Agent configuration</td></tr>
+          <tr><td><b>Alibaba Cloud Model Studio / Qwen</b></td><td>Text, task ASR/TTS, real-time voice, translation, and voice cloning</td><td>HTTPS + WebSocket</td><td>Backend text, task voice, real-time, and translation configuration</td></tr>
+          <tr><td><b>Volcengine / Doubao</b></td><td>Task ASR/TTS, full-duplex voice, phone Agent, translation, and RTC</td><td>HTTPS + WebSocket + RTC</td><td>Backend task voice, real-time, and translation configuration</td></tr>
+          <tr><td><b>SMS provider</b></td><td>Verification codes and account registration/sign-in</td><td>HTTPS</td><td>Backend SMS configuration; the app stores no SMS secret</td></tr>
+          <tr><td><b>AMap Web Service</b></td><td>Nearby-place search, distance, and restaurant candidates</td><td>HTTPS REST</td><td>Backend AMap configuration; the Web Service key is not embedded in the APK</td></tr>
+          <tr><td><b>Alibaba Cloud identity verification</b></td><td>Identity checks and materials for voice cloning</td><td>HTTPS / SDK</td><td>Server credentials; commercial client binaries require separate authorization</td></tr>
+          <tr><td><b>S3-compatible storage</b></td><td>OTA APKs, home assets, attachments, logs, or recordings</td><td>S3 API / HTTPS</td><td>Optional backend configuration or local file storage</td></tr>
+          <tr><td><b>MySQL / Redis</b></td><td>Accounts, tasks, sessions, calls, receipts, short-lived state, and limits</td><td>JDBC / Redis</td><td>Private backend network and secrets</td></tr>
         </tbody>
       </table>
-      <div class="note"><b>模型目录说明：</b>当前通话 Provider 路由实现覆盖通义千问和豆包；代码中的 GPT Realtime 条目是“即将支持”占位，不应理解为当前可用 Provider。具体模型版本可能由后台配置更新。</div>
+      <div class="note"><b>Model catalog:</b> current calling-provider routing covers Qwen and Doubao. A GPT Realtime entry in the code is a future placeholder and must not be treated as an enabled provider. Specific model versions can change through backend configuration.</div>
     </section>
 
     <section id="flows">
-      <h2>5. 核心业务链路</h2>
-      <h3>5.1 Agent 电话任务</h3>
+      <h2>5. Core workflows</h2>
+      <h3>5.1 Agent phone task</h3>
       <div class="flow">
-        <div class="step"><b>1. 描述需求</b><small>终端语音或文字输入</small></div>
-        <div class="step"><b>2. Agent 理解</b><small>后台模型 + 内置 Skill/工具</small></div>
-        <div class="step"><b>3. 用户确认</b><small>号码、时间、对象、内容</small></div>
-        <div class="step"><b>4. 电话执行</b><small>SIP 账号池 + 实时模型</small></div>
-        <div class="step"><b>5. 结果回传</b><small>SSE/HTTP → 转写、回执、记录</small></div>
+        <div class="step"><b>1. Describe the need</b><small>Voice or text input</small></div>
+        <div class="step"><b>2. Agent understanding</b><small>Hosted model and built-in Skill/tools</small></div>
+        <div class="step"><b>3. User confirmation</b><small>Number, time, recipient, and content</small></div>
+        <div class="step"><b>4. Call execution</b><small>SIP account pool and real-time model</small></div>
+        <div class="step"><b>5. Result delivery</b><small>SSE/HTTP → transcript, receipt, and history</small></div>
       </div>
-      <h3>5.2 实时 AI 外呼媒体路径</h3>
+      <h3>5.2 Real-time AI call media path</h3>
       <div class="flow">
-        <div class="step"><b>后台编排器</b><small>选择账号、路由和模型</small></div>
-        <div class="step"><b>SIP 平台</b><small>信令注册与呼叫建立</small></div>
-        <div class="step"><b>PSTN 被叫</b><small>真实手机或固话</small></div>
-        <div class="step"><b>媒体桥</b><small>RTP ↔ PCM/Provider 音频</small></div>
-        <div class="step"><b>千问/豆包</b><small>ASR、对话、TTS 或端到端语音</small></div>
+        <div class="step"><b>Backend orchestrator</b><small>Selects account, route, and model</small></div>
+        <div class="step"><b>SIP platform</b><small>Registration and call signaling</small></div>
+        <div class="step"><b>PSTN callee</b><small>Mobile or landline</small></div>
+        <div class="step"><b>Media bridge</b><small>RTP ↔ PCM/provider audio</small></div>
+        <div class="step"><b>Qwen / Doubao</b><small>ASR, dialogue, TTS, or end-to-end voice</small></div>
       </div>
-      <h3>5.3 实时翻译电话</h3>
+      <h3>5.3 Real-time translated call</h3>
       <div class="flow">
-        <div class="step"><b>终端设置</b><small>号码、语言、Provider、音色</small></div>
-        <div class="step"><b>后台建会话</b><small>校验能力并分配 callId</small></div>
-        <div class="step"><b>SIP 媒体桥</b><small>被叫 RTP 与翻译音频</small></div>
-        <div class="step"><b>翻译模型</b><small>千问 LiveTranslate 或豆包 AST</small></div>
-        <div class="step"><b>终端呈现</b><small>双方转写、译文、状态与控制</small></div>
+        <div class="step"><b>Client settings</b><small>Number, languages, provider, and voice</small></div>
+        <div class="step"><b>Backend session</b><small>Validates capability and assigns a call ID</small></div>
+        <div class="step"><b>SIP media bridge</b><small>Callee RTP and translation audio</small></div>
+        <div class="step"><b>Translation model</b><small>Qwen LiveTranslate or Doubao AST</small></div>
+        <div class="step"><b>Client presentation</b><small>Transcripts, translations, state, and controls</small></div>
       </div>
-      <h3>5.4 多路会议邀请</h3>
-      <p>Agent 将联系人拆成独立呼叫任务，由后台在并发上限内为每一路租用 SIP 账号、创建模型会话并维护独立 <code>callId</code>。因此实际并发取决于：配置的 SIP 账号数量、线路是否允许并发/多设备注册、后台并发上限、模型并发额度和公网媒体可达性。</p>
+      <h3>5.4 Multi-party meeting invitations</h3>
+      <p>The Agent splits contacts into independent calls. Within the configured concurrency limit, the backend leases a SIP account, creates a model session, and maintains a distinct <code>callId</code> for each call. Effective concurrency depends on SIP-account count, route policy, multi-registration support, backend limits, model quotas, and public media reachability.</p>
     </section>
 
     <section id="data">
-      <h2>6. 数据、密钥与安全边界</h2>
+      <h2>6. Data, credentials, and security boundary</h2>
       <div class="two">
-        <div class="callout"><h3>终端可以保存</h3><ul><li>登录会话和刷新所需令牌</li><li>用户设置、模型/音色偏好和本地缓存</li><li>用户授权的联系人和通话记录读取结果</li><li>脱敏的客户端诊断日志</li></ul></div>
-        <div class="callout"><h3>只能保存在后台</h3><ul><li>模型 API Key / Secret</li><li>短信 App Secret 与模板凭据</li><li>SIP 用户名、密码、号码池和路由</li><li>高德 Web Service Key、数据库与对象存储 Secret</li></ul></div>
+        <div class="callout"><h3>Data the client may store</h3><ul><li>Sign-in and refresh tokens</li><li>User settings, model/voice preferences, and local caches</li><li>Authorized contact and call-log results</li><li>Redacted client diagnostics</li></ul></div>
+        <div class="callout"><h3>Data that must remain server-side</h3><ul><li>Model API keys and secrets</li><li>SMS secrets and template credentials</li><li>SIP usernames, passwords, pools, and routes</li><li>AMap Web Service keys, database secrets, and object-storage secrets</li></ul></div>
       </div>
-      <p class="note">CHAKEN 可信通信 SDK 的客户端授权参数经明确授权可随开源终端分发，但写入 APK 的值均可被提取，因此它们必须是可撤销、最小权限且只适用于客户端的参数。它们不等同于后台生产密钥。</p>
+      <p class="note">Client authorization parameters for the CHAKEN trusted-call SDK are explicitly approved for distribution with the open client. Values embedded in an APK remain extractable, so they must be revocable, least-privileged, and client-scoped. They are not production backend secrets.</p>
     </section>
 
     <section id="opensource">
-      <h2>7. 本项目开源部分包括哪些</h2>
-      <p class="lead">“Phone Agent 开源项目”在本仓库中专指 Android 终端及配套材料，不等于整个线上服务栈开源。</p>
+      <h2>7. What this project open sources</h2>
+      <p class="lead">In this repository, “the open-source PhoneAgent project” means the Android client and supporting materials. It does not mean the entire hosted service stack is open source.</p>
       <table>
-        <thead><tr><th>组件</th><th>状态</th><th>说明</th></tr></thead>
+        <thead><tr><th>Component</th><th>Status</th><th>Scope</th></tr></thead>
         <tbody>
-          <tr><td>Android 应用源码</td><td><span class="tag open">开源</span></td><td>Kotlin、Jetpack Compose、AndroidX；UI、任务、网络、语音、通话、翻译、记录和设置逻辑</td></tr>
-          <tr><td>客户端测试与构建</td><td><span class="tag open">开源</span></td><td>Gradle Wrapper、构建变体、单元测试、协议/策略测试和 GitHub CI</td></tr>
-          <tr><td>客户端通信实现</td><td><span class="tag open">开源</span></td><td>HTTP、SSE、WebSocket、客户端 SIP/WebRTC/RTC 集成和 Android 平台适配</td></tr>
-          <tr><td>CHAKEN 可信通信 SDK</td><td><span class="tag open">授权分发</span></td><td>公司自有且已加固的二进制随 <code>app/libs/</code> 提供；适用其自身授权边界</td></tr>
-          <tr><td>项目文档与截图</td><td><span class="tag open">开源仓库包含</span></td><td>README、构建、隐私、已知问题、架构、Call Skill 愿景和路线图</td></tr>
-          <tr><td>托管后台源码</td><td><span class="tag closed">不开源</span></td><td>Spring Boot 后台、Agent/Skill 编排、SIP 服务端媒体桥、管理后台和运维实现不在本仓库</td></tr>
-          <tr><td>数据库与部署材料</td><td><span class="tag closed">不提供</span></td><td>生产数据库、数据、后台部署拓扑、运行 Secret 和内部运维配置</td></tr>
-          <tr><td>生产服务账号与密钥</td><td><span class="tag closed">不提供</span></td><td>模型、短信、SIP、地图、对象存储、数据库和签名密钥</td></tr>
-          <tr><td>未获再分发授权的商业 SDK</td><td><span class="tag closed">不包含</span></td><td>例如声音克隆身份认证所需的部分商业 AAR/JAR，集成方需自行取得合法授权</td></tr>
-          <tr><td>Call Skill SDK / 市场</td><td><span class="tag plan">规划中</span></td><td>当前仅公开愿景和设计提案入口，尚无可执行的开发者 SDK 或分发平台</td></tr>
+          <tr><td>Android application source</td><td><span class="tag open">Open source</span></td><td>Kotlin, Jetpack Compose, AndroidX, UI, tasks, networking, voice, calling, translation, history, and settings</td></tr>
+          <tr><td>Client tests and build</td><td><span class="tag open">Open source</span></td><td>Gradle wrapper, variants, unit tests, protocol/policy tests, and GitHub CI</td></tr>
+          <tr><td>Client communication</td><td><span class="tag open">Open source</span></td><td>HTTP, SSE, WebSocket, client SIP/WebRTC/RTC integration, and Android adapters</td></tr>
+          <tr><td>CHAKEN trusted-call SDK</td><td><span class="tag open">Redistribution authorized</span></td><td>First-party hardened binaries under <code>app/libs/</code>, subject to their own authorization boundary</td></tr>
+          <tr><td>Documentation and screenshots</td><td><span class="tag open">Included</span></td><td>README, build, privacy, known issues, architecture, Call Skill vision, and roadmap</td></tr>
+          <tr><td>Hosted backend source</td><td><span class="tag closed">Not open source</span></td><td>Spring Boot backend, Agent/Skill orchestration, server-side SIP media bridge, admin console, and operations</td></tr>
+          <tr><td>Database and deployment materials</td><td><span class="tag closed">Not provided</span></td><td>Production databases, data, topology, runtime secrets, and internal operations configuration</td></tr>
+          <tr><td>Production accounts and credentials</td><td><span class="tag closed">Not provided</span></td><td>Model, SMS, SIP, map, storage, database, and signing credentials</td></tr>
+          <tr><td>Commercial SDKs without redistribution rights</td><td><span class="tag closed">Excluded</span></td><td>For example, commercial identity-verification AAR/JAR files required by parts of voice cloning</td></tr>
+          <tr><td>Call Skill SDK and marketplace</td><td><span class="tag plan">Planned</span></td><td>Only the vision and proposal path are public today; there is no executable developer SDK or distribution platform</td></tr>
         </tbody>
       </table>
-      <p>本仓库的 Apache-2.0 许可只适用于著作权人提供的终端源码，不自动授予托管服务、电话线路、短信额度、模型额度、域名、商标或第三方 SDK 的使用权。</p>
+      <p>The Apache-2.0 license applies to client source supplied by the copyright holder. It does not grant access to hosted capacity, telephony routes, SMS or model quotas, domains, trademarks, or third-party SDKs.</p>
     </section>
 
     <section id="skills">
-      <h2>8. Call Skill 在未来架构中的位置</h2>
-      <p class="lead">Call Skill 计划位于用户意图与后台电话执行之间，把场景的输入、确认、对话策略、工具、权限和结果格式标准化。</p>
+      <h2>8. Future position of Call Skills</h2>
+      <p class="lead">A Call Skill is intended to sit between user intent and backend call execution, standardizing scenario inputs, confirmation, dialogue policy, tools, permissions, and result schemas.</p>
       <div class="flow">
-        <div class="step"><b>用户意图</b><small>“帮我预约…”</small></div>
-        <div class="step"><b>Skill 匹配</b><small>场景与兼容性</small></div>
-        <div class="step"><b>输入与确认</b><small>槽位、权限、风险</small></div>
-        <div class="step"><b>受约束执行</b><small>对话策略与工具</small></div>
-        <div class="step"><b>结构化结果</b><small>成功、失败、接管和回执</small></div>
+        <div class="step"><b>User intent</b><small>“Book an appointment…”</small></div>
+        <div class="step"><b>Skill matching</b><small>Scenario and compatibility</small></div>
+        <div class="step"><b>Input and confirmation</b><small>Slots, permissions, and risk</small></div>
+        <div class="step"><b>Constrained execution</b><small>Dialogue policy and tools</small></div>
+        <div class="step"><b>Structured result</b><small>Success, failure, handoff, and receipt</small></div>
       </div>
-      <p class="note"><b>当前状态：</b>开源终端并不包含 Call Skill 运行时。未来开放时，仍需要后台能力协商、安全审核、版本兼容和电话服务授权，不能仅靠一个 Skill 文件绕过真实外呼边界。</p>
-      <p>继续阅读：<a href="CALL_SKILLS.zh-CN.md">Call Skill 愿景</a> · <a href="ROADMAP.zh-CN.md">项目路线图</a></p>
+      <p class="note"><b>Current status:</b> the open-source client does not contain a Call Skill runtime. A future release will still require backend capability negotiation, safety review, version compatibility, and telephony authorization. A Skill file alone cannot bypass real-call boundaries.</p>
+      <p>Continue with the <a href="CALL_SKILLS.md">Call Skill vision</a> and <a href="ROADMAP.md">project roadmap</a>.</p>
     </section>
 
     <section id="deployment">
-      <h2>9. 典型部署视图</h2>
+      <h2>9. Typical deployment view</h2>
       <div class="architecture">
-        <div class="zone client"><div class="zone-title"><strong>公网 Android 设备</strong><small>仅访问 HTTPS/WSS 与获授权媒体服务</small></div></div>
-        <div class="connector">DNS / TLS / 反向代理</div>
+        <div class="zone client"><div class="zone-title"><strong>Public Android device</strong><small>Uses only HTTPS/WSS and authorized media services</small></div></div>
+        <div class="connector">DNS / TLS / reverse proxy</div>
         <div class="zone server">
-          <div class="zone-title"><strong>应用区</strong><small>Spring Boot Backend</small></div>
-          <div class="cards"><div class="card"><b>API/SSE/WS</b><span>鉴权、限流、会话与业务接口</span></div><div class="card"><b>Agent/Call</b><span>任务、Skill、SIP、媒体桥和回执</span></div><div class="card"><b>持久层</b><span>MySQL、Redis、文件/S3</span></div><div class="card"><b>Secret 注入</b><span>环境变量或受控 ConfigTree</span></div></div>
+          <div class="zone-title"><strong>Application zone</strong><small>Spring Boot backend</small></div>
+          <div class="cards"><div class="card"><b>API/SSE/WS</b><span>Authentication, limits, sessions, and business APIs</span></div><div class="card"><b>Agent/Call</b><span>Tasks, Skills, SIP, media bridges, and receipts</span></div><div class="card"><b>Persistence</b><span>MySQL, Redis, and file/S3 storage</span></div><div class="card"><b>Secret injection</b><span>Environment variables or controlled ConfigTree</span></div></div>
         </div>
-        <div class="connector">受控出站网络 + SIP/RTP 入出站规则</div>
-        <div class="zone external"><div class="zone-title"><strong>供应商与公网电话网络</strong><small>模型、短信、地图、存储、SIP/PSTN</small></div></div>
+        <div class="connector">Controlled egress plus SIP/RTP ingress and egress rules</div>
+        <div class="zone external"><div class="zone-title"><strong>Providers and public telephone network</strong><small>Models, SMS, maps, storage, SIP, and PSTN</small></div></div>
       </div>
-      <p class="note">生产部署需同时验证 HTTPS/WSS、SIP 信令、RTP 端口/NAT、防火墙、账号注册并发和供应商额度。代码能证明对接方式，但不能替代 SIP 服务商侧路由授权、并发策略和公网放行检查。</p>
+      <p class="note">Production deployment must verify HTTPS/WSS, SIP signaling, RTP ports and NAT, firewall rules, account-registration concurrency, and provider quotas. The code proves the integration shape; it cannot prove SIP-provider routing rights, concurrency policy, or public firewall access.</p>
     </section>
 
-    <div class="footer">Phone Agent architecture document · 不包含任何生产账号、密钥或私有部署参数</div>
+    <div class="footer">PhoneAgent architecture document · Contains no production accounts, credentials, or private deployment parameters</div>
   </main>
 </div>
 </body>

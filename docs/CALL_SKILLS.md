@@ -1,7 +1,5 @@
 # Call Skill Vision
 
-English | [简体中文](CALL_SKILLS.zh-CN.md)
-
 > This document describes the public direction of Phone Agent. The Call Skill SDK, runtime, and distribution platform have not been released; all directories and interfaces below are conceptual examples.
 
 ## Why Call Skills

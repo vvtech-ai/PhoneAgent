@@ -1,7 +1,5 @@
 # Phone Agent Project Introduction
 
-English | [简体中文](PROJECT_INTRODUCTION.zh-CN.md)
-
 ## Turn a request into a phone-call result
 
 Phone Agent is an Android intelligent client for real phone tasks. Users do not need to learn a complex calling workflow first: they describe a need by voice or text, and the system helps organize key details, confirm the task, execute a supported call flow, and return status, transcripts, and results to the device.
@@ -10,7 +8,12 @@ The current client includes entries for restaurant reservations, meeting invitat
 
 This repository opens the Android client source. Model inference, SMS authentication, map search, task orchestration, telephony, and data services run on a hosted backend whose source is not included.
 
-![Software module structure](images/architecture.png)
+```mermaid
+flowchart LR
+    A[Home and tasks] --> B[Task understanding]
+    B --> C[Call execution]
+    C --> D[History and settings]
+```
 
 ## A complete user journey
 
@@ -77,7 +80,7 @@ User intent
   → return a structured result
 ```
 
-The Call Skill SDK has not been released. The project intends to publish the conceptual model and proposal process first, followed by specifications, SDKs, debugging and testing tools, and community distribution. See the [Call Skill vision](CALL_SKILLS.en.md) and [roadmap](ROADMAP.en.md).
+The Call Skill SDK has not been released. The project intends to publish the conceptual model and proposal process first, followed by specifications, SDKs, debugging and testing tools, and community distribution. See the [Call Skill vision](CALL_SKILLS.md) and [roadmap](ROADMAP.md).
 
 ## Technology overview
 

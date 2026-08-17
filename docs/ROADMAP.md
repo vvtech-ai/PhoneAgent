@@ -1,7 +1,5 @@
 # Phone Agent Roadmap
 
-English | [简体中文](ROADMAP.zh-CN.md)
-
 This roadmap communicates project direction. It does not promise release dates, service quotas, or final API shapes.
 
 ## Now: strengthen the open client
