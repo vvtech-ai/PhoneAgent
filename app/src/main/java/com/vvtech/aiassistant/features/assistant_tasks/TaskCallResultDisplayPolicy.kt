@@ -4,6 +4,9 @@ import com.vvtech.aiassistant.core.model.CallResultPayload
 import com.vvtech.aiassistant.core.model.CallSessionStatusResponse
 import com.vvtech.aiassistant.features.assistant.CallUiMode
 import com.vvtech.aiassistant.features.assistant.StatusStyle
+import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.Locale
 
 internal enum class CallDisplayOutcome {
@@ -36,11 +39,15 @@ internal fun callResultTaskStatus(result: CallResultPayload?): String {
 internal fun callResultStatusText(result: CallResultPayload?, sceneType: String? = null): String {
     return when (callResultOutcome(result)) {
         CallDisplayOutcome.Completed -> {
-            if (callDisplayIsBookingScene(sceneType)) "任务完成" else "完成"
+            if (callDisplayIsBookingScene(sceneType)) {
+                currentAppText("任务完成", "Task Complete")
+            } else {
+                currentAppText("完成", "Done")
+            }
         }
         CallDisplayOutcome.Cancelled -> callResultFailureLabel(result)
         CallDisplayOutcome.Failed -> callResultFailureLabel(result)
-        CallDisplayOutcome.Unclear -> "结果未确认"
+        CallDisplayOutcome.Unclear -> currentAppText("结果未确认", "Result Unconfirmed")
     }
 }
 
@@ -86,7 +93,11 @@ internal fun callSessionDisplayDecision(response: CallSessionStatusResponse): Ca
     val resultCode = normalized(response.resultCode)
     val bookingScene = callDisplayIsBookingScene(response.sceneType)
     val executionError = callSessionHasTechnicalFailure(response)
-    val failureLabel = if (executionError) "执行异常" else "未完成"
+    val failureLabel = if (executionError) {
+        currentAppText("执行异常", "Execution Error")
+    } else {
+        currentAppText("未完成", "Incomplete")
+    }
 
     val outcome = when {
         callState in setOf("CANCELLED", "CANCELED") ||
@@ -110,24 +121,24 @@ internal fun callSessionDisplayDecision(response: CallSessionStatusResponse): Ca
     val statusText = when (outcome) {
         CallDisplayOutcome.Completed -> {
             if (bookingScene) {
-                "任务完成"
+                currentAppText("任务完成", "Task Complete")
             } else {
-                response.resultText.takeIf { it.isNotBlank() }
-                    ?: response.resultReason.takeIf { it.isNotBlank() }
-                    ?: response.statusMessage.takeIf { it.isNotBlank() }
-                    ?: "任务完成"
+                listOf(response.resultText, response.resultReason, response.statusMessage)
+                    .firstOrNull { it.isNotBlank() }
+                    ?.let(::localizedCallDisplayText)
+                    ?: currentAppText("任务完成", "Task Complete")
             }
         }
         CallDisplayOutcome.Cancelled,
         CallDisplayOutcome.Failed -> failureLabel
-        CallDisplayOutcome.Unclear -> "结果未确认"
+        CallDisplayOutcome.Unclear -> currentAppText("结果未确认", "Result Unconfirmed")
     }
 
     val historyStatus = when (outcome) {
-        CallDisplayOutcome.Completed -> "任务完成"
+        CallDisplayOutcome.Completed -> currentAppText("任务完成", "Task Complete")
         CallDisplayOutcome.Cancelled,
         CallDisplayOutcome.Failed -> failureLabel
-        CallDisplayOutcome.Unclear -> "结果未确认"
+        CallDisplayOutcome.Unclear -> currentAppText("结果未确认", "Result Unconfirmed")
     }
 
     return CallSessionDisplayDecision(
@@ -152,10 +163,10 @@ internal fun callSessionTerminalDisplayPlan(
     val humanTakeoverTerminal = existingHistoryStatus == "人工接管" || currentCallUiMode == CallUiMode.Human
     if (humanTakeoverTerminal) {
         return CallSessionTerminalDisplayPlan(
-            historyStatus = "人工接管",
+            historyStatus = currentAppText("人工接管", "Human Takeover"),
             historyStyle = StatusStyle.Success,
             taskStatus = "COMPLETED",
-            statusText = "人工接管"
+            statusText = currentAppText("人工接管", "Human Takeover")
         )
     }
     return CallSessionTerminalDisplayPlan(
@@ -172,17 +183,17 @@ internal fun callPageResultStatusFromSource(
     @Suppress("UNUSED_PARAMETER") sceneType: String? = null
 ): String {
     val raw = status.trim()
-    if (raw.isBlank()) return "通话已结束"
+    if (raw.isBlank()) return currentAppText("通话已结束", "Call Ended")
     val upper = raw.uppercase(Locale.ROOT)
     val technicalSource = "$raw\n$detailSource"
     if (taskStatusHasTechnicalFailureSignal(technicalSource, technicalSource.uppercase(Locale.ROOT))) {
-        return "执行异常"
+        return currentAppText("执行异常", "Execution Error")
     }
     return when (upper) {
         "CANCELLED", "CANCELED", "USER_CANCELLED", "USER_CANCELED", "USER_INTERRUPTED",
         "FAILED", "ERROR", "FAIL", "INCOMPLETE", "UNCLEAR",
-        "已取消", "未完成", "失败" -> "未完成"
-        "COMPLETED", "SUCCESS", "DONE", "FINISHED" -> "结果未确认"
+        "已取消", "未完成", "失败" -> currentAppText("未完成", "Incomplete")
+        "COMPLETED", "SUCCESS", "DONE", "FINISHED" -> currentAppText("结果未确认", "Result Unconfirmed")
         else -> if (looksLikeTerminalCallResultStatus(raw)) raw else raw
     }
 }
@@ -262,7 +273,11 @@ private fun callResultTextHasFailureSignal(result: CallResultPayload): Boolean {
 }
 
 private fun callResultFailureLabel(result: CallResultPayload?): String =
-    if (callResultHasTechnicalFailure(result)) "执行异常" else "未完成"
+    if (callResultHasTechnicalFailure(result)) {
+        currentAppText("执行异常", "Execution Error")
+    } else {
+        currentAppText("未完成", "Incomplete")
+    }
 
 private fun callResultHasTechnicalFailure(result: CallResultPayload?): Boolean {
     if (result == null) return false
@@ -322,4 +337,14 @@ private fun normalized(value: String?): String = value?.trim()?.uppercase(Locale
 private fun String.looksGenericEnded(): Boolean {
     val normalized = trim()
     return normalized in setOf("通话已结束", "电话已结束", "任务完成", "任务已完成", "已完成")
+}
+
+private fun localizedCallDisplayText(value: String): String {
+    val trimmed = value.trim()
+    if (trimmed.isBlank()) return ""
+    return if (currentAppText("中文", "English") == "English") {
+        sanitizeUserFacingNetworkText(trimmed, VoiceLanguage.English)
+    } else {
+        trimmed
+    }
 }

@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.vvtech.aiassistant.BuildConfig
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.logging.AppFileLogger
 import com.vvtech.aiassistant.logging.RuntimeStateLogDomain
 import com.vvtech.aiassistant.logging.RuntimeStateLogEvent
@@ -58,7 +59,10 @@ internal class AssistantLogUploadRuntimeController(
                 )
                 Toast.makeText(
                     deps.context,
-                    "日志上传成功：" + response.originalFileName,
+                    currentAppText(
+                        "日志上传成功：${response.originalFileName}",
+                        "Logs uploaded: ${response.originalFileName}"
+                    ),
                     Toast.LENGTH_SHORT
                 ).show()
             }.onFailure { throwable ->
@@ -71,7 +75,10 @@ internal class AssistantLogUploadRuntimeController(
                 )
                 Toast.makeText(
                     deps.context,
-                    "日志上传失败：" + (throwable.message ?: "未知错误"),
+                    currentAppText(
+                        "日志上传失败：${throwable.message ?: "未知错误"}",
+                        "Failed to upload logs: ${throwable.message ?: "Unknown error"}"
+                    ),
                     Toast.LENGTH_SHORT
                 ).show()
             }

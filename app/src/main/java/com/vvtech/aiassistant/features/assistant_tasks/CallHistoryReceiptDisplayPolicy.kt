@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant_tasks
 
 import com.vvtech.aiassistant.features.assistant.TranscriptLine
 import com.vvtech.aiassistant.features.assistant.TranscriptRole
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 /** Keeps durable call-history rendering aligned with the pre-refactor live receipt policy. */
 internal fun callHistoryReceiptSummary(
@@ -24,14 +25,18 @@ internal fun callHistoryReceiptSummary(
         .firstOrNull { it.isNotBlank() && !it.isLowSignalAssistantLine() }
         ?.let { return it }
 
-    return if (success) "通话已完成" else "外呼未成功"
+    return if (success) {
+        currentAppText("通话已完成", "Call completed")
+    } else {
+        currentAppText("外呼未成功", "Outbound Call Failed")
+    }
 }
 
 internal fun callHistoryDisplayTitle(targetName: String?, phoneNumber: String?): String {
     val target = targetName.orEmpty().trim()
     val genericTargets = setOf("", "对方", "AI通话", "AI 通话", "目标对象", "未知对象")
     if (target !in genericTargets) return target
-    return phoneNumber.orEmpty().trim().ifBlank { "AI通话" }
+    return phoneNumber.orEmpty().trim().ifBlank { currentAppText("AI通话", "AI Call") }
 }
 
 private fun meaningfulReceiptText(raw: String?): String? {

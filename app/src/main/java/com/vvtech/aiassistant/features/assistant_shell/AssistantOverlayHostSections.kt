@@ -50,7 +50,8 @@ internal fun BoxScope.AssistantNavigationCallOverlaySection(args: AssistantOverl
                 onDialClick = onOpenDialSheet,
                 hidden = assistantNavHidden || showCallsDialSheet ||
                     clientCallState.visible || translationCallState.visible,
-                taskBadgeCount = taskBadgeCount
+                taskBadgeCount = taskBadgeCount,
+                appLanguage = appLanguage
             )
         }
 

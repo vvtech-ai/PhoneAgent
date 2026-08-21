@@ -2,22 +2,24 @@ package com.vvtech.aiassistant
 
 import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vvtech.aiassistant.features.assistant.AssistantViewModel
 import com.vvtech.aiassistant.features.assistant.AssistantRootScreen
 import com.vvtech.aiassistant.features.assistant.speech.TtsAudioAttributes
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguageManager
 import com.vvtech.aiassistant.features.assistant_voice_clone.enrollment.MfvcVerificationSession
 import com.vvtech.aiassistant.features.assistant_voice_clone.logVoiceCloneRuntime
 import com.vvtech.aiassistant.logging.AppFileLogger
 import com.vvtech.aiassistant.ui.theme.AIAssistantTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppLanguageManager.ensureSupportedDefaultLanguage()
         super.onCreate(savedInstanceState)
         if (MfvcVerificationSession.shouldSuppressLauncherRelaunch(
                 action = intent?.action,

@@ -30,11 +30,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.core.model.OptionItem
 import com.vvtech.aiassistant.core.model.OptionsPayload
 
@@ -46,6 +48,7 @@ internal fun PureVoiceAgentOptionsCard(
 ) {
     var dismissed by remember(options) { mutableStateOf(false) }
     if (dismissed || options.items.isEmpty()) return
+    val closeContactPickerDescription = stringResource(R.string.contact_picker_close_content_description)
 
     Surface(
         modifier = modifier.padding(horizontal = 12.dp, vertical = 12.dp),
@@ -73,7 +76,7 @@ internal fun PureVoiceAgentOptionsCard(
                     modifier = Modifier
                         .size(32.dp)
                         .background(Color(0xFFF2F4F7), CircleShape)
-                        .semantics { contentDescription = "关闭选择联系人" }
+                        .semantics { contentDescription = closeContactPickerDescription }
                 ) {
                     Text(
                         text = "×",

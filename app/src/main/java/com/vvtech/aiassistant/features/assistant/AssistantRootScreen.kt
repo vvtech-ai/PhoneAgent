@@ -252,6 +252,7 @@ fun AssistantRootScreen(
                 taskEntryOptions = taskEntryOptions,
                 pureVoiceMode = pureVoiceMode,
                 voiceLanguage = voiceLanguage,
+                appLanguage = rootSettingsState.appLanguage,
                 selectedRestaurant = selectedRestaurant,
                 activeAccountId = authRuntime.activeAccountId,
                 conversationLoading = conversationLoading,

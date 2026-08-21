@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.features.assistant.FinalModeButton
 import com.vvtech.aiassistant.features.assistant.FinalPauseGlyph
 import com.vvtech.aiassistant.features.assistant.SfInputMode
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun BoxScope.SingleFlowDemoInputPanel(
@@ -125,12 +126,12 @@ internal fun BoxScope.SingleFlowDemoInputPanel(
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     FinalModeButton(
-                        label = "语音",
+                        label = "Voice",
                         selected = inputMode == SfInputMode.Voice,
                         onClick = { onInputModeChange(SfInputMode.Voice) }
                     )
                     FinalModeButton(
-                        label = "文字",
+                        label = "Text",
                         selected = inputMode == SfInputMode.Text,
                         onClick = { onInputModeChange(SfInputMode.Text) }
                     )
@@ -147,7 +148,11 @@ internal fun BoxScope.SingleFlowDemoInputPanel(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = if (listening) "正在收音..." else "点击麦克风开始",
+                            text = if (listening) {
+                                currentAppText("正在收音...", "Listening...")
+                            } else {
+                                currentAppText("点击麦克风开始", "Tap the mic to start")
+                            },
                             color = Color(0xFF111827),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
@@ -155,7 +160,11 @@ internal fun BoxScope.SingleFlowDemoInputPanel(
                             overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = if (listening) "再次点击结束" else "可切换文字输入",
+                            text = if (listening) {
+                                currentAppText("再次点击结束", "Tap again to stop")
+                            } else {
+                                currentAppText("可切换文字输入", "You can switch to text input")
+                            },
                             modifier = Modifier.padding(top = 4.dp),
                             color = Color(0xFF667085),
                             fontSize = 13.sp,
@@ -184,7 +193,7 @@ internal fun BoxScope.SingleFlowDemoInputPanel(
                             } else {
                                 Icon(
                                     imageVector = Icons.Outlined.Mic,
-                                    contentDescription = "语音输入",
+                                    contentDescription = "Voice input",
                                     tint = Color.White,
                                     modifier = Modifier.size(24.dp)
                                 )
@@ -234,7 +243,7 @@ internal fun BoxScope.SingleFlowDemoInputPanel(
                             decorationBox = { inner ->
                                 if (textInput.isBlank()) {
                                     Text(
-                                        text = "请输入任务内容",
+                                        text = "Enter task details",
                                         color = Color(0xFF98A2B3),
                                         fontSize = 14.sp
                                     )
@@ -257,7 +266,7 @@ internal fun BoxScope.SingleFlowDemoInputPanel(
                         Box(contentAlignment = Alignment.Center) {
                             Icon(
                                 imageVector = Icons.Rounded.Send,
-                                contentDescription = "发送",
+                                contentDescription = "Send",
                                 tint = if (sfSendEnabled) Color(0xFF0A84FF) else Color(0x993C6EAA),
                                 modifier = Modifier.size(22.dp)
                             )

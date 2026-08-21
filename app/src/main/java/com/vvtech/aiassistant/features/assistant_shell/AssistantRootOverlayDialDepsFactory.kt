@@ -1,5 +1,6 @@
 package com.vvtech.aiassistant.features.assistant_shell
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_calls.ContactDialNumberResult
 
 internal fun buildAssistantRootOverlayDialDeps(
@@ -25,10 +26,20 @@ internal fun buildAssistantRootOverlayDialDeps(
             when (state.callDial.dialer.restoreHistoryTarget(target)) {
                 is ContactDialNumberResult.Supported -> Unit
                 ContactDialNumberResult.UnsupportedCountry ->
-                    onShowMessage("暂不支持该联系人国家或地区")
+                    onShowMessage(
+                        currentAppText(
+                            "暂不支持该联系人国家或地区",
+                            "This contact's country or region is not supported yet"
+                        )
+                    )
                 ContactDialNumberResult.Invalid,
                 ContactDialNumberResult.TooLong ->
-                    onShowMessage("联系人号码格式不正确")
+                    onShowMessage(
+                        currentAppText(
+                            "联系人号码格式不正确",
+                            "Contact number format is invalid"
+                        )
+                    )
             }
         },
         promptBeforeTranslationDial = state.callDial.dialer.promptBeforeTranslationCall,

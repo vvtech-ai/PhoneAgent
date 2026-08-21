@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.domain.translation.TranslationCallEnvironment
 import com.vvtech.aiassistant.domain.translation.TranslationEnvironmentState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun TranslationCallEnvironmentIndicator(
@@ -27,9 +28,9 @@ internal fun TranslationCallEnvironmentIndicator(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        EnvironmentItem("网络", environment?.network?.state)
+        EnvironmentItem(currentAppText("网络", "Network"), environment?.network?.state)
         EnvironmentItem("SIP", environment?.sip?.state)
-        EnvironmentItem("模型", environment?.model?.state)
+        EnvironmentItem(currentAppText("模型", "Model"), environment?.model?.state)
     }
 }
 
@@ -71,9 +72,9 @@ internal fun TranslationEnvironmentState.indicatorColor(): Color = when (this) {
 }
 
 private fun TranslationEnvironmentState.accessibilityText(): String = when (this) {
-    TranslationEnvironmentState.Pending -> "检测中"
-    TranslationEnvironmentState.Available -> "可用"
-    TranslationEnvironmentState.Degraded -> "较弱"
-    TranslationEnvironmentState.Unavailable -> "不可用"
-    TranslationEnvironmentState.NotApplicable -> "不适用"
+    TranslationEnvironmentState.Pending -> currentAppText("检测中", "Checking")
+    TranslationEnvironmentState.Available -> currentAppText("可用", "Available")
+    TranslationEnvironmentState.Degraded -> currentAppText("较弱", "Degraded")
+    TranslationEnvironmentState.Unavailable -> currentAppText("不可用", "Unavailable")
+    TranslationEnvironmentState.NotApplicable -> currentAppText("不适用", "Not applicable")
 }

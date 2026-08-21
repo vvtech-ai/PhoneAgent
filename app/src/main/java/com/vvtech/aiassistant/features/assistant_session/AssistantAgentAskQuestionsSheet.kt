@@ -35,6 +35,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.core.model.AskQuestionItem
 import com.vvtech.aiassistant.core.model.AskQuestionsPayload
 internal val AgentQuestionSheetTextPrimary = Color(0xFF111111)
@@ -80,7 +82,7 @@ internal fun AssistantAgentAskQuestionsSheet(
             .padding(start = 16.dp, end = 16.dp, top = 18.dp, bottom = 16.dp)
     ) {
         Text(
-            text = payload.title.takeUnless { it.isNullOrBlank() } ?: "再确认几件事",
+            text = payload.title.takeUnless { it.isNullOrBlank() } ?: currentAppText("再确认几件事", "Confirm a Few Details"),
             color = AgentQuestionSheetTextPrimary,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold
@@ -117,7 +119,7 @@ internal fun AssistantAgentAskQuestionsSheet(
                 disabledContentColor = Color.White
             )
         ) {
-            Text(text = "提交回答", fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+            Text(text = "Submit Answer", fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
         }
     }
 }
@@ -144,7 +146,7 @@ private fun AgentQuestionBlock(
                     modifier = Modifier.weight(1f)
                 )
                 if (question.required == false) {
-                    Text(text = "可选", color = AgentQuestionSheetTextSecondary, fontSize = 11.sp)
+                    Text(text = "Optional", color = AgentQuestionSheetTextSecondary, fontSize = 11.sp)
                 }
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -162,13 +164,13 @@ private fun AgentQuestionBlock(
                 )
                 "phone" -> AgentTextInputField(
                     value = currentValue as? String,
-                    hint = question.hint ?: "纯数字 7-15 位",
+                    hint = question.hint ?: currentAppText("纯数字 7-15 位", "7-15 digits only"),
                     keyboardType = KeyboardType.Phone,
                     onChange = onValueChange
                 )
                 "number" -> AgentTextInputField(
                     value = currentValue as? String,
-                    hint = question.hint ?: "请输入数字",
+                    hint = question.hint ?: currentAppText("请输入数字", "Enter a number"),
                     keyboardType = KeyboardType.Number,
                     onChange = onValueChange
                 )
@@ -193,7 +195,7 @@ private fun AgentQuestionBlock(
                 )
                 else -> AgentTextInputField(
                     value = currentValue as? String,
-                    hint = question.hint ?: "请输入",
+                    hint = question.hint ?: currentAppText("请输入", "Enter text"),
                     keyboardType = KeyboardType.Text,
                     onChange = onValueChange
                 )

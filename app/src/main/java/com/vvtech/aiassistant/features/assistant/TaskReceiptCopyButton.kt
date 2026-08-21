@@ -18,6 +18,8 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.core.model.BatchCallResultPayload
 import com.vvtech.aiassistant.core.model.CallResultPayload
 
@@ -47,7 +49,7 @@ internal fun TaskReceiptCopyButton(
     ) {
         Icon(
             imageVector = ReceiptCopyIcon,
-            contentDescription = "复制回执",
+            contentDescription = stringResource(R.string.receipt_copy_content_description),
             tint = iconColor,
             modifier = Modifier.size(20.dp)
         )

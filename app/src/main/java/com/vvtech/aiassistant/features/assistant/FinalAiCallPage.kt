@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -54,6 +55,7 @@ import com.vvtech.aiassistant.features.assistant_ui.AiCallAudioSourceSheet
 import com.vvtech.aiassistant.features.assistant_ui.AssistantCallModelDisplayNames
 import com.vvtech.aiassistant.features.assistant_ui.displayLabel
 import com.vvtech.aiassistant.features.assistant_ui.iconResource
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.Locale
 
 @Composable
@@ -72,7 +74,11 @@ internal fun FinalAiCallPageV3(
     onMonitorToggle: () -> Unit,
     onAudioRouteSelect: (CallMonitorAudioRoute) -> Unit
 ) {
-    val displayName = callData.name.ifBlank { targetName }
+    val rawDisplayName = callData.name.ifBlank { targetName }
+    val displayName = currentAppText(
+        rawDisplayName,
+        sanitizeUserFacingNetworkText(rawDisplayName, VoiceLanguage.English)
+    )
     val displayNumber = aiCallDisplayNumber(phoneNumber.ifBlank { callData.sub })
     val displayStatus = aiCallStatusWithDuration(callData.callState, seconds)
     val transcriptCards = finalCallTranscriptCards(
@@ -165,18 +171,22 @@ internal fun FinalAiCallPageV3(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 FinalAiCallControl(
-                    label = "监听",
+                    label = stringResource(R.string.ai_call_monitor),
                     iconResource = if (isListening) {
                         R.drawable.ic_agent_call_listen_off
                     } else {
                         R.drawable.ic_agent_call_listen
                     },
                     enabled = monitorButtonEnabled,
-                    contentDescription = if (isListening) "停止监听" else "开始监听",
+                    contentDescription = if (isListening) {
+                        stringResource(R.string.ai_call_monitor_stop)
+                    } else {
+                        stringResource(R.string.ai_call_monitor_start)
+                    },
                     onClick = onMonitorToggle
                 )
                 FinalAiCallControl(
-                    label = "挂断",
+                    label = stringResource(R.string.ai_call_hangup),
                     iconResource = R.drawable.ic_agent_call_hangup,
                     danger = true,
                     onClick = onHangup
@@ -185,7 +195,10 @@ internal fun FinalAiCallPageV3(
                     label = callMonitorAudioRouteState.selected.displayLabel(),
                     iconResource = callMonitorAudioRouteState.selected.iconResource(),
                     enabled = audioSourceEnabled,
-                    contentDescription = "音源，${callMonitorAudioRouteState.selected.displayLabel()}",
+                    contentDescription = stringResource(
+                        R.string.ai_call_audio_source_content_description,
+                        callMonitorAudioRouteState.selected.displayLabel()
+                    ),
                     onClick = { showAudioSourceSheet = true }
                 )
             }
@@ -331,14 +344,20 @@ internal fun finalCallTranscriptCards(
         .map { line ->
         val label = when (line.role) {
             TranscriptRole.Assistant -> "AI"
-            TranscriptRole.Remote -> "对方"
-            TranscriptRole.Note -> "通话"
+            TranscriptRole.Remote -> currentAppText("对方", "Other Party")
+            TranscriptRole.Note -> currentAppText("通话", "Calls")
         }
-        label to line.text
+        label to currentAppText(
+            line.text,
+            sanitizeCallTranscriptDisplayText(line.text, VoiceLanguage.English)
+        )
     }
     return cards.ifEmpty {
         if (includePlaceholder) {
-            listOf("实时对话记录" to "等待实时通话转写...")
+            listOf(
+                currentAppText("实时对话记录", "Live Transcript") to
+                    currentAppText("等待实时通话转写...", "Waiting for live call transcription...")
+            )
         } else {
             emptyList()
         }

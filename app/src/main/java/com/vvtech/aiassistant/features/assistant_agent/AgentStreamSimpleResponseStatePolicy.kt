@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant_agent
 
 import com.vvtech.aiassistant.features.assistant.AssistantStage
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal enum class AgentStreamRecoveryConfirmation {
     None,
@@ -72,5 +73,6 @@ internal object AgentStreamSimpleResponseStatePolicy {
         )
     }
 
-    fun unknownErrorText(responseType: String): String = "未知响应类型: $responseType"
+    fun unknownErrorText(responseType: String): String =
+        currentAppText("未知响应类型: $responseType", "Unknown response type: $responseType")
 }

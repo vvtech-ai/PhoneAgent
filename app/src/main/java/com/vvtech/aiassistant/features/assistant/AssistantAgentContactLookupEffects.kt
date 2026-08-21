@@ -7,6 +7,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.core.content.ContextCompat
 import com.vvtech.aiassistant.contacts.DeviceContactsLookupItem
 import com.vvtech.aiassistant.contacts.DeviceContactResolver
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -70,7 +71,7 @@ internal fun FinalAgentLookupContactEffect(args: AssistantAgentLookupContactEffe
                     "reason" to "PERMISSION_DENIED"
                 )
             )
-            Toast.makeText(args.context, "未授权通讯录，AI 将另询用户", Toast.LENGTH_SHORT).show()
+            Toast.makeText(args.context, currentAppText("未授权通讯录，AI 将另询用户", "Contacts permission denied. AI will ask the user instead"), Toast.LENGTH_SHORT).show()
             return@LaunchedEffect
         }
         args.onAgentContactsPermissionAskedKeyChange(null)
@@ -128,10 +129,10 @@ internal fun FinalAgentLookupDeviceContactsEffect(args: AssistantAgentLookupDevi
                         "inputSource" to args.assistantUiState.agentContactInputSource.wireValue
                     )
                 },
-                "未授权读取通讯录",
+                currentAppText("未授权读取通讯录", "Contacts permission denied"),
                 null
             )
-            Toast.makeText(args.context, "未授权通讯录，AI 将另询用户", Toast.LENGTH_SHORT).show()
+            Toast.makeText(args.context, currentAppText("未授权通讯录，AI 将另询用户", "Contacts permission denied. AI will ask the user instead"), Toast.LENGTH_SHORT).show()
             return@LaunchedEffect
         }
         args.onAgentContactsPermissionAskedKeyChange(null)
@@ -154,7 +155,7 @@ internal fun FinalAgentLookupDeviceContactsEffect(args: AssistantAgentLookupDevi
                             "inputSource" to args.assistantUiState.agentContactInputSource.wireValue
                         )
                     },
-                    "通讯录查询失败",
+                    currentAppText("通讯录查询失败", "Contacts lookup failed"),
                     null
                 )
             }

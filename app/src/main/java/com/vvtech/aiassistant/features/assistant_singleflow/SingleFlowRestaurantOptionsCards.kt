@@ -20,9 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant.SfRestaurantOption
 
 @Composable
@@ -37,7 +39,7 @@ internal fun PvRestaurantOptionsCard(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 8.dp)
     ) {
         Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp)) {
-            RestaurantOptionsHeader(subtitle = "点击选择")
+            RestaurantOptionsHeader(subtitle = stringResource(R.string.restaurant_options_tap_to_select))
             Spacer(modifier = Modifier.height(10.dp))
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 options.forEachIndexed { index, option ->
@@ -61,7 +63,7 @@ internal fun SfRestaurantOptionsCard(options: List<SfRestaurantOption>) {
         border = BorderStroke(1.dp, Color.White.copy(alpha = 0.92f))
     ) {
         Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp)) {
-            RestaurantOptionsHeader(subtitle = "可以回复餐厅名称或第几个")
+            RestaurantOptionsHeader(subtitle = stringResource(R.string.restaurant_options_voice_hint))
             Spacer(modifier = Modifier.height(10.dp))
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 options.forEachIndexed { index, option ->
@@ -76,7 +78,7 @@ internal fun SfRestaurantOptionsCard(options: List<SfRestaurantOption>) {
 private fun RestaurantOptionsHeader(subtitle: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(
-            text = "候选餐厅",
+            text = stringResource(R.string.restaurant_options_title),
             color = Color(0xFF121A24),
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold

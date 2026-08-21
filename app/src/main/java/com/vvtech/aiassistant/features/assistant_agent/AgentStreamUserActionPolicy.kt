@@ -5,6 +5,7 @@ import com.vvtech.aiassistant.core.model.DocumentParseResult
 import com.vvtech.aiassistant.core.model.OptionsPayload
 import com.vvtech.aiassistant.features.assistant.DeviceContactSelectionCandidateUi
 import com.vvtech.aiassistant.features.assistant.DeviceContactSelectionUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class AgentStreamActionDraft(
     val actionId: String,
@@ -42,9 +43,11 @@ internal object AgentStreamUserActionPolicy {
         }
         val echoText = buildString {
             options?.title?.takeIf { it.isNotBlank() }?.let { append(it).append('\n') }
-            append("已选：")
+            append(currentAppText("已选：", "Selected: "))
             append(selectedItem?.label ?: optionId)
-            selectedItem?.detail?.takeIf { it.isNotBlank() }?.let { append("（").append(it).append("）") }
+            selectedItem?.detail?.takeIf { it.isNotBlank() }?.let {
+                append(currentAppText("（", " (")).append(it).append(currentAppText("）", ")"))
+            }
         }
         return AgentStreamActionDraft(
             actionId = "select_option",
@@ -63,16 +66,16 @@ internal object AgentStreamUserActionPolicy {
                 val rendered = renderAnswerValue(answers[question.id])
                 val readable = if (question.answerType.equals("confirm", ignoreCase = true)) {
                     when (rendered.lowercase()) {
-                        "yes" -> "是"
-                        "no" -> "否"
+                        "yes" -> currentAppText("是", "Yes")
+                        "no" -> currentAppText("否", "No")
                         else -> rendered
                     }
                 } else {
                     rendered
                 }
-                append("• ").append(question.prompt).append("：").append(readable).append('\n')
+                append("• ").append(question.prompt).append(currentAppText("：", ": ")).append(readable).append('\n')
             }
-        }.trimEnd('\n').ifBlank { "（已提交）" }
+        }.trimEnd('\n').ifBlank { currentAppText("（已提交）", "(Submitted)") }
         return AgentStreamActionDraft(
             actionId = "answer_questions",
             actionPayload = mapOf("answers" to answers),
@@ -89,9 +92,12 @@ internal object AgentStreamUserActionPolicy {
     ): AgentStreamActionDraft {
         val normalizedStatus = status.ifBlank { if (granted) "OK" else "DENIED" }
         val echoText = when (normalizedStatus) {
-            "OK" -> "已授权：$permissionKey"
-            "SETTINGS_REQUIRED" -> "该权限需要到系统设置中开启：$permissionKey"
-            else -> "未授权：$permissionKey"
+            "OK" -> currentAppText("已授权：$permissionKey", "Authorized: $permissionKey")
+            "SETTINGS_REQUIRED" -> currentAppText(
+                "该权限需要到系统设置中开启：$permissionKey",
+                "Enable this permission in system settings: $permissionKey"
+            )
+            else -> currentAppText("未授权：$permissionKey", "Not authorized: $permissionKey")
         }
         val payload = buildMap<String, Any> {
             put("permissionKey", permissionKey)
@@ -111,11 +117,14 @@ internal object AgentStreamUserActionPolicy {
     fun documentSubmit(result: DocumentParseResult): AgentStreamActionDraft {
         val normalizedStatus = result.status.ifBlank { "PARSE_FAILED" }
         val echoText = when (normalizedStatus) {
-            "OK" -> "已上传并解析：${result.fileName ?: "文档"}"
-            "USER_CANCELLED" -> "已取消文件选择"
-            "UNSUPPORTED_TYPE" -> "文件类型暂不支持"
-            "FILE_TOO_LARGE" -> "文件过大，无法解析"
-            else -> "文件解析失败"
+            "OK" -> currentAppText(
+                "已上传并解析：${result.fileName ?: "文档"}",
+                "Uploaded and parsed: ${result.fileName ?: "Document"}"
+            )
+            "USER_CANCELLED" -> currentAppText("已取消文件选择", "File selection canceled")
+            "UNSUPPORTED_TYPE" -> currentAppText("文件类型暂不支持", "File type is not supported")
+            "FILE_TOO_LARGE" -> currentAppText("文件过大，无法解析", "File is too large to parse")
+            else -> currentAppText("文件解析失败", "File parsing failed")
         }
         return AgentStreamActionDraft(
             actionId = "submit_document",
@@ -138,9 +147,9 @@ internal object AgentStreamUserActionPolicy {
         val displayName = payload["displayName"]?.toString().orEmpty()
         val reason = payload["reason"]?.toString().orEmpty()
         return when {
-            found && displayName.isNotBlank() -> "通讯录已找到：$displayName"
-            reason == "PERMISSION_DENIED" -> "未授权读取通讯录"
-            else -> "通讯录中未找到该号码"
+            found && displayName.isNotBlank() -> currentAppText("通讯录已找到：$displayName", "Contact found: $displayName")
+            reason == "PERMISSION_DENIED" -> currentAppText("未授权读取通讯录", "Contacts permission denied")
+            else -> currentAppText("通讯录中未找到该号码", "Number not found in contacts")
         }
     }
 
@@ -203,7 +212,7 @@ internal object AgentStreamUserActionPolicy {
         }
         return AgentDeviceContactSelectionSubmitResult(
             results = selection.preResolvedResults + cancelledResults,
-            echoText = "用户取消了联系人选择"
+            echoText = currentAppText("用户取消了联系人选择", "User canceled contact selection")
         )
     }
 
@@ -214,7 +223,10 @@ internal object AgentStreamUserActionPolicy {
         val text = rawText.trim()
         if (text.isBlank()) {
             return AgentDeviceContactVoiceSelectionResult.Invalid(
-                statusText = "没听清你选哪个联系人，请说第一个、第二个，或说取消"
+                statusText = currentAppText(
+                    "没听清你选哪个联系人，请说第一个、第二个，或说取消",
+                    "I did not catch which contact you chose. Say first, second, or cancel"
+                )
             )
         }
         if (isCancelContactSelection(text)) {
@@ -222,12 +234,18 @@ internal object AgentStreamUserActionPolicy {
         }
         val index = parseContactSelectionIndex(text)
             ?: return AgentDeviceContactVoiceSelectionResult.Invalid(
-                statusText = "没听清你选哪个联系人，请说第一个、第二个，或说取消"
+                statusText = currentAppText(
+                    "没听清你选哪个联系人，请说第一个、第二个，或说取消",
+                    "I did not catch which contact you chose. Say first, second, or cancel"
+                )
             )
         val missing = selection.groups.firstOrNull { group -> index !in group.candidates.indices }
         if (missing != null) {
             return AgentDeviceContactVoiceSelectionResult.OutOfRange(
-                statusText = "${missing.name}没有第${index + 1}个候选，请重新选择"
+                statusText = currentAppText(
+                    "${missing.name}没有第${index + 1}个候选，请重新选择",
+                    "${missing.name} does not have option ${index + 1}. Please choose again"
+                )
             )
         }
         val selected = linkedMapOf<String, DeviceContactSelectionCandidateUi>()
@@ -240,10 +258,10 @@ internal object AgentStreamUserActionPolicy {
     private fun deviceContactSelectionConfirmEcho(
         selectedByName: Map<String, DeviceContactSelectionCandidateUi>
     ): String? {
-        val echo = selectedByName.entries.joinToString("、") { (name, candidate) ->
+        val echo = selectedByName.entries.joinToString(currentAppText("、", ", ")) { (name, candidate) ->
             "$name → ${candidate.displayName} ${candidate.phoneNumber}"
         }
-        return if (echo.isNotBlank()) "已选定：$echo" else null
+        return if (echo.isNotBlank()) currentAppText("已选定：$echo", "Selected: $echo") else null
     }
 
     private fun isCancelContactSelection(text: String): Boolean {
@@ -288,7 +306,7 @@ internal object AgentStreamUserActionPolicy {
         return when (raw) {
             null -> "—"
             is String -> raw.ifBlank { "—" }
-            is List<*> -> raw.filterNotNull().joinToString("、").ifBlank { "—" }
+            is List<*> -> raw.filterNotNull().joinToString(currentAppText("、", ", ")).ifBlank { "—" }
             else -> raw.toString()
         }
     }

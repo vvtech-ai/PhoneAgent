@@ -20,9 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant.TaskReceiptCopyButton
 
 @Composable
@@ -32,11 +34,31 @@ internal fun SfTaskReceiptOverlay(
     partySize: String,
     onDismiss: () -> Unit
 ) {
-    val copyText = sfTaskReceiptCopyText(
-        restaurantName = restaurantName,
-        time = time,
-        partySize = partySize
-    )
+    val receiptTitle = stringResource(R.string.receipt_title)
+    val taskTypeLabel = stringResource(R.string.receipt_task_type)
+    val taskTypeValue = stringResource(R.string.receipt_restaurant_booking)
+    val restaurantLabel = stringResource(R.string.receipt_restaurant)
+    val timeLabel = stringResource(R.string.receipt_time)
+    val partySizeLabel = stringResource(R.string.receipt_party_size)
+    val resultLabel = stringResource(R.string.receipt_result)
+    val resultValue = stringResource(R.string.receipt_result_hall_seat)
+    val privateRoomLabel = stringResource(R.string.receipt_private_room)
+    val privateRoomValue = stringResource(R.string.receipt_private_room_full)
+    val minimumSpendLabel = stringResource(R.string.receipt_minimum_spend)
+    val noneValue = stringResource(R.string.receipt_none)
+    val contactLabel = stringResource(R.string.receipt_contact)
+    val contactValue = "Li 139****9999"
+    val copyText = listOf(
+        receiptTitle,
+        "$taskTypeLabel: $taskTypeValue",
+        "$restaurantLabel: $restaurantName",
+        "$timeLabel: $time",
+        "$partySizeLabel: $partySize",
+        "$resultLabel: $resultValue",
+        "$privateRoomLabel: $privateRoomValue",
+        "$minimumSpendLabel: $noneValue",
+        "$contactLabel: $contactValue"
+    ).joinToString("\n")
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -62,14 +84,14 @@ internal fun SfTaskReceiptOverlay(
                 Spacer(modifier = Modifier.height(18.dp))
                 TaskReceiptStatusBadge()
                 Spacer(modifier = Modifier.height(16.dp))
-                ReceiptRow("任务类型", "餐厅预订")
-                ReceiptRow("餐厅", restaurantName)
-                ReceiptRow("时间", time)
-                ReceiptRow("人数", partySize)
-                ReceiptRow("结果", "已预订大厅座")
-                ReceiptRow("包房", "已满")
-                ReceiptRow("低消", "无")
-                ReceiptRow("联系人", "李先生 139****9999")
+                ReceiptRow(taskTypeLabel, taskTypeValue)
+                ReceiptRow(restaurantLabel, restaurantName)
+                ReceiptRow(timeLabel, time)
+                ReceiptRow(partySizeLabel, partySize)
+                ReceiptRow(resultLabel, resultValue)
+                ReceiptRow(privateRoomLabel, privateRoomValue)
+                ReceiptRow(minimumSpendLabel, noneValue)
+                ReceiptRow(contactLabel, contactValue)
             }
         }
     }
@@ -85,7 +107,7 @@ private fun TaskReceiptHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "任务回执",
+            text = stringResource(R.string.receipt_title),
             color = Color(0xFF121A24),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
@@ -112,24 +134,6 @@ private fun TaskReceiptHeader(
     }
 }
 
-private fun sfTaskReceiptCopyText(
-    restaurantName: String,
-    time: String,
-    partySize: String
-): String {
-    return listOf(
-        "任务回执",
-        "任务类型：餐厅预订",
-        "餐厅：$restaurantName",
-        "时间：$time",
-        "人数：$partySize",
-        "结果：已预订大厅座",
-        "包房：已满",
-        "低消：无",
-        "联系人：李先生 139****9999"
-    ).joinToString("\n")
-}
-
 @Composable
 private fun TaskReceiptStatusBadge() {
     Surface(
@@ -137,7 +141,7 @@ private fun TaskReceiptStatusBadge() {
         color = Color(0xFFE8F5E9)
     ) {
         Text(
-            text = "✓ 已完成",
+            text = "✓ ${stringResource(R.string.receipt_pill_task_complete)}",
             color = Color(0xFF2E7D32),
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold,

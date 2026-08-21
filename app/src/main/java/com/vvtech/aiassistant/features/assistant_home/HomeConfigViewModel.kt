@@ -73,7 +73,7 @@ internal class HomeConfigViewModel(
                     subtitle = card.subtitle,
                     imageUrl = card.imageUrl,
                     enabled = enabled,
-                    statusLabel = if (enabled) null else if (!versionSupported) "请升级客户端" else "即将提供",
+                    statusLabel = if (enabled) null else if (!versionSupported) "Please upgrade" else "Coming Soon",
                     action = card.entryAction
                 )
             }

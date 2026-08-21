@@ -5,6 +5,7 @@ import com.vvtech.aiassistant.data.model.ContactDirectoryUpsertRequest
 import com.vvtech.aiassistant.data.model.UserIdentityPayload
 import com.vvtech.aiassistant.data.model.UserIdentityUpsertRequest
 import com.vvtech.aiassistant.features.assistant_contacts.buildContactRemarkUpsertRequest
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal class AssistantContactPageHostArgs(
     val currentPage: FinalPage,
@@ -144,7 +145,12 @@ internal fun buildAssistantContactPageHostArgs(
                 val target = contactMethods.firstOrNull { it.id == editId }
                     ?: return@onDeleteContactMethod
                 if (target.isDefault) {
-                    onContactEditErrorChange("默认联系方式不可直接删除，请先设置其他默认项。")
+                    onContactEditErrorChange(
+                        currentAppText(
+                            "默认联系方式不可直接删除，请先设置其他默认项。",
+                            "The default contact method cannot be deleted directly. Set another default first."
+                        )
+                    )
                 } else {
                     onApplyContactMethods(contactMethods.filterNot { it.id == editId })
                     onSelectedMethodIdChange(null)

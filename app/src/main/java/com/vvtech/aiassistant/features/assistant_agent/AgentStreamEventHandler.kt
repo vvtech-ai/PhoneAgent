@@ -6,6 +6,7 @@ import com.vvtech.aiassistant.features.assistant.ClarificationStep
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
 import com.vvtech.aiassistant.features.assistant.VoiceLanguage
 import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingError
+import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
 
 internal data class AgentStreamEventRuntimeCallbacks(
     val isVoiceMode: () -> Boolean,
@@ -67,11 +68,18 @@ internal class AgentStreamEventHandler(
             is AgentStreamEvent.ToolCallStart -> applyToolCallStart(stepIndex, event)
             is AgentStreamEvent.ToolCallComplete -> applyToolCallComplete(stepIndex, event)
             is AgentStreamEvent.ToolCard -> {
-                steps.mutateStep(stepIndex) { AgentStreamToolStepReducer.applyToolCard(it, event.card) }
+                val card = event.card.copy(
+                    methodLabel = assistantOutputText(event.card.methodLabel),
+                    body = assistantOutputText(event.card.body),
+                    result = assistantOutputText(event.card.result),
+                    status = assistantOutputText(event.card.status)
+                )
+                steps.mutateStep(stepIndex) { AgentStreamToolStepReducer.applyToolCard(it, card) }
             }
             is AgentStreamEvent.TextDelta -> {
-                steps.mutateStep(stepIndex) { AgentStreamBasicStepReducer.appendText(it, event.text) }
-                voice.maybeTtsDelta(event.text)
+                val text = assistantOutputText(event.text)
+                steps.mutateStep(stepIndex) { AgentStreamBasicStepReducer.appendText(it, text) }
+                voice.maybeTtsDelta(text)
             }
             is AgentStreamEvent.Signal -> applyResponseEvent(stepIndex, event.payload, signalTts = false)
             is AgentStreamEvent.Final -> applyResponseEvent(stepIndex, event.payload, signalTts = true)
@@ -83,14 +91,14 @@ internal class AgentStreamEventHandler(
     }
 
     private fun applyThinkingDelta(stepIndex: Int, event: AgentStreamEvent.ThinkingDelta) {
-        val text = event.text.trim().takeIf { it.isNotBlank() } ?: return
+        val text = assistantOutputText(event.text).trim().takeIf { it.isNotBlank() } ?: return
         steps.mutateStep(stepIndex) { step ->
             AgentStreamBasicStepReducer.appendThinking(step, text)
         }
     }
 
     private fun applyStatusDelta(stepIndex: Int, event: AgentStreamEvent.StatusDelta) {
-        val text = event.text.trim().takeIf { it.isNotBlank() } ?: return
+        val text = assistantOutputText(event.text).trim().takeIf { it.isNotBlank() } ?: return
         batch.applyProgress(stepIndex, event, text)
         steps.mutateStep(stepIndex) { step ->
             AgentStreamBasicStepReducer.appendStatusEvent(step, text)
@@ -140,7 +148,9 @@ internal class AgentStreamEventHandler(
         signalTts: Boolean
     ) {
         runtime.cancelTextProcessingStatusProgress()
-        val payloadText = AgentStreamResponseStepReducer.visibleResponseDisplayText(payload)
+        val payloadText = assistantOutputText(
+            AgentStreamResponseStepReducer.visibleResponseDisplayText(payload)
+        )
         steps.mutateStep(stepIndex) { step ->
             AgentStreamResponseStepReducer.applyResponse(
                 step = step,
@@ -153,6 +163,9 @@ internal class AgentStreamEventHandler(
         steps.finalizeStep(stepIndex)
         response.applyResponseState(payload)
     }
+
+    private fun assistantOutputText(text: String): String =
+        sanitizeUserFacingNetworkText(text, runtime.currentVoiceLanguage())
 
     private fun applyError(stepIndex: Int, event: AgentStreamEvent.Err) {
         if (runtime.isVoiceMode()) {

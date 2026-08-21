@@ -1,5 +1,7 @@
 package com.vvtech.aiassistant.features.assistant_tasks
 
+import com.vvtech.aiassistant.features.assistant.localizedFinalTaskText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.Locale
 
 internal enum class TaskFinalResultStatusStyle {
@@ -66,7 +68,7 @@ internal fun buildTaskFinalResultPageState(
         callData.name,
         restaurantName,
         summary?.target.orEmpty()
-    ).firstOrNull { it.isNotBlank() } ?: "任务结果"
+    ).firstOrNull { it.isNotBlank() } ?: currentAppText("任务结果", "Task Result")
     val normalizedScene = taskFinalResultNormalizeScene(sceneType, summary, title, detailSource)
     val meta = taskFinalResultMeta(normalizedScene, callData, success)
     val primaryResult = taskFinalResultPrimaryResult(detailSource, statusText, success)
@@ -77,16 +79,19 @@ internal fun buildTaskFinalResultPageState(
         *optionalRows.map { it.value }.toTypedArray()
     )
     val rows = buildList {
-        add(TaskFinalResultInfoRow(taskFinalResultPrimaryLabel(normalizedScene), taskFinalResultCompact(primaryResult, 34)))
+        add(TaskFinalResultInfoRow(taskFinalResultPrimaryLabel(normalizedScene), localizedFinalTaskText(taskFinalResultCompact(primaryResult, 34))))
         addAll(optionalRows.map { row ->
-            row.copy(value = taskFinalResultCompact(row.value, 28))
+            row.copy(
+                label = localizedFinalTaskText(row.label),
+                value = localizedFinalTaskText(taskFinalResultCompact(row.value, 28))
+            )
         })
-        add(TaskFinalResultInfoRow("备注", taskFinalResultCompact(remark, 42)))
+        add(TaskFinalResultInfoRow(currentAppText("备注", "Notes"), localizedFinalTaskText(taskFinalResultCompact(remark, 42))))
     }
     val badge = when {
-        partial -> "部分完成"
-        success -> "已完成"
-        else -> "未完成"
+        partial -> currentAppText("部分完成", "Partially Complete")
+        success -> currentAppText("已完成", "Completed")
+        else -> currentAppText("未完成", "Incomplete")
     }
     return TaskFinalResultPageState(
         badge = badge,
@@ -130,10 +135,10 @@ private fun taskFinalResultNormalizeScene(
 }
 
 private fun taskFinalResultPrimaryLabel(sceneType: String): String = when (sceneType) {
-    "FOOD_ORDERING", "RESTAURANT_BOOKING" -> "预订结果"
-    "HOTEL_BOOKING" -> "订房结果"
-    "FLIGHT_BOOKING" -> "订票结果"
-    else -> "通话结果"
+    "FOOD_ORDERING", "RESTAURANT_BOOKING" -> currentAppText("预订结果", "Reservation Result")
+    "HOTEL_BOOKING" -> currentAppText("订房结果", "Hotel Result")
+    "FLIGHT_BOOKING" -> currentAppText("订票结果", "Flight Result")
+    else -> currentAppText("通话结果", "Call Result")
 }
 
 private fun taskFinalResultPrimaryResult(
@@ -147,8 +152,8 @@ private fun taskFinalResultPrimaryResult(
     return when {
         meaningful.isNotBlank() -> meaningful
         statusText.isNotBlank() -> statusText
-        success -> "通话已完成"
-        else -> "通话未完成"
+        success -> currentAppText("通话已完成", "Call completed")
+        else -> currentAppText("通话未完成", "Call Incomplete")
     }
 }
 
@@ -158,12 +163,16 @@ private fun taskFinalResultMeta(
     success: Boolean
 ): String {
     val sceneLabel = when (sceneType) {
-        "FOOD_ORDERING", "RESTAURANT_BOOKING" -> "订餐任务"
-        "HOTEL_BOOKING" -> "酒店任务"
-        "FLIGHT_BOOKING" -> "机票任务"
-        else -> "AI 通话"
+        "FOOD_ORDERING", "RESTAURANT_BOOKING" -> currentAppText("订餐任务", "Restaurant Booking")
+        "HOTEL_BOOKING" -> currentAppText("酒店任务", "Hotel Booking")
+        "FLIGHT_BOOKING" -> currentAppText("机票任务", "Flight Booking")
+        else -> currentAppText("AI 通话", "AI Call")
     }
-    val status = if (success) "结果已整理" else "需要后续处理"
+    val status = if (success) {
+        currentAppText("结果已整理", "Result Organized")
+    } else {
+        currentAppText("需要后续处理", "Needs Follow-up")
+    }
     return listOf(sceneLabel, callData.sub.trim(), status)
         .filter { it.isNotBlank() }
         .distinct()
@@ -176,19 +185,19 @@ private fun taskFinalResultOptionalRows(
 ): List<TaskFinalResultInfoRow> {
     val rows = mutableListOf<TaskFinalResultInfoRow>()
     if (!summary?.target.isNullOrBlank()) {
-        rows += TaskFinalResultInfoRow(summary?.targetLabel?.takeIf { it.isNotBlank() } ?: "对象", summary?.target.orEmpty())
+        rows += TaskFinalResultInfoRow(summary?.targetLabel?.takeIf { it.isNotBlank() } ?: currentAppText("对象", "Contact"), summary?.target.orEmpty())
     }
     if (!summary?.time.isNullOrBlank()) {
-        rows += TaskFinalResultInfoRow(summary?.timeLabel?.takeIf { it.isNotBlank() } ?: "时间", summary?.time.orEmpty())
+        rows += TaskFinalResultInfoRow(summary?.timeLabel?.takeIf { it.isNotBlank() } ?: currentAppText("时间", "Time"), summary?.time.orEmpty())
     }
     if (!summary?.contactValue.isNullOrBlank()) {
-        rows += TaskFinalResultInfoRow(summary?.contactLabel?.takeIf { it.isNotBlank() } ?: "联系方式", summary?.contactValue.orEmpty())
+        rows += TaskFinalResultInfoRow(summary?.contactLabel?.takeIf { it.isNotBlank() } ?: currentAppText("联系方式", "Contact Information"), summary?.contactValue.orEmpty())
     }
     if (!summary?.detailValue.isNullOrBlank()) {
-        rows += TaskFinalResultInfoRow(summary?.detailLabel?.takeIf { it.isNotBlank() } ?: "补充信息", summary?.detailValue.orEmpty())
+        rows += TaskFinalResultInfoRow(summary?.detailLabel?.takeIf { it.isNotBlank() } ?: currentAppText("补充信息", "Additional Info"), summary?.detailValue.orEmpty())
     }
     if (rows.isEmpty() && detailSource.isNotBlank()) {
-        rows += TaskFinalResultInfoRow("摘要", taskFinalResultCompact(detailSource, 48))
+        rows += TaskFinalResultInfoRow(currentAppText("摘要", "Summary"), taskFinalResultCompact(detailSource, 48))
     }
     return rows
 }
@@ -260,14 +269,14 @@ private fun taskFinalResultRemark(
     val used = usedValues.filter { it.isNotBlank() }.toSet()
     return taskFinalResultSentences(detailSource)
         .firstOrNull { sentence -> used.none { it.contains(sentence) || sentence.contains(it) } }
-        ?: "通话结果已同步到任务记录"
+        ?: currentAppText("通话结果已同步到任务记录", "Call result synced to task record")
 }
 
 private fun taskFinalResultCompact(value: String, maxLength: Int): String {
     val normalized = value
         .replace(Regex("\\s+"), " ")
         .trim()
-        .ifBlank { "未提及" }
+        .ifBlank { currentAppText("未提及", "Not Mentioned") }
     return if (normalized.length <= maxLength) {
         normalized
     } else {

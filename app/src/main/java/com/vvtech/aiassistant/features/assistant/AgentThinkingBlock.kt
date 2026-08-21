@@ -35,12 +35,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.core.model.ToolCardInfo
 import com.vvtech.aiassistant.core.model.ToolCallInfo
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.delay
 
 private val ThinkingBg = Color(0xFFF5F3FF)
@@ -112,9 +115,15 @@ private fun ThinkingSection(
     }
 
     val titleText = when {
-        durationMs != null -> "场景信息已整理 ${formatSeconds(durationMs)}"
-        inProgress -> "正在整理场景信息 ${formatSeconds(elapsedMs)}"
-        else -> "场景信息"
+        durationMs != null -> currentAppText(
+            "场景信息已整理 ${formatSeconds(durationMs)}",
+            "Scene details ready ${formatSeconds(durationMs)}"
+        )
+        inProgress -> currentAppText(
+            "正在整理场景信息 ${formatSeconds(elapsedMs)}",
+            "Organizing scene details ${formatSeconds(elapsedMs)}"
+        )
+        else -> currentAppText("场景信息", "Scene Details")
     }
 
     Column(
@@ -254,10 +263,13 @@ private fun ToolCallsSection(
 
     val titleText = if (showPartials) {
         val running = partialToolCalls.count { it.result == null }
-        if (running > 0) "工具处理中... (${partialToolCalls.size})"
-        else "工具结果 ${partialToolCalls.size} 条"
+        if (running > 0) {
+            currentAppText("工具处理中... (${partialToolCalls.size})", "Tools running... (${partialToolCalls.size})")
+        } else {
+            currentAppText("工具结果 ${partialToolCalls.size} 条", "Tool results (${partialToolCalls.size})")
+        }
     } else {
-        "工具结果 ${toolCalls?.size ?: 0} 条"
+        currentAppText("工具结果 ${toolCalls?.size ?: 0} 条", "Tool results (${toolCalls?.size ?: 0})")
     }
 
     Column(
@@ -308,7 +320,7 @@ private fun ToolCallsSection(
                         )
                         if (call.result.isNotBlank()) {
                             Text(
-                                text = "  ✓ 已完成",
+                                text = "  ✓ ${stringResource(R.string.tool_completed)}",
                                 color = ThinkingContent,
                                 fontSize = 11.sp,
                                 modifier = Modifier.padding(bottom = 4.dp)
@@ -325,7 +337,7 @@ private fun ToolCallsSection(
 private fun PartialToolRow(ptc: PartialToolCall) {
     val running = ptc.result == null
     Text(
-        text = if (running) "🔧 ${ptc.name} ⏳ 进行中..."
+        text = if (running) "🔧 ${ptc.name} ⏳ ${currentAppText("进行中...", "Running...")}"
             else "🔧 ${ptc.name} ✓ ${formatSeconds(ptc.durationMs ?: 0)}",
         color = if (running) ToolPending else ToolText,
         fontSize = 11.sp,

@@ -7,6 +7,7 @@ import com.vvtech.aiassistant.data.model.UserIdentityPayload
 import com.vvtech.aiassistant.data.model.UserIdentityUpsertRequest
 import com.vvtech.aiassistant.features.assistant_pure_voice.PureVoicePrecheckUiState
 import com.vvtech.aiassistant.features.assistant_ui.AssistantCallModelDisplayNames
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 import com.vvtech.aiassistant.model.ConversationListItem
 import com.vvtech.aiassistant.model.RealtimeCallProviderResponse
 import com.vvtech.aiassistant.model.RealtimeCallVoiceResponse
@@ -184,6 +185,8 @@ internal class TaskPageArgs {
 
 internal class SettingsPageArgs {
     var developerModeEnabled: Boolean = false
+    var appLanguage: AppLanguage = AppLanguage.English
+    lateinit var onAppLanguageChange: (AppLanguage) -> Unit
     var selectedDomesticSipAccountId: String = ""
     var selectedInternationalSipAccountId: String = ""
     lateinit var onSelectDomesticSipAccount: (String) -> Unit

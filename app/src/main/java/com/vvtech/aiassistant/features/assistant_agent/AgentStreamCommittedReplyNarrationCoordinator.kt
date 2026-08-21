@@ -4,6 +4,8 @@ import com.vvtech.aiassistant.core.model.AgentChatResponse
 import com.vvtech.aiassistant.domain.conversation.ConversationLedgerEvent
 import com.vvtech.aiassistant.domain.conversation.ConversationLedgerEventType
 import com.vvtech.aiassistant.domain.conversation.StableConversationLedgerEventType
+import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
 import com.vvtech.aiassistant.features.assistant_timeline.ConversationTimelinePayload
 import com.vvtech.aiassistant.logging.RuntimeStateLogDomain
 import com.vvtech.aiassistant.logging.RuntimeStateLogEvent
@@ -17,6 +19,7 @@ internal class AgentStreamCommittedReplyNarrationCoordinator(
     private val isVoiceMode: () -> Boolean,
     private val taskIdProvider: () -> String?,
     private val maybeTtsSignal: (String) -> Unit,
+    private val currentVoiceLanguage: () -> VoiceLanguage,
 ) {
     private data class PendingReply(
         val eventId: String,
@@ -130,7 +133,7 @@ internal class AgentStreamCommittedReplyNarrationCoordinator(
                 ),
             )
         )
-        maybeTtsSignal(reply.text)
+        maybeTtsSignal(sanitizeUserFacingNetworkText(reply.text, currentVoiceLanguage()))
     }
 
     private fun committedTaskReply(event: ConversationLedgerEvent): PendingReply? {

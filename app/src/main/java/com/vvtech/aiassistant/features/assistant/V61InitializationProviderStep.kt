@@ -17,9 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant_ui.AssistantCallModelDisplayNames
 import com.vvtech.aiassistant.features.translation_call.ui.TranslationProviderUiCatalog
 
@@ -34,16 +36,16 @@ internal val V61CallProviderOptions = listOf(
     V61ProviderOption(
         "QWEN_OMNI_PLUS",
         AssistantCallModelDisplayNames.Qwen,
-        "阿里巴巴 · 全双工语音对话引擎",
+        "Alibaba · full-duplex voice conversation engine",
         true
     ),
     V61ProviderOption(
         "DOUBAO",
         AssistantCallModelDisplayNames.Doubao,
-        "字节跳动 · 端到端双工语音模型",
+        "ByteDance · end-to-end duplex voice model",
         true
     ),
-    V61ProviderOption("GPT", "GPT Realtime", "即将支持 · 适用于海外", false)
+    V61ProviderOption("GPT", "GPT Realtime", "Coming soon · overseas", false)
 )
 
 internal val V61TranslationProviderOptions =
@@ -149,7 +151,7 @@ private fun V61ProviderCard(
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    option.subtitle,
+                    localizedV61ProviderSubtitle(option),
                     modifier = Modifier.padding(top = 5.dp),
                     color = if (option.enabled) Color(0xFF667085) else Color(0xFFAEAEB2),
                     fontSize = 12.sp
@@ -167,4 +169,14 @@ private fun V61ProviderCard(
             )
         }
     }
+}
+
+@Composable
+private fun localizedV61ProviderSubtitle(option: V61ProviderOption): String = when (option.id) {
+    "QWEN_OMNI_PLUS" -> stringResource(R.string.call_model_qwen_description)
+    "DOUBAO" -> stringResource(R.string.call_model_seeduplex_description)
+    "GPT" -> stringResource(R.string.call_model_gpt_coming_soon)
+    TranslationProviderUiCatalog.OpenAiId -> stringResource(R.string.translation_provider_gpt_subtitle)
+    TranslationProviderUiCatalog.GeminiId -> stringResource(R.string.translation_provider_gemini_subtitle)
+    else -> option.subtitle
 }

@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun AgentCallTranscriptBubble(
@@ -68,7 +69,10 @@ private fun AgentCallTranscriptPlain(
             dark = dark
         )
         Text(
-            text = line.text,
+            text = currentAppText(
+                line.text,
+                sanitizeCallTranscriptDisplayText(line.text, VoiceLanguage.English)
+            ),
             modifier = Modifier.padding(top = 7.dp),
             color = if (dark) Color.White.copy(alpha = 0.94f) else Color(0xFF171923),
             fontSize = 16.sp,
@@ -116,7 +120,10 @@ private fun AgentCallTranscriptCard(
                 dark = dark
             )
             Text(
-                text = line.text,
+                text = currentAppText(
+                    line.text,
+                    sanitizeCallTranscriptDisplayText(line.text, VoiceLanguage.English)
+                ),
                 modifier = Modifier.padding(top = 4.dp),
                 color = if (dark) Color.White.copy(alpha = 0.94f) else Color(0xFF111827),
                 fontSize = 14.sp,
@@ -164,8 +171,8 @@ private fun AgentCallSpeakerChip(
 private fun transcriptSpeakerLabel(role: TranscriptRole): String {
     return when (role) {
         TranscriptRole.Assistant -> "AI"
-        TranscriptRole.Remote -> "对方"
-        TranscriptRole.Note -> "记录"
+        TranscriptRole.Remote -> currentAppText("对方", "Other Party")
+        TranscriptRole.Note -> currentAppText("记录", "Note")
     }
 }
 

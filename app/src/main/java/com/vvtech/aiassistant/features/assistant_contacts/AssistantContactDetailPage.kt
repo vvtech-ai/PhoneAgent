@@ -28,6 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.features.assistant.FinalFlowTopBar
+import com.vvtech.aiassistant.features.assistant.localizedFinalContactHint
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class AssistantContactDetailPageState(
     val name: String,
@@ -65,7 +67,7 @@ internal fun AssistantContactDetailPage(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
-            FinalFlowTopBar(backLabel = "返回联系人", onBack = callbacks.onBack)
+            FinalFlowTopBar(backLabel = currentAppText("返回联系人", "Back to Contacts"), onBack = callbacks.onBack)
             LazyColumn(
                 modifier = Modifier.weight(1f),
                 contentPadding = PaddingValues(start = 18.dp, end = 18.dp, bottom = 18.dp)
@@ -131,19 +133,19 @@ private fun AssistantContactProfile(state: AssistantContactDetailPageState) {
             fontSize = 30
         )
         Text(
-            text = state.name.ifBlank { "联系人" },
+            text = state.name.ifBlank { currentAppText("联系人", "Contacts") },
             modifier = Modifier.padding(top = 14.dp),
             color = Color(0xFF111111),
             fontSize = 31.sp,
             fontWeight = FontWeight.ExtraBold
         )
         Text(
-            text = state.phone.ifBlank { "未设置号码" },
+            text = state.phone.ifBlank { currentAppText("未设置号码", "No phone number") },
             modifier = Modifier.padding(top = 8.dp),
             color = Color(0xFF6E6E73),
             fontSize = 15.sp
         )
-        state.hint.takeIf { it.isNotBlank() && it != state.phone }?.let { hint ->
+        localizedFinalContactHint(state.hint).takeIf { it.isNotBlank() && it != state.phone }?.let { hint ->
             Text(
                 text = hint,
                 modifier = Modifier.padding(top = 5.dp),
@@ -174,9 +176,14 @@ private fun AssistantContactRemarkCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.weight(1f)) {
-                    Text("备注", color = Color(0xFF111111), fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     Text(
-                        "用于 AI 参考的说明",
+                        currentAppText("备注", "Notes"),
+                        color = Color(0xFF111111),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        currentAppText("用于 AI 参考的说明", "Notes for AI reference"),
                         modifier = Modifier.padding(top = 3.dp),
                         color = Color(0xFF8E8E93),
                         fontSize = 12.sp
@@ -189,7 +196,7 @@ private fun AssistantContactRemarkCard(
                     elevation = 0.dp
                 ) {
                     Text(
-                        "编辑",
+                        currentAppText("编辑", "Edit"),
                         modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp),
                         color = Color(0xFF0A84FF),
                         fontSize = 14.sp,
@@ -199,8 +206,8 @@ private fun AssistantContactRemarkCard(
             }
             Text(
                 text = when {
-                    loading -> "备注加载中…"
-                    remark.isBlank() -> "暂无备注"
+                    loading -> currentAppText("备注加载中…", "Loading notes...")
+                    remark.isBlank() -> currentAppText("暂无备注", "No notes")
                     else -> remark
                 },
                 modifier = Modifier.padding(top = 16.dp),
@@ -224,13 +231,13 @@ private fun AssistantContactDetailActions(
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         AssistantContactProfileAction(
-            label = "拨打电话",
+            label = currentAppText("拨打电话", "Call"),
             primary = true,
             modifier = Modifier.weight(1f),
             onClick = onCall
         )
         AssistantContactProfileAction(
-            label = "发起任务",
+            label = currentAppText("发起任务", "Start Task"),
             modifier = Modifier.weight(1f),
             onClick = onTask
         )

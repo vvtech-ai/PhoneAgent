@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant.sfFormatCallTime
 
 @Composable
@@ -103,7 +104,7 @@ private fun MockCallOverlayBadge() {
             border = BorderStroke(1.dp, Color.White.copy(alpha = 0.22f))
         ) {
             Text(
-                text = "使用用户声音 · 正在执行代理任务",
+                text = "Using user voice · Running agent task",
                 color = Color.White.copy(alpha = 0.9f),
                 fontSize = 12.sp,
                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
@@ -185,7 +186,7 @@ private fun MockCallTranscriptList(
             ) {
                 Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)) {
                     Text(
-                        text = "通话转写",
+                        text = "Call Transcript",
                         color = Color.White.copy(alpha = 0.55f),
                         fontSize = 11.sp,
                         letterSpacing = 0.sp,
@@ -215,7 +216,7 @@ private fun MockCallControlRow(
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         SfCallControlButton(
             modifier = Modifier.weight(1f),
-            title = if (callMuted) "已静音" else "静音",
+            title = if (callMuted) currentAppText("已静音", "Muted") else currentAppText("静音", "Mute"),
             icon = "🎙",
             active = callMuted
         ) {
@@ -223,7 +224,7 @@ private fun MockCallControlRow(
         }
         SfCallControlButton(
             modifier = Modifier.weight(1f),
-            title = if (callSpeaker) "扬声器开" else "扬声器关",
+            title = if (callSpeaker) currentAppText("扬声器开", "Speaker On") else currentAppText("扬声器关", "Speaker Off"),
             icon = "🔊",
             active = callSpeaker
         ) {
@@ -231,7 +232,7 @@ private fun MockCallControlRow(
         }
         SfCallControlButton(
             modifier = Modifier.weight(1f),
-            title = "结束",
+            title = "End",
             icon = "☎",
             danger = true
         ) {

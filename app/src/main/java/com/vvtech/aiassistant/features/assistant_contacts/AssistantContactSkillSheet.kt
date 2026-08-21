@@ -34,7 +34,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.localizedInitialSkillOpening
 import com.vvtech.aiassistant.features.assistant_agent.AgentInitialSkillLaunchStore
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguageManager
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_home.HomeConfigViewModel
 import com.vvtech.aiassistant.features.assistant_home.HomeConfigViewModelFactory
 import com.vvtech.aiassistant.features.assistant_home.HomeCardEntryDispatcher
@@ -53,7 +58,20 @@ internal fun AssistantContactSkillSheetRoute(
     val entryDispatcher = remember {
         HomeCardEntryDispatcher(
             clearInitialSkill = AgentInitialSkillLaunchStore::clear,
-            armInitialSkill = AgentInitialSkillLaunchStore::arm
+            armInitialSkill = { skillId, opening ->
+                val englishApp = AppLanguageManager.currentAppLanguage() == AppLanguage.English
+                val displayLanguage = if (englishApp) {
+                    VoiceLanguage.English
+                } else {
+                    VoiceLanguage.Chinese
+                }
+                AgentInitialSkillLaunchStore.armWithBackendOpening(
+                    skillId = skillId,
+                    opening = localizedInitialSkillOpening(skillId, opening, displayLanguage),
+                    backendOpening = opening,
+                    sendBackendOpening = !englishApp
+                )
+            }
         )
     }
 
@@ -120,8 +138,8 @@ private fun AssistantContactSkillSheet(
                 AssistantContactSkillSheetHeader(contactName, onDismiss)
                 when {
                     loading && options.isEmpty() ->
-                        AssistantContactSkillEmptyText("正在获取可用 Skill…")
-                    options.isEmpty() -> AssistantContactSkillEmptyText("暂无可用 Skill")
+                        AssistantContactSkillEmptyText("Loading available skills...")
+                    options.isEmpty() -> AssistantContactSkillEmptyText("No available skills")
                     else -> LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -161,7 +179,7 @@ private fun AssistantContactSkillSheetHeader(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "选择 Skill",
+                text = "Choose Skill",
                 color = Color(0xFF111318),
                 fontSize = 21.sp,
                 fontWeight = FontWeight.ExtraBold
@@ -176,7 +194,7 @@ private fun AssistantContactSkillSheetHeader(
             )
         }
         Text(
-            text = contactName.ifBlank { "当前联系人" },
+            text = contactName.ifBlank { currentAppText("当前联系人", "Current Contact") },
             color = Color(0xFF747B88),
             fontSize = 13.sp
         )

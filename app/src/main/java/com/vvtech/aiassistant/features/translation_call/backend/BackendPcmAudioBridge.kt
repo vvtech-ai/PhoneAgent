@@ -11,6 +11,7 @@ import android.media.AudioRecord
 import android.media.AudioTrack
 import android.media.MediaRecorder
 import androidx.core.content.ContextCompat
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -43,7 +44,7 @@ internal class AndroidBackendPcmAudioBridge(
             PackageManager.PERMISSION_GRANTED
         ) {
             active.set(false)
-            onError("缺少麦克风权限")
+            onError(currentAppText("缺少麦克风权限", "Microphone permission is missing"))
             return
         }
         configureAudioRoute(speakerEnabled)

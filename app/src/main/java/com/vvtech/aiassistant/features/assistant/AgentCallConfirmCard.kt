@@ -23,11 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.core.model.CallSpecPayload
 
 private val ConfirmCardGreen = Color(0xFF2E7D32)
@@ -73,7 +75,7 @@ fun AgentCallConfirmCard(
                                 .background(ConfirmCardGreen, CircleShape)
                         )
                         Text(
-                            text = "任务确认",
+                            text = stringResource(R.string.confirm_title),
                             color = ConfirmCardGreen,
                             fontSize = 14.sp,
                             lineHeight = 18.sp,
@@ -86,7 +88,7 @@ fun AgentCallConfirmCard(
                         elevation = 0.dp
                     ) {
                         Text(
-                            text = "可执行",
+                            text = stringResource(R.string.confirm_executable),
                             modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
                             color = Color(0xFF1E8E3E),
                             fontSize = 11.sp,
@@ -96,17 +98,17 @@ fun AgentCallConfirmCard(
                 }
 
                 Spacer(modifier = Modifier.height(10.dp))
-                ConfirmInfoRow("目标", callSpec.targetName)
-                ConfirmInfoRow("电话", callSpec.phoneNumber)
-                ConfirmInfoRow("目的", callSpec.primaryGoal)
+                ConfirmInfoRow(stringResource(R.string.agent_confirm_target), callSpec.targetName)
+                ConfirmInfoRow(stringResource(R.string.agent_confirm_phone), callSpec.phoneNumber)
+                ConfirmInfoRow(stringResource(R.string.agent_confirm_goal), callSpec.primaryGoal)
                 visibleCallConfirmSummaryRows(callSpec.summaryLines).forEach { (label, value) ->
                     ConfirmInfoRow(label, value)
                 }
                 callSpec.negotiationRules.orEmpty().forEach { rule ->
-                    ConfirmInfoRow("补充", rule)
+                    ConfirmInfoRow(stringResource(R.string.agent_confirm_extra), rule)
                 }
                 callSpec.boundaries.orEmpty().forEach { boundary ->
-                    ConfirmInfoRow("边界", boundary)
+                    ConfirmInfoRow(stringResource(R.string.agent_confirm_boundary), boundary)
                 }
 
                 if (showActions) {
@@ -116,14 +118,14 @@ fun AgentCallConfirmCard(
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         ConfirmActionButton(
-                            text = "修改",
+                            text = stringResource(R.string.agent_confirm_edit),
                             textColor = ConfirmCardSubText,
                             background = Color.White.copy(alpha = 0.78f),
                             modifier = Modifier.weight(1f),
                             onClick = onEdit
                         )
                         ConfirmActionButton(
-                            text = "确认拨打",
+                            text = stringResource(R.string.agent_confirm_call),
                             textColor = Color.White,
                             background = ConfirmCardBlue,
                             modifier = Modifier.weight(1f),

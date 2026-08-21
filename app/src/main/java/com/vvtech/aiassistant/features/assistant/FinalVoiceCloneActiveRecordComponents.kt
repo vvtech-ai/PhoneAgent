@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_voice_clone.face.VoiceCloneCameraPreview
 import com.vvtech.aiassistant.features.assistant_voice_clone.face.VoiceCloneFaceUiArgs
 import com.vvtech.aiassistant.model.VoiceCloneScriptItem
@@ -38,7 +39,10 @@ internal fun VoiceCloneFacePreviewSection(
     scriptText: String?
 ) {
     Text(
-        text = "请保持本人正脸在画面中",
+        text = currentAppText(
+            "请保持面部位于取景框中央。",
+            "Keep your face centered in the frame."
+        ),
         modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
         color = Color(0xFFB0B4C3),
         fontSize = 12.sp,
@@ -70,7 +74,10 @@ internal fun VoiceCloneFacePreviewSection(
             )
             if (!scriptText.isNullOrBlank()) {
                 Text(
-                    text = "请朗读以下内容：\n$scriptText",
+                    text = currentAppText(
+                        "请朗读以下内容：\n$scriptText",
+                        "Please read the following:\n$scriptText"
+                    ),
                     modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
                     color = Color(0xFF4B5563),
                     fontSize = 13.sp,
@@ -85,11 +92,19 @@ internal fun VoiceCloneFacePreviewSection(
         horizontalArrangement = Arrangement.Center
     ) {
         VoiceDeviceChip(
-            text = if (face.snapshot.cameraReady) "摄像头已开启" else "摄像头准备中",
+            text = if (face.snapshot.cameraReady) {
+                currentAppText("摄像头已开启", "Camera On")
+            } else {
+                currentAppText("正在准备摄像头", "Preparing Camera")
+            },
             active = face.snapshot.cameraReady
         )
         VoiceDeviceChip(
-            text = if (isRecording) "麦克风采集中" else "麦克风等待录音",
+            text = if (isRecording) {
+                currentAppText("麦克风采集中", "Microphone Recording")
+            } else {
+                currentAppText("麦克风已就绪", "Microphone Ready")
+            },
             active = isRecording,
             modifier = Modifier.padding(start = 8.dp)
         )
@@ -171,9 +186,9 @@ internal fun VoiceCloneActiveRecordContent(
         }
         Text(
             when {
-                isRecording -> "点击按钮结束录音"
-                sample != null -> "录音已完成"
-                else -> "点击按钮开始录音"
+                isRecording -> currentAppText("点击按钮结束录音", "Tap the button to stop recording")
+                sample != null -> currentAppText("录音已完成", "Recording complete")
+                else -> currentAppText("点击按钮开始录音", "Tap the button to start recording")
             },
             color = VoiceTextMuted,
             fontSize = 13.sp
@@ -184,15 +199,15 @@ internal fun VoiceCloneActiveRecordContent(
         )
     }
     VoicePrimaryButton(
-        text = if (uploading) "提交中..." else "提交录音",
+        text = if (uploading) currentAppText("提交中...", "Submitting...") else currentAppText("提交录音", "Submit Recording"),
         enabled = !loading && !uploading && !isRecording && sample != null && !sample.qualityBlocked,
         onClick = onSubmitRecording
     )
 }
 
 private fun facePresenceLabel(face: VoiceCloneFaceUiArgs): String = when {
-    !face.snapshot.cameraReady -> "正在准备前置摄像头"
-    face.snapshot.currentFaceCount == 1 -> "已检测到单人脸，请保持正对镜头"
-    face.snapshot.currentFaceCount > 1 -> "请确保镜头中只有一人"
-    else -> "请将面部完整置于镜头中"
+    !face.snapshot.cameraReady -> currentAppText("正在准备前置摄像头", "Preparing front camera")
+    face.snapshot.currentFaceCount == 1 -> currentAppText("已检测到单人脸，请保持正对镜头", "Single face detected. Keep facing the camera")
+    face.snapshot.currentFaceCount > 1 -> currentAppText("请确保镜头中只有一人", "Make sure only one person is in frame")
+    else -> currentAppText("请将面部完整置于镜头中", "Place your full face inside the frame")
 }

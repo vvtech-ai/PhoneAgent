@@ -9,6 +9,7 @@ import com.vvtech.aiassistant.features.assistant_shell.AssistantNavigationCallOv
 import com.vvtech.aiassistant.features.assistant_shell.AssistantPermissionGuideModelOverlaySection
 import com.vvtech.aiassistant.features.assistant_model.AiCallModelLatencySource
 import com.vvtech.aiassistant.features.assistant_model.PendingBackendAiCallModelLatencySource
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 import com.vvtech.aiassistant.features.app_ota.FinalOtaInstallUiState
 import com.vvtech.aiassistant.features.translation_call.state.TranslationCallUiAction
 import com.vvtech.aiassistant.features.translation_call.state.TranslationCallUiState
@@ -22,6 +23,7 @@ internal class AssistantOverlayHostArgs {
     var taskBadgeCount: Int = 0
     var pureVoiceMode: Boolean = false
     lateinit var currentPage: FinalPage
+    var appLanguage: AppLanguage = AppLanguage.English
     var selectedRestaurantTitle: String? = null
     var activeCallModelTitle: String = AssistantCallModelDisplayNames.Qwen
     lateinit var assistantUiState: Index9AssistantUiState

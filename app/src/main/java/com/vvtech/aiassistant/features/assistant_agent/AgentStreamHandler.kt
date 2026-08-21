@@ -18,6 +18,7 @@ import com.vvtech.aiassistant.features.assistant.ClarificationStep
 import com.vvtech.aiassistant.features.assistant.DeviceContactSelectionCandidateUi
 import com.vvtech.aiassistant.features.assistant.DeviceContactSelectionUiState
 import com.vvtech.aiassistant.features.assistant.AssistantViewModel
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant.viewmodel.InteractionChannel
 import com.vvtech.aiassistant.features.assistant.viewmodel.previewText
 import java.util.UUID
@@ -95,6 +96,7 @@ internal class AgentStreamHandler(
         isVoiceMode = isVoiceMode,
         taskIdProvider = { viewModel.internalUiState.value.taskId },
         maybeTtsSignal = ttsBridgeHandler::onSignal,
+        currentVoiceLanguage = viewModel::currentVoiceLanguage,
     )
     private val timelineProjectionGate = AgentStreamTimelineProjectionGate(
         currentSessionId = { viewModel.agentSessionId },
@@ -111,7 +113,7 @@ internal class AgentStreamHandler(
             currentVoiceLanguage = viewModel::currentVoiceLanguage,
             hasActiveBatchCallStream = batchCallRuntimeHandler::isActive,
             isOutboundCallAudioSuppressed = viewModel::isOutboundCallAudioSuppressed,
-            batchSyncPendingStatusText = { BATCH_CALL_SYNC_PENDING_STATUS },
+            batchSyncPendingStatusText = { batchCallSyncPendingStatus() },
             sessionIdProvider = { viewModel.agentSessionId }
         ),
         callbacks = AgentStreamFailureRecoveryCallbacks(
@@ -138,6 +140,7 @@ internal class AgentStreamHandler(
             batchCallFinalStepPatch = batchCallRuntimeHandler::buildFinalStepPatch,
             maybeTtsSignal = ttsBridgeHandler::onSignal,
             applyAgentResponseState = ::applyAgentResponseState,
+            currentVoiceLanguage = viewModel::currentVoiceLanguage,
             releaseStreamOwnership = timelineProjectionGate::onStreamTerminal,
         )
     )
@@ -191,7 +194,7 @@ internal class AgentStreamHandler(
             applyProgress = batchCallRuntimeHandler::applyProgress,
             isActiveStep = batchCallRuntimeHandler::isActiveStep,
             clearActiveState = batchCallRuntimeHandler::clear,
-            syncPendingStatusText = { BATCH_CALL_SYNC_PENDING_STATUS }
+            syncPendingStatusText = { batchCallSyncPendingStatus() }
         ),
         response = AgentStreamEventResponseCallbacks(
             applyResponseState = ::applyAgentResponseState
@@ -523,10 +526,15 @@ internal class AgentStreamHandler(
 }
 
 
-private const val BATCH_CALL_SYNC_PENDING_STATUS = "多路外呼结果同步中，请稍后刷新"
 private const val CALL_OUTCOME_SYNC_ATTEMPTS = 4
 private const val DEFERRED_CALL_OUTCOME_SYNC_ATTEMPTS = 8
 private const val CALL_OUTCOME_SYNC_RETRY_DELAY_MS = 500L
+
+private fun batchCallSyncPendingStatus(): String =
+    currentAppText(
+        "多路外呼结果同步中，请稍后刷新",
+        "Batch call results are syncing. Refresh shortly."
+    )
 
 private fun AgentStreamEvent.isTaskResultTerminal(): Boolean {
     val response = when (this) {

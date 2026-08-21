@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ck_shape_splash_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="22dp"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="@string/ck_splash_title"
+        android:textColor="#FFFFFFFF"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/ck_shape_splash_tx_bg"
+        android:gravity="center"
+        android:paddingStart="26dp"
+        android:paddingTop="1dp"
+        android:paddingEnd="26dp"
+        android:paddingBottom="1dp"
+        android:text="@string/ck_splash_source"
+        android:textColor="#FF2A82E4" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="28dp"
+        android:gravity="center"
+        android:text="@string/ck_splash_intro1"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tx_above_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="33dp"
+        android:gravity="center"
+        android:text="@string/ck_splash_intro2"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_img"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
+
+        <ImageView
+            android:id="@+id/img_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/ck_splash_called"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_identity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/ck_ic_splash_identity"
+            app:layout_constraintBottom_toBottomOf="@id/img_phone"
+            app:layout_constraintEnd_toEndOf="@id/img_phone"
+            app:layout_constraintStart_toStartOf="@id/img_phone"
+            app:layout_constraintTop_toTopOf="@id/img_phone"
+            app:layout_constraintVertical_bias="0.2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/ck_shape_splash_btn_start"
+        android:foreground="?attr/selectableItemBackground"
+        android:maxWidth="400dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:text="@string/ck_splash_start"
+        android:textColor="#FF2A82E4"
+        android:textSize="18sp" />
+
+</LinearLayout>

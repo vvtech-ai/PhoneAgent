@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.vvtech.aiassistant.data.repository.evaluation.AgentCallEvaluationRepository
 import com.vvtech.aiassistant.data.repository.evaluation.AgentCallEvaluationRepositoryProvider
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -39,7 +40,14 @@ internal class AgentCallEvaluationViewModel(
                 .onSuccess { result -> mutableState.value = result.toUiState() }
                 .onFailure {
                     mutableState.update {
-                        it.copy(rating = previous, saving = false, message = "评价提交失败，请重试")
+                        it.copy(
+                            rating = previous,
+                            saving = false,
+                            message = currentAppText(
+                                "评价提交失败，请重试",
+                                "Failed to submit rating. Please try again."
+                            )
+                        )
                     }
                 }
         }

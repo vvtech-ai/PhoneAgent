@@ -112,7 +112,7 @@ fun SlotCard(slot: ReservationSlot) {
             SectionTitle("当前已填信息", "只展示已经识别出的有效字段")
             if (infoItems.isEmpty()) {
                 Text(
-                    text = "还没有提取到有效订餐信息。",
+                    text = "No valid restaurant booking details have been extracted yet.",
                     style = MaterialTheme.typography.body2,
                     color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f)
                 )

@@ -15,6 +15,7 @@ import com.vvtech.aiassistant.features.assistant.SfThreadItem
 import com.vvtech.aiassistant.features.assistant.sfDefaultRestaurants
 import com.vvtech.aiassistant.features.assistant.sfDefaultThinkingSteps
 import com.vvtech.aiassistant.features.assistant.sfSplitRestaurantName
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.delay
 
 internal enum class SfPending {
@@ -49,7 +50,7 @@ internal class SingleFlowNativeStateHolder(
     var slotFallback by mutableStateOf("")
 
     var callVisible by mutableStateOf(false)
-    var callStatus by mutableStateOf("正在呼叫…")
+    var callStatus by mutableStateOf(currentAppText("正在呼叫…", "Calling..."))
     var callSeconds by mutableStateOf(0)
     var callMuted by mutableStateOf(false)
     var callSpeaker by mutableStateOf(true)
@@ -124,7 +125,7 @@ internal class SingleFlowNativeStateHolder(
         val (nameText, subText) = sfSplitRestaurantName(restaurantName)
         callName = nameText
         callSub = subText
-        callStatus = "正在呼叫…"
+        callStatus = currentAppText("正在呼叫…", "Calling...")
         callSeconds = 0
         callMuted = false
         callSpeaker = true
@@ -160,7 +161,7 @@ internal class SingleFlowNativeStateHolder(
         slotRestaurant = ""
         slotFallback = ""
         callVisible = false
-        callStatus = "正在呼叫…"
+        callStatus = currentAppText("正在呼叫…", "Calling...")
         callSeconds = 0
         callMuted = false
         callSpeaker = true

@@ -8,6 +8,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.core.content.ContextCompat
 import com.vvtech.aiassistant.features.assistant.FinalPage
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_calls.normalizeDialTarget
 
 internal const val AssistantSystemPhoneCallSourceDial = "dial"
@@ -58,9 +59,15 @@ internal fun assistantSystemPhoneReturnPageName(source: String): String {
 
 internal fun assistantSystemPhoneCallFailureMessage(throwable: Throwable): String {
     return when (throwable) {
-        is SecurityException -> "缺少电话权限，已中止本次通话"
-        is ActivityNotFoundException -> "未找到可用的系统电话应用"
-        else -> throwable.message ?: "系统电话呼出失败"
+        is SecurityException -> currentAppText(
+            "缺少电话权限，已中止本次通话",
+            "Phone permission is missing. This call was canceled."
+        )
+        is ActivityNotFoundException -> currentAppText(
+            "未找到可用的系统电话应用",
+            "No system phone app is available"
+        )
+        else -> throwable.message ?: currentAppText("系统电话呼出失败", "Failed to place system phone call")
     }
 }
 

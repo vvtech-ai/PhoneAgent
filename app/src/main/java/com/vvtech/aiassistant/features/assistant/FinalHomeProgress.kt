@@ -20,13 +20,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun FinalTaskProgressV2(
     modifier: Modifier = Modifier,
     activeStage: Int = 1
 ) {
-    val labels = listOf("任务下达", "需求确认", "执行通话", "执行结果")
+    val labels = listOf(
+        currentAppText("任务下达", "Task Request"),
+        currentAppText("需求确认", "Confirm Details"),
+        currentAppText("执行通话", "Start Call"),
+        currentAppText("执行结果", "Results")
+    )
     Column(
         modifier = modifier
             .fillMaxWidth()

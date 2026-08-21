@@ -261,8 +261,8 @@ internal fun PureVoiceBottomControl(
                 .size(56.dp)
                 .semantics {
                     if (finalizing) {
-                        contentDescription = "识别中"
-                        stateDescription = "识别中"
+                        contentDescription = "Recognizing"
+                        stateDescription = "Recognizing"
                         disabled()
                     }
                 }
@@ -362,7 +362,7 @@ internal fun PureVoiceBottomControl(
                     )
 
                     PureVoiceBottomControlMode.Ended -> Text(
-                        text = "已终止",
+                        text = "Ended",
                         color = Color.White,
                         fontSize = 12.sp,
                         lineHeight = 14.sp,

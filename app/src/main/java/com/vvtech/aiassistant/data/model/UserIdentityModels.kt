@@ -55,7 +55,9 @@ data class ContactLookupResultRequest(
     val sessionId: String,
     val pendingToolCallId: String,
     val userId: String,
-    val result: Map<String, Any?>
+    val result: Map<String, Any?>,
+    val languageCode: String? = null,
+    val responseLanguage: String? = null
 )
 
 data class DeviceContactsLookupResultRequest(
@@ -63,7 +65,9 @@ data class DeviceContactsLookupResultRequest(
     val pendingToolCallId: String,
     val userId: String,
     val results: List<Map<String, Any?>>,
-    val channel: String? = null
+    val channel: String? = null,
+    val languageCode: String? = null,
+    val responseLanguage: String? = null
 )
 
 data class ContactAiModelRequest(

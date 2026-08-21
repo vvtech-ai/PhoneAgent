@@ -6,12 +6,15 @@ import com.vvtech.aiassistant.features.assistant.FinalDeveloperModeEnabledKey
 import com.vvtech.aiassistant.features.assistant.FinalTranslationQwenCalleeLanguageKey
 import com.vvtech.aiassistant.features.assistant.FinalTranslationQwenCallerLanguageKey
 import com.vvtech.aiassistant.features.assistant.FinalTranslationQwenVoiceKey
+import com.vvtech.aiassistant.features.assistant.FinalVoiceLanguageCodeKey
 import com.vvtech.aiassistant.features.assistant.TranslationProviderLanguageSettings
 import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.VoiceLanguageEnglishDefaultMigrationKey
 import com.vvtech.aiassistant.features.assistant_settings.DefaultDomesticSipAccountId
 import com.vvtech.aiassistant.features.assistant_settings.DefaultInternationalSipAccountId
 import com.vvtech.aiassistant.features.assistant_settings.DomesticSipAccountPreferenceKey
 import com.vvtech.aiassistant.features.assistant_settings.InternationalSipAccountPreferenceKey
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -73,6 +76,35 @@ class AssistantRootSettingsPreferenceStateTest {
     }
 
     @Test
+    fun appLanguageUsesAppLocaleSetterAndSyncsVoiceLanguage() {
+        val store = MemorySettingsPreferenceStore()
+        val appliedLanguages = mutableListOf<AppLanguage>()
+        val state = state(
+            store = store,
+            appLanguage = AppLanguage.English,
+            voiceLanguageCode = VoiceLanguage.English.code,
+            setApplicationLanguage = appliedLanguages::add
+        )
+
+        assertEquals(AppLanguage.English, state.appLanguage)
+
+        state.updateAppLanguage(AppLanguage.SimplifiedChinese)
+
+        assertEquals(AppLanguage.SimplifiedChinese, state.appLanguage)
+        assertEquals(VoiceLanguage.Chinese.code, state.voiceLanguageCode)
+        assertEquals(VoiceLanguage.Chinese.code, store.strings[FinalVoiceLanguageCodeKey])
+        assertEquals(true, store.booleans[VoiceLanguageEnglishDefaultMigrationKey])
+        assertEquals(listOf(AppLanguage.SimplifiedChinese), appliedLanguages)
+
+        state.updateAppLanguage(AppLanguage.English)
+
+        assertEquals(AppLanguage.English, state.appLanguage)
+        assertEquals(VoiceLanguage.English.code, state.voiceLanguageCode)
+        assertEquals(VoiceLanguage.English.code, store.strings[FinalVoiceLanguageCodeKey])
+        assertEquals(listOf(AppLanguage.SimplifiedChinese, AppLanguage.English), appliedLanguages)
+    }
+
+    @Test
     fun sipAccountPreferencesValidatePersistAndKeepSelectionsIndependent() {
         val store = MemorySettingsPreferenceStore()
         val state = state(store)
@@ -83,10 +115,10 @@ class AssistantRootSettingsPreferenceStateTest {
         state.updateDomesticSipAccountId("21311780")
         state.updateInternationalSipAccountId("1008")
 
-        assertEquals("21311780", state.selectedDomesticSipAccountId)
-        assertEquals("1008", state.selectedInternationalSipAccountId)
-        assertEquals("21311780", store.strings[DomesticSipAccountPreferenceKey])
-        assertEquals("1008", store.strings[InternationalSipAccountPreferenceKey])
+        assertEquals(DefaultDomesticSipAccountId, state.selectedDomesticSipAccountId)
+        assertEquals(DefaultInternationalSipAccountId, state.selectedInternationalSipAccountId)
+        assertEquals(DefaultDomesticSipAccountId, store.strings[DomesticSipAccountPreferenceKey])
+        assertEquals(DefaultInternationalSipAccountId, store.strings[InternationalSipAccountPreferenceKey])
 
         state.updateDomesticSipAccountId("unknown")
         state.updateInternationalSipAccountId("unknown")
@@ -144,8 +176,10 @@ class AssistantRootSettingsPreferenceStateTest {
         translationQwenLanguageSettings: TranslationProviderLanguageSettings = TranslationProviderLanguageSettings(),
         pureVoiceMode: Boolean = true,
         voiceLanguageCode: String = "zh-CN",
+        appLanguage: AppLanguage = AppLanguage.English,
         selectedDomesticSipAccountId: String = DefaultDomesticSipAccountId,
-        selectedInternationalSipAccountId: String = DefaultInternationalSipAccountId
+        selectedInternationalSipAccountId: String = DefaultInternationalSipAccountId,
+        setApplicationLanguage: (AppLanguage) -> Unit = {}
     ): AssistantRootSettingsPreferenceState {
         return AssistantRootSettingsPreferenceState(
             store = store,
@@ -155,8 +189,10 @@ class AssistantRootSettingsPreferenceStateTest {
             translationQwenLanguageSettingsState = mutableStateOf(translationQwenLanguageSettings),
             pureVoiceModeState = mutableStateOf(pureVoiceMode),
             voiceLanguageCodeState = mutableStateOf(voiceLanguageCode),
+            appLanguageState = mutableStateOf(appLanguage),
             selectedDomesticSipAccountIdState = mutableStateOf(selectedDomesticSipAccountId),
-            selectedInternationalSipAccountIdState = mutableStateOf(selectedInternationalSipAccountId)
+            selectedInternationalSipAccountIdState = mutableStateOf(selectedInternationalSipAccountId),
+            setApplicationLanguage = setApplicationLanguage
         )
     }
 

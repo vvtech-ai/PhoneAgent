@@ -11,6 +11,7 @@ import com.vvtech.aiassistant.features.assistant.pvWelcomePlayedThisProcess
 import com.vvtech.aiassistant.features.assistant.sfHasRealRestaurantFlowState
 import com.vvtech.aiassistant.features.assistant.sfRealRestaurantStage
 import com.vvtech.aiassistant.features.assistant_agent.AgentInitialSkillLaunchStore
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_pure_voice.PureVoicePrecheckUiState
 import com.vvtech.aiassistant.logging.AppFileLogger
 import kotlinx.coroutines.delay
@@ -167,7 +168,10 @@ internal fun SingleFlowNativeEntryEffects(
 
             else -> {
                 if (!realFlowEnabled) {
-                    state.aiReply("你好，我是 Phone Agent。请直接告诉我你的任务需求，我会在同一个对话流里完成全部确认与执行。")
+                    state.aiReply(currentAppText(
+                        "你好，我是 Phone Agent。请直接告诉我你的任务需求，我会在同一个对话流里完成全部确认与执行。",
+                        "Hi, I am Phone Agent. Tell me your task, and I will handle the confirmation and execution in this conversation."
+                    ))
                 }
             }
         }

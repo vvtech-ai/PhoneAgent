@@ -35,10 +35,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import kotlinx.coroutines.launch
 
 @Composable
@@ -64,9 +66,9 @@ internal fun V88LogoutConfirmDialog(
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 22.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("退出登录？", color = Color(0xFF111111), fontSize = 21.sp, fontWeight = FontWeight.ExtraBold)
+                Text(stringResource(R.string.logout_confirm_title), color = Color(0xFF111111), fontSize = 21.sp, fontWeight = FontWeight.ExtraBold)
                 Text(
-                    text = "退出后将回到手机号登录页，当前账号数据仍会保留。",
+                    text = stringResource(R.string.logout_confirm_message),
                     modifier = Modifier.padding(top = 8.dp),
                     color = Color(0xFF6E6E73),
                     fontSize = 13.sp,
@@ -79,8 +81,8 @@ internal fun V88LogoutConfirmDialog(
                         .padding(top = 18.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    FinalActionButton("取消", tone = FinalButtonTone.Secondary, modifier = Modifier.weight(1f), onClick = onCancel)
-                    FinalActionButton("退出", tone = FinalButtonTone.Danger, modifier = Modifier.weight(1f), onClick = onConfirm)
+                    FinalActionButton(stringResource(R.string.common_cancel), tone = FinalButtonTone.Secondary, modifier = Modifier.weight(1f), onClick = onCancel)
+                    FinalActionButton(stringResource(R.string.logout_confirm_action), tone = FinalButtonTone.Danger, modifier = Modifier.weight(1f), onClick = onConfirm)
                 }
             }
         }

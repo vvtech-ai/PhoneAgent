@@ -5,6 +5,7 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import com.vvtech.aiassistant.core.model.DocumentParseResult
 import com.vvtech.aiassistant.data.repository.AssistantRepository
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -15,7 +16,7 @@ internal class AssistantAgentDocumentImportUseCase(
     fun cancelledResult(): DocumentParseResult {
         return DocumentParseResult(
             status = "USER_CANCELLED",
-            message = "用户取消了文件选择"
+            message = currentAppText("用户取消了文件选择", "File selection canceled")
         )
     }
 
@@ -32,7 +33,10 @@ internal class AssistantAgentDocumentImportUseCase(
                         status = "FILE_TOO_LARGE",
                         fileName = fileName,
                         mimeType = mimeType,
-                        message = "文件超过 ${limit / 1024 / 1024}MB 限制"
+                        message = currentAppText(
+                            "文件超过 ${limit / 1024 / 1024}MB 限制",
+                            "File exceeds the ${limit / 1024 / 1024}MB limit"
+                        )
                     )
                 } else {
                     repository.parseDocument(fileName, mimeType, bytes)
@@ -40,7 +44,7 @@ internal class AssistantAgentDocumentImportUseCase(
             }.getOrElse { throwable ->
                 DocumentParseResult(
                     status = "PARSE_FAILED",
-                    message = throwable.message ?: "文件读取失败"
+                    message = throwable.message ?: currentAppText("文件读取失败", "Failed to read file")
                 )
             }
         }

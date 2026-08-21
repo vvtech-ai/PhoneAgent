@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 import com.vvtech.aiassistant.core.model.AskQuestionsPayload
 import com.vvtech.aiassistant.core.model.AssistantHistoryItem
 import com.vvtech.aiassistant.core.model.CallSpecPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.ConversationListItem
 import com.vvtech.aiassistant.model.ReservationSlot
 import com.vvtech.aiassistant.model.TaskListItem
@@ -126,10 +127,10 @@ internal fun resolveVoiceInputToolbarLabel(
     sceneType: String
 ): String? = when {
     listening -> null
-    manuallyPaused -> "继续"
-    processingTurn -> "AI在确认细节"
-    sceneType == "FOOD_ORDERING" -> "继续补充"
-    else -> "继续补充"
+    manuallyPaused -> currentAppText("继续", "Continue")
+    processingTurn -> currentAppText("AI在确认细节", "AI is confirming details")
+    sceneType == "FOOD_ORDERING" -> currentAppText("继续补充", "Add details")
+    else -> currentAppText("继续补充", "Add details")
 }
 
 internal fun shouldForceNewTaskVoiceEntryStart(
@@ -181,7 +182,7 @@ internal fun ConversationListItem.toCompletedTaskRecord(): FinalTaskRecord {
     }
     val timeLabel = updatedAt?.trim()?.takeIf { it.isNotBlank() }
         ?: createdAt?.trim()?.takeIf { it.isNotBlank() }
-        ?: "已完成"
+        ?: currentAppText("已完成", "Completed")
     return FinalTaskRecord(
         title = displayTitle,
         status = conversationStatusLabel(status),

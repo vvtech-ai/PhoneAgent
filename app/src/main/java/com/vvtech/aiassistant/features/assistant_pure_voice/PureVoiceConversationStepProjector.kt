@@ -287,7 +287,7 @@ internal object PureVoiceConversationStepProjector {
             (callConfirmSpec != null || callResult != null || batchCallResult != null) &&
             callStatusEvents.isEmpty()
     private fun ClarificationStep.isGenericShowOptions(): Boolean =
-        text.lineSequence().firstOrNull()?.trim() == GENERIC_SHOW_OPTIONS_TITLE
+        text.lineSequence().firstOrNull()?.trim() in GENERIC_SHOW_OPTIONS_TITLES
     private fun ClarificationStep.hasShowOptionsCard(): Boolean =
         toolCards.any { it.toolName == SHOW_OPTIONS_TOOL_NAME }
     private fun ClarificationStep.numberedOptionLabels(): List<String> =
@@ -321,7 +321,7 @@ internal object PureVoiceConversationStepProjector {
         return -1
     }
 
-    private const val GENERIC_SHOW_OPTIONS_TITLE = "搜到的结果"
+    private val GENERIC_SHOW_OPTIONS_TITLES = setOf("搜到的结果", "找到的结果", "Search Results")
     private const val SHOW_OPTIONS_TOOL_NAME = "showOptions"
     private val NUMBERED_OPTION =
         Regex("""^\s*\d+\s*[.、．]\s*([^（(|]+?)(?:\s*[（(|].*)?\s*$""")

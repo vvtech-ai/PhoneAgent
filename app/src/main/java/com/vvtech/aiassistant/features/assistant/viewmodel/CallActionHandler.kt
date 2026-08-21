@@ -28,6 +28,7 @@ import com.vvtech.aiassistant.features.assistant_tasks.TaskCallSessionTerminalSt
 import com.vvtech.aiassistant.features.assistant_tasks.TaskCallSessionUserCommandController
 import com.vvtech.aiassistant.features.assistant_tasks.TaskCallSessionUserCommandControllerDeps
 import com.vvtech.aiassistant.features.assistant_tasks.TaskReceiptStateHolder
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_tasks.mergeTaskCallSessionTranscript
 import kotlinx.coroutines.flow.update
 
@@ -191,7 +192,13 @@ internal class CallActionHandler(
         }
         takeoverAudioController.setCaptureEnabled(enabled)
         viewModel.internalUiState.update { it.copy(humanMicrophoneMuted = !enabled) }
-        appendCallNote(if (enabled) "人工接管麦克风已恢复" else "人工接管麦克风已静音")
+        appendCallNote(
+            if (enabled) {
+                currentAppText("人工接管麦克风已恢复", "Takeover microphone unmuted")
+            } else {
+                currentAppText("人工接管麦克风已静音", "Takeover microphone muted")
+            }
+        )
     }
 
     fun setHumanTakeoverSpeakerEnabled(enabled: Boolean) {
@@ -199,7 +206,13 @@ internal class CallActionHandler(
             return
         }
         takeoverAudioController.setSpeakerphoneEnabled(enabled)
-        appendCallNote(if (enabled) "已开启免提" else "已关闭免提")
+        appendCallNote(
+            if (enabled) {
+                currentAppText("已开启免提", "Speakerphone on")
+            } else {
+                currentAppText("已关闭免提", "Speakerphone off")
+            }
+        )
     }
 
     fun releaseToAi() {

@@ -57,12 +57,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
+import com.vvtech.aiassistant.R
 @Composable
 internal fun PureVoiceIdleStage(
     modifier: Modifier = Modifier,
@@ -101,7 +104,10 @@ internal fun PureVoiceIdleStage(
             }
         }
         Text(
-            text = voiceLanguage.standbyText,
+            text = currentAppText(
+                "请按住下方语音按钮，说出你的需求。",
+                "Press and hold the voice button below, then say what you need."
+            ),
             color = DesignTokens.textSecondary,
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
@@ -300,7 +306,7 @@ internal fun InteractionModeSettingsPage(
     onSelectLanguage: (VoiceLanguage) -> Unit = {}
 ) {
     StandardPage(scrollable = true) {
-        BackNavigationBar(label = "返回", onBack = onBack)
+        BackNavigationBar(label = stringResource(R.string.common_back), onBack = onBack)
         Surface(
             modifier = Modifier.fillMaxWidth(),
             color = Color.White,
@@ -310,13 +316,13 @@ internal fun InteractionModeSettingsPage(
         ) {
             Column(modifier = Modifier.padding(18.dp)) {
                 Text(
-                    text = "交互模式",
+                    text = stringResource(R.string.interaction_settings_title),
                     color = DesignTokens.textPrimary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "选择与 AI 对话时的界面风格",
+                    text = stringResource(R.string.interaction_settings_description),
                     modifier = Modifier.padding(top = 4.dp),
                     color = DesignTokens.textSecondary,
                     fontSize = 13.sp
@@ -336,13 +342,13 @@ internal fun InteractionModeSettingsPage(
                     )
                     Column(modifier = Modifier.padding(start = 8.dp)) {
                         Text(
-                            text = "对话模式",
+                            text = stringResource(R.string.interaction_dialog_mode),
                             color = DesignTokens.textPrimary,
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Medium
                         )
                         Text(
-                            text = "显示对话气泡，支持语音和文字输入",
+                            text = stringResource(R.string.interaction_dialog_description),
                             color = DesignTokens.textSecondary,
                             fontSize = 12.sp
                         )
@@ -362,13 +368,13 @@ internal fun InteractionModeSettingsPage(
                     )
                     Column(modifier = Modifier.padding(start = 8.dp)) {
                         Text(
-                            text = "纯语音模式",
+                            text = stringResource(R.string.interaction_pure_voice_mode),
                             color = DesignTokens.textPrimary,
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Medium
                         )
                         Text(
-                            text = "大按钮交互，纯语音操作，简洁直观",
+                            text = stringResource(R.string.interaction_pure_voice_description),
                             color = DesignTokens.textSecondary,
                             fontSize = 12.sp
                         )
@@ -386,13 +392,13 @@ internal fun InteractionModeSettingsPage(
         ) {
             Column(modifier = Modifier.padding(18.dp)) {
                 Text(
-                    text = "语音语言",
+                    text = stringResource(R.string.voice_language_title),
                     color = DesignTokens.textPrimary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "选择纯语音模式下 AI 与你沟通的语言",
+                    text = stringResource(R.string.voice_language_description),
                     modifier = Modifier.padding(top = 4.dp),
                     color = DesignTokens.textSecondary,
                     fontSize = 13.sp
@@ -412,13 +418,13 @@ internal fun InteractionModeSettingsPage(
                         )
                         Column(modifier = Modifier.padding(start = 8.dp)) {
                             Text(
-                                text = language.label,
+                                text = localizedVoiceLanguageLabel(language),
                                 color = DesignTokens.textPrimary,
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Medium
                             )
                             Text(
-                                text = language.settingsValue,
+                                text = localizedVoiceLanguageValue(language),
                                 color = DesignTokens.textSecondary,
                                 fontSize = 12.sp
                             )
@@ -429,3 +435,19 @@ internal fun InteractionModeSettingsPage(
         }
     }
 }
+
+@Composable
+private fun localizedVoiceLanguageLabel(language: VoiceLanguage): String =
+    when (language) {
+        VoiceLanguage.Chinese -> stringResource(R.string.voice_language_chinese)
+        VoiceLanguage.English -> stringResource(R.string.voice_language_english)
+        VoiceLanguage.Japanese -> stringResource(R.string.voice_language_japanese)
+    }
+
+@Composable
+private fun localizedVoiceLanguageValue(language: VoiceLanguage): String =
+    when (language) {
+        VoiceLanguage.Chinese -> stringResource(R.string.voice_language_chinese)
+        VoiceLanguage.English -> "English"
+        VoiceLanguage.Japanese -> "日本語"
+    }

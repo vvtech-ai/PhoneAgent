@@ -3,6 +3,7 @@ package com.vvtech.aiassistant.features.assistant.viewmodel
 import com.vvtech.aiassistant.features.assistant.*
 
 import com.vvtech.aiassistant.account.AccountIdentityProvider
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 /**
  * 顶层常量与简单类型，从 [com.vvtech.aiassistant.features.assistant.AssistantViewModel]
@@ -14,10 +15,17 @@ import com.vvtech.aiassistant.account.AccountIdentityProvider
 internal val DefaultUserId: String
     get() = AccountIdentityProvider.accountId
 
-internal const val DefaultIdleStatus = "点击麦克风，开始描述任务"
-internal const val DefaultIdleExample = "例如：帮我给维也纳酒店打电话，确认明晚一人入住。"
-internal const val DefaultConfirmLabel = "确认并发起"
-internal const val DefaultRetryLabel = "重新说一遍"
+internal val DefaultIdleStatus: String
+    get() = currentAppText("点击麦克风，开始描述任务", "Tap the microphone to describe your task")
+internal val DefaultIdleExample: String
+    get() = currentAppText(
+        "例如：帮我给维也纳酒店打电话，确认明晚一人入住。",
+        "For example: Call Vienna Hotel and confirm a one-person stay for tomorrow night."
+    )
+internal val DefaultConfirmLabel: String
+    get() = currentAppText("确认并发起", "Confirm and start")
+internal val DefaultRetryLabel: String
+    get() = currentAppText("重新说一遍", "Try again")
 internal const val AutoResumeListeningDelayMillis = 360L
 internal const val MinAiSpeechResumeDelayMillis = 360L
 internal const val MaxAiSpeechResumeDelayMillis = 1200L

@@ -37,6 +37,8 @@ data class AgentChatRequest(
     val traceId: String,
     val supersedesCommandId: String? = null,
     val selectedContact: SelectedContactTaskContext? = null,
+    val languageCode: String? = null,
+    val responseLanguage: String? = null,
 )
 
 data class AgentConversationInterruptRequest(

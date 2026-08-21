@@ -1,5 +1,6 @@
 package com.vvtech.aiassistant.callengine
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.UUID
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
@@ -90,7 +91,10 @@ private class AssistantDoubaoDirection(
 
     fun start() {
         if (!config.configured) {
-            onError("Doubao AST 实时翻译配置缺失")
+            onError(currentAppText(
+                "Doubao AST 实时翻译配置缺失",
+                "Doubao AST realtime translation configuration is missing"
+            ))
             return
         }
         transport.connect(

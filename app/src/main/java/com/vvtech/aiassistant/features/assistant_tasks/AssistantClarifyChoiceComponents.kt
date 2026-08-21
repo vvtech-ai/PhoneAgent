@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.features.assistant.parseInlineMarkdown
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun AssistantClarifyFallbackBannerCard(
@@ -37,9 +38,9 @@ internal fun AssistantClarifyFallbackBannerCard(
     onToggleRequired: (Boolean) -> Unit
 ) {
     val stateLabel = when {
-        !selected -> "不提及"
-        required -> "必须满足"
-        else -> "提及但不必须"
+        !selected -> currentAppText("不提及", "Do Not Mention")
+        required -> currentAppText("必须满足", "Required")
+        else -> currentAppText("提及但不必须", "Mention, Optional")
     }
     val stateTextColor = when {
         !selected -> Color(0xFF8A93A3)

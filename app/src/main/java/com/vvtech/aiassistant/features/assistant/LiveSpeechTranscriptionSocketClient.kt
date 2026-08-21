@@ -16,6 +16,7 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import com.vvtech.aiassistant.account.AccountIdentityProvider
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import okio.ByteString
 import okio.ByteString.Companion.toByteString
 import org.json.JSONObject
@@ -160,7 +161,7 @@ class LiveSpeechTranscriptionSocketClient(
 
         override fun onOpen(webSocket: WebSocket, response: Response) {
             emit(generation, Event.Connected)
-            emit(generation, Event.Status("正在连接实时转写..."))
+            emit(generation, Event.Status(currentAppText("正在连接实时转写...", "Connecting transcription...")))
         }
 
         override fun onMessage(webSocket: WebSocket, text: String) {
@@ -169,14 +170,23 @@ class LiveSpeechTranscriptionSocketClient(
             when (payload.optString("type")) {
                 "ready" -> {
                     emit(generation, Event.Ready)
-                    emit(generation, Event.Status(payload.optString("message").ifBlank { "正在听你说..." }))
+                    emit(
+                        generation,
+                        Event.Status(
+                            localizedLiveSpeechMessage(
+                                payload.optString("message").ifBlank {
+                                    currentAppText("正在听你说...", "Listening...")
+                                }
+                            )
+                        )
+                    )
                     startAudioLoopIfNeeded(webSocket, generation)
                 }
 
                 "status" -> {
                     payload.optString("message")
                         .takeIf { it.isNotBlank() }
-                        ?.let { emit(generation, Event.Status(it)) }
+                        ?.let { emit(generation, Event.Status(localizedLiveSpeechMessage(it))) }
                 }
 
                 "partial" -> {
@@ -194,7 +204,13 @@ class LiveSpeechTranscriptionSocketClient(
                 "error" -> {
                     emit(
                         generation,
-                        Event.Error(payload.optString("message").ifBlank { "实时转写服务异常" })
+                        Event.Error(
+                            localizedLiveSpeechMessage(
+                                payload.optString("message").ifBlank {
+                                    currentAppText("实时转写服务异常", "Live transcription service error")
+                                }
+                            )
+                        )
                     )
                 }
             }
@@ -217,8 +233,24 @@ class LiveSpeechTranscriptionSocketClient(
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             if (isCurrent(generation)) {
                 stopInternal(closeSocket = false)
-                emit(generation, Event.Error(t.message ?: "实时转写通道异常"))
+                emit(
+                    generation,
+                    Event.Error(
+                        localizedLiveSpeechMessage(
+                            t.message ?: currentAppText("实时转写通道异常", "Live transcription channel error")
+                        )
+                    )
+                )
             }
         }
+    }
+
+    private fun localizedLiveSpeechMessage(message: String): String {
+        val language = if (currentAppText("中文", "English") == "English") {
+            VoiceLanguage.English
+        } else {
+            VoiceLanguage.Chinese
+        }
+        return sanitizeUserFacingNetworkText(message, language)
     }
 }

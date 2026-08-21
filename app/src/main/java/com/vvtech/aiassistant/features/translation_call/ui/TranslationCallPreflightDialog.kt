@@ -14,12 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.vvtech.aiassistant.R
 
 @Composable
 internal fun TranslationCallPreflightDialog() {
@@ -44,14 +46,14 @@ internal fun TranslationCallPreflightDialog() {
             )
             Spacer(Modifier.height(16.dp))
             Text(
-                text = "正在检测通话环境",
+                text = stringResource(R.string.translation_preflight_title),
                 color = Color(0xFF202028),
                 fontSize = 19.sp,
                 fontWeight = FontWeight.Bold
             )
             Spacer(Modifier.height(10.dp))
             Text(
-                text = "正在检查地区、模型、语言、网络和通话服务…",
+                text = stringResource(R.string.translation_preflight_description),
                 color = Color(0xFF74747F),
                 fontSize = 14.sp,
                 textAlign = TextAlign.Center

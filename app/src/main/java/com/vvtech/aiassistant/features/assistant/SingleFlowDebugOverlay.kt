@@ -59,6 +59,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 // ════════════════════════════════════════════════════════
 //  VoiceDebugOverlay — 右侧调试悬浮面板（仅纯语音模式）
@@ -98,7 +99,7 @@ internal fun VoiceDebugOverlay(
         ) {
             // 状态栏
             Text(
-                text = "● ${status.ifBlank { "待机" }}",
+                text = "● ${status.ifBlank { currentAppText("待机", "Idle") }}",
                 color = Color(0xFF6EE299),
                 fontSize = 10.sp,
                 maxLines = 1,
@@ -113,7 +114,7 @@ internal fun VoiceDebugOverlay(
                 // 真实语音流程的对话历史（clarificationSteps 优先展示）
                 if (clarificationSteps.isNotEmpty()) {
                     items(clarificationSteps) { step ->
-                        val label = if (step.role == VoiceRole.User) "我" else "AI"
+                        val label = if (step.role == VoiceRole.User) currentAppText("我", "Me") else "AI"
                         val color = if (step.role == VoiceRole.User) Color(0xFFAABBFF) else Color(0xFF88DDAA)
                         VoiceDebugBubble(label, step.text, color)
                     }
@@ -122,17 +123,17 @@ internal fun VoiceDebugOverlay(
                     items(threadItems) { item ->
                         when (item) {
                             is SfThreadItem.UserText ->
-                                VoiceDebugBubble("我", item.text, Color(0xFFAABBFF))
+                                VoiceDebugBubble(currentAppText("我", "Me"), item.text, Color(0xFFAABBFF))
                             is SfThreadItem.UserWave ->
-                                VoiceDebugBubble("我", "（语音输入中）", Color(0xFF8899DD))
+                                VoiceDebugBubble(currentAppText("我", "Me"), currentAppText("（语音输入中）", "(Voice input in progress)"), Color(0xFF8899DD))
                             is SfThreadItem.AiText ->
                                 VoiceDebugBubble("AI", item.text, Color(0xFF88DDAA))
                             is SfThreadItem.AiThinking ->
-                                VoiceDebugBubble("AI", "思考中…", Color(0xFF999999))
+                                VoiceDebugBubble("AI", currentAppText("思考中…", "Thinking..."), Color(0xFF999999))
                             is SfThreadItem.Summary ->
-                                VoiceDebugBubble("摘要", item.text, Color(0xFFFFD080))
+                                VoiceDebugBubble(currentAppText("摘要", "Summary"), item.text, Color(0xFFFFD080))
                             is SfThreadItem.Options ->
-                                VoiceDebugBubble("选项", "${item.options.size} 个", Color(0xFFFFAACC))
+                                VoiceDebugBubble(currentAppText("选项", "Options"), currentAppText("${item.options.size} 个", "${item.options.size} items"), Color(0xFFFFAACC))
                             is SfThreadItem.AiCta ->
                                 VoiceDebugBubble("确认", item.text, Color(0xFFFFBB66))
                         }

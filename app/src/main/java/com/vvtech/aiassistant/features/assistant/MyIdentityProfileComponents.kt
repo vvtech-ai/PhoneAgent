@@ -23,11 +23,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.data.model.UserIdentityPayload
 
 @Composable
@@ -38,6 +40,14 @@ internal fun MyIdentityProfileState(
     onEdit: () -> Unit,
     onDelete: () -> Unit
 ) {
+    val notAddedText = stringResource(R.string.settings_identity_status_not_set)
+    val unspecifiedText = stringResource(R.string.identity_gender_unspecified)
+    val genderValue = when (payload.gender?.trim().orEmpty()) {
+        "男", "先生", "Mr.", "Mr" -> stringResource(R.string.identity_gender_mr)
+        "女", "女士", "Ms.", "Ms" -> stringResource(R.string.identity_gender_ms)
+        "", "不透露" -> unspecifiedText
+        else -> payload.gender.orEmpty()
+    }
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -59,14 +69,14 @@ internal fun MyIdentityProfileState(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("身份信息", fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.identity_section_profile), fontSize = 17.sp, fontWeight = FontWeight.Bold)
                     if (status == UserIdentityDisplayStatus.VERIFIED) {
                         MyIdentityVerifiedBadge()
                     }
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     MyIdentityIconButton(
-                        description = "编辑身份",
+                        description = stringResource(R.string.identity_edit_content_description),
                         enabled = !saving,
                         onClick = onEdit
                     ) {
@@ -78,7 +88,7 @@ internal fun MyIdentityProfileState(
                         )
                     }
                     MyIdentityIconButton(
-                        description = "删除身份",
+                        description = stringResource(R.string.identity_delete_content_description),
                         enabled = !saving,
                         onClick = onDelete
                     ) {
@@ -91,13 +101,13 @@ internal fun MyIdentityProfileState(
                     }
                 }
             }
-            MyIdentityDisplayRow("姓名", payload.name.orEmpty())
-            MyIdentityDisplayRow("手机号码", payload.contactPhone?.takeIf(String::isNotBlank) ?: "未填写")
-            MyIdentityDisplayRow("性别", payload.gender?.takeIf(String::isNotBlank) ?: "不透露")
+            MyIdentityDisplayRow(stringResource(R.string.identity_name_label), payload.name.orEmpty())
+            MyIdentityDisplayRow(stringResource(R.string.identity_phone_label), payload.contactPhone?.takeIf(String::isNotBlank) ?: notAddedText)
+            MyIdentityDisplayRow(stringResource(R.string.identity_gender_label), genderValue)
         }
     }
     Text(
-        text = "用于AI在通话中更好的沟通。",
+        text = stringResource(R.string.identity_empty_description),
         modifier = Modifier.padding(top = 14.dp, start = 4.dp),
         color = Color(0xFF6E6E73),
         fontSize = 13.sp
@@ -112,7 +122,7 @@ private fun MyIdentityVerifiedBadge() {
         elevation = 0.dp
     ) {
         Text(
-            "已认证",
+            stringResource(R.string.identity_verified),
             modifier = Modifier.padding(horizontal = 9.dp, vertical = 4.dp),
             color = Color(0xFF2E9D50),
             fontSize = 12.sp,
@@ -172,16 +182,16 @@ internal fun MyIdentityDeleteDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("删除身份", fontWeight = FontWeight.Bold) },
+        title = { Text(stringResource(R.string.identity_delete_title), fontWeight = FontWeight.Bold) },
         text = {
             Text(
-                "删除认证身份后，该身份创建的克隆音色也将一并删除，且无法继续使用。是否删除？",
+                stringResource(R.string.identity_delete_message),
                 lineHeight = 21.sp
             )
         },
         confirmButton = {
             Text(
-                "删除身份",
+                stringResource(R.string.identity_delete_title),
                 color = Color(0xFFE14D46),
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
@@ -191,7 +201,7 @@ internal fun MyIdentityDeleteDialog(
         },
         dismissButton = {
             Text(
-                "取消",
+                stringResource(R.string.common_cancel),
                 modifier = Modifier.clickable(enabled = !saving, onClick = onDismiss).padding(12.dp)
             )
         }

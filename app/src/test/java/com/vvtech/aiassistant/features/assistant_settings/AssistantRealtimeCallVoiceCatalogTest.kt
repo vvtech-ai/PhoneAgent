@@ -1,5 +1,6 @@
 package com.vvtech.aiassistant.features.assistant_settings
 
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 import com.vvtech.aiassistant.model.RealtimeCallVoiceResponse
 import com.vvtech.aiassistant.model.RealtimeCallVoiceItem
 import com.vvtech.aiassistant.model.UpdateRealtimeCallVoiceRequest
@@ -38,7 +39,7 @@ class AssistantRealtimeCallVoiceCatalogTest {
         val visible = visibleRealtimeCallVoices("DOUBAO", listOf(steady, clear))
 
         assertEquals(listOf(clear.voice), visible.map { it.voice })
-        assertEquals("清朗男声", realtimeCallVoiceDisplayName(clear.voice, clear.displayName))
+        assertEquals("Seeduplex Clear Male", realtimeCallVoiceDisplayName(clear.voice, clear.displayName))
         assertEquals("Seeduplex clear male.", buildVoiceSubtitle(clear))
         assertTrue(File("src/main/res/raw/doubao_clear_male.wav").isFile)
     }
@@ -73,6 +74,14 @@ class AssistantRealtimeCallVoiceCatalogTest {
     }
 
     @Test
+    fun voiceCatalogDescriptionUsesEnglishSettingsCopy() {
+        assertEquals(
+            "Current voice model QwenOmniPlus supports these voices.",
+            realtimeCallVoiceCatalogDescription("QWEN_OMNI_PLUS", AppLanguage.English)
+        )
+    }
+
+    @Test
     fun settingsUsesOneEntrySharedModelCatalogAndMergedCloneSection() {
         val settingsHome = sourceFile(
             "src/main/java/com/vvtech/aiassistant/features/assistant/FinalSettingsHomePage.kt"
@@ -90,15 +99,15 @@ class AssistantRealtimeCallVoiceCatalogTest {
             "src/main/java/com/vvtech/aiassistant/features/assistant/AssistantTaskSettingsPageHost.kt"
         )
 
-        assertTrue(settingsHome.contains("title = \"语音大模型\""))
+        assertTrue(settingsHome.contains("R.string.settings_call_models_voices_title"))
         assertFalse(settingsHome.contains("title = \"克隆声音\""))
         assertTrue(providerPage.contains("providerResponse?.toV88VoiceModelOptions()"))
         assertFalse(providerPage.contains("statusMessage.isNullOrBlank()"))
         assertTrue(providerPage.contains("if (model.enabled) Color(0xFF111827) else Color(0xFF9B9BA1)"))
-        assertTrue(providerPage.contains("text = \"音色与声音克隆\""))
+        assertTrue(providerPage.contains("R.string.call_models_voice_clone_entry"))
         assertFalse(providerPage.contains("text = \"设置通话语音\""))
         assertFalse(providerPage.contains("AI音色、克隆声音"))
-        assertTrue(voiceSettingsPage.contains("暂不支持声音克隆"))
+        assertTrue(voiceSettingsPage.contains("R.string.call_voice_clone_not_supported"))
         assertFalse(voiceSettingsPage.contains("\"刷新音色\""))
         assertFalse(voiceSettingsPage.contains("val onRefresh: () -> Unit"))
         assertFalse(settingsPageHost.contains("onRefresh = { onRefreshRealtimeCallVoice(true) }"))

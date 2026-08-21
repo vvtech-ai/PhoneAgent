@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.vvtech.aiassistant.core.model.AssistantActionChip
 import com.vvtech.aiassistant.core.model.AssistantMessageItem
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.ui.components.ErrorBlock
 import com.vvtech.aiassistant.ui.components.GradientBackground
 import com.vvtech.aiassistant.ui.components.LoadingBlock
@@ -99,7 +100,7 @@ private fun UserBubble(text: String) {
             text = text,
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = Color.White,
-            sender = "你"
+            sender = currentAppText("你", "You")
         )
     }
 }
@@ -111,7 +112,7 @@ private fun AssistantBubble(text: String) {
             text = text,
             backgroundColor = Color.White,
             contentColor = MaterialTheme.colors.onSurface,
-            sender = "AI助手"
+            sender = currentAppText("AI助手", "AI Assistant")
         )
     }
 }
@@ -171,7 +172,7 @@ private fun StatusMessage(message: AssistantMessageItem) {
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Text(
-                text = message.statusText ?: "处理中",
+                text = message.statusText ?: currentAppText("处理中", "Processing"),
                 style = MaterialTheme.typography.caption,
                 color = MaterialTheme.colors.secondary,
                 fontWeight = FontWeight.Bold
@@ -208,9 +209,9 @@ private fun RestaurantCardMessage(
                 text = buildString {
                     append(card.phone)
                     if (card.distanceMeters != null) {
-                        append(" · 约 ")
+                        append(currentAppText(" · 约 ", " · approx. "))
                         append(card.distanceMeters)
-                        append(" 米")
+                        append(currentAppText(" 米", " m"))
                     }
                 },
                 style = MaterialTheme.typography.body2,
@@ -330,22 +331,22 @@ fun ActionChipRow(
 }
 
 fun String.toNaturalScene(): String = when (this) {
-    "FOOD_ORDERING" -> "订餐"
-    "HOTEL_BOOKING" -> "订酒店"
-    "AI_CALL" -> "帮打电话"
-    else -> "生活任务助手"
+    "FOOD_ORDERING" -> currentAppText("订餐", "Restaurant Booking")
+    "HOTEL_BOOKING" -> currentAppText("订酒店", "Hotel Booking")
+    "AI_CALL" -> currentAppText("帮打电话", "AI Call")
+    else -> currentAppText("生活任务助手", "Life Task Assistant")
 }
 
 fun String.toNaturalStatus(): String = when (this) {
-    "SCENE_IDENTIFIED" -> "已理解"
-    "COLLECTING_REQUIRED_INFO" -> "继续聊"
-    "READY_TO_EXECUTE" -> "准备继续"
-    "EXECUTING" -> "处理中"
-    "WAITING_EXTERNAL_RESULT" -> "等你拍板"
-    "COMPLETED" -> "已完成"
-    "FAILED" -> "需要调整"
-    "USER_MODIFIED_REQUEST" -> "已改条件"
-    else -> "待处理"
+    "SCENE_IDENTIFIED" -> currentAppText("已理解", "Understood")
+    "COLLECTING_REQUIRED_INFO" -> currentAppText("继续聊", "Collecting Details")
+    "READY_TO_EXECUTE" -> currentAppText("准备继续", "Ready")
+    "EXECUTING" -> currentAppText("处理中", "Processing")
+    "WAITING_EXTERNAL_RESULT" -> currentAppText("等你拍板", "Awaiting Confirmation")
+    "COMPLETED" -> currentAppText("已完成", "Completed")
+    "FAILED" -> currentAppText("需要调整", "Needs Adjustment")
+    "USER_MODIFIED_REQUEST" -> currentAppText("已改条件", "Updated")
+    else -> currentAppText("待处理", "Pending")
 }
 
 @Composable
@@ -353,7 +354,7 @@ fun AssistantStatusBlock(loading: Boolean, error: String?) {
     when {
         loading -> {
             Spacer(modifier = Modifier.height(4.dp))
-            LoadingBlock("我在整理这件事...")
+            LoadingBlock(currentAppText("我在整理这件事...", "Organizing this task..."))
         }
         !error.isNullOrBlank() -> {
             Spacer(modifier = Modifier.height(4.dp))

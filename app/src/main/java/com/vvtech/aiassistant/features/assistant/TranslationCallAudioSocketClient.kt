@@ -22,6 +22,7 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import com.vvtech.aiassistant.account.AccountIdentityProvider
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import okio.ByteString
 import okio.ByteString.Companion.toByteString
 
@@ -185,7 +186,7 @@ class TranslationCallAudioSocketClient(
                         }
                         count == 0 -> SystemClock.sleep(20L)
                         else -> {
-                            emit(Event.Status("翻译电话麦克风读取异常，正在重试"))
+                            emit(Event.Status(currentAppText("翻译电话麦克风读取异常，正在重试", "Translation microphone read failed. Retrying")))
                             advanceCaptureConfigCursor(preparedCaptureSource ?: -1, sampleRate)
                             releaseCurrentAudioRecord()
                             break
@@ -199,7 +200,7 @@ class TranslationCallAudioSocketClient(
 
     private fun ensureCaptureReady(): AudioRecord? {
         audioRecord?.let { return it }
-        emit(Event.Status("正在准备翻译电话麦克风..."))
+        emit(Event.Status(currentAppText("正在准备翻译电话麦克风...", "Preparing translation microphone...")))
         val captureConfigs = TranslationCallAudioCaptureConfigPolicy.captureConfigs
         for (offset in captureConfigs.indices) {
             if (!running.get()) return null
@@ -210,11 +211,11 @@ class TranslationCallAudioSocketClient(
                 preparedCaptureSource = config.source
                 preparedCaptureSampleRate = config.sampleRate
                 captureConfigCursor = (captureConfigCursor + offset) % captureConfigs.size
-                emit(Event.Status("翻译电话麦克风已就绪"))
+                emit(Event.Status(currentAppText("翻译电话麦克风已就绪", "Translation microphone ready")))
                 return record
             }
         }
-        emit(Event.Status("翻译电话麦克风暂时不可用，正在重试..."))
+        emit(Event.Status(currentAppText("翻译电话麦克风暂时不可用，正在重试...", "Translation microphone unavailable. Retrying...")))
         return null
     }
 
@@ -357,7 +358,7 @@ class TranslationCallAudioSocketClient(
                     connected.set(true)
                     AppFileLogger.i(TAG, "websocket opened callId=${currentCallId.orEmpty()}")
                     emit(Event.Connected)
-                    emit(Event.Status("翻译电话音频通道已连接"))
+                    emit(Event.Status(currentAppText("翻译电话音频通道已连接", "Translation audio channel connected")))
                 }
                 .onFailure { throwable ->
                     AppFileLogger.w(TAG, "startAudioLoops failed", throwable)
@@ -384,7 +385,7 @@ class TranslationCallAudioSocketClient(
                 emit(Event.Error(throwable.message ?: "缈昏瘧鐢佃瘽闊抽鎾斁澶辫触"))
                 return
             }
-            emit(Event.Status("已收到译后音频"))
+            emit(Event.Status(currentAppText("已收到译后音频", "Translated audio received")))
         }
 
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {

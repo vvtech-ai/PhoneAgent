@@ -20,16 +20,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 @Composable
 internal fun FinalCallsPageV3(
     records: List<FinalCallRecord>,
     onOpenRecord: (FinalCallRecord) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalScreenTopBar(title = "通话")
+        FinalScreenTopBar(title = stringResource(R.string.calls_title))
         if (records.isEmpty()) {
             Box(
                 modifier = Modifier
@@ -38,7 +41,7 @@ internal fun FinalCallsPageV3(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "还没有通话记录",
+                    text = stringResource(R.string.calls_empty),
                     color = Color(0xFF98A2B3),
                     fontSize = 14.sp
                 )
@@ -111,14 +114,14 @@ internal fun FinalCallsPageV3(
 
 @Composable
 private fun CallTypeBadge(label: String) {
-    val translation = label == "实时翻译"
+    val translation = label == "TRANSLATION"
     Surface(
         color = if (translation) Color(0x1A7C4DFF) else Color(0x1A007AFF),
         shape = RoundedCornerShape(6.dp),
         elevation = 0.dp
     ) {
         Text(
-            text = label,
+            text = if (translation) stringResource(R.string.calls_badge_translation) else label,
             modifier = Modifier.padding(horizontal = 7.dp, vertical = 3.dp),
             color = if (translation) Color(0xFF7C4DFF) else Color(0xFF007AFF),
             fontSize = 10.sp,
@@ -135,7 +138,7 @@ private fun CallOutcomeBadge(success: Boolean) {
         elevation = 0.dp
     ) {
         Text(
-            text = if (success) "成功" else "失败",
+            text = if (success) stringResource(R.string.calls_success) else stringResource(R.string.calls_failed),
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
             color = if (success) Color(0xFF16A34A) else Color(0xFFFF3B30),
             fontSize = 11.sp,
@@ -145,7 +148,7 @@ private fun CallOutcomeBadge(success: Boolean) {
 }
 
 private fun FinalCallRecord.callListBadgeLabel(): String? = when {
-    status.contains("翻译") || title.startsWith("翻译通话") -> "实时翻译"
+    status.contains("翻译") || title.startsWith("翻译通话") -> "TRANSLATION"
     callId.isNotBlank() || taskId.isNotBlank() || status.contains("AI") || meta.contains("Agent") -> "Agent"
     else -> null
 }
@@ -154,14 +157,20 @@ private fun FinalCallRecord.callListTitle(): String = when {
     title.startsWith("翻译通话 ") -> title.removePrefix("翻译通话 ")
     title.startsWith("拨打 ") -> title.removePrefix("拨打 ")
     else -> title
-}.ifBlank { phoneNumber.ifBlank { "未知号码" } }
+}.ifBlank { phoneNumber.ifBlank { "Unknown Number" } }
 
 private fun FinalCallRecord.callListSummary(): String {
     if (callListBadgeLabel() == "Agent") return meta.ifBlank { resultText }
     val displayTitle = callListTitle()
     val parts = buildList {
         if (phoneNumber.isNotBlank() && phoneNumber != displayTitle) add(phoneNumber)
-        if (status.contains("普通通话")) add(if (title.startsWith("拨打 ")) "呼出" else "呼入")
+        if (status.contains("普通通话")) {
+            add(if (title.startsWith("拨打 ")) {
+                currentAppText("呼出", "Outgoing")
+            } else {
+                currentAppText("呼入", "Incoming")
+            })
+        }
         if (durationText.isNotBlank()) add(durationText)
     }
     return parts.joinToString(" · ").ifBlank { meta }

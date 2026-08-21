@@ -30,6 +30,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.features.assistant.FinalContactRecord
+import com.vvtech.aiassistant.features.assistant.localizedFinalContactHint
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun AssistantContactsTopBar() {
@@ -42,7 +44,7 @@ internal fun AssistantContactsTopBar() {
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "联系人",
+                text = currentAppText("联系人", "Contacts"),
                 color = Color(0xFF111111),
                 fontSize = 31.sp,
                 lineHeight = 32.sp,
@@ -63,7 +65,7 @@ internal fun AssistantContactsEmptyState() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "暂无联系人",
+            text = currentAppText("暂无联系人", "No contacts yet"),
             color = Color(0xFF8E8E93),
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold
@@ -98,7 +100,7 @@ internal fun AssistantContactPlainRow(
         AssistantContactAvatar(initial = assistantContactInitial(record.name))
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = record.name.ifBlank { "联系人" },
+                text = record.name.ifBlank { currentAppText("联系人", "Contacts") },
                 color = Color(0xFF111111),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
@@ -203,9 +205,9 @@ internal fun assistantContactInitial(name: String): String =
 
 private fun assistantContactSubtitle(record: FinalContactRecord): String {
     val phone = record.phone.trim()
-    val hint = record.hint.trim()
+    val hint = localizedFinalContactHint(record.hint).trim()
     return when {
-        phone.isBlank() && hint.isBlank() -> "未设置号码"
+        phone.isBlank() && hint.isBlank() -> currentAppText("未设置号码", "No phone number")
         phone.isBlank() -> hint
         hint.isBlank() -> phone
         hint == phone -> phone

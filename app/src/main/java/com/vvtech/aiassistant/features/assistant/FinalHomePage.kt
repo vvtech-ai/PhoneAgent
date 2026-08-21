@@ -36,9 +36,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant_home.AssistantHomeAgentSheetState
 import com.vvtech.aiassistant.features.assistant_home.AssistantHomeCardUi
 import com.vvtech.aiassistant.features.assistant_home.AssistantHomeConfigUiState
@@ -154,8 +156,8 @@ internal fun FinalHomeAssistantPageV2(
                         FinalHomeEmptyStateCard(
                             callModelTitle = callbacks.shell.activeCallModelTitle,
                             onOpenCallModelSheet = callbacks.shell.onOpenCallModelSheet,
-                            sloganTitle = homeConfig.slogan.line1,
-                            sloganSubtitle = homeConfig.slogan.line2
+                            sloganTitle = localizedHomeSloganLine1(homeConfig.slogan.line1),
+                            sloganSubtitle = localizedHomeSloganLine2(homeConfig.slogan.line2)
                         )
                     }
                 }
@@ -267,7 +269,7 @@ internal fun FinalHomeAssistantPageV2(
                                 !taskState.aiThinking &&
                                 !taskState.processingTurn
                             ) {
-                                FinalMessageBubble(text = "我会继续按当前任务信息推进。", user = false)
+                                FinalMessageBubble(text = stringResource(R.string.home_continue_current_task), user = false)
                             }
                         }
                     }
@@ -343,3 +345,18 @@ internal fun FinalHomeAssistantPageV2(
         )
     }
 }
+
+@Composable
+private fun localizedHomeSloganLine1(raw: String): String =
+    when (raw.trim()) {
+        "给我一个任务", "Give me a task", "Give Me a Task" -> stringResource(R.string.home_empty_title)
+        "老大，请吩咐", "有事，请吩咐", "Tell me what you need", "What Can I Do for You?" -> stringResource(R.string.home_slogan_command_title)
+        else -> raw
+    }
+
+@Composable
+private fun localizedHomeSloganLine2(raw: String): String =
+    when (raw.trim()) {
+        "我来帮你打电话", "I will make the call for you", "I can make the call for you" -> stringResource(R.string.home_empty_subtitle)
+        else -> raw
+    }

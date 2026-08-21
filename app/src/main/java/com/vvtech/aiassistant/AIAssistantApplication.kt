@@ -13,6 +13,7 @@ import com.vvtech.aiassistant.domain.translation.TranslationRegionRepository
 import com.vvtech.aiassistant.logging.AppCrashHandler
 import com.vvtech.aiassistant.logging.AppFileLogger
 import com.vvtech.aiassistant.features.assistant.AssistantSpeechPlayerHolder
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguageManager
 import com.vvtech.aiassistant.BuildConfig
 import com.vvtech.aiassistant.integration.incall.OptionalIncallSdkBridge
 
@@ -29,6 +30,7 @@ class AIAssistantApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        AppLanguageManager.ensureSupportedDefaultLanguage()
         AppFileLogger.initialize(this)
         registerMainLifecycleLogger()
         AppCrashHandler.install()

@@ -32,10 +32,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant_ui.AssistantCallModelDisplayNames
 
 @Composable
@@ -43,9 +45,11 @@ internal fun FinalHomeEmptyStateCard(
     onOpenTranslationDial: (() -> Unit)? = null,
     callModelTitle: String = AssistantCallModelDisplayNames.Qwen,
     onOpenCallModelSheet: (() -> Unit)? = null,
-    sloganTitle: String = "给我一个任务",
-    sloganSubtitle: String = "我来帮你打电话"
+    sloganTitle: String? = null,
+    sloganSubtitle: String? = null
 ) {
+    val displayTitle = sloganTitle ?: stringResource(R.string.home_empty_title)
+    val displaySubtitle = sloganSubtitle ?: stringResource(R.string.home_empty_subtitle)
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -91,15 +95,18 @@ internal fun FinalHomeEmptyStateCard(
                 }
             }
             Text(
-                text = sloganTitle,
-                modifier = Modifier.padding(top = 18.dp),
+                text = displayTitle,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 18.dp),
                 color = Color(0xFF121826),
                 fontSize = 28.sp,
                 lineHeight = 31.sp,
-                fontWeight = FontWeight.ExtraBold
+                fontWeight = FontWeight.ExtraBold,
+                textAlign = TextAlign.Center
             )
             Text(
-                text = sloganSubtitle,
+                text = displaySubtitle,
                 modifier = Modifier
                     .widthIn(max = 292.dp)
                     .padding(top = 12.dp),
@@ -123,7 +130,12 @@ internal fun FinalHomeEmptyStateCard(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(5.dp)
                     ) {
-                        Text("通话模型：", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        Text(
+                            stringResource(R.string.home_call_model_prefix),
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
                         Text(v61CallModelDisplayName(callModelTitle), color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.ExtraBold)
                         Icon(
                             imageVector = Icons.Rounded.KeyboardArrowDown,
@@ -142,7 +154,7 @@ internal fun FinalHomeEmptyStateCard(
                     shape = RoundedCornerShape(999.dp)
                 ) {
                     Text(
-                        text = "实时翻译电话",
+                        text = stringResource(R.string.home_live_translation_phone),
                         modifier = Modifier.padding(horizontal = 18.dp, vertical = 10.dp),
                         color = Color.White,
                         fontSize = 13.sp,

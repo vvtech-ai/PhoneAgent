@@ -8,6 +8,7 @@ import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
 import com.vvtech.aiassistant.features.assistant.VoiceLanguage
 import com.vvtech.aiassistant.features.assistant.localizedVoiceRecoveryRetryStatus
 import com.vvtech.aiassistant.features.assistant.voiceRecoveryDecision
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant.viewmodel.runCatchingNonCancellation
 import com.vvtech.aiassistant.model.UserContextPayload
 import kotlinx.coroutines.CoroutineScope
@@ -124,6 +125,8 @@ internal class AgentStreamTurnRunner(
                             identity = identity,
                             selectedContact = selectedContact,
                             supersedesCommandId = supersedesCommandId,
+                            languageCode = runtime.currentVoiceLanguage().code,
+                            responseLanguage = runtime.currentVoiceLanguage().agentResponseLanguageName(),
                         ),
                         userContext
                     ).catch { throw it }.collect { event ->
@@ -155,7 +158,11 @@ internal class AgentStreamTurnRunner(
                     attempt += 1
                     continue
                 }
-                callbacks.handleAgentStreamFailure(stepIndex, throwable, "文字任务提交失败")
+                callbacks.handleAgentStreamFailure(
+                    stepIndex,
+                    throwable,
+                    currentAppText("文字任务提交失败", "Failed to submit the text task")
+                )
                 return@launch
             }
         }

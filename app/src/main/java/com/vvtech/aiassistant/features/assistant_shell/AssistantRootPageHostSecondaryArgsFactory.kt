@@ -67,6 +67,7 @@ private fun AssistantRootPageHostSecondaryArgsFactoryDeps.settingsInput() =
     AssistantSettingsArgsBuilderInput(
         main = SettingsMainInput(
             developerModeEnabled = state.settings.developerModeEnabled,
+            appLanguage = state.settings.appLanguage,
             selectedVoiceModelTitle = selectedVoiceModelTitle(values.selectedVoiceModelId),
             otaUpdateChecking = runtime.ota.otaUpdateChecking,
             logUploadInProgress = runtime.logUpload.logUploadInProgress,
@@ -88,6 +89,7 @@ private fun AssistantRootPageHostSecondaryArgsFactoryDeps.settingsInput() =
             outboundDeleting = runtime.outbound.deleting
         ),
         callbacks = SettingsCallbacksInput(
+            onAppLanguageChange = state.settings::updateAppLanguage,
             onSelectedMethodReset = runtime.contact::resetSelection,
             onShowVoiceModelSheetChange = state.transientOverlay::setVoiceModelSheetVisible,
             onOpenTrustedCalleeAuthorization = runtime.auth::openTrustedCalleeAuthorization,

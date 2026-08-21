@@ -22,9 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 
 private data class DialLanguageOption(val name: String, val nativeLabel: String)
 
@@ -62,7 +64,7 @@ internal fun TranslationLanguagePickerPage(
             ) {
                 Icon(
                     Icons.Default.ArrowBackIosNew,
-                    contentDescription = "返回",
+                    contentDescription = stringResource(R.string.common_back),
                     tint = Color(0xFF111318),
                     modifier = Modifier.size(19.dp)
                 )
@@ -79,7 +81,7 @@ internal fun TranslationLanguagePickerPage(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        language.name,
+                        localizedDialLanguageName(language.name),
                         modifier = Modifier.weight(1f),
                         color = Color(0xFF202228),
                         fontSize = 16.sp,
@@ -90,7 +92,7 @@ internal fun TranslationLanguagePickerPage(
                         if (language.name == selected) {
                             Icon(
                                 Icons.Default.Check,
-                                contentDescription = "已选择",
+                                contentDescription = stringResource(R.string.common_selected),
                                 tint = Color(0xFF1687F8),
                                 modifier = Modifier.size(20.dp)
                             )
@@ -101,3 +103,16 @@ internal fun TranslationLanguagePickerPage(
         }
     }
 }
+
+@Composable
+internal fun localizedDialLanguageName(name: String): String =
+    when (name) {
+        "中文" -> stringResource(R.string.dial_language_chinese)
+        "英文" -> stringResource(R.string.dial_language_english)
+        "日语" -> stringResource(R.string.dial_language_japanese)
+        "韩语" -> stringResource(R.string.dial_language_korean)
+        "法语" -> stringResource(R.string.dial_language_french)
+        "德语" -> stringResource(R.string.dial_language_german)
+        "西班牙语" -> stringResource(R.string.dial_language_spanish)
+        else -> name
+    }

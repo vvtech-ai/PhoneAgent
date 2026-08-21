@@ -28,6 +28,7 @@ import com.vvtech.aiassistant.features.assistant.FinalBackTitleBar
 import com.vvtech.aiassistant.features.assistant.FinalGenderSelectorV3
 import com.vvtech.aiassistant.features.assistant.FinalInputFieldV3
 import com.vvtech.aiassistant.features.assistant.PersonalInfoGender
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class AssistantContactMethodEditPageState(
     val mode: ContactEditMode,
@@ -60,7 +61,11 @@ internal fun AssistantContactMethodEditPage(args: AssistantContactMethodEditPage
 
     Column(modifier = Modifier.fillMaxSize()) {
         FinalBackTitleBar(
-            title = if (state.mode == ContactEditMode.Edit) "编辑联系方式" else "新增联系方式",
+            title = if (state.mode == ContactEditMode.Edit) {
+                currentAppText("编辑联系方式", "Edit Contact Method")
+            } else {
+                currentAppText("新增联系方式", "Add Contact")
+            },
             onBack = callbacks.onBack
         )
         LazyColumn(
@@ -69,9 +74,9 @@ internal fun AssistantContactMethodEditPage(args: AssistantContactMethodEditPage
         ) {
             item {
                 FinalInputFieldV3(
-                    label = "姓名",
+                    label = "Name",
                     value = state.name,
-                    placeholder = "请输入姓名",
+                    placeholder = "Enter name",
                     keyboardType = KeyboardType.Text,
                     onValueChange = callbacks.onNameChange
                 )
@@ -81,9 +86,9 @@ internal fun AssistantContactMethodEditPage(args: AssistantContactMethodEditPage
             }
             item {
                 FinalInputFieldV3(
-                    label = "电话号码",
+                    label = "Phone Number",
                     value = state.phone,
-                    placeholder = "例如：13800138000",
+                    placeholder = "Example: 13800138000",
                     keyboardType = KeyboardType.Phone,
                     onValueChange = callbacks.onPhoneChange
                 )
@@ -115,7 +120,7 @@ internal fun AssistantContactMethodEditPage(args: AssistantContactMethodEditPage
             }
             item {
                 FinalActionButton(
-                    label = "保存",
+                    label = "Save",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 18.dp),
@@ -143,7 +148,7 @@ private fun AssistantContactMethodDeleteButton(onDelete: () -> Unit) {
             modifier = Modifier.size(18.dp)
         )
         Text(
-            text = "删除",
+            text = "Delete",
             color = Color(0xFFE14D46),
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold

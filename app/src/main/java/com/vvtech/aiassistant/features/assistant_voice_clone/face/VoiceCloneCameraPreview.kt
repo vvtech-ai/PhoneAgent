@@ -30,6 +30,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
@@ -76,7 +77,13 @@ internal fun VoiceCloneCameraPreview(
 
     if (!permissionGranted) {
         Box(modifier = modifier.fillMaxWidth().height(220.dp), contentAlignment = Alignment.Center) {
-            Text("请允许相机权限后重新进入声音采集", color = Color(0xFF6E6E73))
+            Text(
+                currentAppText(
+                    "请允许相机权限后重新进入声音采集。",
+                    "Allow camera permission, then re-enter voice collection."
+                ),
+                color = Color(0xFF6E6E73)
+            )
         }
         return
     }

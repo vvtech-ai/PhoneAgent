@@ -22,11 +22,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.core.model.CallSpecPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
+import java.util.Locale
 @Composable
 internal fun PureVoiceSelectionCard(sheet: SelectionSheetData, onSelect: ((SelectionSheetOption) -> Unit)?) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
@@ -173,17 +177,17 @@ internal fun PureVoiceCallConfirmSummaryCard(callSpec: CallSpecPayload) {
                     .padding(horizontal = 16.dp, vertical = 14.dp)
             ) {
                 Text(
-                    text = "任务确认",
+                    text = stringResource(R.string.confirm_title),
                     color = Color(0xFF2E7D32),
                     fontSize = 14.sp,
                     lineHeight = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
-                PureVoiceSummaryRow("目标", callSpec.targetName)
-                PureVoiceSummaryRow("电话", callSpec.phoneNumber)
-                PureVoiceSummaryRow("目的", callSpec.primaryGoal)
+                PureVoiceLocalizedSummaryRow(stringResource(R.string.pure_voice_summary_target), callSpec.targetName)
+                PureVoiceLocalizedSummaryRow(stringResource(R.string.pure_voice_summary_phone), callSpec.phoneNumber)
+                PureVoiceLocalizedSummaryRow(stringResource(R.string.pure_voice_summary_goal), callSpec.primaryGoal)
                 visibleCallConfirmSummaryRows(callSpec.summaryLines).forEach { (label, value) ->
-                    PureVoiceSummaryRow(label, value)
+                    PureVoiceLocalizedSummaryRow(label, value)
                 }
             }
         }
@@ -209,18 +213,18 @@ internal fun PureVoiceSummaryCard(
                     .padding(horizontal = 16.dp, vertical = 14.dp)
             ) {
                 Text(
-                    text = "任务确认",
+                    text = stringResource(R.string.confirm_title),
                     color = Color(0xFF2E7D32),
                     fontSize = 14.sp,
                     lineHeight = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
-                PureVoiceSummaryRow(summary.taskLabel, summary.task)
-                PureVoiceSummaryRow(summary.targetLabel, summary.target)
-                PureVoiceSummaryRow(summary.timeLabel, summary.time)
-                PureVoiceSummaryRow(summary.extraLabel, summary.extra)
-                summary.contactLabel?.let { PureVoiceSummaryRow(it, summary.contactValue.orEmpty()) }
-                summary.detailLabel?.let { PureVoiceSummaryRow(it, summary.detailValue.orEmpty()) }
+                PureVoiceLocalizedSummaryRow(summary.taskLabel, summary.task)
+                PureVoiceLocalizedSummaryRow(summary.targetLabel, summary.target)
+                PureVoiceLocalizedSummaryRow(summary.timeLabel, summary.time)
+                PureVoiceLocalizedSummaryRow(summary.extraLabel, summary.extra)
+                summary.contactLabel?.let { PureVoiceLocalizedSummaryRow(it, summary.contactValue.orEmpty()) }
+                summary.detailLabel?.let { PureVoiceLocalizedSummaryRow(it, summary.detailValue.orEmpty()) }
                 if (onConfirmTask != null) {
                     Surface(
                         modifier = Modifier
@@ -243,5 +247,60 @@ internal fun PureVoiceSummaryCard(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun PureVoiceLocalizedSummaryRow(label: String, value: String) {
+    PureVoiceSummaryRow(
+        label = pureVoiceSummaryDisplayLabel(label),
+        value = pureVoiceSummaryDisplayValue(label, value)
+    )
+}
+
+private fun pureVoiceSummaryDisplayLabel(label: String): String {
+    val raw = label.trim()
+    val key = raw.lowercase(Locale.US)
+    return when (key) {
+        "任务", "task", "tasktype" -> currentAppText("任务", "Task")
+        "对象", "目标", "target", "targetname", "resolvedname", "requestedname" -> currentAppText("对象", "Target")
+        "餐厅", "restaurant", "restaurantname" -> currentAppText("餐厅", "Restaurant")
+        "酒店", "hotel", "hotelname" -> currentAppText("酒店", "Hotel")
+        "电话", "联系电话", "手机号", "phone", "phonenumber", "contactphone" -> currentAppText("电话", "Phone")
+        "联系人", "contact", "contactname" -> currentAppText("联系人", "Contact")
+        "目的", "需求", "重点", "goal", "primarygoal", "purpose" -> currentAppText("重点", "Goal")
+        "时间", "用餐时间", "到店时间", "reservationtime", "maindate" -> currentAppText("时间", "Time")
+        "人数", "用餐人数", "partysize", "guestcount" -> currentAppText("人数", "Party Size")
+        "包房", "包间", "包房情况", "privateroom", "needprivateroom" -> currentAppText("包房", "Private Room")
+        "低消", "低消信息", "minimumspend" -> currentAppText("低消", "Minimum Spend")
+        "短信", "sms", "smsconfirmation" -> currentAppText("短信", "SMS")
+        else -> currentAppText(raw, sanitizeUserFacingNetworkText(raw, VoiceLanguage.English))
+    }
+}
+
+private fun pureVoiceSummaryDisplayValue(label: String, value: String): String {
+    val raw = value.trim()
+    if (raw.isBlank()) return ""
+    val key = label.trim().lowercase(Locale.US)
+    val english = when {
+        key in setOf("人数", "用餐人数", "partysize", "guestcount") ->
+            Regex("""^(\d+)\s*(?:人|people)?$""", RegexOption.IGNORE_CASE)
+                .matchEntire(raw)
+                ?.let { "${it.groupValues[1]} people" }
+                ?: sanitizeUserFacingNetworkText(raw, VoiceLanguage.English)
+        key in setOf("包房", "包间", "包房情况", "privateroom", "needprivateroom") ->
+            englishBooleanValue(raw) ?: sanitizeUserFacingNetworkText(raw, VoiceLanguage.English)
+        raw.equals("true", ignoreCase = true) || raw.equals("false", ignoreCase = true) ->
+            englishBooleanValue(raw).orEmpty()
+        else -> sanitizeUserFacingNetworkText(raw, VoiceLanguage.English)
+    }
+    return currentAppText(raw, english)
+}
+
+private fun englishBooleanValue(raw: String): String? {
+    return when (raw.trim().lowercase(Locale.US)) {
+        "true", "yes", "有", "需要", "是" -> "Yes"
+        "false", "no", "无", "不需要", "否" -> "No"
+        else -> null
     }
 }

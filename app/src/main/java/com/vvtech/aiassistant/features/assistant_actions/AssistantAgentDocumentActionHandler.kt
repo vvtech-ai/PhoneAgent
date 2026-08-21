@@ -5,6 +5,7 @@ import com.vvtech.aiassistant.features.assistant.*
 import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import com.vvtech.aiassistant.features.assistant.AssistantViewModel
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -29,7 +30,7 @@ internal class AssistantAgentDocumentActionHandler(
                 agentDocumentImporting = true,
                 processingTurn = true,
                 error = null,
-                status = "正在解析文件"
+                status = currentAppText("正在解析文件", "Parsing file")
             )
         }
         viewModel.viewModelScope.launch {

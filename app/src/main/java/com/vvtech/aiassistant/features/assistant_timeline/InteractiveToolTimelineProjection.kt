@@ -6,6 +6,7 @@ import com.google.gson.JsonParser
 import com.vvtech.aiassistant.domain.conversation.ConversationLedgerEvent
 import com.vvtech.aiassistant.domain.conversation.ConversationLedgerEventType
 import com.vvtech.aiassistant.domain.conversation.StableConversationLedgerEventType
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal object InteractiveToolTimelineProjection {
     const val DISPLAY_PAYLOAD_VERSION = 1
@@ -39,7 +40,7 @@ internal object InteractiveToolTimelineProjection {
     }
 
     private fun askUserText(arguments: JsonObject): String {
-        val title = arguments.text("title").trim().ifBlank { "再确认几件事" }
+        val title = arguments.text("title").trim().ifBlank { currentAppText("再确认几件事", "Confirm a Few Details") }
         val questions = arguments.questions()
         return buildString {
             append(title)

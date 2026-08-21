@@ -1,5 +1,6 @@
 package com.vvtech.aiassistant.features.assistant_settings
 
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -12,6 +13,12 @@ class AssistantSipAccountOptionsTest {
         assertEquals(listOf("auto"), AssistantInternationalSipAccountOptions.map(AssistantSipAccountOption::id))
         assertEquals("后台自动分配", domesticSipAccountLabel("auto"))
         assertEquals("后台自动分配", internationalSipAccountLabel("auto"))
+    }
+
+    @Test
+    fun publicCatalogShowsBackendAssignedCopyInEnglish() {
+        assertEquals("Assigned by server", domesticSipAccountLabel("auto", AppLanguage.English))
+        assertEquals("Assigned by server", internationalSipAccountLabel("auto", AppLanguage.English))
     }
 
     @Test

@@ -1,5 +1,7 @@
 package com.vvtech.aiassistant.features.assistant
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
+
 internal data class VoiceRecoveryDecision(
     val retryable: Boolean,
     val status: String
@@ -8,6 +10,7 @@ internal data class VoiceRecoveryDecision(
 private val NonRetryableVoiceFailurePatterns = listOf(
     Regex("""真实\s*SIP\s*未启用""", RegexOption.IGNORE_CASE),
     Regex("""\b(?:400|401|403|404)\b"""),
+    Regex("""\bHTTP\s*(?:429|500|502|503|504)\b""", RegexOption.IGNORE_CASE),
     Regex("""permission\s+denied|unauthorized|forbidden""", RegexOption.IGNORE_CASE),
     Regex("""参数错误|缺少必填|权限不足|未授权""")
 )
@@ -15,7 +18,6 @@ private val NonRetryableVoiceFailurePatterns = listOf(
 private val RetryableVoiceFailurePatterns = listOf(
     Regex("""task[_\s-]?failed|sse|stream|eventsource""", RegexOption.IGNORE_CASE),
     Regex("""timeout|timed?\s*out|connect|socket|network|closed|eof""", RegexOption.IGNORE_CASE),
-    Regex("""\b(?:429|500|502|503|504)\b"""),
     Regex("""too\s+many\s+requests|rate\s+limit|service\s+unavailable""", RegexOption.IGNORE_CASE),
     Regex("""转写|识别|语音|会话中断|连接异常""")
 )
@@ -30,7 +32,10 @@ internal fun voiceRecoveryDecision(
         return VoiceRecoveryDecision(retryable = true, status = fallbackStatus)
     }
     if (Regex("""真实\s*SIP\s*未启用""", RegexOption.IGNORE_CASE).containsMatchIn(text)) {
-        return VoiceRecoveryDecision(retryable = false, status = "真实 SIP 未启用")
+        return VoiceRecoveryDecision(
+            retryable = false,
+            status = currentAppText("真实 SIP 未启用", "Real SIP is not enabled")
+        )
     }
     if (NonRetryableVoiceFailurePatterns.any { it.containsMatchIn(text) }) {
         return VoiceRecoveryDecision(retryable = false, status = fallbackStatus)

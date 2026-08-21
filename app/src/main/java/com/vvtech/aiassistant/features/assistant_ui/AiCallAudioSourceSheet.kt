@@ -32,6 +32,7 @@ import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant.CallMonitorAudioRoute
 import com.vvtech.aiassistant.features.assistant.CallMonitorAudioRouteState
 import com.vvtech.aiassistant.features.assistant.availableCallMonitorAudioRoutes
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun AiCallAudioSourceSheet(
@@ -74,14 +75,14 @@ internal fun AiCallAudioSourceSheet(
                             )
                     )
                     Text(
-                        text = "选择音源",
+                        text = "Choose Audio Source",
                         modifier = Modifier.padding(start = 22.dp, top = 20.dp),
                         color = Color(0xFF16181D),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "选择 AI 代理通话内容的播放设备",
+                        text = "Choose the playback device for AI agent call audio",
                         modifier = Modifier.padding(start = 22.dp, top = 6.dp, bottom = 12.dp),
                         color = Color(0xFF777B85),
                         fontSize = 13.sp
@@ -148,7 +149,7 @@ private fun AiCallAudioSourceRow(
         if (selected) {
             Icon(
                 imageVector = Icons.Rounded.Check,
-                contentDescription = "已选择",
+                contentDescription = "Selected",
                 tint = Color(0xFF2188F5),
                 modifier = Modifier.size(22.dp)
             )
@@ -158,9 +159,9 @@ private fun AiCallAudioSourceRow(
 
 internal fun CallMonitorAudioRoute.displayLabel(): String =
     when (this) {
-        CallMonitorAudioRoute.Earpiece -> "听筒"
-        CallMonitorAudioRoute.Speaker -> "扬声器"
-        CallMonitorAudioRoute.Bluetooth -> "蓝牙"
+        CallMonitorAudioRoute.Earpiece -> currentAppText("听筒", "Earpiece")
+        CallMonitorAudioRoute.Speaker -> currentAppText("扬声器", "Speaker")
+        CallMonitorAudioRoute.Bluetooth -> currentAppText("蓝牙", "Bluetooth")
     }
 
 internal fun CallMonitorAudioRoute.iconResource(): Int =

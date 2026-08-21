@@ -24,6 +24,7 @@ import com.vvtech.aiassistant.features.app_ota.FinalOtaInstallPhase
 import com.vvtech.aiassistant.features.app_ota.FinalOtaInstallRequest
 import com.vvtech.aiassistant.features.app_ota.FinalOtaInstallSpec
 import com.vvtech.aiassistant.features.app_ota.FinalOtaInstallUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.logging.AppFileLogger
 import com.vvtech.aiassistant.logging.RuntimeStateLogDomain
 import com.vvtech.aiassistant.logging.RuntimeStateLogEvent
@@ -172,7 +173,7 @@ internal class AssistantOtaRuntimeController(
                     }
                     else -> {
                         if (showNoUpdatePrompt) {
-                            Toast.makeText(deps.context, "当前已是最新版本", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(deps.context, currentAppText("当前已是最新版本", "You Are Up to Date"), Toast.LENGTH_SHORT).show()
                         }
                         null
                     }
@@ -188,7 +189,7 @@ internal class AssistantOtaRuntimeController(
                 if (!startupCheck || forceRequiredBeforeCheck) {
                     Toast.makeText(
                         deps.context,
-                        throwable.message ?: "版本检测失败，请稍后重试",
+                        throwable.message ?: currentAppText("版本检测失败，请稍后重试", "Version check failed. Try again later"),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -209,7 +210,7 @@ internal class AssistantOtaRuntimeController(
     fun handlePrimaryAction(dialogState: FinalOtaUpdateDialogState) {
         if (dialogState.apkUrl.isBlank()) {
             logOta("OTA_PRIMARY_ACTION_BLOCKED", "blocked", "missing_apk_url")
-            Toast.makeText(deps.context, "下载地址为空，请稍后重试", Toast.LENGTH_SHORT).show()
+            Toast.makeText(deps.context, currentAppText("下载地址为空，请稍后重试", "Download URL is empty. Try again later"), Toast.LENGTH_SHORT).show()
             return
         }
         when (otaInstallState.phase) {
@@ -261,7 +262,7 @@ internal class AssistantOtaRuntimeController(
     fun openDownload(apkUrl: String) {
         if (apkUrl.isBlank()) {
             logOta("OTA_EXTERNAL_DOWNLOAD_BLOCKED", "blocked", "missing_apk_url")
-            Toast.makeText(deps.context, "下载地址为空，请稍后重试", Toast.LENGTH_SHORT).show()
+            Toast.makeText(deps.context, currentAppText("下载地址为空，请稍后重试", "Download URL is empty. Try again later"), Toast.LENGTH_SHORT).show()
             return
         }
         runCatching {
@@ -279,7 +280,7 @@ internal class AssistantOtaRuntimeController(
             val message = if (throwable is ActivityNotFoundException) {
                 "未找到可打开下载链接的应用"
             } else {
-                throwable.message ?: "无法打开下载链接"
+                throwable.message ?: currentAppText("无法打开下载链接", "Unable to open download link")
             }
             Toast.makeText(deps.context, message, Toast.LENGTH_SHORT).show()
         }

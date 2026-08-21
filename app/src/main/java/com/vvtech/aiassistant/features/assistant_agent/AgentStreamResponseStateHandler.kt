@@ -8,6 +8,7 @@ import com.vvtech.aiassistant.features.assistant.VoiceLanguage
 import com.vvtech.aiassistant.features.assistant.localizedVoiceRecoveryResumeStatus
 import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingError
 import com.vvtech.aiassistant.features.assistant.voiceRecoveryDecision
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_tasks.TaskBatchCallFinalPolicy
 import com.vvtech.aiassistant.features.assistant_voice.VoiceListenTriggers
 import com.vvtech.aiassistant.logging.RuntimeStateLogDomain
@@ -107,7 +108,7 @@ internal class AgentStreamResponseStateHandler(
     private fun applyTextReply() {
         voice.maybeTtsFlush()
         runtime.updateState {
-            AgentStreamSimpleResponseStatePolicy.textReply(it, "AI已回复")
+            AgentStreamSimpleResponseStatePolicy.textReply(it, currentAppText("AI已回复", "AI replied"))
         }
     }
 
@@ -115,7 +116,8 @@ internal class AgentStreamResponseStateHandler(
         val plan = AgentStreamInteractiveResponsePolicy.plan(
             state = runtime.stateProvider(),
             response = response,
-            voiceMode = voice.isVoiceMode()
+            voiceMode = voice.isVoiceMode(),
+            voiceLanguage = voice.currentVoiceLanguage()
         ) ?: return
         plan.voicePrompt?.let(voice.maybeTtsSignal)
         runtime.updateState { plan.nextState }
@@ -203,7 +205,7 @@ internal class AgentStreamResponseStateHandler(
         val safeText = sanitizeUserFacingError(
             text,
             voice.currentVoiceLanguage(),
-            "系统异常，请重试"
+            currentAppText("系统异常，请重试", "System error. Please try again.")
         )
         if (voice.isVoiceMode()) {
             val language = voice.currentVoiceLanguage()
@@ -230,7 +232,7 @@ internal class AgentStreamResponseStateHandler(
                 AgentStreamSimpleResponseStatePolicy.executionError(
                     state = it,
                     errorText = safeText,
-                    statusText = "出错了",
+                    statusText = currentAppText("出错了", "Something went wrong"),
                     clearDocumentImporting = true
                 )
             }
@@ -260,7 +262,7 @@ internal class AgentStreamResponseStateHandler(
                 AgentStreamSimpleResponseStatePolicy.executionError(
                     state = it,
                     errorText = AgentStreamSimpleResponseStatePolicy.unknownErrorText(response.type),
-                    statusText = "出错了",
+                    statusText = currentAppText("出错了", "Something went wrong"),
                     clearDocumentImporting = true
                 )
             }
@@ -322,8 +324,8 @@ internal class AgentStreamResponseStateHandler(
 
     private fun isAwaitingCallOutcome(state: Index9AssistantUiState): Boolean =
         state.processingTurn &&
-            (state.status == CallOutcomePendingStatus ||
-                state.callPageData.status == CallOutcomePendingStatus)
+            (isCallOutcomePendingStatusText(state.status) ||
+                isCallOutcomePendingStatusText(state.callPageData.status))
 
     private companion object {
         const val TYPE_TEXT_REPLY = "TEXT_REPLY"
@@ -337,6 +339,5 @@ internal class AgentStreamResponseStateHandler(
         const val TYPE_CALL_RESULT = "CALL_RESULT"
         const val TYPE_BATCH_CALL_RESULT = "BATCH_CALL_RESULT"
         const val TYPE_ERROR = "ERROR"
-        const val CallOutcomePendingStatus = "正在确认通话结果"
     }
 }

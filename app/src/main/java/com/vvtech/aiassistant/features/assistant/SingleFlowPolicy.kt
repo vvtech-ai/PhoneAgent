@@ -1,5 +1,6 @@
 package com.vvtech.aiassistant.features.assistant
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_tasks.looksLikeTerminalCallResultStatus
 internal const val SfAllowPrivateRoomFallbackToHallQuestionId = "allowPrivateRoomFallbackToHall"
 private val SfVoiceFoodDetailQuestionIds = setOf(
@@ -52,7 +53,12 @@ internal sealed class SfThreadItem(open val id: Long) {
     ) : SfThreadItem(id)
 }
 
-internal val SfStageLabels = listOf("任务下达", "需求确认", "执行通话", "执行结果")
+internal fun sfStageLabels(): List<String> = listOf(
+    currentAppText("任务下达", "Task Request"),
+    currentAppText("需求确认", "Confirm Details"),
+    currentAppText("执行通话", "Start Call"),
+    currentAppText("执行结果", "Results")
+)
 
 /** 纯语音模式右侧调试悬浮面板，上线前设为 false 关闭 */
 internal const val ShowVoiceDebugOverlay = false

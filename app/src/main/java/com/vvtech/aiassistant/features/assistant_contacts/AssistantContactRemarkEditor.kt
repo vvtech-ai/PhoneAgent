@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun AssistantContactRemarkEditor(
@@ -62,13 +63,13 @@ internal fun AssistantContactRemarkEditor(
                     .padding(horizontal = 20.dp, vertical = 18.dp)
             ) {
                 Text(
-                    text = "编辑备注",
+                    text = "Edit Notes",
                     color = Color(0xFF111111),
                     fontSize = 21.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "备注将用于 AI 联系此人时参考",
+                    text = "AI will reference these notes when contacting this person.",
                     modifier = Modifier.padding(top = 5.dp),
                     color = Color(0xFF8E8E93),
                     fontSize = 13.sp
@@ -84,7 +85,7 @@ internal fun AssistantContactRemarkEditor(
                     enabled = !saving,
                     minLines = 4,
                     maxLines = 8,
-                    placeholder = { Text("例如：称呼、关系、沟通偏好等") },
+                    placeholder = { Text("Example: salutation, relationship, communication preferences") },
                     shape = RoundedCornerShape(18.dp)
                 )
                 Row(
@@ -112,7 +113,7 @@ internal fun AssistantContactRemarkEditor(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     TextButton(onClick = onDismiss, enabled = !saving) {
-                        Text("取消")
+                        Text("Cancel")
                     }
                     Button(
                         onClick = { onSave(draft) },
@@ -121,7 +122,10 @@ internal fun AssistantContactRemarkEditor(
                         shape = RoundedCornerShape(16.dp),
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF0A84FF))
                     ) {
-                        Text(if (saving) "保存中…" else "保存", color = Color.White)
+                        Text(
+                            if (saving) currentAppText("保存中…", "Saving...") else currentAppText("保存", "Save"),
+                            color = Color.White
+                        )
                     }
                 }
             }

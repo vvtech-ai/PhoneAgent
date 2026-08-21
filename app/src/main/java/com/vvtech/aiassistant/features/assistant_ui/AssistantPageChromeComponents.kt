@@ -119,11 +119,11 @@ internal fun AssistantBackTitleBar(
             text = title,
             modifier = Modifier.weight(1f),
             color = contentColor,
-            fontSize = 28.sp,
-            lineHeight = 30.sp,
+            fontSize = 26.sp,
+            lineHeight = 28.sp,
             fontWeight = FontWeight.ExtraBold,
             letterSpacing = 0.sp,
-            maxLines = 1,
+            maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
         if (trailing != null) {

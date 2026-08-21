@@ -1,5 +1,7 @@
 package com.vvtech.aiassistant.features.assistant_settings
 
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
+
 internal const val DefaultDomesticSipAccountId = "auto"
 internal const val DefaultInternationalSipAccountId = "auto"
 internal const val DomesticSipAccountPreferenceKey = "selected_domestic_sip_account_id"
@@ -14,6 +16,13 @@ internal data class AssistantSipAccountOption(
         get() = displayName.trim().takeIf(String::isNotEmpty)
             ?.let { "$username（$it）" }
             ?: username
+
+    fun label(appLanguage: AppLanguage): String =
+        if (id == "auto" && appLanguage == AppLanguage.English) {
+            "Assigned by server"
+        } else {
+            label
+        }
 }
 
 internal val AssistantDomesticSipAccountOptions = listOf(
@@ -32,12 +41,18 @@ internal fun normalizeInternationalSipAccountId(rawId: String?): String =
     AssistantInternationalSipAccountOptions.firstOrNull { it.id == rawId?.trim() }?.id
         ?: DefaultInternationalSipAccountId
 
-internal fun domesticSipAccountLabel(accountId: String?): String =
+internal fun domesticSipAccountLabel(
+    accountId: String?,
+    appLanguage: AppLanguage = AppLanguage.SimplifiedChinese
+): String =
     AssistantDomesticSipAccountOptions.first {
         it.id == normalizeDomesticSipAccountId(accountId)
-    }.label
+    }.label(appLanguage)
 
-internal fun internationalSipAccountLabel(accountId: String?): String =
+internal fun internationalSipAccountLabel(
+    accountId: String?,
+    appLanguage: AppLanguage = AppLanguage.SimplifiedChinese
+): String =
     AssistantInternationalSipAccountOptions.first {
         it.id == normalizeInternationalSipAccountId(accountId)
-    }.label
+    }.label(appLanguage)

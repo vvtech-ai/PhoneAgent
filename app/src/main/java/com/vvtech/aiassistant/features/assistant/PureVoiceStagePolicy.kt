@@ -1,5 +1,6 @@
 package com.vvtech.aiassistant.features.assistant
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_pure_voice.PureVoiceConversationStepProjector
 import com.vvtech.aiassistant.features.assistant_tasks.looksLikeTerminalCallResultStatus
 
@@ -298,13 +299,13 @@ internal fun pureVoiceLiveLabel(
     status: String,
     showCallPage: Boolean
 ): String {
-    if (showCallPage) return "通话进行中..."
+    if (showCallPage) return currentAppText("通话进行中...", "Call in progress...")
     val normalizedStatus = sanitizeUserFacingNetworkText(status, voiceLanguage).trim()
     return when (state) {
         PureVoiceState.Standby -> pureVoiceStandbyLiveLabel(normalizedStatus, voiceLanguage)
-        PureVoiceState.Listening -> voiceLanguage.listeningText.ifBlank { "语音识别中..." }
-        PureVoiceState.AiThinking -> voiceLanguage.aiThinkingText.ifBlank { "AI 思考中..." }
-        PureVoiceState.AiSpeaking -> voiceLanguage.aiSpeakingText.ifBlank { "AI 回复中..." }
+        PureVoiceState.Listening -> currentAppText("语音识别中...", "Recognizing speech...")
+        PureVoiceState.AiThinking -> currentAppText("AI 思考中...", "AI is thinking...")
+        PureVoiceState.AiSpeaking -> currentAppText("AI 回复中...", "AI is responding...")
     }
 }
 
@@ -316,6 +317,7 @@ private fun pureVoiceStandbyLiveLabel(status: String, voiceLanguage: VoiceLangua
         "已暂停，返回后可继续",
         "已暂停，点击继续说话",
         "你可以再点一下麦克风继续说",
+        "点击麦克风，开始描述任务",
         "请说出你的需求。",
         "请按住下方语音按钮，说出你的需求。",
         voiceLanguage.firstWelcome,
@@ -325,18 +327,63 @@ private fun pureVoiceStandbyLiveLabel(status: String, voiceLanguage: VoiceLangua
         "音声入力を続けられます。"
     ).any { status == it }
     val fallback = when (voiceLanguage) {
-        VoiceLanguage.English -> "Voice standby..."
         VoiceLanguage.Japanese -> "音声待機中..."
-        VoiceLanguage.Chinese -> "语音待命中..."
+        else -> currentAppText("语音待命中...", "Voice ready...")
     }
-    return if (status.isNotBlank() && !staleResumePrompt) status else fallback
+    return if (status.isNotBlank() && !staleResumePrompt) {
+        pureVoiceLocalizedTransientStatus(status)
+    } else {
+        fallback
+    }
 }
+
+private fun pureVoiceLocalizedTransientStatus(status: String): String =
+    when (status.trim()) {
+        "点击麦克风，开始描述任务",
+        "语音待命中..." -> currentAppText("语音待命中...", "Voice ready...")
+        "正在启动语音..." -> currentAppText("正在启动语音...", "Starting voice...")
+        "正在连接语音..." -> currentAppText("正在连接语音...", "Connecting voice...")
+        "正在重新连接语音..." -> currentAppText("正在重新连接语音...", "Reconnecting voice...")
+        "正在连接实时转写..." -> currentAppText("正在连接实时转写...", "Connecting transcription...")
+        "正在切换场景..." -> currentAppText("正在切换场景...", "Switching mode...")
+        "实时转写通道异常，正在切到系统识别..." -> currentAppText(
+            "实时转写通道异常，正在切到系统识别...",
+            "The transcription channel is unavailable. Switching recognition mode..."
+        )
+        "语音会话中断，正在切到实时转写..." -> currentAppText(
+            "语音会话中断，正在切到实时转写...",
+            "Live voice was interrupted. Switching to transcription..."
+        )
+        "语音暂时不可用，请重新点击麦克风" -> currentAppText(
+            "语音暂时不可用，请重新点击麦克风",
+            "Voice is unavailable. Tap the microphone again."
+        )
+        "语音会话中断，请重新点击麦克风继续" -> currentAppText(
+            "语音会话中断，请重新点击麦克风继续",
+            "Voice was interrupted. Tap the microphone again to continue."
+        )
+        "你可以再点一下麦克风继续说" -> currentAppText(
+            "你可以再点一下麦克风继续说",
+            "Tap the microphone again to continue."
+        )
+        "已暂停，点击继续说话" -> currentAppText(
+            "已暂停，点击继续说话",
+            "Paused. Tap to continue speaking."
+        )
+        "没听到声音，请再试一次" -> currentAppText(
+            "没听到声音，请再试一次",
+            "Didn't hear anything. Please try again."
+        )
+        else -> status
+    }
 
 internal fun pureVoiceSanitizeStepForDisplay(
     step: ClarificationStep,
     voiceLanguage: VoiceLanguage
 ): ClarificationStep {
-    if (step.role == VoiceRole.User) return step
+    if (step.role == VoiceRole.User) {
+        return step.copy(text = stripAgentBackendInstructionForDisplay(step.text))
+    }
     return step.copy(
         text = sanitizeUserFacingNetworkText(step.text, voiceLanguage),
         status = sanitizeUserFacingNetworkText(step.status, voiceLanguage),
@@ -354,6 +401,7 @@ internal fun pureVoiceSanitizeStepForDisplay(
         },
         toolCards = step.toolCards.map { tool ->
             tool.copy(
+                methodLabel = sanitizeUserFacingNetworkText(tool.methodLabel, voiceLanguage),
                 body = sanitizeUserFacingNetworkText(tool.body, voiceLanguage),
                 result = sanitizeUserFacingNetworkText(tool.result, voiceLanguage),
                 status = sanitizeUserFacingNetworkText(tool.status, voiceLanguage)
@@ -373,9 +421,10 @@ internal fun pureVoiceSanitizeCallPageData(
     voiceLanguage: VoiceLanguage
 ): CallPageData {
     return data.copy(
+        name = sanitizeUserFacingNetworkText(data.name, voiceLanguage),
         status = sanitizeUserFacingNetworkText(data.status, voiceLanguage),
         transcript = data.transcript.map { line ->
-            line.copy(text = sanitizeUserFacingNetworkText(line.text, voiceLanguage))
+            line.copy(text = sanitizeCallTranscriptDisplayText(line.text, voiceLanguage))
         }
     )
 }

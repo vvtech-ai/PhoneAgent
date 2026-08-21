@@ -23,6 +23,8 @@ internal data class AgentStreamActionSubmitRequest(
     val userId: String,
     val placeholderIndex: Int,
     val failureMessage: String,
+    val languageCode: String,
+    val responseLanguage: String,
     val identity: AgentCommandIdentity = AgentCommandIdentity.newIntent(
         sessionId,
         AgentCommandKind.Action,
@@ -139,10 +141,18 @@ internal class AgentStreamActionSubmitter(
                 result = result,
                 reason = reason,
                 elapsedMs = elapsedMs,
-                attributes = mapOf(
-                    "actionId" to request.actionId,
-                    "channel" to request.channel
-                )
+                attributes = buildMap {
+                    put("actionId", request.actionId)
+                    put("channel", request.channel)
+                    put("languageCode", request.languageCode)
+                    put("responseLanguage", request.responseLanguage)
+                    request.actionPayload?.let { payload ->
+                        put("payloadKeys", payload.keys.sorted().joinToString(","))
+                        put("payloadCallLanguage", payload["callLanguage"]?.toString().orEmpty())
+                        put("payloadScriptLanguage", payload["scriptLanguage"]?.toString().orEmpty())
+                        put("hasCallSpec", payload.containsKey("callSpec").toString())
+                    }
+                }
             )
         )
     }

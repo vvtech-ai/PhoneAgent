@@ -19,7 +19,9 @@ internal class AgentStreamNormalActionSubmitHandler(
     private val appendAssistantPlaceholder: () -> Int,
     private val submitAction: (AgentStreamActionSubmitRequest, (() -> Unit)?) -> Unit,
     private val channelProvider: () -> String,
-    private val userIdProvider: () -> String
+    private val userIdProvider: () -> String,
+    private val languageCodeProvider: () -> String,
+    private val responseLanguageProvider: () -> String
 ) {
     fun submit(input: AgentStreamNormalActionSubmitInput) {
         if (input.appendUserEcho) {
@@ -37,7 +39,9 @@ internal class AgentStreamNormalActionSubmitHandler(
                 channel = channelProvider(),
                 userId = userIdProvider(),
                 placeholderIndex = placeholderIndex,
-                failureMessage = input.failureMessage
+                failureMessage = input.failureMessage,
+                languageCode = languageCodeProvider(),
+                responseLanguage = responseLanguageProvider()
             ),
             input.beforeRecover
         )

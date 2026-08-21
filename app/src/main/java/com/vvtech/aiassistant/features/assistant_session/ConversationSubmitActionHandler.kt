@@ -8,6 +8,7 @@ import com.vvtech.aiassistant.core.model.StructuredAssistantUnderstanding
 import com.vvtech.aiassistant.features.assistant.AssistantViewModel
 import com.vvtech.aiassistant.features.assistant.VoiceRole
 import com.vvtech.aiassistant.features.assistant.localizedConfirmingDetailsStatus
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant.viewmodel.ConversationStateHolder
 import com.vvtech.aiassistant.features.assistant.viewmodel.InteractionChannel
 import com.vvtech.aiassistant.features.assistant.viewmodel.previewText
@@ -62,7 +63,7 @@ internal class ConversationSubmitActionHandler(
             )
             conversationStateHolder.prepareTextTurnSubmitting(
                 clearCallResult = clearCallResult,
-                statusText = "正在处理，请稍候..."
+                statusText = currentAppText("正在处理，请稍候...", "Processing. Please wait...")
             )
             appendClarificationStep(VoiceRole.User, text)
             scheduleTextProcessingStatusProgress(text)

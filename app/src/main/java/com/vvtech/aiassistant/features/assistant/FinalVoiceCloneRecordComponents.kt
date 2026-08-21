@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_voice_clone.face.VoiceCloneFaceUiArgs
 import com.vvtech.aiassistant.model.VoiceCloneScriptItem
 import kotlinx.coroutines.delay
@@ -66,7 +67,11 @@ internal fun VoiceCloneRecordStep(
 
         if (script == null) {
             Text(
-                text = if (loading) "正在加载录音脚本..." else "录音脚本未加载，请刷新后重试。",
+                text = if (loading) {
+                    currentAppText("正在加载录音脚本...", "Loading recording script...")
+                } else {
+                    currentAppText("录音脚本未加载，请刷新后重试。", "Recording script not loaded. Refresh and try again.")
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 24.dp),
@@ -76,7 +81,7 @@ internal fun VoiceCloneRecordStep(
                 textAlign = TextAlign.Center
             )
             VoicePrimaryButton(
-                text = if (loading) "刷新中..." else "刷新状态",
+                text = if (loading) currentAppText("刷新中...", "Refreshing...") else currentAppText("刷新状态", "Refresh Status"),
                 enabled = !loading,
                 onClick = onRefresh
             )
@@ -221,7 +226,8 @@ internal fun recordWarningText(
 ): String? {
     if (!error.isNullOrBlank()) return error
     if (sample == null) return null
-    return sample.qualityWarnings.firstOrNull()?.takeIf { it.isNotBlank() } ?: "录音完成，可提交"
+    return sample.qualityWarnings.firstOrNull()?.takeIf { it.isNotBlank() }
+        ?: currentAppText("录音完成，可提交", "Recording complete. Ready to submit.")
 }
 
 internal fun formatCloneTimer(totalSeconds: Int): String {

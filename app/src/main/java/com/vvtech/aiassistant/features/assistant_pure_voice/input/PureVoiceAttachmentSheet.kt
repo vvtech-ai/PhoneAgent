@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class PureVoiceAttachmentUiController(
     val onAddClick: () -> Unit
@@ -72,7 +73,7 @@ internal fun rememberPureVoiceAttachmentUiController(
     return PureVoiceAttachmentUiController(
         onAddClick = {
             if (processing) {
-                Toast.makeText(context, "上一张图片识别中", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, currentAppText("上一张图片识别中", "Previous image is still being recognized"), Toast.LENGTH_SHORT).show()
             } else {
                 sheetVisible = true
             }
@@ -123,7 +124,7 @@ private fun PureVoiceAttachmentSheet(
                 )
                 Spacer(Modifier.height(14.dp))
                 Text(
-                    text = "添加内容",
+                    text = "Add Content",
                     color = Color(0xFF111827),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.ExtraBold
@@ -162,13 +163,13 @@ private fun PureVoiceAlbumRow(onClick: () -> Unit) {
         }
         Column(modifier = Modifier.padding(start = 12.dp)) {
             Text(
-                text = "相册",
+                text = "Photos",
                 color = Color(0xFF111827),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold
             )
             Text(
-                text = "识别图片中的联系方式和文字",
+                text = "Recognize contacts and text in images",
                 color = Color(0xFF6B7280),
                 fontSize = 12.sp,
                 lineHeight = 18.sp

@@ -16,6 +16,9 @@ import com.vvtech.aiassistant.features.assistant_calls.normalizeDialTarget
 import com.vvtech.aiassistant.features.assistant_calls.TranslationCallOrigin
 import com.vvtech.aiassistant.features.assistant_calls.TranslationCallLifecycleState
 import com.vvtech.aiassistant.features.assistant_calls.TranslationCallLifecycleSnapshot
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguageManager
+import com.vvtech.aiassistant.features.assistant_i18n.appText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -104,10 +107,16 @@ internal class AssistantTranslationCallRuntimeController(
         } else {
             null
         }
-        audioChannelStatus = "正在建立${providerDisplayName}实时翻译通话..."
+        audioChannelStatus = currentAppText(
+            "正在建立${providerDisplayName}实时翻译通话...",
+            "Starting a ${providerDisplayName} live translation call..."
+        )
         val pendingStatus = buildPendingTranslationStatus(
             provider = translationProvider,
-            statusMessage = "正在发起${providerDisplayName}实时翻译通话...",
+            statusMessage = currentAppText(
+                "正在发起${providerDisplayName}实时翻译通话...",
+                "Placing a ${providerDisplayName} live translation call..."
+            ),
             voiceCapability = if (usingQwenTranslation) "BUILT_IN_VOICE_ONLY" else "SOURCE_VOICE_MIMIC_ONLY"
         )
         status = pendingStatus
@@ -152,7 +161,9 @@ internal class AssistantTranslationCallRuntimeController(
                 status = nextStatus
                 recordTranslationStatus(previousStatus, nextStatus)
                 error = if (response.callState.equals("FAILED", ignoreCase = true)) {
-                    response.statusMessage.ifBlank { "发起实时翻译通话失败" }
+                    response.statusMessage.ifBlank {
+                        currentAppText("发起实时翻译通话失败", "Failed to start live translation call")
+                    }
                 } else {
                     null
                 }
@@ -166,7 +177,10 @@ internal class AssistantTranslationCallRuntimeController(
                         nextStatus.copy(
                             callState = "FAILED",
                             translationState = "FAILED",
-                            statusMessage = "发起实时翻译通话失败：未返回通话标识"
+                            statusMessage = currentAppText(
+                                "发起实时翻译通话失败：未返回通话标识",
+                                "Failed to start live translation call: no call ID returned"
+                            )
                         )
                     } else {
                         nextStatus
@@ -186,14 +200,20 @@ internal class AssistantTranslationCallRuntimeController(
                     return@onFailure
                 }
                 starting = false
-                error = throwable.message ?: "发起实时翻译通话失败"
+                error = throwable.message ?: currentAppText(
+                    "发起实时翻译通话失败",
+                    "Failed to start live translation call"
+                )
                 error = localizeTranslationCallStatusText(error)
                 val previousStatus = status
                 val failedStatus = buildPendingTranslationStatus(
                     provider = translationProvider,
                     callState = "FAILED",
                     translationState = "FAILED",
-                    statusMessage = error ?: "发起实时翻译通话失败"
+                    statusMessage = error ?: currentAppText(
+                        "发起实时翻译通话失败",
+                        "Failed to start live translation call"
+                    )
                 )
                 status = failedStatus
                 recordTranslationStatus(
@@ -273,7 +293,10 @@ internal class AssistantTranslationCallRuntimeController(
             }
             if (!callLifecycle.isActive(requestAttemptId)) return@launch
             val finalStatus = hangupResult.getOrElse { throwable ->
-                error = throwable.message ?: "结束实时翻译通话失败"
+                error = throwable.message ?: currentAppText(
+                    "结束实时翻译通话失败",
+                    "Failed to end live translation call"
+                )
                 status
             }
             finalStatus?.let { snapshot ->
@@ -372,7 +395,10 @@ internal class AssistantTranslationCallRuntimeController(
                 break
             }
             if (statusResult.isFailure) {
-                error = statusResult.exceptionOrNull()?.message ?: "获取实时翻译通话状态失败"
+                error = statusResult.exceptionOrNull()?.message ?: currentAppText(
+                    "获取实时翻译通话状态失败",
+                    "Failed to get live translation call status"
+                )
                 error = localizeTranslationCallStatusText(error)
                 delay(1000L)
                 continue
@@ -409,27 +435,37 @@ internal class AssistantTranslationCallRuntimeController(
         recordCallId: String
     ) {
         val snapshot = finalStatus ?: status ?: return
+        val appLanguage = AppLanguageManager.currentAppLanguage()
         val targetNumber = callbacks.lastDialedNumber()
             .ifBlank { callbacks.dialInput() }
-            .ifBlank { "未知号码" }
+            .ifBlank { "未知号码".appText(appLanguage, "Unknown Number") }
         val occurredAtMillis = System.currentTimeMillis()
         val callState = snapshot.callState.uppercase(Locale.ROOT)
         val success = callState == "ENDED"
         val statusLabel = when {
-            success -> "实时翻译通话"
-            callState == "FAILED" -> "翻译通话失败"
-            else -> "翻译通话"
+            success -> "实时翻译通话".appText(appLanguage, "Translated Call")
+            callState == "FAILED" -> "翻译通话失败".appText(appLanguage, "Translated Call Failed")
+            else -> "翻译通话".appText(appLanguage, "Translated Call")
         }
         val summary = localizeTranslationCallStatusText(snapshot.statusMessage).ifBlank {
             if (success) {
-                "刚刚 · 实时翻译通话结束，时长 ${formatSeconds(seconds)}"
+                val nowText = "刚刚".appText(appLanguage, "Just now")
+                val endedText = "实时翻译通话结束".appText(appLanguage, "Translated call ended")
+                val durationText = "时长".appText(appLanguage, "Duration")
+                val separator = "，".appText(appLanguage, ", ")
+                "$nowText · $endedText$separator$durationText ${formatSeconds(seconds)}"
             } else {
-                "刚刚 · 通话状态 ${snapshot.callState}"
+                val nowText = "刚刚".appText(appLanguage, "Just now")
+                val stateText = "通话状态".appText(appLanguage, "Call status")
+                "$nowText · $stateText ${snapshot.callState}"
             }
         }
         callbacks.onAppendCallRecordIfAbsent(
             FinalCallRecord(
-                title = "翻译通话 ${formatDialNumber(targetNumber)}",
+                title = "翻译通话 ${formatDialNumber(targetNumber)}".appText(
+                    appLanguage,
+                    "Translated call ${formatDialNumber(targetNumber)}"
+                ),
                 status = statusLabel,
                 meta = summary,
                 success = success,

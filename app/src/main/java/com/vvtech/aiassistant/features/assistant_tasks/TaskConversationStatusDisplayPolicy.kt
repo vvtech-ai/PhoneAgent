@@ -1,12 +1,19 @@
 package com.vvtech.aiassistant.features.assistant_tasks
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.Locale
 
-internal enum class TaskConversationStatusKind(val label: String) {
-    Completed("已完成"),
-    Incomplete("未完成"),
-    Running("进行中"),
-    ExecutionError("执行异常")
+internal enum class TaskConversationStatusKind(
+    private val chineseLabel: String,
+    private val englishLabel: String
+) {
+    Completed("已完成", "Completed"),
+    Incomplete("未完成", "Incomplete"),
+    Running("进行中", "In Progress"),
+    ExecutionError("执行异常", "Execution Error");
+
+    val label: String
+        get() = currentAppText(chineseLabel, englishLabel)
 }
 
 internal fun canonicalConversationTaskStatus(status: String): String {
@@ -123,13 +130,13 @@ private fun taskStatusNeedsUserConfirmationSignal(normalized: String, uppercase:
 }
 
 internal fun conversationStatusLabel(status: String): String = when (canonicalConversationTaskStatus(status)) {
-    "ACTIVE" -> "进行中"
-    "RUNNING", "PENDING" -> "进行中"
-    "INCOMPLETE" -> "未完成"
-    "COMPLETED" -> "已完成"
-    "NETWORK_ERROR", "EXECUTION_ERROR" -> "执行异常"
-    "CLOSED", "FAILED", "UNCLEAR", "CANCELED" -> "未完成"
-    "USER_INTERRUPTED" -> "进行中"
+    "ACTIVE" -> currentAppText("进行中", "In Progress")
+    "RUNNING", "PENDING" -> currentAppText("进行中", "In Progress")
+    "INCOMPLETE" -> currentAppText("未完成", "Incomplete")
+    "COMPLETED" -> currentAppText("已完成", "Completed")
+    "NETWORK_ERROR", "EXECUTION_ERROR" -> currentAppText("执行异常", "Execution Error")
+    "CLOSED", "FAILED", "UNCLEAR", "CANCELED" -> currentAppText("未完成", "Incomplete")
+    "USER_INTERRUPTED" -> currentAppText("进行中", "In Progress")
     else -> taskConversationStatusKind(status).label
 }
 
@@ -146,14 +153,14 @@ internal fun isReadOnlyConversationStatus(status: String): Boolean {
 }
 
 internal fun backendTaskStatusLabel(status: String): String = when (status.uppercase(Locale.ROOT)) {
-    "SUCCESS", "COMPLETED" -> "已完成"
+    "SUCCESS", "COMPLETED" -> currentAppText("已完成", "Completed")
     "NETWORK_ERROR", "EXECUTION_ERROR", "NETWORK", "TIMEOUT", "SIP_ERROR", "PHONE_AGENT_ERROR",
-    "MODEL_ERROR", "SERVICE_UNAVAILABLE" -> "执行异常"
+    "MODEL_ERROR", "SERVICE_UNAVAILABLE" -> currentAppText("执行异常", "Execution Error")
     "FAILED", "INCOMPLETE", "UNCLEAR", "PARTIAL", "NEEDS_RECALL", "CANCELLED", "CANCELED",
-    "CLOSED" -> "未完成"
-    "CALLING", "RUNNING", "PROCESSING", "EXECUTING", "WAITING_EXTERNAL_RESULT" -> "进行中"
-    "CONFIRMING", "PENDING", "WAITING_CONFIRM", "READY", "READY_TO_EXECUTE" -> "进行中"
+    "CLOSED" -> currentAppText("未完成", "Incomplete")
+    "CALLING", "RUNNING", "PROCESSING", "EXECUTING", "WAITING_EXTERNAL_RESULT" -> currentAppText("进行中", "In Progress")
+    "CONFIRMING", "PENDING", "WAITING_CONFIRM", "READY", "READY_TO_EXECUTE" -> currentAppText("进行中", "In Progress")
     "INIT", "SCENE_IDENTIFIED", "COLLECTING_REQUIRED_INFO", "USER_MODIFIED_REQUEST",
-    "USER_INTERRUPTED" -> "进行中"
+    "USER_INTERRUPTED" -> currentAppText("进行中", "In Progress")
     else -> taskConversationStatusKind(status).label
 }

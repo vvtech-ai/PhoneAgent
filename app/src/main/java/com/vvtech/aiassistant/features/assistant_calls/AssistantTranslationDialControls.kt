@@ -17,11 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.translation_call.ui.TranslationProviderUiCatalog
 import com.vvtech.aiassistant.domain.translation.TranslationModelNetworkQualityState
 
@@ -44,7 +46,12 @@ internal fun AssistantDialTranslationToggleSection(
             onOpen = onOpenTranslationProvider
         )
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("实时翻译通话", color = Color(0xFF374151), fontSize = 13.sp, fontWeight = FontWeight.Medium)
+            Text(
+                stringResource(R.string.dial_live_translation_toggle),
+                color = Color(0xFF374151),
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Medium
+            )
             AssistantTranslationToggle(checked = translateEnabled, onCheckedChange = onTranslateToggle)
         }
     }

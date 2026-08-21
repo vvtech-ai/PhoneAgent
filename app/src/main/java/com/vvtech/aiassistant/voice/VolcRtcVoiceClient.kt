@@ -3,6 +3,7 @@ package com.vvtech.aiassistant.voice
 import com.vvtech.aiassistant.logging.AppFileLogger
 
 import android.content.Context
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.ss.bytertc.engine.RTCEngine
 import com.ss.bytertc.engine.RTCRoom
 import com.ss.bytertc.engine.RTCRoomConfig
@@ -37,21 +38,21 @@ class VolcRtcVoiceClient(
 
     private val rtcEngineEventHandler = object : IRTCEngineEventHandler() {
         override fun onWarning(warn: Int) {
-            emit(VoiceRuntimeEvent.Status("实时语音警告：$warn"))
+            emit(VoiceRuntimeEvent.Status(currentAppText("实时语音警告：$warn", "Realtime voice warning: $warn")))
         }
 
         override fun onError(err: Int) {
-            emit(VoiceRuntimeEvent.Error("实时语音引擎错误：$err"))
+            emit(VoiceRuntimeEvent.Error(currentAppText("实时语音引擎错误：$err", "Realtime voice engine error: $err")))
         }
     }
 
     private val rtcRoomEventHandler = object : IRTCRoomEventHandler() {
         override fun onRoomStateChanged(roomId: String?, uid: String?, state: Int, extraInfo: String?) {
             AppFileLogger.d(TAG, "onRoomStateChanged state=$state roomId=$roomId uid=$uid extra=$extraInfo")
-            emit(VoiceRuntimeEvent.Status("语音房间状态：$state"))
+            emit(VoiceRuntimeEvent.Status(currentAppText("语音房间状态：$state", "Voice room state: $state")))
             if (state == 0 && !emittedConnected) {
                 emittedConnected = true
-                emit(VoiceRuntimeEvent.Connected("语音房间已连接"))
+                emit(VoiceRuntimeEvent.Connected(currentAppText("语音房间已连接", "Voice room connected")))
             }
             if (state == 0) {
                 startSubtitleIfNeeded()
@@ -62,20 +63,31 @@ class VolcRtcVoiceClient(
             AppFileLogger.d(TAG, "onUserJoined uid=${userInfo?.uid}")
             if (!emittedConnected) {
                 emittedConnected = true
-                emit(VoiceRuntimeEvent.Connected("语音房间已接通"))
+                emit(VoiceRuntimeEvent.Connected(currentAppText("语音房间已接通", "Voice room connected")))
             } else {
-                emit(VoiceRuntimeEvent.Status("${userInfo?.uid ?: "远端用户"} 已进入语音房间"))
+                val remoteUser = userInfo?.uid ?: currentAppText("远端用户", "Remote user")
+                emit(VoiceRuntimeEvent.Status(currentAppText(
+                    "${remoteUser} 已进入语音房间",
+                    "$remoteUser joined the voice room"
+                )))
             }
             startSubtitleIfNeeded()
         }
 
         override fun onUserLeave(uid: String?, reason: Int) {
             AppFileLogger.d(TAG, "onUserLeave uid=$uid reason=$reason")
-            emit(VoiceRuntimeEvent.Status("${uid ?: "远端用户"} 已离开语音房间"))
+            val remoteUser = uid ?: currentAppText("远端用户", "Remote user")
+            emit(VoiceRuntimeEvent.Status(currentAppText(
+                "${remoteUser} 已离开语音房间",
+                "$remoteUser left the voice room"
+            )))
         }
 
         override fun onTokenWillExpire() {
-            emit(VoiceRuntimeEvent.Error("实时语音 token 即将过期，请重新连接"))
+            emit(VoiceRuntimeEvent.Error(currentAppText(
+                "实时语音 token 即将过期，请重新连接",
+                "Realtime voice token is about to expire. Please reconnect"
+            )))
         }
 
         override fun onSubtitleStateChanged(
@@ -87,18 +99,18 @@ class VolcRtcVoiceClient(
             when (state) {
                 SubtitleState.SUBTITLE_STATE_STARTED -> {
                     subtitleStarted = true
-                    emit(VoiceRuntimeEvent.Status("实时字幕已启动"))
+                    emit(VoiceRuntimeEvent.Status(currentAppText("实时字幕已启动", "Realtime captions started")))
                 }
 
                 SubtitleState.SUBTITLE_STATE_ERROR -> {
                     emit(
                         VoiceRuntimeEvent.Status(
                             buildString {
-                                append("实时字幕启动失败")
+                                append(currentAppText("实时字幕启动失败", "Failed to start realtime captions"))
                                 if (!errorMessage.isNullOrBlank()) {
-                                    append("：").append(errorMessage)
+                                    append(": ").append(errorMessage)
                                 } else if (errorCode != null) {
-                                    append("：").append(errorCode.name)
+                                    append(": ").append(errorCode.name)
                                 }
                             }
                         )
@@ -215,7 +227,10 @@ class VolcRtcVoiceClient(
         if (result == 0) {
             subtitleStarted = true
         } else {
-            emit(VoiceRuntimeEvent.Status("实时字幕未启动成功（$result）"))
+            emit(VoiceRuntimeEvent.Status(currentAppText(
+                "实时字幕未启动成功（$result）",
+                "Realtime captions did not start successfully ($result)"
+            )))
         }
     }
 

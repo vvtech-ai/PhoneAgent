@@ -9,6 +9,7 @@ import com.vvtech.aiassistant.features.assistant.speech.TtsApiClient
 import com.vvtech.aiassistant.features.assistant.speech.TtsAudioFormat
 import com.vvtech.aiassistant.features.assistant.stripMarkdownForTts
 import com.vvtech.aiassistant.BuildConfig
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.io.ByteArrayOutputStream
 import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.atomic.AtomicReference
@@ -409,7 +410,11 @@ class QwenTaskTtsApiClient(
                 "error" -> {
                     failPending(
                         webSocket,
-                        IllegalStateException(payload.optString("message").ifBlank { "语音播报失败" })
+                        IllegalStateException(
+                            payload.optString("message").ifBlank {
+                                currentAppText("语音播报失败", "Voice playback failed")
+                            }
+                        )
                     )
                 }
             }
@@ -434,7 +439,10 @@ class QwenTaskTtsApiClient(
                 socketConnecting = false
                 activeSocket.compareAndSet(webSocket, null)
             }
-            failPending(null, IllegalStateException("语音播报通道已关闭：$code"))
+            failPending(null, IllegalStateException(currentAppText(
+                "语音播报通道已关闭：$code",
+                "Voice playback channel closed: $code"
+            )))
         }
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {

@@ -106,7 +106,7 @@ internal class VoiceDuplexPlaybackController(
         }
         rememberSpeech(VoiceDuplexSpeechSource.AgentSignal, normalized, append = false)
         prepareSimplexPlayback(VoiceDuplexSpeechSource.AgentSignal, "agent_signal")
-        viewModel.ttsBridge.feedSignalText(normalized)
+        viewModel.ttsBridge.feedSignalText(normalized, languageCode = viewModel.voiceLanguageCode)
     }
 
     fun flushAgentTts() {

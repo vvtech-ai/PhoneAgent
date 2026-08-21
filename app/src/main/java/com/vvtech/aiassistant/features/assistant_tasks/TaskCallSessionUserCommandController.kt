@@ -3,6 +3,7 @@ package com.vvtech.aiassistant.features.assistant_tasks
 import com.vvtech.aiassistant.core.model.CallSessionStatusResponse
 import com.vvtech.aiassistant.features.assistant.CallUiMode
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -36,7 +37,9 @@ internal class TaskCallSessionUserCommandController(
             deps.updateState {
                 it.copy(
                     handoffInFlight = true,
-                    callPageData = it.callPageData.copy(status = "正在请求人工接管...")
+                    callPageData = it.callPageData.copy(
+                        status = currentAppText("正在请求人工接管...", "Requesting human takeover...")
+                    )
                 )
             }
             runCatching {
@@ -52,11 +55,17 @@ internal class TaskCallSessionUserCommandController(
                     it.copy(
                         handoffInFlight = false,
                         callPageData = it.callPageData.copy(
-                            status = throwable.message ?: "人工接管请求失败"
+                            status = throwable.message ?: currentAppText(
+                                "人工接管请求失败",
+                                "Human takeover request failed"
+                            )
                         )
                     )
                 }
-                deps.appendCallNote(throwable.message ?: "人工接管请求失败，请稍后再试")
+                deps.appendCallNote(throwable.message ?: currentAppText(
+                    "人工接管请求失败，请稍后再试",
+                    "Human takeover request failed. Please try again later."
+                ))
             }
         }
     }
@@ -69,7 +78,9 @@ internal class TaskCallSessionUserCommandController(
             deps.updateState {
                 it.copy(
                     handoffInFlight = true,
-                    callPageData = it.callPageData.copy(status = "正在切回 AI 代打...")
+                    callPageData = it.callPageData.copy(
+                        status = currentAppText("正在切回 AI 代打...", "Switching back to AI calling...")
+                    )
                 )
             }
             runCatching {
@@ -86,11 +97,14 @@ internal class TaskCallSessionUserCommandController(
                     it.copy(
                         handoffInFlight = false,
                         callPageData = it.callPageData.copy(
-                            status = throwable.message ?: "切回 AI 失败"
+                            status = throwable.message ?: currentAppText("切回 AI 失败", "Failed to switch back to AI")
                         )
                     )
                 }
-                deps.appendCallNote(throwable.message ?: "切回 AI 失败，请稍后再试")
+                deps.appendCallNote(throwable.message ?: currentAppText(
+                    "切回 AI 失败，请稍后再试",
+                    "Failed to switch back to AI. Please try again later."
+                ))
             }
         }
     }
@@ -102,7 +116,9 @@ internal class TaskCallSessionUserCommandController(
             deps.updateState {
                 it.copy(
                     handoffInFlight = true,
-                    callPageData = it.callPageData.copy(status = "正在挂断通话...")
+                    callPageData = it.callPageData.copy(
+                        status = currentAppText("正在挂断通话...", "Hanging up...")
+                    )
                 )
             }
             runCatching {
@@ -122,11 +138,14 @@ internal class TaskCallSessionUserCommandController(
                     it.copy(
                         handoffInFlight = false,
                         callPageData = it.callPageData.copy(
-                            status = throwable.message ?: "挂断失败"
+                            status = throwable.message ?: currentAppText("挂断失败", "Hang up failed")
                         )
                     )
                 }
-                deps.appendCallNote(throwable.message ?: "挂断失败，请稍后再试")
+                deps.appendCallNote(throwable.message ?: currentAppText(
+                    "挂断失败，请稍后再试",
+                    "Hang up failed. Please try again later."
+                ))
             }
         }
     }

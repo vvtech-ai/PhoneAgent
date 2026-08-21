@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import com.vvtech.aiassistant.features.assistant_call_evaluation.AgentCallEvaluationRoute
 import com.vvtech.aiassistant.features.assistant_recording.callRecordingAnchor
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 
 @Composable
 internal fun SingleFlowHeader(
@@ -58,7 +60,7 @@ internal fun SingleFlowHeader(
                 color = Color(0xFF10131A)
             )
             Text(
-                text = "电话智能体 - 你的语音分身",
+                text = stringResource(R.string.single_flow_tagline),
                 fontSize = 13.sp,
                 color = Color(0xFF717888),
                 modifier = Modifier.padding(top = 6.dp)
@@ -90,13 +92,14 @@ internal fun SingleFlowHeader(
 
 @Composable
 private fun SingleFlowStageProgress(stage: Int) {
+    val stageLabels = sfStageLabels()
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 2.dp)
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            SfStageLabels.forEachIndexed { index, label ->
+            stageLabels.forEachIndexed { index, label ->
                 val stageNumber = index + 1
                 val stageTextColor = when {
                     stage > stageNumber -> Color(0xFF34C759)
@@ -117,7 +120,7 @@ private fun SingleFlowStageProgress(stage: Int) {
             modifier = Modifier.padding(top = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            SfStageLabels.indices.forEach { index ->
+            stageLabels.indices.forEach { index ->
                 val stageNumber = index + 1
                 Box(
                     modifier = Modifier
@@ -185,38 +188,40 @@ internal fun ColumnScope.SingleFlowDialogueList(
             }
             items(state.clarificationSteps.size) { index ->
                 val step = state.clarificationSteps[index]
+                val displayStep = pureVoiceSanitizeStepForDisplay(step, voiceLanguage)
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 6.dp)
                 ) {
-                    if (step.role == VoiceRole.User) {
-                        FinalMessageBubble(text = step.text, user = true)
+                    if (displayStep.role == VoiceRole.User) {
+                        FinalMessageBubble(text = displayStep.text, user = true)
                     } else {
                         AgentThinkingBlock(
-                            thinking = step.thinking,
-                            toolCalls = step.toolCalls,
-                            toolCards = step.toolCards,
-                            streaming = step.streaming,
-                            thinkingStartedAt = step.thinkingStartedAt,
-                            thinkingDurationMs = step.thinkingDurationMs,
-                            partialToolCalls = step.partialToolCalls
+                            thinking = displayStep.thinking,
+                            toolCalls = displayStep.toolCalls,
+                            toolCards = displayStep.toolCards,
+                            streaming = displayStep.streaming,
+                            thinkingStartedAt = displayStep.thinkingStartedAt,
+                            thinkingDurationMs = displayStep.thinkingDurationMs,
+                            partialToolCalls = displayStep.partialToolCalls
                         )
-                        step.callConfirmSpec?.let { spec ->
+                        displayStep.callConfirmSpec?.let { spec ->
                             AgentCallConfirmCard(
                                 callSpec = spec,
                                 modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)
                             )
                         }
-                        step.callResult?.let { result ->
+                        displayStep.callResult?.let { result ->
                             AgentCallResultCard(result = result)
                             AgentCallEvaluationRoute(callId = callRecordingAnchor(result))
                         }
-                        if (step.text.isNotBlank()) {
-                            FinalMessageBubble(text = step.text, user = false)
+                        if (displayStep.text.isNotBlank()) {
+                            FinalMessageBubble(text = displayStep.text, user = false)
                         }
-                        if (step.streaming && step.text.isBlank() && step.thinking.isNullOrBlank() &&
-                            step.partialToolCalls.isEmpty() && step.toolCards.isEmpty() && step.callConfirmSpec == null
+                        if (displayStep.streaming && displayStep.text.isBlank() && displayStep.thinking.isNullOrBlank() &&
+                            displayStep.partialToolCalls.isEmpty() && displayStep.toolCards.isEmpty() &&
+                            displayStep.callConfirmSpec == null
                         ) {
                             FinalThinkingBubble()
                         }
@@ -240,7 +245,7 @@ internal fun ColumnScope.SingleFlowDialogueList(
             state.liveUserTranscript?.trim()?.takeIf { it.isNotBlank() }?.let { liveText ->
                 item(key = "real_live_user") {
                     SingleFlowBubbleRow {
-                        FinalMessageBubble(text = liveText, user = true)
+                        FinalMessageBubble(text = stripAgentBackendInstructionForDisplay(liveText), user = true)
                     }
                 }
             } ?: run {
@@ -252,7 +257,11 @@ internal fun ColumnScope.SingleFlowDialogueList(
                     }
                 }
             }
-            state.liveAssistantTranscript?.trim()?.takeIf { it.isNotBlank() }?.let { liveText ->
+            state.liveAssistantTranscript
+                ?.let { sanitizeUserFacingNetworkText(it, voiceLanguage) }
+                ?.trim()
+                ?.takeIf { it.isNotBlank() }
+                ?.let { liveText ->
                 item(key = "real_live_assistant") {
                     SingleFlowBubbleRow {
                         FinalMessageBubble(text = liveText, user = false)

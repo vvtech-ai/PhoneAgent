@@ -1,12 +1,13 @@
 package com.vvtech.aiassistant.features.assistant_calls
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.Locale
 
 internal fun aiCallStatusWithDuration(callState: String?, seconds: Int): String {
     val statusText = if (isAiCallConnected(callState)) {
-        "已接通"
+        currentAppText("已接通", "Connected")
     } else {
-        "接通中"
+        currentAppText("接通中", "Connecting")
     }
     val safeSeconds = seconds.coerceAtLeast(0)
     return "%s %02d:%02d".format(statusText, safeSeconds / 60, safeSeconds % 60)

@@ -8,6 +8,7 @@ import com.vvtech.aiassistant.account.AccountIdentityProvider
 import com.vvtech.aiassistant.features.assistant.AssistantContactRuntimeController
 import com.vvtech.aiassistant.features.assistant.AssistantViewModel
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.CoroutineScope
 
 internal data class AssistantRootPermissionRuntimeDeps(
@@ -90,7 +91,10 @@ internal fun rememberAssistantRootPermissionRuntime(
                     deps.permissionOverlayState.microphonePermissionGranted = it
                 },
                 onPermissionDenied = {
-                    callbacks.onShowMessage("请授予麦克风权限后再使用语音功能")
+                    callbacks.onShowMessage(currentAppText(
+                        "请授予麦克风权限后再使用语音功能",
+                        "Grant microphone permission before using voice features"
+                    ))
                 },
                 voiceEntryStateProvider = {
                     AssistantVoiceEntryPermissionState(

@@ -11,6 +11,7 @@ import com.vvtech.aiassistant.features.assistant.viewmodel.DefaultIdleExample
 import com.vvtech.aiassistant.features.assistant.viewmodel.DefaultIdleStatus
 import com.vvtech.aiassistant.features.assistant.viewmodel.DefaultRetryLabel
 import com.vvtech.aiassistant.features.assistant.viewmodel.InteractionChannel
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.flow.update
 
 internal class AssistantSessionIdleResetHandler(
@@ -59,9 +60,9 @@ internal class AssistantSessionIdleResetHandler(
         viewModel.activeInteractionChannel = InteractionChannel.NONE
         viewModel.localTtsPlaying = false
         val resetCallPageData = CallPageData(
-            name = "AI 助理",
-            sub = "实时外呼",
-            status = "等待发起",
+            name = currentAppText("AI 助理", "AI Assistant"),
+            sub = currentAppText("实时外呼", "Live outbound call"),
+            status = currentAppText("等待发起", "Waiting to start"),
             transcript = emptyList()
         )
         viewModel.latestCallPageSeed = resetCallPageData

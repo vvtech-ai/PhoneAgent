@@ -3,10 +3,13 @@ package com.vvtech.aiassistant.features.assistant_tasks
 import com.vvtech.aiassistant.features.assistant.HistoryRecord
 import com.vvtech.aiassistant.features.assistant.StatusStyle
 import com.vvtech.aiassistant.features.assistant.TranscriptLine
+import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
 import com.vvtech.aiassistant.features.assistant.viewmodel.isTerminalTask
 import com.vvtech.aiassistant.features.assistant.viewmodel.normalizePersistedHistoryMeta
 import com.vvtech.aiassistant.features.assistant.viewmodel.taskSortKey
 import com.vvtech.aiassistant.features.assistant.viewmodel.toHistoryRecord
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.TaskListItem
 import com.vvtech.aiassistant.model.AssistantCallHistoryItem
 import com.vvtech.aiassistant.features.assistant_timeline.ConversationTimelineItem
@@ -110,14 +113,33 @@ internal class TaskCallHistoryController(
                 }
                 .onFailure { throwable ->
                     pushMergedHistoryToUi()
-                    deps.stateHolder.showHistoryError(throwable.message ?: "历史任务加载失败")
+                    deps.stateHolder.showHistoryError(
+                        localizedTaskHistoryError(
+                            throwable.message,
+                            currentAppText("历史任务加载失败", "Failed to load task history")
+                        )
+                    )
                 }
             historyResult.exceptionOrNull()?.let { throwable ->
                 if (serverCallHistory.isEmpty()) {
-                    deps.stateHolder.showHistoryError(throwable.message ?: "通话历史加载失败")
+                    deps.stateHolder.showHistoryError(
+                        localizedTaskHistoryError(
+                            throwable.message,
+                            currentAppText("通话历史加载失败", "Failed to load call history")
+                        )
+                    )
                 }
             }
         }
+    }
+
+    private fun localizedTaskHistoryError(message: String?, fallback: String): String {
+        val language = if (currentAppText("中文", "English") == "English") {
+            VoiceLanguage.English
+        } else {
+            VoiceLanguage.Chinese
+        }
+        return sanitizeUserFacingNetworkText(message ?: fallback, language).ifBlank { fallback }
     }
 
     private fun mergedCallHistory(): List<TaskCallHistoryEntry> {

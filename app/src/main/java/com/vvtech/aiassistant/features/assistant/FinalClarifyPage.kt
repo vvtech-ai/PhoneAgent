@@ -21,9 +21,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant_tasks.AssistantClarifyFallbackBannerCard
 import com.vvtech.aiassistant.features.assistant_tasks.AssistantClarifyOptionPickerCard
 
@@ -73,21 +75,27 @@ internal fun FinalClarifyPageV3(args: FinalClarifyPageArgs) {
     val choiceSectionVisible = restaurantConfirmed || fallbackConfirming || fallbackConfirmed || selectedFallbacks.isNotEmpty()
     val toConfirmEnabled =
         restaurantConfirmed && fallbackConfirmed && selectedFallbacks.isNotEmpty() && !restaurantConfirming && !fallbackConfirming
+    val requiredText = stringResource(R.string.clarify_required)
+    val optionalText = stringResource(R.string.clarify_mention_optional)
     val selectedFallbackSummary = selectedFallbacks.joinToString("；") { option ->
-        val stateText = if (requiredFallbackIds.contains(option.id)) "必须满足" else "提及但不必须"
+        val stateText = if (requiredFallbackIds.contains(option.id)) {
+            requiredText
+        } else {
+            optionalText
+        }
         "${option.userLabel}（$stateText）"
     }
     val promptText = when {
-        fallbackConfirmed -> "处理方式已确认。下一步我会整理成任务确认卡。"
-        fallbackConfirming -> "正在整理你的处理方式，请稍等。"
-        restaurantConfirmed -> "如果没有包间或 19:00 没位，请确认这次的处理方式。"
-        restaurantConfirming -> "正在整理你确认的餐厅信息，请稍等。"
-        else -> "请先确认本次要联系哪一家餐厅。"
+        fallbackConfirmed -> stringResource(R.string.clarify_done_prompt)
+        fallbackConfirming -> stringResource(R.string.clarify_processing_fallback)
+        restaurantConfirmed -> stringResource(R.string.clarify_fallback_prompt)
+        restaurantConfirming -> stringResource(R.string.clarify_processing_restaurant)
+        else -> stringResource(R.string.clarify_choose_restaurant_prompt)
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
         FinalBackTitleBar(
-            title = "需求确认",
+            title = stringResource(R.string.clarify_title),
             onBack = callbacks.onBack,
             trailing = { FinalStopButton(onClick = callbacks.onStop) }
         )
@@ -101,8 +109,9 @@ internal fun FinalClarifyPageV3(args: FinalClarifyPageArgs) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 10.dp, bottom = 12.dp),
-                        text = selectedRestaurant?.let { "已确认餐厅：${it.title}" }
-                            ?: "你想订一个餐厅。我先帮你确认具体对象，再确认没有包间时要如何处理。"
+                        text = selectedRestaurant?.let {
+                            stringResource(R.string.clarify_restaurant_confirmed, it.title)
+                        } ?: stringResource(R.string.clarify_intro_prompt)
                     )
                 }
                 item {
@@ -120,7 +129,7 @@ internal fun FinalClarifyPageV3(args: FinalClarifyPageArgs) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "候选餐厅",
+                            text = stringResource(R.string.clarify_candidate_restaurants),
                             color = Color(0xFF111111),
                             fontSize = 17.sp,
                             fontWeight = FontWeight.ExtraBold
@@ -129,9 +138,9 @@ internal fun FinalClarifyPageV3(args: FinalClarifyPageArgs) {
                 }
                 itemsIndexed(restaurantOptions) { index, option ->
                     val tag = when (index) {
-                        0 -> "推荐"
-                        1 -> "备选"
-                        else -> "热门"
+                        0 -> stringResource(R.string.clarify_tag_recommended)
+                        1 -> stringResource(R.string.clarify_tag_alternative)
+                        else -> stringResource(R.string.clarify_tag_popular)
                     }
                     AssistantClarifyOptionPickerCard(
                         title = option.title,
@@ -171,7 +180,7 @@ internal fun FinalClarifyPageV3(args: FinalClarifyPageArgs) {
                             ) {
                                 FinalAssistantRoleBubbleV3(
                                     modifier = Modifier.padding(top = 10.dp),
-                                    text = "好的。如果这家门店没有包间，或 19:00 没位，我需要提前知道你的处理方式，避免在通话中来回打断你。"
+                                    text = stringResource(R.string.clarify_restaurant_followup)
                                 )
                             }
                         }
@@ -188,7 +197,7 @@ internal fun FinalClarifyPageV3(args: FinalClarifyPageArgs) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "处理方式",
+                                text = stringResource(R.string.clarify_handling_options),
                                 color = Color(0xFF111111),
                                 fontSize = 17.sp,
                                 fontWeight = FontWeight.ExtraBold
@@ -240,7 +249,7 @@ internal fun FinalClarifyPageV3(args: FinalClarifyPageArgs) {
                             ) {
                                 FinalAssistantRoleBubbleV3(
                                     modifier = Modifier.padding(top = 10.dp),
-                                    text = "明白了。我会把是否有低消、以及如果安排包间是否有包间费作为备注问询项一并带回。下一步我会整理成确认卡，请你在拨打前再确认一次。"
+                                    text = stringResource(R.string.clarify_fallback_confirmed)
                                 )
                             }
                         }
@@ -248,7 +257,7 @@ internal fun FinalClarifyPageV3(args: FinalClarifyPageArgs) {
                 }
             }
             FinalActionButton(
-                label = "继续到任务确认",
+                label = stringResource(R.string.clarify_next_confirm),
                 tone = FinalButtonTone.Success,
                 enabled = toConfirmEnabled,
                 modifier = Modifier

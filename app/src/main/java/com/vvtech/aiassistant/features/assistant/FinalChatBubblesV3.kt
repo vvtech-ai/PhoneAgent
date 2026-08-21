@@ -17,9 +17,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 @Composable
 internal fun FinalAssistantRoleBubbleV3(
     text: String,
@@ -95,7 +97,7 @@ internal fun FinalUserConfirmBubbleV3(
                     .padding(horizontal = 16.dp, vertical = 14.dp)
             ) {
                 Text(
-                    text = "确认",
+                    text = stringResource(R.string.common_confirm),
                     color = Color.White.copy(alpha = 0.82f),
                     fontSize = 11.sp,
                     fontWeight = FontWeight.ExtraBold
@@ -118,7 +120,7 @@ internal fun FinalUserConfirmBubbleV3(
                         elevation = 0.dp
                     ) {
                         Text(
-                            text = "确认",
+                            text = stringResource(R.string.common_confirm),
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp),
                             color = Color.White,
                             fontSize = 13.sp,

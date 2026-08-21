@@ -5,6 +5,7 @@ import com.vvtech.aiassistant.core.model.CallResultPayload
 import com.vvtech.aiassistant.core.model.CallSpecPayload
 import com.vvtech.aiassistant.core.model.DocumentImportRequestPayload
 import com.vvtech.aiassistant.core.model.PermissionRequestPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.Locale
 
 internal fun agentPermissionRequestFromClientData(data: Map<String, Any?>): PermissionRequestPayload {
@@ -36,7 +37,9 @@ internal fun agentCallSpecFromClientData(data: Map<String, Any?>): CallSpecPaylo
         primaryGoal = data["primaryGoal"]?.toString().orEmpty(),
         summaryLines = (data["summaryLines"] as? List<*>)
             ?.mapNotNull { it?.toString() }
-            .orEmpty()
+            .orEmpty(),
+        negotiationRules = agentClientStringList(data["negotiationRules"]).takeIf { it.isNotEmpty() },
+        boundaries = agentClientStringList(data["boundaries"]).takeIf { it.isNotEmpty() }
     )
 }
 
@@ -105,19 +108,20 @@ internal fun agentCallResultReportedOutcome(metadata: Map<String, String>?): Str
 }
 
 private fun agentCallResultBaseDisplayText(callResult: CallResultPayload?): String {
-    if (callResult == null) return "任务已完成"
+    if (callResult == null) return currentAppText("任务已完成", "Task completed")
     val source = agentCallResultSource(callResult)
     when (agentCallResultReportedOutcome(callResult.metadata)) {
-        "SUCCESS", "UNCLEAR" -> return "任务已完成"
-        "USER_CANCELLED", "USER_CANCELED" -> return "通话已取消"
-        "FAILED", "NEEDS_RECALL" -> return "任务未完成"
+        "SUCCESS", "UNCLEAR" -> return currentAppText("任务已完成", "Task completed")
+        "USER_CANCELLED", "USER_CANCELED" -> return currentAppText("通话已取消", "Call canceled")
+        "FAILED", "NEEDS_RECALL" -> return currentAppText("任务未完成", "Task incomplete")
     }
     val status = callResult.status.trim().uppercase(Locale.ROOT)
     val resultCode = callResult.metadata?.get("resultCode")?.trim()?.uppercase(Locale.ROOT).orEmpty()
     return when {
         status in setOf("CANCELLED", "CANCELED", "USER_CANCELLED", "USER_CANCELED", "USER_INTERRUPTED") ||
             resultCode in setOf("CANCELLED", "CANCELED", "USER_CANCELLED", "USER_CANCELED", "CALL_CANCELLED", "CALL_CANCELED") ||
-            Regex("取消|已取消|挂断|已挂断|中止|手动中止|用户在\\s*App\\s*端").containsMatchIn(source) -> "通话已取消"
+            Regex("取消|已取消|挂断|已挂断|中止|手动中止|用户在\\s*App\\s*端").containsMatchIn(source) ->
+                currentAppText("通话已取消", "Call canceled")
 
         status in setOf("FAILED", "ERROR", "FAIL") ||
             resultCode.startsWith("FAILED") ||
@@ -133,9 +137,9 @@ private fun agentCallResultBaseDisplayText(callResult: CallResultPayload?): Stri
                 "INCOMPLETE_OR_UNCLEAR"
             ) ||
             Regex("失败|未完成|未接通|未形成有效通话|预订未成功|预约未成功|未订到|没订到|没有订到|结果不明确")
-                .containsMatchIn(source) -> "任务未完成"
+                .containsMatchIn(source) -> currentAppText("任务未完成", "Task incomplete")
 
-        else -> "任务已完成"
+        else -> currentAppText("任务已完成", "Task completed")
     }
 }
 

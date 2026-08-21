@@ -73,6 +73,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -83,6 +84,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant_tasks.looksLikeTerminalCallResultStatus
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -114,7 +116,7 @@ internal fun BoxScope.SingleFlowReceiptHintOverlay(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "任务回执可在任务界面查看",
+                            text = stringResource(R.string.receipt_hint_tasks),
                             modifier = Modifier.weight(1f),
                             color = Color(0xFF121A24),
                             fontSize = 14.sp
@@ -132,7 +134,7 @@ internal fun BoxScope.SingleFlowReceiptHintOverlay(
                                 }
                             )
                             Text(
-                                text = "不再提示",
+                                text = stringResource(R.string.receipt_do_not_show_again),
                                 color = Color(0xFF6E788B),
                                 fontSize = 13.sp
                             )

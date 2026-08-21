@@ -13,6 +13,7 @@ import com.vvtech.aiassistant.features.assistant.DefaultTranslationCallerLanguag
 import com.vvtech.aiassistant.features.assistant.DefaultVoiceLanguageCode
 import com.vvtech.aiassistant.features.assistant.DeveloperDataMode
 import com.vvtech.aiassistant.features.assistant.FinalDefaultPureVoiceMode
+import com.vvtech.aiassistant.features.assistant.FinalDeveloperModeEnabledKey
 import com.vvtech.aiassistant.features.assistant.FinalTranslationQwenCalleeLanguageKey
 import com.vvtech.aiassistant.features.assistant.FinalTranslationQwenCallerLanguageKey
 import com.vvtech.aiassistant.features.assistant.FinalTranslationQwenVoiceKey
@@ -20,6 +21,7 @@ import com.vvtech.aiassistant.features.assistant.FinalVoiceLanguageCodeKey
 import com.vvtech.aiassistant.features.assistant.TranslationProviderLanguageSettings
 import com.vvtech.aiassistant.features.assistant.TranslationProviderLanguageSettingsSaver
 import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.VoiceLanguageEnglishDefaultMigrationKey
 import com.vvtech.aiassistant.features.assistant.sanitizeTranslationProviderLanguageSettings
 import com.vvtech.aiassistant.features.assistant.sanitizeTranslationQwenVoice
 import com.vvtech.aiassistant.features.assistant_settings.DefaultDomesticSipAccountId
@@ -28,6 +30,8 @@ import com.vvtech.aiassistant.features.assistant_settings.DomesticSipAccountPref
 import com.vvtech.aiassistant.features.assistant_settings.InternationalSipAccountPreferenceKey
 import com.vvtech.aiassistant.features.assistant_settings.normalizeDomesticSipAccountId
 import com.vvtech.aiassistant.features.assistant_settings.normalizeInternationalSipAccountId
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguageManager
 
 internal interface AssistantRootSettingsPreferenceStore {
     fun getBoolean(key: String, defaultValue: Boolean): Boolean
@@ -62,8 +66,10 @@ internal class AssistantRootSettingsPreferenceState(
     translationQwenLanguageSettingsState: MutableState<TranslationProviderLanguageSettings>,
     pureVoiceModeState: MutableState<Boolean>,
     voiceLanguageCodeState: MutableState<String>,
+    appLanguageState: MutableState<AppLanguage>,
     selectedDomesticSipAccountIdState: MutableState<String>,
-    selectedInternationalSipAccountIdState: MutableState<String>
+    selectedInternationalSipAccountIdState: MutableState<String>,
+    private val setApplicationLanguage: (AppLanguage) -> Unit = AppLanguageManager::setAppLanguage
 ) {
     var developerModeEnabled: Boolean by developerModeEnabledState
         private set
@@ -75,6 +81,8 @@ internal class AssistantRootSettingsPreferenceState(
         private set
     var pureVoiceMode: Boolean by pureVoiceModeState
     var voiceLanguageCode: String by voiceLanguageCodeState
+    var appLanguage: AppLanguage by appLanguageState
+        private set
     var selectedDomesticSipAccountId: String by selectedDomesticSipAccountIdState
         private set
     var selectedInternationalSipAccountId: String by selectedInternationalSipAccountIdState
@@ -86,6 +94,7 @@ internal class AssistantRootSettingsPreferenceState(
     fun enableDeveloperMode(): Boolean {
         if (developerModeEnabled) return false
         developerModeEnabled = true
+        store.putBoolean(FinalDeveloperModeEnabledKey, true)
         return true
     }
 
@@ -107,6 +116,21 @@ internal class AssistantRootSettingsPreferenceState(
         translationQwenLanguageSettings = sanitized
         store.putString(FinalTranslationQwenCallerLanguageKey, sanitized.callerLanguage)
         store.putString(FinalTranslationQwenCalleeLanguageKey, sanitized.calleeLanguage)
+    }
+
+    fun updateAppLanguage(language: AppLanguage) {
+        if (appLanguage == language) return
+        appLanguage = language
+        syncVoiceLanguageForAppLanguage(language)
+        setApplicationLanguage(language)
+    }
+
+    private fun syncVoiceLanguageForAppLanguage(language: AppLanguage) {
+        val targetVoiceLanguage = voiceLanguageForAppLanguage(language)
+        if (voiceLanguageCode == targetVoiceLanguage.code) return
+        voiceLanguageCode = targetVoiceLanguage.code
+        store.putString(FinalVoiceLanguageCodeKey, targetVoiceLanguage.code)
+        store.putBoolean(VoiceLanguageEnglishDefaultMigrationKey, true)
     }
 
     fun updateDomesticSipAccountId(rawId: String) {
@@ -158,10 +182,10 @@ internal fun rememberAssistantRootSettingsPreferenceState(
         mutableStateOf(FinalDefaultPureVoiceMode)
     }
     val voiceLanguageCodeState = rememberSaveable {
-        mutableStateOf(
-            store.getString(FinalVoiceLanguageCodeKey, DefaultVoiceLanguageCode)
-                ?: DefaultVoiceLanguageCode
-        )
+        mutableStateOf(initialVoiceLanguageCode(store))
+    }
+    val appLanguageState = rememberSaveable {
+        mutableStateOf(AppLanguageManager.ensureSupportedDefaultLanguage())
     }
     val selectedDomesticSipAccountIdState = rememberSaveable {
         mutableStateOf(
@@ -185,6 +209,7 @@ internal fun rememberAssistantRootSettingsPreferenceState(
         translationQwenLanguageSettingsState,
         pureVoiceModeState,
         voiceLanguageCodeState,
+        appLanguageState,
         selectedDomesticSipAccountIdState,
         selectedInternationalSipAccountIdState
     ) {
@@ -196,8 +221,39 @@ internal fun rememberAssistantRootSettingsPreferenceState(
             translationQwenLanguageSettingsState = translationQwenLanguageSettingsState,
             pureVoiceModeState = pureVoiceModeState,
             voiceLanguageCodeState = voiceLanguageCodeState,
+            appLanguageState = appLanguageState,
             selectedDomesticSipAccountIdState = selectedDomesticSipAccountIdState,
             selectedInternationalSipAccountIdState = selectedInternationalSipAccountIdState
         )
     }
 }
+
+private fun initialVoiceLanguageCode(store: AssistantRootSettingsPreferenceStore): String {
+    val appLanguage = AppLanguageManager.ensureSupportedDefaultLanguage()
+    val targetVoiceLanguage = voiceLanguageForAppLanguage(appLanguage)
+    val storedCode = store.getString(FinalVoiceLanguageCodeKey, null)
+    if (storedCode.isNullOrBlank() || VoiceLanguage.fromCode(storedCode) != targetVoiceLanguage) {
+        store.putString(FinalVoiceLanguageCodeKey, targetVoiceLanguage.code)
+        store.putBoolean(VoiceLanguageEnglishDefaultMigrationKey, true)
+        return targetVoiceLanguage.code
+    }
+    val migrationDone = store.getBoolean(VoiceLanguageEnglishDefaultMigrationKey, false)
+    val shouldMigrateToEnglish =
+        !migrationDone &&
+            appLanguage == AppLanguage.English &&
+            (storedCode.isNullOrBlank() || VoiceLanguage.fromCode(storedCode) == VoiceLanguage.Chinese)
+
+    if (shouldMigrateToEnglish) {
+        store.putString(FinalVoiceLanguageCodeKey, VoiceLanguage.English.code)
+        store.putBoolean(VoiceLanguageEnglishDefaultMigrationKey, true)
+        return VoiceLanguage.English.code
+    }
+
+    return storedCode ?: DefaultVoiceLanguageCode
+}
+
+private fun voiceLanguageForAppLanguage(language: AppLanguage): VoiceLanguage =
+    when (language) {
+        AppLanguage.English -> VoiceLanguage.English
+        AppLanguage.SimplifiedChinese -> VoiceLanguage.Chinese
+    }

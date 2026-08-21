@@ -10,7 +10,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.localizedInitialSkillOpening
 import com.vvtech.aiassistant.features.assistant_agent.AgentInitialSkillLaunchStore
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguageManager
 
 @Composable
 internal fun AssistantHomeConfigRoute(
@@ -28,7 +32,18 @@ internal fun AssistantHomeConfigRoute(
         HomeCardEntryDispatcher(
             clearInitialSkill = AgentInitialSkillLaunchStore::clear,
             armInitialSkill = { skillId, opening ->
-                AgentInitialSkillLaunchStore.arm(skillId, opening)
+                val englishApp = AppLanguageManager.currentAppLanguage() == AppLanguage.English
+                val displayLanguage = if (englishApp) {
+                    VoiceLanguage.English
+                } else {
+                    VoiceLanguage.Chinese
+                }
+                AgentInitialSkillLaunchStore.armWithBackendOpening(
+                    skillId = skillId,
+                    opening = localizedInitialSkillOpening(skillId, opening, displayLanguage),
+                    backendOpening = opening,
+                    sendBackendOpening = !englishApp
+                )
             }
         )
     }

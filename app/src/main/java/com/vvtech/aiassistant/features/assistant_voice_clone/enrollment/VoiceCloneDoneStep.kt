@@ -26,8 +26,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.features.assistant.VoiceAccentBlue
 import com.vvtech.aiassistant.features.assistant.VoiceTextPrimary
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
-private const val COMPLETION_DESCRIPTION = "声音克隆已完成，可用于 Agent 通话。"
+private fun localizedCompletionDescription(): String =
+    currentAppText(
+        "声音克隆已完成，可用于 Agent 通话。",
+        "Your cloned voice is ready and can be used with supported voice models."
+    )
 
 @Composable
 internal fun VoiceCloneDoneStep(
@@ -40,7 +45,7 @@ internal fun VoiceCloneDoneStep(
     ) {
         CompletionIcon()
         Text(
-            text = "完成声音克隆",
+            text = currentAppText("声音克隆已完成", "Voice Cloning Complete"),
             color = VoiceTextPrimary,
             fontSize = 22.sp,
             lineHeight = 28.sp,
@@ -49,12 +54,15 @@ internal fun VoiceCloneDoneStep(
         )
         CompletionDescription()
         CompletionPrimaryButton(
-            text = if (actionLoading) "处理中..." else "开始使用",
+            text = if (actionLoading) currentAppText("处理中...", "Processing...") else currentAppText("开始使用", "Use Now"),
             enabled = !actionLoading,
             onClick = { onStartUsing(false) }
         )
         Text(
-            text = "你随时可以在 设置 > 语音 中管理声音数据",
+            text = currentAppText(
+                "你随时可以在 设置 > 语音大模型 中管理声音数据",
+                "Manage voice data in Settings > Call Models & Voices."
+            ),
             modifier = Modifier.padding(top = 12.dp),
             color = Color(0xFFB0B4C3),
             fontSize = 12.sp,
@@ -76,7 +84,7 @@ private fun CompletionIcon() {
     ) {
         Icon(
             imageVector = Icons.Rounded.Check,
-            contentDescription = "完成",
+            contentDescription = currentAppText("完成", "Done"),
             tint = Color(0xFF059669),
             modifier = Modifier.size(40.dp)
         )
@@ -95,7 +103,7 @@ private fun CompletionDescription() {
         elevation = 0.dp
     ) {
         Text(
-            text = COMPLETION_DESCRIPTION,
+            text = localizedCompletionDescription(),
             modifier = Modifier.fillMaxWidth().padding(16.dp),
             color = Color(0xFF374151),
             fontSize = 14.sp,

@@ -80,7 +80,7 @@ internal fun SfDetailSupplementCard(
         Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp)) {
             Surface(shape = RoundedCornerShape(999.dp), color = Color(0xFFFFF6E7)) {
                 Text(
-                    text = "需要补充",
+                    text = "More Details Needed",
                     color = Color(0xFFFF9F0A),
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
@@ -104,7 +104,7 @@ internal fun SfDetailSupplementCard(
             )
             if (selectedContact == null) {
                 Text(
-                    text = "先确认预订人信息",
+                    text = "Confirm Booker Information First",
                     modifier = Modifier.padding(top = 12.dp),
                     color = Color(0xFF16202C),
                     fontSize = 14.sp,
@@ -140,7 +140,7 @@ internal fun SfDetailSupplementCard(
                                 if (preferredContact.isDefault) {
                                     Surface(shape = RoundedCornerShape(999.dp), color = Color(0xFFEAF3FF)) {
                                         Text(
-                                            text = "默认",
+                                            text = "Default",
                                             color = Color(0xFF1978F3),
                                             fontSize = 11.sp,
                                             fontWeight = FontWeight.Bold,
@@ -154,13 +154,13 @@ internal fun SfDetailSupplementCard(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 SfSupplementActionButton(
-                                    text = "确认使用此联系人",
+                                    text = "Use This Contact",
                                     primary = true,
                                     modifier = Modifier.weight(1f),
                                     onClick = { onConfirmSavedContact(preferredContact) }
                                 )
                                 SfSupplementActionButton(
-                                    text = "重新输入",
+                                    text = "Enter Again",
                                     primary = false,
                                     modifier = Modifier.weight(1f),
                                     onClick = onManualContact
@@ -170,14 +170,14 @@ internal fun SfDetailSupplementCard(
                     }
                 } else {
                     Text(
-                        text = "请在下方输入联系人姓名和手机号",
+                        text = "Enter the contact name and phone number below.",
                         modifier = Modifier.padding(top = 8.dp),
                         color = Color(0xFF344054),
                         fontSize = 13.sp,
                         lineHeight = 18.sp
                     )
                     Text(
-                        text = "姓名，188****0000",
+                        text = "Name, 188****0000",
                         modifier = Modifier.padding(top = 6.dp),
                         color = Color(0xFF007AFF),
                         fontSize = 12.sp,
@@ -207,7 +207,7 @@ internal fun SfDetailSupplementCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "已确认",
+                            text = "Confirmed",
                             color = Color(0xFF248A3D),
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold
@@ -223,7 +223,7 @@ internal fun SfDetailSupplementCard(
                     }
                 }
                 Text(
-                    text = "补充细节",
+                    text = "Additional Details",
                     modifier = Modifier.padding(top = 12.dp),
                     color = Color(0xFF16202C),
                     fontSize = 14.sp,
@@ -231,7 +231,7 @@ internal fun SfDetailSupplementCard(
                 )
                 if (supplement.questions.isEmpty()) {
                     Text(
-                        text = "当前没有额外细节，可直接跳过。",
+                        text = "No extra details are needed. You can skip this step.",
                         modifier = Modifier.padding(top = 8.dp),
                         color = Color(0xFF667085),
                         fontSize = 13.sp,
@@ -256,14 +256,14 @@ internal fun SfDetailSupplementCard(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     SfSupplementActionButton(
-                        text = "确认补充",
+                        text = "Confirm Details",
                         primary = true,
                         enabled = selectedQuestionIds.isNotEmpty(),
                         modifier = Modifier.fillMaxWidth(),
                         onClick = onConfirmDetails
                     )
                     SfSupplementActionButton(
-                        text = "直接跳过",
+                        text = "Skip",
                         primary = false,
                         modifier = Modifier.fillMaxWidth(),
                         onClick = onSkipDetails

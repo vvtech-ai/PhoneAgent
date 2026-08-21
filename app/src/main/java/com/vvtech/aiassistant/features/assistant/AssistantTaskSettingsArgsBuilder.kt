@@ -1,6 +1,7 @@
 package com.vvtech.aiassistant.features.assistant
 
 import android.content.SharedPreferences
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 import com.vvtech.aiassistant.model.ConversationListItem
 
 internal class AssistantTaskPageArgsBuilderInput(
@@ -22,6 +23,7 @@ internal class AssistantSettingsArgsBuilderInput(
 
 internal class SettingsMainInput(
     val developerModeEnabled: Boolean,
+    val appLanguage: AppLanguage,
     val selectedVoiceModelTitle: String,
     val otaUpdateChecking: Boolean,
     val logUploadInProgress: Boolean,
@@ -46,6 +48,7 @@ internal class SettingsOutboundInput(
 )
 
 internal class SettingsCallbacksInput(
+    val onAppLanguageChange: (AppLanguage) -> Unit,
     val onSelectedMethodReset: () -> Unit,
     val onShowVoiceModelSheetChange: (Boolean) -> Unit,
     val onOpenTrustedCalleeAuthorization: () -> Unit,
@@ -76,6 +79,7 @@ internal fun buildAssistantSettingsPageArgs(
 ): SettingsPageArgs = SettingsPageArgs().also { args ->
     with(input.main) {
         args.developerModeEnabled = developerModeEnabled
+        args.appLanguage = appLanguage
         args.selectedVoiceModelTitle = selectedVoiceModelTitle
         args.otaUpdateChecking = otaUpdateChecking
         args.logUploadInProgress = logUploadInProgress
@@ -97,6 +101,7 @@ internal fun buildAssistantSettingsPageArgs(
         args.outboundDeleting = outboundDeleting
     }
     with(input.callbacks) {
+        args.onAppLanguageChange = onAppLanguageChange
         args.onSelectedMethodReset = onSelectedMethodReset
         args.onShowVoiceModelSheetChange = onShowVoiceModelSheetChange
         args.onOpenTrustedCalleeAuthorization = onOpenTrustedCalleeAuthorization

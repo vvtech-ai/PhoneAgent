@@ -18,25 +18,25 @@ internal fun AssistantContactPermissionSettingsDialog(
         onDismissRequest = onDismiss,
         title = {
             Text(
-                text = "开启通讯录权限",
+                text = "Enable Contacts Permission",
                 color = Color(0xFF111111),
                 fontWeight = FontWeight.Bold
             )
         },
         text = {
             Text(
-                text = "系统已关闭通讯录授权，请前往应用设置开启“通讯录”权限后继续。",
+                text = "Contacts permission is disabled. Open app settings and enable Contacts to continue.",
                 color = Color(0xFF6B7280)
             )
         },
         confirmButton = {
             TextButton(onClick = onOpenSettings) {
-                Text("去设置", color = Color(0xFF2563EB), fontWeight = FontWeight.Bold)
+                Text("Open Settings", color = Color(0xFF2563EB), fontWeight = FontWeight.Bold)
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消", color = Color(0xFF6B7280))
+                Text("Cancel", color = Color(0xFF6B7280))
             }
         },
         shape = RoundedCornerShape(18.dp),

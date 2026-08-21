@@ -1,6 +1,7 @@
 package com.vvtech.aiassistant.features.app_ota
 
 import android.content.Intent
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal enum class FinalOtaInstallPhase {
     Idle,
@@ -25,13 +26,15 @@ internal data class FinalOtaInstallUiState(
 
     val primaryButtonLabel: String
         get() = when (phase) {
-            FinalOtaInstallPhase.Downloading -> progressPercent?.let { "下载中 $it%" } ?: "下载中"
-            FinalOtaInstallPhase.Verifying -> "校验中"
-            FinalOtaInstallPhase.Downloaded -> "安装"
-            FinalOtaInstallPhase.WaitingForInstallPermission -> "授权安装"
-            FinalOtaInstallPhase.Installing -> "等待安装"
-            FinalOtaInstallPhase.Failed -> "重新下载"
-            FinalOtaInstallPhase.Idle -> "立即更新"
+            FinalOtaInstallPhase.Downloading -> progressPercent?.let {
+                currentAppText("下载中 $it%", "Downloading $it%")
+            } ?: currentAppText("下载中", "Downloading")
+            FinalOtaInstallPhase.Verifying -> currentAppText("校验中", "Verifying")
+            FinalOtaInstallPhase.Downloaded -> currentAppText("安装", "Install")
+            FinalOtaInstallPhase.WaitingForInstallPermission -> currentAppText("授权安装", "Allow Install")
+            FinalOtaInstallPhase.Installing -> currentAppText("等待安装", "Waiting to Install")
+            FinalOtaInstallPhase.Failed -> currentAppText("重新下载", "Download Again")
+            FinalOtaInstallPhase.Idle -> currentAppText("立即更新", "Update Now")
         }
 
     companion object {

@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant
 
 import com.vvtech.aiassistant.features.assistant_tasks.callDisplayBookingTargetLabel
 import com.vvtech.aiassistant.features.assistant_tasks.callPageResultStatusFromSource
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal fun pureVoiceContactCallRows(summary: SummaryData?, data: CallPageData): List<Pair<String, String>> {
     val rows = linkedMapOf<String, String>()
@@ -20,7 +21,7 @@ internal fun pureVoiceContactCallRows(summary: SummaryData?, data: CallPageData)
     if (!contact.isNullOrBlank()) rows["联系人"] = contact
     if (!time.isNullOrBlank()) rows["时间"] = time
     if (!purpose.isNullOrBlank()) rows["目的"] = purpose
-    return rows.entries.map { it.key to it.value }.take(3)
+    return rows.entries.map { pureVoiceDisplayResultRow(it.key, it.value) }.take(3)
 }
 
 private fun pureVoiceExtractTaskField(transcript: List<TranscriptLine>, label: String): String? {
@@ -137,7 +138,44 @@ internal fun pureVoiceBookingRows(
         rows["联系人"] = contactPhone
     }
 
-    return rows.entries.map { it.key to it.value }
+    return rows.entries.map { pureVoiceDisplayResultRow(it.key, it.value) }
+}
+
+private fun pureVoiceDisplayResultRow(label: String, value: String): Pair<String, String> {
+    return pureVoiceResultLabel(label) to pureVoiceResultValue(value)
+}
+
+private fun pureVoiceResultLabel(label: String): String {
+    return when (label.trim()) {
+        "联系人", "contactName" -> currentAppText(label, "Contact")
+        "联系电话", "手机号", "contactPhone" -> currentAppText(label, "Phone")
+        "电话" -> currentAppText(label, "Phone")
+        "时间", "用餐时间", "reservationTime", "mainDate", "到店时间" -> currentAppText(label, "Time")
+        "人数", "用餐人数", "partySize", "guestCount" -> currentAppText(label, "Party Size")
+        "目的", "需求", "通话事项" -> currentAppText(label, "Purpose")
+        "重点" -> currentAppText(label, "Details")
+        "补充" -> currentAppText(label, "Additional Details")
+        "餐厅", "restaurantName" -> currentAppText(label, "Restaurant")
+        "酒店", "hotelName" -> currentAppText(label, "Hotel")
+        "目标", "targetName" -> currentAppText(label, "Target")
+        "包房", "包房情况", "包间", "privateRoom", "needPrivateRoom" -> currentAppText(label, "Private Room")
+        "低消", "低消信息" -> currentAppText(label, "Minimum Spend")
+        "座位" -> currentAppText(label, "Seating")
+        "入住", "入住日期" -> currentAppText(label, "Check-in")
+        "离店", "离店日期" -> currentAppText(label, "Check-out")
+        "房型" -> currentAppText(label, "Room Type")
+        else -> pureVoiceResultValue(label)
+    }
+}
+
+private fun pureVoiceResultValue(value: String): String {
+    val trimmed = value.trim()
+    if (trimmed.isBlank()) return ""
+    return if (currentAppText("中文", "English") == "English") {
+        sanitizeUserFacingNetworkText(trimmed, VoiceLanguage.English)
+    } else {
+        trimmed
+    }
 }
 
 private fun pureVoiceMeaningfulCallTarget(value: String): String? {
@@ -211,12 +249,16 @@ private fun pureVoiceNormalizeResultFieldValue(label: String, value: String): St
     return when (label) {
         "reservationTime", "mainDate" -> trimmed.replace('T', ' ')
         "partySize", "guestCount", "用餐人数", "人数" -> {
-            if (Regex("""^\d+$""").matches(trimmed)) "${trimmed}人" else trimmed
+            if (Regex("""^\d+$""").matches(trimmed)) {
+                currentAppText("${trimmed}人", "$trimmed people")
+            } else {
+                trimmed
+            }
         }
         "needPrivateRoom", "privateRoom" -> {
             when (trimmed.lowercase()) {
-                "true", "yes", "1" -> "需要包房"
-                "false", "no", "0" -> "不需要包房"
+                "true", "yes", "1" -> currentAppText("需要包房", "Private room needed")
+                "false", "no", "0" -> currentAppText("不需要包房", "No private room needed")
                 else -> trimmed
             }
         }
@@ -239,10 +281,10 @@ private fun pureVoiceExtractNaturalBookingFields(source: String): List<Pair<Stri
         ?.let { pureVoiceChineseNumberTextToDisplay(it) }
         ?.let { rows["人数"] = it }
     if (pureVoiceLooksLikeNoPrivateRoom(compact)) {
-        rows["包房"] = "无"
+        rows["包房"] = currentAppText("无", "No")
     }
     if (Regex("""大厅(可以|可|有|能)|大点的位置|空的桌子|桌子""").containsMatchIn(compact)) {
-        rows["座位"] = "大厅"
+        rows["座位"] = currentAppText("大厅", "Main hall")
     }
     Regex("""([\u4e00-\u9fa5]{1,4}先生|[\u4e00-\u9fa5]{1,4}女士)""")
         .find(source)
@@ -275,19 +317,19 @@ private fun pureVoiceExtractTranscriptBookingFields(transcript: List<TranscriptL
             .orEmpty()
 
         if (pureVoiceLooksLikeNoPrivateRoom(remoteText)) {
-            rows["包房"] = "无"
+            rows["包房"] = currentAppText("无", "No")
         } else if (
             previousAssistant.contains("包房") ||
             previousAssistant.contains("包间") ||
             previousAssistant.contains("包厢")
         ) {
-            if (pureVoiceRemoteConfirmsPrivateRoom(remoteText) && rows["包房"] != "无") {
-                rows["包房"] = "有"
+            if (pureVoiceRemoteConfirmsPrivateRoom(remoteText) && rows["包房"] !in setOf("无", "No")) {
+                rows["包房"] = currentAppText("有", "Yes")
             }
         }
 
         if (Regex("""大厅(可以|可|有|能)|大点的位置|空的桌子|桌子""").containsMatchIn(remoteText)) {
-            rows["座位"] = "大厅"
+            rows["座位"] = currentAppText("大厅", "Main hall")
         }
     }
     return rows.entries.map { it.key to it.value }
@@ -315,9 +357,9 @@ private fun pureVoiceChineseNumberTextToDisplay(value: String): String {
     val normalized = value.trim()
     if (normalized.isBlank()) return ""
     return if (Regex("""^\d+$""").matches(normalized)) {
-        "${normalized}人"
+        currentAppText("${normalized}人", "$normalized people")
     } else {
-        "${normalized}人"
+        currentAppText("${normalized}人", "$normalized people")
     }
 }
 

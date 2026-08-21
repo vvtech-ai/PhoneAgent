@@ -1,5 +1,8 @@
 package com.vvtech.aiassistant.features.assistant_tasks
 
+import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.Locale
 
 internal enum class TaskDisplayTextStatusKind {
@@ -128,11 +131,11 @@ internal fun taskDisplayIsGenericTarget(value: String): Boolean {
 }
 
 internal fun taskDisplayDefaultTarget(sceneName: String): String = when (sceneName) {
-    "订餐厅" -> "餐厅"
-    "订酒店" -> "酒店"
-    "订机票" -> "航班"
-    "会议通知" -> "参会人"
-    else -> "目标对象"
+    "订餐厅" -> currentAppText("餐厅", "Restaurant")
+    "订酒店" -> currentAppText("酒店", "Hotel")
+    "订机票" -> currentAppText("航班", "Flight")
+    "会议通知" -> currentAppText("参会人", "Attendees")
+    else -> currentAppText("目标对象", "Target")
 }
 
 internal fun taskDisplayKeyInfo(
@@ -158,7 +161,7 @@ internal fun taskDisplayKeyInfo(
     if (compact.isNotBlank()) return compact
     return compactTaskDisplayInfo(detail)
         .ifBlank { compactTaskDisplayInfo(sourceText) }
-        .ifBlank { "任务信息已同步" }
+        .ifBlank { currentAppText("任务信息已同步", "Task details synced") }
 }
 
 internal fun removeDuplicateRestaurantPartyNumbers(sceneName: String, segments: List<String>): List<String> {
@@ -246,6 +249,22 @@ internal fun extractTaskDisplayFactSegments(text: String, sceneName: String): Li
     }
 }
 
+internal fun taskDisplaySceneNameForDisplay(sceneName: String): String = currentAppText(
+    sceneName,
+    when (sceneName) {
+        "订餐厅" -> "Restaurant Booking"
+        "订酒店" -> "Hotel Booking"
+        "订机票" -> "Flight Booking"
+        "会议通知", "会议邀请" -> "Meeting Invitation"
+        "活动邀约", "批量邀约" -> "Event Invitation"
+        "道歉" -> "Apology"
+        "挪车" -> "Move Car"
+        "转达留言" -> "Message Relay"
+        "AI 通话", "AI通话" -> "AI Call"
+        else -> "AI Task"
+    }
+)
+
 internal fun taskDisplayContainsAny(text: String, values: List<String>): Boolean {
     return values.any { text.contains(it, ignoreCase = true) }
 }
@@ -256,16 +275,24 @@ internal fun taskDisplayHomeNotificationText(
     keyInfo: String,
     statusKind: TaskDisplayTextStatusKind
 ): String {
+    val displaySceneName = taskDisplaySceneNameForDisplay(sceneName)
     val prefix = when (statusKind) {
-        TaskDisplayTextStatusKind.Completed -> "${sceneName}已完成"
-        TaskDisplayTextStatusKind.Incomplete -> "${sceneName}未完成"
-        TaskDisplayTextStatusKind.Running -> "${sceneName}进行中"
-        TaskDisplayTextStatusKind.ExecutionError -> "${sceneName}执行异常"
+        TaskDisplayTextStatusKind.Completed -> currentAppText("${sceneName}已完成", "$displaySceneName Completed")
+        TaskDisplayTextStatusKind.Incomplete -> currentAppText("${sceneName}未完成", "$displaySceneName Incomplete")
+        TaskDisplayTextStatusKind.Running -> currentAppText("${sceneName}进行中", "$displaySceneName In Progress")
+        TaskDisplayTextStatusKind.ExecutionError -> currentAppText("${sceneName}执行异常", "$displaySceneName Execution Error")
     }
     val body = listOf(sceneTarget, keyInfo)
         .map { it.trim() }
         .filter { it.isNotBlank() }
         .distinct()
         .joinToString(" · ")
-    return if (body.isBlank()) prefix else "$prefix：$body"
+        .let { value ->
+            if (currentAppText("中文", "English") == "English") {
+                sanitizeUserFacingNetworkText(value, VoiceLanguage.English)
+            } else {
+                value
+            }
+        }
+    return if (body.isBlank()) prefix else currentAppText("$prefix：$body", "$prefix: $body")
 }

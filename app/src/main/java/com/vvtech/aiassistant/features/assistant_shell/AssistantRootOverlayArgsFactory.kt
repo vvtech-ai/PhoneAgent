@@ -13,6 +13,7 @@ import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
 import com.vvtech.aiassistant.features.assistant.V88NetworkMode
 import com.vvtech.aiassistant.features.assistant.V88PermissionKind
 import com.vvtech.aiassistant.features.assistant.V88VoiceModelOption
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 
 internal data class AssistantRootOverlayArgsFactoryDeps(
     val navigation: AssistantRootOverlayNavigationDeps,
@@ -31,7 +32,8 @@ internal data class AssistantRootOverlayNavigationDeps(
     val assistantNavHidden: Boolean,
     val taskBadgeCount: Int,
     val pureVoiceMode: Boolean,
-    val currentPage: FinalPage
+    val currentPage: FinalPage,
+    val appLanguage: AppLanguage = AppLanguage.English
 )
 
 internal data class AssistantRootOverlayAiCallDeps(
@@ -183,7 +185,8 @@ internal fun buildAssistantRootOverlayArgs(
                 assistantNavHidden = deps.navigation.assistantNavHidden,
                 taskBadgeCount = deps.navigation.taskBadgeCount,
                 pureVoiceMode = deps.navigation.pureVoiceMode,
-                currentPage = deps.navigation.currentPage
+                currentPage = deps.navigation.currentPage,
+                appLanguage = deps.navigation.appLanguage
             ),
             aiCall = AssistantOverlayAiCallInput(
                 selectedRestaurantTitle = deps.aiCall.selectedRestaurantTitle,

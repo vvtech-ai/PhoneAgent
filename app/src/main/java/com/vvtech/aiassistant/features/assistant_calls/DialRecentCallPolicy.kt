@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant_calls
 
 import com.vvtech.aiassistant.features.assistant.DialCallKind
 import com.vvtech.aiassistant.features.assistant.FinalCallRecord
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal const val MaxDialRecentCalls = 20
 
@@ -11,7 +12,7 @@ internal enum class DialRecentCallClickAction {
 }
 
 internal fun dialHistoryTypeLabel(kind: DialRecentCallKind): String? =
-    if (kind == DialRecentCallKind.TRANSLATION) "实时翻译" else null
+    if (kind == DialRecentCallKind.TRANSLATION) currentAppText("实时翻译", "Live Translation") else null
 
 internal fun dialRecentCallClickAction(record: DialRecentCall): DialRecentCallClickAction = when {
     record.phoneNumber.isBlank() ||

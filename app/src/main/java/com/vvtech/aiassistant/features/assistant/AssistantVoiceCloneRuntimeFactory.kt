@@ -17,6 +17,7 @@ import com.vvtech.aiassistant.features.assistant_voice_clone.enrollment.VoiceClo
 import com.vvtech.aiassistant.features.assistant_voice_clone.enrollment.VoiceCloneIdentityPrefill
 import com.vvtech.aiassistant.features.assistant_voice_clone.face.FacePresenceSnapshot
 import com.vvtech.aiassistant.features.assistant_voice_clone.face.FacePresenceTracker
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.VoiceCloneScriptItem
 import com.vvtech.aiassistant.model.VoiceCloneStatusResponse
 import com.vvtech.aiassistant.repository.TaskRepository
@@ -97,7 +98,10 @@ internal fun rememberAssistantVoiceCloneRuntimeController(
     }
     controllerHolder[0] = controller
     recording.onCollectionInvalidated = {
-        controller.terminateAndReset("本次人脸跟读认证已失效，请重新开始。")
+        controller.terminateAndReset(currentAppText(
+            "本次人脸跟读认证已失效，请重新开始。",
+            "This face and read-aloud verification has expired. Please start again."
+        ))
     }
     recording.onTerminalInterrupted = controller::terminateAndReset
     controller.callbacks = callbacks

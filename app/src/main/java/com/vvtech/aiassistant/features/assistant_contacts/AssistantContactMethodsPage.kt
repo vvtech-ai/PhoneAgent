@@ -52,7 +52,7 @@ internal fun AssistantContactMethodsPage(
     val canSetDefault = selectedEntry != null && !selectedEntry.isDefault
 
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalBackTitleBar(title = "联系方式", onBack = onBack)
+        FinalBackTitleBar(title = "Contact Methods", onBack = onBack)
         Box(modifier = Modifier.fillMaxSize()) {
             if (entries.isEmpty()) {
                 AssistantContactMethodsEmptyState()
@@ -84,20 +84,20 @@ internal fun AssistantContactMethodsPage(
             ) {
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     FinalWideButtonV3(
-                        label = "删除",
+                        label = "Delete",
                         danger = true,
                         enabled = canDelete,
                         modifier = Modifier.weight(1f),
                         onClick = onDeleteSelected
                     )
                     FinalWideButtonV3(
-                        label = "设为默认",
+                        label = "Set Default",
                         enabled = canSetDefault,
                         modifier = Modifier.weight(1f),
                         onClick = onSetDefault
                     )
                     FinalWideButtonV3(
-                        label = "新增",
+                        label = "Add",
                         enabled = entries.size < 5,
                         modifier = Modifier.weight(1f),
                         onClick = onAdd
@@ -120,7 +120,7 @@ private fun AssistantContactMethodsEmptyState() {
         elevation = 0.dp
     ) {
         Text(
-            text = "还没有联系方式，新增后可用于后续任务",
+            text = "No contact methods yet. Add one to use it in future tasks.",
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
             color = Color(0xFF6E6E73),
             fontSize = 13.sp,
@@ -213,7 +213,7 @@ private fun AssistantContactDefaultBadge() {
         elevation = 0.dp
     ) {
         Text(
-            text = "默认",
+            text = "Default",
             modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
             color = Color(0xFF007AFF),
             fontSize = 12.sp,

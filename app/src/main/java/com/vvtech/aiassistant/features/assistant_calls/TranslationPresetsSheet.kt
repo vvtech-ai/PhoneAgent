@@ -35,9 +35,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 
 @Composable
 internal fun TranslationPresetsSheet(
@@ -74,24 +76,29 @@ internal fun TranslationPresetsSheet(
             Column(Modifier.padding(start = 20.dp, end = 20.dp, top = 18.dp, bottom = 28.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        "实时翻译通话",
+                        stringResource(R.string.dial_live_translation_title),
                         modifier = Modifier.weight(1f),
                         color = Color(0xFF111318),
                         fontSize = 19.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Box(Modifier.size(44.dp).clickable(onClick = onDismiss), contentAlignment = Alignment.Center) {
-                        Icon(Icons.Default.Close, "关闭", tint = Color(0xFF667085), modifier = Modifier.size(20.dp))
+                        Icon(
+                            Icons.Default.Close,
+                            stringResource(R.string.common_close),
+                            tint = Color(0xFF667085),
+                            modifier = Modifier.size(20.dp)
+                        )
                     }
                 }
                 DialSettingSwitchRow(
-                    title = "实时翻译",
-                    subtitle = "关闭后将作为普通电话呼叫",
+                    title = stringResource(R.string.dial_live_translation_switch_title),
+                    subtitle = stringResource(R.string.dial_live_translation_switch_subtitle),
                     checked = translateEnabled,
                     onCheckedChange = onTranslateEnabledChange
                 )
                 DialSettingSwitchRow(
-                    title = "拨号前打开本提示",
+                    title = stringResource(R.string.dial_show_prompt_before_call),
                     subtitle = null,
                     checked = promptBeforeDial,
                     onCheckedChange = onPromptBeforeDialChange
@@ -101,20 +108,24 @@ internal fun TranslationPresetsSheet(
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     DialLanguageCard(
-                        "我方",
-                        myLanguage,
+                        stringResource(R.string.dial_my_side),
+                        localizedDialLanguageName(myLanguage),
                         translateEnabled,
                         Modifier.weight(1f)
                     ) { languageTarget = "mine" }
                     DialLanguageCard(
-                        "对方",
-                        otherLanguage,
+                        stringResource(R.string.dial_other_side),
+                        localizedDialLanguageName(otherLanguage),
                         translateEnabled,
                         Modifier.weight(1f)
                     ) { languageTarget = "other" }
                 }
                 DialPresetCallButton(
-                    text = if (translateEnabled) "实时翻译呼叫" else "普通呼叫",
+                    text = if (translateEnabled) {
+                        stringResource(R.string.dial_live_translation_call)
+                    } else {
+                        stringResource(R.string.dial_normal_call)
+                    },
                     translateEnabled = translateEnabled,
                     onClick = onCall
                 )
@@ -122,7 +133,11 @@ internal fun TranslationPresetsSheet(
         }
         languageTarget?.let { target ->
             TranslationLanguagePickerPage(
-                title = if (target == "mine") "我的语言" else "对方语言",
+                title = if (target == "mine") {
+                    stringResource(R.string.dial_my_language_title)
+                } else {
+                    stringResource(R.string.dial_other_language_title)
+                },
                 selected = if (target == "mine") myLanguage else otherLanguage,
                 onBack = { languageTarget = null },
                 onSelect = { language ->

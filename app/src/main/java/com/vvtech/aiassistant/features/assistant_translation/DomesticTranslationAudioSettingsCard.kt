@@ -49,7 +49,7 @@ internal fun DomesticOriginalAudioSettingsPage(
     onBack: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalBackTitleBar(title = "实时翻译原音", onBack = onBack)
+        FinalBackTitleBar(title = "Original Audio", onBack = onBack)
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
@@ -87,7 +87,7 @@ internal fun DomesticTranslationAudioSettingsCard(
         Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {
             OriginalAudioSettings(originalAudioState, originalAudioCallbacks)
             Text(
-                text = "\u7ffb\u8bd1\u8f93\u51fa\u97f3\u8272",
+                text = "Translation Output Voice",
                 modifier = Modifier.padding(top = 16.dp),
                 color = Color(0xFF111111),
                 fontSize = 16.sp,
@@ -103,7 +103,7 @@ internal fun DomesticTranslationAudioSettingsCard(
                 )
             } else {
                 Text(
-                    text = "\u8c46\u5305\u6a21\u578b\u5f53\u524d\u4ec5\u652f\u6301\u9ed8\u8ba4\u590d\u523b\u7528\u6237\u97f3\u8272\u901a\u8bdd\uff0c\u4e0d\u63d0\u4f9b\u7cfb\u7edf\u97f3\u8272\u9009\u62e9\u3002",
+                    text = "The Doubao model currently only supports calls using the default cloned user voice and does not provide system voice selection.",
                     modifier = Modifier.padding(top = 6.dp),
                     color = Color(0xFF6E6E73),
                     fontSize = 13.sp,
@@ -125,9 +125,9 @@ private fun OriginalAudioSettings(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(modifier = Modifier.weight(1f).padding(end = 12.dp)) {
-            Text("播放原声", color = Color(0xFF111111), fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            Text("Play Original Audio", color = Color(0xFF111111), fontSize = 16.sp, fontWeight = FontWeight.Bold)
             Text(
-                "开启后先播放通话原声；译音播放时按下方比例混合当前实时原声。",
+                "When enabled, original call audio plays first; translated audio mixes in realtime original audio at the ratio below.",
                 modifier = Modifier.padding(top = 6.dp),
                 color = Color(0xFF6E6E73),
                 fontSize = 13.sp,
@@ -145,7 +145,7 @@ private fun OriginalAudioSettings(
         )
     }
     OriginalAudioLevelSlider(
-        label = "纯原声播放声音大小",
+        label = "Original Audio Volume",
         percent = state.volumePercent,
         maxPercent = 100,
         steps = 9,
@@ -153,7 +153,7 @@ private fun OriginalAudioSettings(
         onPercentChange = callbacks.onVolumePercentChange
     )
     OriginalAudioLevelSlider(
-        label = "混声时原声比例",
+        label = "Original Audio Mix Ratio",
         percent = state.gainPercent,
         maxPercent = 50,
         steps = 4,
@@ -161,7 +161,7 @@ private fun OriginalAudioSettings(
         onPercentChange = callbacks.onGainPercentChange
     )
     Text(
-        text = "均按 10% 步进调节，仅影响下一通实时翻译通话。",
+        text = "Adjusts in 10% steps and only affects the next live translation call.",
         color = Color(0xFF6E6E73),
         fontSize = 12.sp,
         lineHeight = 18.sp
@@ -203,7 +203,7 @@ private fun QwenAudioOptions(
     onSelectCalleeLanguage: (String) -> Unit
 ) {
     Text(
-        "Qwen 模型下可切换女声 / 男声，只保存在当前设备。",
+        "For Qwen, you can switch between female and male system voices. This setting is saved only on this device.",
         modifier = Modifier.padding(top = 6.dp),
         color = Color(0xFF6E6E73),
         fontSize = 13.sp
@@ -221,15 +221,15 @@ private fun QwenAudioOptions(
             )
         }
     }
-    Text("默认翻译语种", modifier = Modifier.padding(top = 16.dp), fontWeight = FontWeight.Bold)
-    LanguagePicker("我方语种", languageSettings.callerLanguage, onSelectCallerLanguage)
-    LanguagePicker("对方语种", languageSettings.calleeLanguage, onSelectCalleeLanguage)
+    Text("Default Translation Languages", modifier = Modifier.padding(top = 16.dp), fontWeight = FontWeight.Bold)
+    LanguagePicker("My Language", languageSettings.callerLanguage, onSelectCallerLanguage)
+    LanguagePicker("Other Side Language", languageSettings.calleeLanguage, onSelectCalleeLanguage)
 }
 
 @Composable
 private fun LanguagePicker(label: String, language: String, onSelected: (String) -> Unit) {
     Text(
-        "$label：${translationLanguageLabel(language)}",
+        "$label: ${translationLanguageLabel(language)}",
         modifier = Modifier.padding(top = 12.dp),
         color = Color(0xFF344054),
         fontSize = 13.sp,

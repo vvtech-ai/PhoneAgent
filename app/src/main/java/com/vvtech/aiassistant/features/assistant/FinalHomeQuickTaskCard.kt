@@ -23,6 +23,8 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import android.widget.ImageView
@@ -39,16 +41,19 @@ internal fun FinalQuickTaskCardV2(
     enabled: Boolean,
     dotColor: Color? = null,
     statusLabel: String? = null,
+    minHeight: Dp = 126.dp,
     onClick: () -> Unit
 ) {
     val containerColor = Color.White.copy(alpha = 0.80f)
     val badgeDotColor = dotColor ?: if (enabled) Color(0xFF0A84FF) else Color(0xFFC7C7CC)
     val titleColor = if (enabled) Color(0xFF121826) else Color(0xFF8E8E93)
     val subtitleColor = if (enabled) Color(0xFF6E6E73) else Color(0xFFA3A3AA)
+    val titleWords = title.trim().split(Regex("\\s+"))
+    val displayTitle = if (titleWords.size == 2) titleWords.joinToString("\n") else title
 
     Surface(
         modifier = modifier
-            .heightIn(min = 100.dp)
+            .heightIn(min = minHeight)
             .clickable(enabled = enabled, onClick = onClick)
             .shadow(
                 elevation = 10.dp,
@@ -66,8 +71,8 @@ internal fun FinalQuickTaskCardV2(
         ) {
             val imageModifier = Modifier
                 .align(Alignment.BottomEnd)
-                .offset(x = 2.dp, y = 2.dp)
-                .size(82.dp)
+                .offset(x = 4.dp, y = 4.dp)
+                .size(76.dp)
                 .alpha(if (enabled) 0.95f else 0.62f)
             if (!imageUrl.isNullOrBlank() || fallbackImageResId != null) {
                 AndroidView(
@@ -122,19 +127,23 @@ internal fun FinalQuickTaskCardV2(
                         .background(badgeDotColor, CircleShape)
                 )
                 Text(
-                    text = title,
+                    text = displayTitle,
                     modifier = Modifier.padding(top = 14.dp),
                     color = titleColor,
                     fontSize = 18.sp,
                     lineHeight = 20.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = subtitle.ifBlank { badge },
                     modifier = Modifier.padding(top = 8.dp),
                     color = subtitleColor,
                     fontSize = 13.sp,
-                    lineHeight = 19.sp
+                    lineHeight = 19.sp,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }

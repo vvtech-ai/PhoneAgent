@@ -12,7 +12,9 @@ internal data class AgentContactLookupResultSubmitRequest(
     val userId: String,
     val result: Map<String, Any?>,
     val placeholderIndex: Int,
-    val failureMessage: String
+    val failureMessage: String,
+    val languageCode: String,
+    val responseLanguage: String
 )
 
 internal data class AgentDeviceContactsLookupResultSubmitRequest(
@@ -22,7 +24,9 @@ internal data class AgentDeviceContactsLookupResultSubmitRequest(
     val results: List<Map<String, Any?>>,
     val channel: String,
     val placeholderIndex: Int,
-    val failureMessage: String
+    val failureMessage: String,
+    val languageCode: String,
+    val responseLanguage: String
 )
 
 internal class AgentStreamContactLookupResultSubmitter(

@@ -12,11 +12,11 @@ internal class HomeConfigMapper(
     private val baseUrl: String = BuildConfig.BASE_URL
 ) {
     fun map(dto: HomeConfigDto): HomeConfig {
-        require(dto.version == "home-config-v1") { "不支持的首页配置协议" }
-        require(!dto.configId.isNullOrBlank()) { "首页配置 ID 为空" }
-        require(!dto.configVersion.isNullOrBlank()) { "首页配置版本为空" }
-        require(dto.publicationStatus.equals("published", ignoreCase = true)) { "首页配置尚未发布" }
-        val home = requireNotNull(dto.home) { "首页配置内容为空" }
+        require(dto.version == "home-config-v1") { "Unsupported home config protocol" }
+        require(!dto.configId.isNullOrBlank()) { "Home config ID is empty" }
+        require(!dto.configVersion.isNullOrBlank()) { "Home config version is empty" }
+        require(dto.publicationStatus.equals("published", ignoreCase = true)) { "Home config is not published" }
+        val home = requireNotNull(dto.home) { "Home config content is empty" }
         val skillOpenings = dto.skillRefs.orEmpty()
             .mapNotNull { ref ->
                 val id = ref.id?.trim().orEmpty()
@@ -28,25 +28,25 @@ internal class HomeConfigMapper(
         val cards = home.cards.orEmpty()
             .map { mapCard(it, skillOpenings) }
             .sortedBy(HomeCard::sortOrder)
-        require(slogans.isNotEmpty()) { "没有可用 Slogan" }
-        require(cards.isNotEmpty()) { "没有首页卡片" }
+        require(slogans.isNotEmpty()) { "No available slogans" }
+        require(cards.isNotEmpty()) { "No home cards" }
         requireUnique(slogans.map(HomeSlogan::id), "Slogan ID")
-        requireUnique(cards.map(HomeCard::id), "卡片 ID")
-        requireUnique(slogans.map(HomeSlogan::sortOrder), "Slogan 排序")
-        requireUnique(cards.map(HomeCard::sortOrder), "卡片排序")
+        requireUnique(cards.map(HomeCard::id), "Card ID")
+        requireUnique(slogans.map(HomeSlogan::sortOrder), "Slogan sort order")
+        requireUnique(cards.map(HomeCard::sortOrder), "Card sort order")
         return HomeConfig(dto.configVersion.orEmpty(), slogans, cards)
     }
 
     private fun mapSlogan(dto: HomeSloganDto): HomeSlogan? {
         val status = dto.status.orEmpty()
-        require(status == "enabled" || status == "disabled") { "未知 Slogan 状态" }
+        require(status == "enabled" || status == "disabled") { "Unknown slogan status" }
         if (status == "disabled") return null
         val id = dto.id.orEmpty().trim()
         val line1 = dto.line1.orEmpty().trim()
         val line2 = dto.line2.orEmpty().trim()
         val order = dto.sortOrder ?: 0
-        require(id.isNotEmpty() && line1.isNotEmpty() && line2.isNotEmpty() && order > 0) { "Slogan 字段无效" }
-        require(line1.codePointCount() <= 10 && line2.codePointCount() <= 20) { "Slogan 文案超长" }
+        require(id.isNotEmpty() && line1.isNotEmpty() && line2.isNotEmpty() && order > 0) { "Invalid slogan fields" }
+        require(line1.codePointCount() <= 10 && line2.codePointCount() <= 20) { "Slogan text is too long" }
         return HomeSlogan(id, line1, line2, order)
     }
 
@@ -58,8 +58,8 @@ internal class HomeConfigMapper(
         val title = dto.title.orEmpty().trim()
         val subtitle = dto.subtitle.orEmpty().trim()
         val order = dto.sortOrder ?: 0
-        require(id.isNotEmpty() && title.isNotEmpty() && subtitle.isNotEmpty() && order > 0) { "卡片字段无效" }
-        require(title.codePointCount() <= 6 && subtitle.codePointCount() <= 20) { "卡片文案超长" }
+        require(id.isNotEmpty() && title.isNotEmpty() && subtitle.isNotEmpty() && order > 0) { "Invalid card fields" }
+        require(title.codePointCount() <= 6 && subtitle.codePointCount() <= 20) { "Card text is too long" }
         val status = when (dto.status) {
             "enabled" -> HomeCardStatus.Enabled
             "comingSoon" -> HomeCardStatus.ComingSoon
@@ -83,40 +83,40 @@ internal class HomeConfigMapper(
         skillOpenings: Map<String, String>
     ): HomeEntryAction = when (dto?.type) {
         "openSkill" -> {
-            val skillId = requireText(dto.skillId, "Skill ID 为空")
+            val skillId = requireText(dto.skillId, "Skill ID is empty")
             HomeEntryAction.OpenSkill(skillId, skillOpenings[skillId])
         }
         "openTranslation" -> {
-            require(dto.skillId == "simultaneous_interpretation") { "同声传译绑定错误" }
+            require(dto.skillId == "simultaneous_interpretation") { "Live translation binding is invalid" }
             HomeEntryAction.OpenTranslation
         }
         "openGenericTask" -> {
-            require(dto.skillId == "generic_task") { "通用任务绑定错误" }
+            require(dto.skillId == "generic_task") { "Generic task binding is invalid" }
             HomeEntryAction.OpenGenericTask
         }
         "none" -> HomeEntryAction.None
-        else -> error("未知首页入口类型")
+        else -> error("Unknown home entry type")
     }
 
     private fun resolveAssetUrl(cardId: String, image: HomeBackgroundImageDto?): String? {
         if (image == null) return null
-        val url = requireText(image.url, "首页图片资源地址为空")
+        val url = requireText(image.url, "Home image resource URL is empty")
         val assetId = image.assetId?.trim().orEmpty()
         if (assetId.isEmpty()) {
             return requireNotNull(HomeConfigDefaultImages.resolve(cardId, url)) {
-                "首页图片资源地址无效"
+                "Home image resource URL is invalid"
             }
         }
-        require(ASSET_ID_PATTERN.matches(assetId)) { "首页图片资源 ID 无效" }
+        require(ASSET_ID_PATTERN.matches(assetId)) { "Home image resource ID is invalid" }
         val expectedPath = "/api/home-config/assets/$assetId"
-        require(url == expectedPath) { "首页图片资源地址无效" }
+        require(url == expectedPath) { "Home image resource URL is invalid" }
         val base = URI(baseUrl)
-        require(base.isAbsolute && base.scheme in setOf("http", "https")) { "首页接口基地址无效" }
+        require(base.isAbsolute && base.scheme in setOf("http", "https")) { "Home API base URL is invalid" }
         return base.resolve(expectedPath.removePrefix("/")).toString()
     }
 
     private fun <T> requireUnique(values: List<T>, label: String) {
-        require(values.size == values.toSet().size) { "$label 重复" }
+        require(values.size == values.toSet().size) { "$label is duplicated" }
     }
 
     private fun requireText(value: String?, message: String): String =

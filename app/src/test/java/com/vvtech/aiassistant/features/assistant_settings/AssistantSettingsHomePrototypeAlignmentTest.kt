@@ -11,13 +11,13 @@ class AssistantSettingsHomePrototypeAlignmentTest {
         val source = settingsHomeSource()
 
         assertFalse(source.contains("title = \"联系方式\""))
-        assertTrue(source.contains("title = \"实时翻译原音\""))
-        assertTrue(source.contains("subtitle = \"设置实时翻译通话的原声播放与混合比例\""))
+        assertTrue(source.contains("R.string.settings_live_translation_original_audio_title"))
+        assertTrue(source.contains("R.string.settings_live_translation_original_audio_description"))
         assertFalse(source.contains("title = \"实时翻译通话\""))
         assertFalse(source.contains("subtitle = \"模型、默认语种与原声播放\""))
-        assertTrue(source.contains("title = \"语音大模型\""))
-        assertTrue(source.contains("subtitle = \"AI 通话模型、默认音色与声音克隆\""))
-        assertTrue(source.contains("subtitle = \"保存你在不同场合常用的身份信息\""))
+        assertTrue(source.contains("R.string.settings_call_models_voices_title"))
+        assertTrue(source.contains("R.string.settings_call_models_voices_description"))
+        assertTrue(source.contains("R.string.settings_caller_profile_description"))
         assertTrue(source.contains("onOpenContactMethods: () -> Unit"))
         assertTrue(source.contains("onOpenTranslationProvider: () -> Unit"))
     }
@@ -37,19 +37,31 @@ class AssistantSettingsHomePrototypeAlignmentTest {
     fun settingsTabMatchesPrototypeMcpVersionCopyAndHasNoBackButton() {
         val source = settingsHomeSource()
 
-        assertTrue(source.contains("title = \"可信来电MCP服务\""))
-        assertTrue(source.contains("subtitle = \"验证来电者的身份签名和证书\""))
-        assertTrue(source.contains("title = \"版本更新\""))
-        assertTrue(source.contains("subtitle = \"检查可用更新\""))
+        assertTrue(source.contains("R.string.settings_trusted_call_mcp_title"))
+        assertTrue(source.contains("R.string.settings_trusted_call_mcp_description"))
+        assertTrue(source.contains("R.string.settings_software_update_title"))
+        assertTrue(source.contains("R.string.settings_software_update_description"))
         assertTrue(source.contains("private fun SettingsHomeTitleBar"))
         assertFalse(source.contains("FinalBackTitleBar(title = \"设置\""))
         assertFalse(source.contains("onBack: () -> Unit"))
     }
 
     @Test
+    fun settingsHomePlacesAppLanguageEntryBeforeSoftwareUpdate() {
+        val source = settingsHomeSource()
+
+        val languageIndex = source.indexOf("AppLanguageSettingCard")
+        val versionIndex = source.indexOf("R.string.settings_software_update_title")
+
+        assertTrue(languageIndex >= 0)
+        assertTrue(versionIndex >= 0)
+        assertTrue(languageIndex < versionIndex)
+    }
+
+    @Test
     fun settingsTitleIsLeftAlignedLikePrototype() {
         val titleBar = settingsHomeSource()
-            .substringAfter("private fun SettingsHomeTitleBar()")
+            .substringAfter("private fun SettingsHomeTitleBar(")
             .substringBefore("@Composable")
 
         assertTrue(titleBar.contains(".padding(horizontal = 24.dp, vertical = 8.dp)"))
@@ -61,7 +73,7 @@ class AssistantSettingsHomePrototypeAlignmentTest {
         val source = settingsHomeSource()
 
         assertTrue(source.contains("myIdentityStatus: AssistantIdentityProfileStatus"))
-        assertTrue(source.contains("value = \"\${myIdentityStatus.label} ›\""))
+        assertTrue(source.contains("settingsIdentityStatusLabel(myIdentityStatus)"))
         assertFalse(source.contains("myIdentityHasName"))
     }
 

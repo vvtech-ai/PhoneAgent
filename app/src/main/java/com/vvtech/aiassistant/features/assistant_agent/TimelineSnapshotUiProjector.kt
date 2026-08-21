@@ -106,7 +106,7 @@ internal data class TimelineSnapshotUiProjection(
             callAttemptId = terminalReceipt.callAttemptId,
             callId = terminalReceipt.callId,
         )
-        val projectedStatus = if (state.status == CALL_OUTCOME_SYNC_PENDING_STATUS && terminalReceipt != null) {
+        val projectedStatus = if (isCallOutcomeSyncPendingStatusText(state.status) && terminalReceipt != null) {
             terminalReceipt.receipt.headline
                 .ifBlank { terminalReceipt.receipt.detail }
                 .ifBlank { terminalReceipt.receipt.status }
@@ -265,7 +265,7 @@ private fun List<ClarificationStep>.preserveCurrentSessionToolPresentation(
             }
         val isGenericShowOptionsResult =
             current.toolCards.any { it.toolName == "showOptions" } &&
-                normalizedText.lineSequence().firstOrNull()?.trim() == "搜到的结果"
+                normalizedText.lineSequence().firstOrNull()?.trim() in GENERIC_SHOW_OPTIONS_TITLES
         val positionMatchIndex = turnCandidates.lastOrNull()
             ?.takeIf {
                 (normalizedText.isEmpty() || isGenericShowOptionsResult) &&
@@ -550,6 +550,7 @@ private fun com.google.gson.JsonObject.projectionString(key: String): String {
 }
 
 private val TASK_RESULT_FINISH_REASONS = setOf("call_result", "batch_call_result")
+private val GENERIC_SHOW_OPTIONS_TITLES = setOf("搜到的结果", "找到的结果", "Search Results")
 
 internal fun String.isTerminalCallStatus(): Boolean {
     val normalized = trim().uppercase()

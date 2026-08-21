@@ -52,7 +52,7 @@ internal data class AssistantHomePageVisibility(
 
 internal data class AssistantHomeConfigUiState(
     val configVersion: String = "builtin-1",
-    val slogan: AssistantHomeSloganUi = AssistantHomeSloganUi("给我一个任务", "我来帮你打电话"),
+    val slogan: AssistantHomeSloganUi = AssistantHomeSloganUi("Give Me a Task", "I can make the call for you"),
     val cards: List<AssistantHomeCardUi> = emptyList(),
     val source: HomeConfigSource = HomeConfigSource.Default,
     val loading: Boolean = false,

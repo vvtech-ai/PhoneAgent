@@ -17,11 +17,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -49,7 +51,7 @@ internal fun DialHistoryList(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "暂无通话记录",
+                        text = stringResource(R.string.dial_history_empty),
                         color = Color(0xFF8E8E93),
                         fontSize = 14.sp,
                         textAlign = TextAlign.Center
@@ -153,6 +155,7 @@ private fun dialHistoryDisplayTitle(record: DialRecentCall): String =
         .removePrefix("普通通话 ")
         .ifBlank { record.phoneNumber }
 
+@Composable
 private fun recentCallTime(timeMillis: Long): String {
     if (timeMillis <= 0) return ""
     val now = Calendar.getInstance()
@@ -160,7 +163,8 @@ private fun recentCallTime(timeMillis: Long): String {
     return when {
         sameDay(now, target) -> SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(timeMillis))
         now.get(Calendar.YEAR) == target.get(Calendar.YEAR) &&
-            now.get(Calendar.DAY_OF_YEAR) - target.get(Calendar.DAY_OF_YEAR) == 1 -> "昨天"
+            now.get(Calendar.DAY_OF_YEAR) - target.get(Calendar.DAY_OF_YEAR) == 1 ->
+            stringResource(R.string.dial_history_yesterday)
         else -> SimpleDateFormat("M/d", Locale.getDefault()).format(Date(timeMillis))
     }
 }

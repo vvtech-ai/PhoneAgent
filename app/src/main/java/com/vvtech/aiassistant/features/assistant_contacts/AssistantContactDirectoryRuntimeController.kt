@@ -11,6 +11,7 @@ import com.vvtech.aiassistant.features.assistant.AssistantContactRuntimeDeps
 import com.vvtech.aiassistant.features.assistant.AssistantContactRuntimeState
 import com.vvtech.aiassistant.features.assistant.FinalPage
 import com.vvtech.aiassistant.features.assistant.mapDeviceContactsToFinalRecords
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.logging.RuntimeStateLogDomain
 import com.vvtech.aiassistant.logging.RuntimeStateLogEvent
 import com.vvtech.aiassistant.logging.RuntimeStateLogger
@@ -68,7 +69,7 @@ internal class AssistantContactDirectoryRuntimeController(
                 )
                 Toast.makeText(
                     deps.context,
-                    throwable.message ?: "读取本机联系人失败",
+                    throwable.message ?: currentAppText("读取本机联系人失败", "Failed to read device contacts"),
                     Toast.LENGTH_SHORT
                 ).show()
             }.also {
@@ -100,7 +101,10 @@ internal class AssistantContactDirectoryRuntimeController(
                 }
                 .onFailure { throwable ->
                     state.contactDirectoryLoading.value = false
-                    state.contactDirectoryError.value = throwable.message ?: "联系人备注加载失败"
+                    state.contactDirectoryError.value = throwable.message ?: currentAppText(
+                        "联系人备注加载失败",
+                        "Failed to load contact notes"
+                    )
                     logContact(
                         "CONTACT_DIRECTORY_REFRESH_FAILED",
                         "failed",
@@ -134,11 +138,11 @@ internal class AssistantContactDirectoryRuntimeController(
                 if (idx >= 0) updated[idx] = entry else updated.add(entry)
                 state.contactDirectoryEntries.value = updated
                 state.directoryDetailSaving.value = false
-                Toast.makeText(deps.context, "已保存联系人备注", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, currentAppText("已保存联系人备注", "Contact notes saved"), Toast.LENGTH_SHORT).show()
                 logContact("CONTACT_DIRECTORY_SAVE_COMPLETED", "completed", "entry_saved")
             }.onFailure { throwable ->
                 state.directoryDetailSaving.value = false
-                state.directoryDetailError.value = throwable.message ?: "保存失败"
+                state.directoryDetailError.value = throwable.message ?: currentAppText("保存失败", "Save failed")
                 logContact(
                     "CONTACT_DIRECTORY_SAVE_FAILED",
                     "failed",
@@ -167,12 +171,12 @@ internal class AssistantContactDirectoryRuntimeController(
                     state.contactDirectoryEntries.value = state.contactDirectoryEntries.value.filterNot {
                         normalizeAssistantContactPhoneKey(it.phone) == key
                     }
-                    Toast.makeText(deps.context, "已删除联系人备注", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(deps.context, currentAppText("已删除联系人备注", "Contact notes deleted"), Toast.LENGTH_SHORT).show()
                     callbacks.onPageChange(FinalPage.Contacts)
                     logContact("CONTACT_DIRECTORY_DELETE_COMPLETED", "completed", "entry_deleted")
                 }
                 .onFailure { throwable ->
-                    state.directoryDetailError.value = throwable.message ?: "删除失败"
+                    state.directoryDetailError.value = throwable.message ?: currentAppText("删除失败", "Delete failed")
                     logContact(
                         "CONTACT_DIRECTORY_DELETE_FAILED",
                         "failed",

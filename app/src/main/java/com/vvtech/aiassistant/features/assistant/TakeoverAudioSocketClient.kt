@@ -24,6 +24,7 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import com.vvtech.aiassistant.account.AccountIdentityProvider
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import okio.ByteString
 import okio.ByteString.Companion.toByteString
 
@@ -197,7 +198,7 @@ class TakeoverAudioSocketClient(private val context: Context) {
                 "audioTrack ready sessionId=$audioSessionId playState=$playState state=$state buffer=$bufferSize"
             )
         }
-        emit(Event.Status("人工接管声音已就绪"))
+        emit(Event.Status(currentAppText("人工接管声音已就绪", "Takeover audio ready")))
     }
 
     private fun startPreparedAudioCaptureLoop(socket: WebSocket) {
@@ -251,7 +252,7 @@ class TakeoverAudioSocketClient(private val context: Context) {
                             }
                             if (SystemClock.elapsedRealtime() - zeroReadStartedAt >= 1_500L) {
                                 sendClientStatus(socket, "capture_restart_after_stall:$source")
-                                emit(Event.Status("人工接管麦克风启动较慢，正在重试..."))
+                                emit(Event.Status(currentAppText("人工接管麦克风启动较慢，正在重试...", "Takeover microphone is starting slowly. Retrying...")))
                                 advanceCaptureConfigCursor(source, sampleRate)
                                 releaseCurrentAudioRecord()
                                 break
@@ -261,7 +262,7 @@ class TakeoverAudioSocketClient(private val context: Context) {
                         count < 0 -> {
                             AppFileLogger.w(TAG, "audioRecord read error code=$count source=$source rate=$sampleRate")
                             sendClientStatus(socket, "capture_error:$count")
-                            emit(Event.Status("人工接管麦克风读取异常，正在重试..."))
+                            emit(Event.Status(currentAppText("人工接管麦克风读取异常，正在重试...", "Takeover microphone read failed. Retrying...")))
                             advanceCaptureConfigCursor(source, sampleRate)
                             releaseCurrentAudioRecord()
                             break
@@ -276,7 +277,7 @@ class TakeoverAudioSocketClient(private val context: Context) {
     private fun ensureCaptureReady(socket: WebSocket): AudioRecord? {
         audioRecord?.let { return it }
         sendClientStatus(socket, "capture_waiting")
-        emit(Event.Status("正在准备人工接管麦克风..."))
+        emit(Event.Status(currentAppText("正在准备人工接管麦克风...", "Preparing takeover microphone...")))
         val configs = TakeoverAudioCaptureConfigPolicy.captureConfigs
         for (offset in configs.indices) {
             val config = configs[(captureConfigCursor + offset) % configs.size]
@@ -294,12 +295,12 @@ class TakeoverAudioSocketClient(private val context: Context) {
                 if (takeoverReadyEmitted.compareAndSet(false, true)) {
                     emit(Event.Connected)
                 }
-                emit(Event.Status("人工接管麦克风已就绪"))
+                emit(Event.Status(currentAppText("人工接管麦克风已就绪", "Takeover microphone ready")))
                 return record
             }
             sendClientStatus(socket, "capture_source_failed:${config.source}:${config.sampleRate}")
         }
-        emit(Event.Status("人工接管麦克风暂时不可用，正在重试..."))
+        emit(Event.Status(currentAppText("人工接管麦克风暂时不可用，正在重试...", "Takeover microphone unavailable. Retrying...")))
         return null
     }
 
@@ -454,13 +455,16 @@ class TakeoverAudioSocketClient(private val context: Context) {
             runCatching { startAudioLoops(webSocket) }
                 .onSuccess {
                     connected.set(true)
-                    emit(Event.Status("人工接管音频通道已连接，正在准备麦克风"))
+                    emit(Event.Status(currentAppText("人工接管音频通道已连接，正在准备麦克风", "Takeover audio channel connected. Preparing microphone")))
                 }
                 .onFailure { throwable ->
                     AppFileLogger.w(TAG, "startAudioLoops failed message=${throwable.message}", throwable)
                     sendClientStatus(webSocket, "start_audio_loops_failed:${throwable.message ?: "unknown"}")
                     stopInternal(closeSocket = true, emitClosed = false)
-                    emit(Event.Error(throwable.message ?: "人工接管音频初始化失败"))
+                    emit(Event.Error(throwable.message ?: currentAppText(
+                        "人工接管音频初始化失败",
+                        "Failed to initialize takeover audio"
+                    )))
                 }
         }
 
@@ -470,7 +474,7 @@ class TakeoverAudioSocketClient(private val context: Context) {
             }
             if (remoteAudioReceived.compareAndSet(false, true)) {
                 AppFileLogger.i(TAG, "received first remote audio packet bytes=${bytes.size}")
-                emit(Event.Status("已收到对方语音"))
+                emit(Event.Status(currentAppText("已收到对方语音", "Remote audio received")))
             }
             val audioBytes = bytes.toByteArray()
             audioTrack?.let { track ->
@@ -501,7 +505,10 @@ class TakeoverAudioSocketClient(private val context: Context) {
             AppFileLogger.w(TAG, "socket onFailure message=${t.message}", t)
             selfClosing.set(false)
             stopInternal(closeSocket = false, emitClosed = false)
-            emit(Event.Error(t.message ?: "人工接管音频通道已断开"))
+            emit(Event.Error(t.message ?: currentAppText(
+                "人工接管音频通道已断开",
+                "Takeover audio channel disconnected"
+            )))
         }
     }
 }

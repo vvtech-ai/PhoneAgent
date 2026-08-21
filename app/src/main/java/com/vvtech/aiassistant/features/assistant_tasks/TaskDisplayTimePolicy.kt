@@ -1,11 +1,13 @@
 package com.vvtech.aiassistant.features.assistant_tasks
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 internal fun taskDisplayRecordSortInstant(
     startedAt: String,
@@ -32,11 +34,17 @@ internal fun taskDisplayRelativeTimeLabel(
     val date = dateTime.toLocalDate()
     val time = dateTime.format(TaskDisplayTimeFormatter)
     val dayLabel = when {
-        date == today -> "今天"
-        date == today.minusDays(1) -> "昨天"
+        date == today -> currentAppText("今天", "Today")
+        date == today.minusDays(1) -> currentAppText("昨天", "Yesterday")
         date.isAfter(today.minusDays(7)) -> taskDisplayChineseWeekday(date)
-        date.year == today.year -> "${date.monthValue}月${date.dayOfMonth}日"
-        else -> "${date.year}年${date.monthValue}月${date.dayOfMonth}日"
+        date.year == today.year -> currentAppText(
+            "${date.monthValue}月${date.dayOfMonth}日",
+            date.format(DateTimeFormatter.ofPattern("MMM d", Locale.US))
+        )
+        else -> currentAppText(
+            "${date.year}年${date.monthValue}月${date.dayOfMonth}日",
+            date.format(DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US))
+        )
     }
     return "$dayLabel $time"
 }
@@ -145,24 +153,24 @@ internal fun parseTaskDisplayTime(value: String): Instant? {
 
 internal fun fallbackTaskDisplayTimeLabel(raw: String?): String {
     val value = raw.orEmpty().trim()
-    if (value.isBlank()) return "时间待同步"
+    if (value.isBlank()) return currentAppText("时间待同步", "Time pending sync")
     Regex("""(?:今天|昨天|前天|明天|后天|周[一二三四五六日天]|星期[一二三四五六日天])\s*\d{0,2}(?::|：|点)?\d{0,2}""")
         .find(value)
         ?.value
         ?.trim()
         ?.takeIf { it.isNotBlank() }
         ?.let { return it }
-    return "时间待同步"
+    return currentAppText("时间待同步", "Time pending sync")
 }
 
 internal fun taskDisplayChineseWeekday(date: LocalDate): String = when (date.dayOfWeek.value) {
-    1 -> "星期一"
-    2 -> "星期二"
-    3 -> "星期三"
-    4 -> "星期四"
-    5 -> "星期五"
-    6 -> "星期六"
-    else -> "星期日"
+    1 -> currentAppText("星期一", "Monday")
+    2 -> currentAppText("星期二", "Tuesday")
+    3 -> currentAppText("星期三", "Wednesday")
+    4 -> currentAppText("星期四", "Thursday")
+    5 -> currentAppText("星期五", "Friday")
+    6 -> currentAppText("星期六", "Saturday")
+    else -> currentAppText("星期日", "Sunday")
 }
 
 internal val TaskDisplayTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")

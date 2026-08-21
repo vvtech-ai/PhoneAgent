@@ -22,7 +22,9 @@ internal class AgentStreamContactLookupResultUseCase(
                 sessionId = request.sessionId,
                 pendingToolCallId = request.pendingToolCallId,
                 userId = request.userId,
-                result = request.result
+                result = request.result,
+                languageCode = null,
+                responseLanguage = null
             )
         )
     }
@@ -36,7 +38,9 @@ internal class AgentStreamContactLookupResultUseCase(
                 pendingToolCallId = request.pendingToolCallId,
                 userId = request.userId,
                 results = request.results,
-                channel = request.channel
+                channel = request.channel,
+                languageCode = null,
+                responseLanguage = null
             )
         )
     }

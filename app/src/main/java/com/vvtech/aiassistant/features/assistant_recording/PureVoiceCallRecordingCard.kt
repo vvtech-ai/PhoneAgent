@@ -33,6 +33,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -70,7 +71,7 @@ internal fun PureVoiceCallRecordingCard(
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "本次电话录音",
+                    text = "This Call Recording",
                     color = Color.White,
                     fontSize = 13.sp,
                     lineHeight = 17.sp,
@@ -218,14 +219,14 @@ private fun RecordingWaveform(playing: Boolean) {
 internal fun CallRecordingUiState.displayDuration(): String {
     message?.let { return it }
     when (playbackState) {
-        CallRecordingPlaybackState.Loading -> return "录音加载中"
-        CallRecordingPlaybackState.Error -> return "录音加载失败"
+        CallRecordingPlaybackState.Loading -> return currentAppText("录音加载中", "Loading recording")
+        CallRecordingPlaybackState.Error -> return currentAppText("录音加载失败", "Failed to load recording")
         else -> Unit
     }
     val total = durationMillis ?: return when (playbackState) {
-        CallRecordingPlaybackState.Playing -> "播放中"
-        CallRecordingPlaybackState.Paused -> "已暂停"
-        else -> "点击播放"
+        CallRecordingPlaybackState.Playing -> currentAppText("播放中", "Playing")
+        CallRecordingPlaybackState.Paused -> currentAppText("已暂停", "Paused")
+        else -> currentAppText("点击播放", "Tap to play")
     }
     val remaining = when (playbackState) {
         CallRecordingPlaybackState.Playing,

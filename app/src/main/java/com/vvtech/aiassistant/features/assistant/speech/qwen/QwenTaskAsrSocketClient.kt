@@ -16,6 +16,8 @@ import com.vvtech.aiassistant.features.assistant.DefaultVoiceLanguageCode
 import com.vvtech.aiassistant.features.assistant.TaskVoiceCloseReason
 import com.vvtech.aiassistant.features.assistant.TaskVoiceAsrEvent
 import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_voice.TaskAsrClient
 import com.vvtech.aiassistant.BuildConfig
 import java.net.URLEncoder
@@ -89,7 +91,7 @@ internal class QwenTaskAsrSocketClient(
         }
         if (socket != null && socketConnecting) {
             AppFileLogger.i(TAG, "VOICE_QWEN_TASK_ASR await existing socket reason=$startReason generation=$generation")
-            emit(generation, TaskVoiceAsrEvent.Status("语音识别连接中"))
+            emit(generation, TaskVoiceAsrEvent.Status(currentAppText("语音识别连接中", "Connecting speech recognition")))
             return
         }
         connectSocket(languageCode, startReason)
@@ -151,7 +153,10 @@ internal class QwenTaskAsrSocketClient(
         val record = createAudioRecord() ?: run {
             audioLoopStarted.set(false)
             if (running.get()) {
-                emit(generation, TaskVoiceAsrEvent.Error("当前设备无法启动麦克风录音"))
+                emit(generation, TaskVoiceAsrEvent.Error(currentAppText(
+                    "当前设备无法启动麦克风录音",
+                    "This device cannot start microphone recording"
+                )))
             }
             return
         }
@@ -319,7 +324,7 @@ internal class QwenTaskAsrSocketClient(
     private inner class SocketListener(private val generation: Long) : WebSocketListener() {
         override fun onOpen(webSocket: WebSocket, response: Response) {
             if (isCurrentSocket(generation)) {
-                emit(captureGenerationCounter.get(), TaskVoiceAsrEvent.Status("语音识别连接中"))
+                emit(captureGenerationCounter.get(), TaskVoiceAsrEvent.Status(currentAppText("语音识别连接中", "Connecting speech recognition")))
             }
         }
 
@@ -338,14 +343,20 @@ internal class QwenTaskAsrSocketClient(
                 }
                 "status" -> payload.optString("message")
                     .takeIf { it.isNotBlank() }
-                    ?.let { emit(captureGenerationCounter.get(), TaskVoiceAsrEvent.Status(it)) }
+                    ?.let { emit(captureGenerationCounter.get(), TaskVoiceAsrEvent.Status(localizedAsrMessage(it))) }
                 "speech_started" -> speechStarted = true
                 "speech_stopped" -> speechStarted = false
                 "partial" -> emitTranscriptIfCaptureActive(payload.optString("text"), isFinal = false)
                 "final" -> emitTranscriptIfCaptureActive(payload.optString("text"), isFinal = true)
                 "error" -> emit(
                     captureGenerationCounter.get(),
-                    TaskVoiceAsrEvent.Error(payload.optString("message").ifBlank { "语音识别失败" })
+                    TaskVoiceAsrEvent.Error(
+                        localizedAsrMessage(
+                            payload.optString("message").ifBlank {
+                                currentAppText("语音识别失败", "Speech recognition failed")
+                            }
+                        )
+                    )
                 )
             }
         }
@@ -394,9 +405,20 @@ internal class QwenTaskAsrSocketClient(
                 socketConnecting = false
                 this@QwenTaskAsrSocketClient.webSocket = null
                 pauseCapture()
-                emit(captureGenerationCounter.get(), TaskVoiceAsrEvent.Error(t.message ?: "语音识别通道异常"))
+                emit(
+                    captureGenerationCounter.get(),
+                    TaskVoiceAsrEvent.Error(
+                        localizedAsrMessage(
+                            t.message ?: currentAppText("语音识别通道异常", "Speech recognition channel error")
+                        )
+                    )
+                )
             }
         }
+    }
+
+    private fun localizedAsrMessage(message: String): String {
+        return sanitizeUserFacingNetworkText(message, VoiceLanguage.fromCode(currentLanguageCode))
     }
 
     private companion object {

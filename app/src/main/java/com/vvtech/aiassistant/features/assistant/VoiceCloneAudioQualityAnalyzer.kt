@@ -1,5 +1,6 @@
 package com.vvtech.aiassistant.features.assistant
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.io.File
 import java.io.RandomAccessFile
 import kotlin.math.abs
@@ -50,7 +51,10 @@ internal object VoiceCloneAudioQualityAnalyzer {
                 inspectSamples(samples, sampleRate, minDurationSeconds, targetDurationSeconds)
             }
         }.getOrElse { throwable ->
-            QualityReport(emptyList(), throwable.message ?: "录音分析失败，请重新录制。")
+            QualityReport(emptyList(), throwable.message ?: currentAppText(
+                "录音分析失败，请重新录制。",
+                "Recording analysis failed. Please record again."
+            ))
         }
     }
 

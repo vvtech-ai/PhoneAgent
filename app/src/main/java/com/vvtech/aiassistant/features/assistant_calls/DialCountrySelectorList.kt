@@ -21,10 +21,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 
 internal sealed interface DialCountryListItem {
     data class Header(val title: String) : DialCountryListItem
@@ -42,7 +44,11 @@ internal fun LazyListScope.dialCountryListContent(
                 Modifier.fillMaxWidth().padding(top = 48.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text("暂无匹配的国家或地区", color = Color(0xFF98A2B3), fontSize = 14.sp)
+                Text(
+                    stringResource(R.string.dial_country_empty),
+                    color = Color(0xFF98A2B3),
+                    fontSize = 14.sp
+                )
             }
         }
     }
@@ -101,7 +107,7 @@ internal fun DialCountryLocationSection(
                     modifier = Modifier.padding(end = 8.dp).size(width = 26.dp, height = 18.dp)
                 )
             }
-            Text("当前位置", color = Color(0xFF6E6E73), fontSize = 12.sp)
+            Text(stringResource(R.string.dial_current_location), color = Color(0xFF6E6E73), fontSize = 12.sp)
             Text(
                 text = resolved?.name ?: state.message,
                 modifier = Modifier.weight(1f).padding(start = 10.dp),
@@ -163,7 +169,7 @@ private fun DialCountryRow(country: DialCountry, selected: Boolean, onClick: () 
             horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Text(
-                text = country.name,
+                text = country.displayName(),
                 modifier = Modifier.weight(1f, fill = false),
                 color = Color(0xFF202228),
                 fontSize = 15.sp,
@@ -176,7 +182,7 @@ private fun DialCountryRow(country: DialCountry, selected: Boolean, onClick: () 
             if (selected) {
                 Icon(
                     Icons.Default.Check,
-                    contentDescription = "已选择",
+                    contentDescription = stringResource(R.string.common_selected),
                     tint = Color(0xFF1687F8),
                     modifier = Modifier.size(20.dp)
                 )
@@ -190,6 +196,7 @@ internal fun buildDialCountryListItems(query: String): List<DialCountryListItem>
     if (normalized.isNotEmpty()) {
         return DialCountries.filter {
             it.name.contains(normalized, ignoreCase = true) ||
+                it.englishName.lowercase().contains(normalized) ||
                 it.iso.lowercase().contains(normalized) ||
                 it.pinyin.contains(normalized) ||
                 it.initials.contains(normalized) ||

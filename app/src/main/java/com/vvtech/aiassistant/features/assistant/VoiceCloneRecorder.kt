@@ -5,6 +5,7 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.os.SystemClock
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.io.File
 import java.io.FileOutputStream
 import java.io.RandomAccessFile
@@ -40,7 +41,10 @@ class VoiceCloneRecorder(context: Context) {
 
     fun start(scriptId: String) {
         if (recording) {
-            throw IllegalStateException("当前已有录音任务，请先结束后再开始")
+            throw IllegalStateException(currentAppText(
+                "当前已有录音任务，请先结束后再开始",
+                "A recording is already in progress. Finish it before starting again."
+            ))
         }
         val minBuffer = AudioRecord.getMinBufferSize(
             SampleRateHz,
@@ -48,7 +52,10 @@ class VoiceCloneRecorder(context: Context) {
             AudioFormat.ENCODING_PCM_16BIT
         )
         if (minBuffer <= 0) {
-            throw IllegalStateException("录音初始化失败，请稍后再试")
+            throw IllegalStateException(currentAppText(
+                "录音初始化失败，请稍后再试",
+                "Recording initialization failed. Please try again later."
+            ))
         }
         val bufferSize = max(minBuffer, SampleRateHz)
         val recorder = AudioRecord(
@@ -60,7 +67,10 @@ class VoiceCloneRecorder(context: Context) {
         )
         if (recorder.state != AudioRecord.STATE_INITIALIZED) {
             recorder.release()
-            throw IllegalStateException("麦克风初始化失败，请检查权限后重试")
+            throw IllegalStateException(currentAppText(
+                "麦克风初始化失败，请检查权限后重试",
+                "Microphone initialization failed. Check permissions and try again."
+            ))
         }
 
         val wavFile = File(
@@ -103,11 +113,17 @@ class VoiceCloneRecorder(context: Context) {
 
     fun stop(): RecordingResult {
         if (!recording) {
-            throw IllegalStateException("当前没有进行中的录音")
+            throw IllegalStateException(currentAppText(
+                "当前没有进行中的录音",
+                "No recording is currently in progress."
+            ))
         }
         recording = false
         workerThread?.join(4_000L)
-        val file = outputFile ?: throw IllegalStateException("录音文件不存在")
+        val file = outputFile ?: throw IllegalStateException(currentAppText(
+            "录音文件不存在",
+            "Recording file does not exist."
+        ))
         val result = RecordingResult(
             file = file,
             durationMs = (SystemClock.elapsedRealtime() - startElapsedRealtime).coerceAtLeast(0L),
@@ -117,7 +133,10 @@ class VoiceCloneRecorder(context: Context) {
         clearRuntimeState()
         if (error != null) {
             file.delete()
-            throw IllegalStateException(error.message ?: "录音失败，请重试")
+            throw IllegalStateException(error.message ?: currentAppText(
+                "录音失败，请重试",
+                "Recording failed. Please try again."
+            ))
         }
         return result
     }

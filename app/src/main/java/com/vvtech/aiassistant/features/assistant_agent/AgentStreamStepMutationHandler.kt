@@ -4,7 +4,9 @@ import com.vvtech.aiassistant.core.model.AgentChatResponse
 import com.vvtech.aiassistant.core.model.BatchCallResultPayload
 import com.vvtech.aiassistant.features.assistant.ClarificationStep
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant.VoiceLanguage
 import com.vvtech.aiassistant.features.assistant.VoiceRole
+import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
 import com.vvtech.aiassistant.features.assistant_tasks.TaskBatchCallFinalStepPatch
 
 internal data class AgentStreamStepMutationCallbacks(
@@ -16,6 +18,7 @@ internal data class AgentStreamStepMutationCallbacks(
     ) -> TaskBatchCallFinalStepPatch?,
     val maybeTtsSignal: (String) -> Unit,
     val applyAgentResponseState: (AgentChatResponse) -> Unit,
+    val currentVoiceLanguage: () -> VoiceLanguage,
     val releaseStreamOwnership: (Int) -> Unit = {},
 )
 
@@ -73,13 +76,13 @@ internal class AgentStreamStepMutationHandler(
     }
 
     fun appendResponseStep(response: AgentChatResponse) {
-        val text = visibleResponseDisplayText(response).takeIf { it.isNotBlank() }
+        val text = assistantOutputText(visibleResponseDisplayText(response)).takeIf { it.isNotBlank() }
         if (!text.isNullOrBlank()) {
             val step = ClarificationStep(
                 role = VoiceRole.Assistant,
                 text = text,
                 status = "",
-                thinking = response.thinking,
+                thinking = response.thinking?.let(::assistantOutputText),
                 toolCalls = AgentStreamToolStepReducer.sanitizeToolCalls(response.toolCalls),
                 callConfirmSpec = AgentStreamResponseStepReducer.callConfirmSpec(response),
                 callConfirmIdentity = AgentStreamResponseStepReducer.callConfirmIdentity(response),
@@ -91,7 +94,7 @@ internal class AgentStreamStepMutationHandler(
     }
 
     fun fillPlaceholderWithResponse(stepIndex: Int, response: AgentChatResponse) {
-        val text = visibleResponseDisplayText(response)
+        val text = assistantOutputText(visibleResponseDisplayText(response))
         mutateStep(stepIndex) { step ->
             AgentStreamResponseStepReducer.applyResponse(
                 step = step,
@@ -114,6 +117,9 @@ internal class AgentStreamStepMutationHandler(
         }
     }
 
+    private fun assistantOutputText(text: String): String =
+        sanitizeUserFacingNetworkText(text, callbacks.currentVoiceLanguage())
+
     fun responseStepInput(
         response: AgentChatResponse,
         displayText: String,
@@ -128,6 +134,7 @@ internal class AgentStreamStepMutationHandler(
         return AgentStreamResponseStepInput(
             response = response,
             displayText = displayText,
+            displayThinking = response.thinking?.let(::assistantOutputText),
             batchPatch = batchPatch,
             includeThinkingAndTools = includeThinkingAndTools
         )

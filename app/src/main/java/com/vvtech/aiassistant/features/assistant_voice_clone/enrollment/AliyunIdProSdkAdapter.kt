@@ -2,6 +2,8 @@ package com.vvtech.aiassistant.features.assistant_voice_clone.enrollment
 
 import android.app.Activity
 import android.content.Context
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguageManager
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_voice_clone.logVoiceCloneRuntime
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
@@ -31,7 +33,9 @@ internal class AliyunIdProSdkAdapter : IdProSdkAdapter {
         facade.getMethod("install", Context::class.java).invoke(null, context.applicationContext)
         val value = facade.getMethod("getMetaInfos", Context::class.java)
             .invoke(null, context.applicationContext) as? String
-        require(!value.isNullOrBlank()) { "设备认证信息获取失败" }
+        require(!value.isNullOrBlank()) {
+            currentAppText("设备认证信息获取失败", "Failed to get device verification information")
+        }
         synchronized(sessionLock) {
             if (generation == preparationGeneration) {
                 preparedMetaInfo = value
@@ -45,15 +49,21 @@ internal class AliyunIdProSdkAdapter : IdProSdkAdapter {
         certifyId: String,
         callback: (IdProSdkResult) -> Unit
     ): Result<Unit> = runCatching {
-        require(certifyId.isNotBlank()) { "CertifyId不能为空" }
-        check(MfvcVerificationSession.tryStart()) { "认证正在进行中，请勿重复操作。" }
+        require(certifyId.isNotBlank()) {
+            currentAppText("CertifyId不能为空", "CertifyId cannot be empty")
+        }
+        check(MfvcVerificationSession.tryStart()) {
+            currentAppText("认证正在进行中，请勿重复操作。", "Verification is already in progress. Do not start it again.")
+        }
         var facade: Any? = null
         try {
             val builderClass = Class.forName(BUILDER_CLASS)
             val callbackClass = Class.forName(CALLBACK_CLASS)
             facade = requireNotNull(
                 resolveCreateMethod(builderClass).invoke(null, activity)
-            ) { "阿里云认证组件初始化失败" }
+            ) {
+                currentAppText("阿里云认证组件初始化失败", "Aliyun verification component failed to initialize")
+            }
             synchronized(sessionLock) {
                 activeFacade = facade
             }
@@ -176,7 +186,8 @@ internal class AliyunIdProSdkAdapter : IdProSdkAdapter {
     private fun buildExtParams(): HashMap<String, String> = hashMapOf(
         VIDEO_EVIDENCE_EXT_PARAM_KEY to "false",
         FULLSCREEN_EXT_PARAM_KEY to "false",
-        SCREEN_ORIENTATION_EXT_PARAM_KEY to SCREEN_ORIENTATION_PORTRAIT
+        SCREEN_ORIENTATION_EXT_PARAM_KEY to SCREEN_ORIENTATION_PORTRAIT,
+        LANGUAGE_EXT_PARAM_KEY to AppLanguageManager.currentAppLanguage().languageTag
     )
 
     private fun resolveCreateMethod(builderClass: Class<*>): Method =
@@ -207,6 +218,7 @@ internal class AliyunIdProSdkAdapter : IdProSdkAdapter {
         const val FULLSCREEN_EXT_PARAM_KEY = "ext_params_key_open_fullscreen"
         const val SCREEN_ORIENTATION_EXT_PARAM_KEY = "ext_params_key_screen_orientation"
         const val SCREEN_ORIENTATION_PORTRAIT = "ext_params_val_screen_port"
+        const val LANGUAGE_EXT_PARAM_KEY = "language"
         const val THEME_REVISION = "blue-v2"
         const val PROVIDER = "aliyun_mfvc"
     }

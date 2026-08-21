@@ -14,6 +14,8 @@ internal object AgentInitialSkillLaunchStore {
     private data class Pending(
         val skillId: String?,
         val opening: String?,
+        val backendOpening: String?,
+        val sendBackendOpening: Boolean,
         val createdAt: Long,
         val sessionId: String? = null,
         val openingPresented: Boolean = false
@@ -26,10 +28,35 @@ internal object AgentInitialSkillLaunchStore {
         opening: String? = null,
         now: Long = SystemClock.elapsedRealtime()
     ) {
+        armWithBackendOpening(
+            skillId = skillId,
+            opening = opening,
+            backendOpening = opening,
+            sendBackendOpening = true,
+            now = now
+        )
+    }
+
+    fun armWithBackendOpening(
+        skillId: String,
+        opening: String? = null,
+        backendOpening: String? = opening,
+        sendBackendOpening: Boolean = true,
+        now: Long = SystemClock.elapsedRealtime()
+    ) {
         val normalized = skillId.trim()
         require(normalized.isNotEmpty())
         val normalizedOpening = opening?.trim()?.takeIf(String::isNotEmpty)
-        pending.set(Pending(normalized, normalizedOpening, now))
+        val normalizedBackendOpening = backendOpening?.trim()?.takeIf(String::isNotEmpty)
+        pending.set(
+            Pending(
+                skillId = normalized,
+                opening = normalizedOpening,
+                backendOpening = normalizedBackendOpening,
+                sendBackendOpening = sendBackendOpening,
+                createdAt = now
+            )
+        )
     }
 
     fun rememberOpening(
@@ -44,6 +71,8 @@ internal object AgentInitialSkillLaunchStore {
                 Pending(
                     skillId = null,
                     opening = normalizedOpening,
+                    backendOpening = null,
+                    sendBackendOpening = false,
                     createdAt = now,
                     openingPresented = true
                 )
@@ -111,7 +140,11 @@ internal object AgentInitialSkillLaunchStore {
             if (pending.compareAndSet(value, null)) {
                 return AgentInitialLaunch(
                     skillId = value.skillId,
-                    opening = value.opening.takeIf { value.openingPresented }
+                    opening = if (value.sendBackendOpening) {
+                        value.backendOpening ?: value.opening.takeIf { value.openingPresented }
+                    } else {
+                        null
+                    }
                 )
             }
         }

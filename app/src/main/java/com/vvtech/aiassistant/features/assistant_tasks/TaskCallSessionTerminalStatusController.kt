@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant_tasks
 
 import com.vvtech.aiassistant.core.model.CallSessionStatusResponse
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.logging.RuntimeStateLogDomain
 import com.vvtech.aiassistant.logging.RuntimeStateLogEvent
 import com.vvtech.aiassistant.logging.RuntimeStateLogger
@@ -44,7 +45,7 @@ internal class TaskCallSessionTerminalStatusController(
             currentState,
             normalizedDialogue
         )
-        val pendingText = "正在确认通话结果"
+        val pendingText = currentAppText("正在确认通话结果", "Confirming call result")
         deps.logging.internalLog(
             "defer transport terminal status until reportCallOutcome " +
                 "taskId=${response.taskId} callId=${response.callId} " +

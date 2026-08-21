@@ -141,6 +141,7 @@ internal class VoiceDuplexCompletionController(
         onStart?.invoke()
         viewModel.ttsBridge.feedSignalText(
             normalized,
+            languageCode = languageCode,
             onComplete = {
                 finishLocalPlayback(source)
                 onDone?.invoke()

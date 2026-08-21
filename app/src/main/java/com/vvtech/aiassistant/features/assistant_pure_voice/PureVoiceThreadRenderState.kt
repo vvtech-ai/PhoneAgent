@@ -17,6 +17,7 @@ import com.vvtech.aiassistant.features.assistant.pureVoiceSanitizeCallPageData
 import com.vvtech.aiassistant.features.assistant.pureVoiceSanitizeStepForDisplay
 import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingError
 import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class PureVoiceThreadRenderState(
     val displayStatus: String,
@@ -169,9 +170,9 @@ internal fun buildPureVoiceThreadRenderState(
         visiblePendingCallResultText = visiblePendingCallResultText
     )
     val liveText = if (visiblePrecheck != null) {
-        "任务执行环境检测中..."
+        currentAppText("任务执行环境检测中...", "Checking task environment...")
     } else if (showCallResult) {
-        "任务已完成"
+        currentAppText("任务已完成", "Task completed")
     } else if (visibleWelcomePrompt != null && displayClarificationSteps.isEmpty()) {
         pureVoiceLiveLabel(PureVoiceState.Standby, voiceLanguage, visibleWelcomePrompt, showCallPage)
     } else {

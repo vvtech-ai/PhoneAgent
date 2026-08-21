@@ -20,9 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 @Composable
 internal fun FinalConfirmPageV3(
     restaurantName: String,
@@ -35,10 +37,11 @@ internal fun FinalConfirmPageV3(
     onUploadAttachment: () -> Unit,
     onConfirm: () -> Unit
 ) {
-    val fallbackSummary = fallbackPlan.ifBlank { "按你确认的处理方式执行" }
+    val defaultFallback = stringResource(R.string.confirm_default_fallback)
+    val fallbackSummary = fallbackPlan.ifBlank { defaultFallback }
     Column(modifier = Modifier.fillMaxSize()) {
         FinalBackTitleBar(
-            title = "任务确认",
+            title = stringResource(R.string.confirm_title),
             onBack = onBack,
             trailing = { FinalStopButton(onClick = onStop) }
         )
@@ -74,14 +77,14 @@ internal fun FinalConfirmPageV3(
                                                 .background(Color(0xFF007AFF), CircleShape)
                                         )
                                         Text(
-                                            text = "准备拨打",
+                                            text = stringResource(R.string.confirm_ready_to_call),
                                             color = Color(0xFF007AFF),
                                             fontSize = 12.sp,
                                             fontWeight = FontWeight.ExtraBold
                                         )
                                     }
                                     Text(
-                                      text = "今晚 19:00 订 2 位\n$restaurantName",
+                                      text = stringResource(R.string.confirm_booking_summary, restaurantName),
                                         modifier = Modifier.padding(top = 8.dp),
                                         color = Color(0xFF111111),
                                         fontSize = 24.sp,
@@ -95,7 +98,7 @@ internal fun FinalConfirmPageV3(
                                     elevation = 0.dp
                                 ) {
                                     Text(
-                                          text = "可执行",
+                                          text = stringResource(R.string.confirm_executable),
                                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp),
                                         color = Color(0xFF34C759),
                                         fontSize = 12.sp,
@@ -111,16 +114,16 @@ internal fun FinalConfirmPageV3(
                                 horizontalArrangement = Arrangement.spacedBy(10.dp)
                             ) {
                                 FinalMetricCardV3(
-                                    label = "拨打对象",
+                                    label = stringResource(R.string.confirm_target_label),
                                     value = restaurantName,
                                     modifier = Modifier.weight(1f)
                                 )
                                 FinalMetricCardV3(
-                                    label = "联系方式",
+                                    label = stringResource(R.string.confirm_contact_label),
                                     value = if (contactMethod != null) {
                                         "${contactMethod.name}${contactMethod.gender.displayLabel()} · ${maskPhone(contactMethod.phone)}"
                                     } else {
-                                          "未设置"
+                                          stringResource(R.string.confirm_not_set)
                                     },
                                     modifier = Modifier.weight(1f)
                                 )
@@ -132,19 +135,19 @@ internal fun FinalConfirmPageV3(
                                 horizontalArrangement = Arrangement.spacedBy(10.dp)
                             ) {
                                 FinalMetricCardV3(
-                                    label = "通话声音",
-                                    value = "Agent 声音",
+                                    label = stringResource(R.string.confirm_call_voice_label),
+                                    value = stringResource(R.string.confirm_agent_voice),
                                     modifier = Modifier.weight(1f)
                                 )
                                 FinalMetricCardV3(
-                                    label = "通知方式",
-                              value = "系统通知 + App 内结果卡 + 可选短信",
+                                    label = stringResource(R.string.confirm_notification_label),
+                              value = stringResource(R.string.confirm_notification_value),
                                     modifier = Modifier.weight(1f)
                                 )
                             }
                             if (contactMethod == null) {
                                 FinalActionButton(
-                              label = "去补充联系方式",
+                              label = stringResource(R.string.confirm_add_contact),
                                     tone = FinalButtonTone.Secondary,
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -164,7 +167,7 @@ internal fun FinalConfirmPageV3(
                 item {
                     FinalAssistantRoleBubbleV3(
                         modifier = Modifier.padding(top = 14.dp, bottom = 16.dp),
-                        text = "我会先确认是否有位，再围绕包间、低消与是否订下这几个任务重点完成本次通话。当前处理方式：$fallbackSummary。通话结束后，我会第一时间通知你，并生成可分享的结果卡。"
+                        text = stringResource(R.string.confirm_role_text, fallbackSummary)
                     )
                 }
             }
@@ -176,13 +179,13 @@ internal fun FinalConfirmPageV3(
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 FinalActionButton(
-                    label = "确认并开始通话",
+                    label = stringResource(R.string.confirm_start_call),
                     tone = FinalButtonTone.Success,
                     modifier = Modifier.fillMaxWidth(),
                     onClick = onConfirm
                 )
                 FinalActionButton(
-                    label = "返回修改",
+                    label = stringResource(R.string.confirm_back_edit),
                     tone = FinalButtonTone.Secondary,
                     modifier = Modifier.fillMaxWidth(),
                     onClick = onBack

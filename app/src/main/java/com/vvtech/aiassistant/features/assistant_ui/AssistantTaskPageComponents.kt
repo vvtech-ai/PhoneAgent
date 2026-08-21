@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.features.assistant.FinalTaskDisplayItem
 import com.vvtech.aiassistant.features.assistant.FinalTaskStatusKind
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.delay
 
 @Composable
@@ -89,7 +90,7 @@ internal fun AssistantTaskInitialLoading() {
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "正在同步任务",
+                text = "Syncing tasks",
                 color = Color(0xFF667085),
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
@@ -118,7 +119,7 @@ internal fun AssistantTasksTopBar() {
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "任务",
+                text = "Tasks",
                 color = Color(0xFF111111),
                 fontSize = 31.sp,
                 lineHeight = 32.sp,
@@ -137,7 +138,7 @@ internal fun AssistantTaskDesignRow(
 ) {
     val detailLine = item.secondaryLine
         .takeIf { it.isNotBlank() }
-        ?: "任务信息已同步"
+        ?: currentAppText("任务信息已同步", "Task information synced")
     Surface(
         modifier = Modifier
             .fillMaxWidth()

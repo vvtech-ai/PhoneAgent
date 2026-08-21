@@ -26,8 +26,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.core.model.BatchCallItemResultPayload
 import com.vvtech.aiassistant.core.model.BatchCallResultPayload
 import com.vvtech.aiassistant.domain.task.TaskReceiptOutcome
@@ -55,6 +57,13 @@ internal fun BatchCallResultCard(
     val followupCount = failedCount + unclearCount + cancelledCount
     val allSuccess = successCount > 0 && followupCount == 0 && runningCount == 0
     val showCopyButton = successCount > 0 && failedCount == 0 && cancelledCount == 0
+    val invitationReceiptTitle = stringResource(R.string.receipt_invitation_title)
+    val successCountText = stringResource(R.string.receipt_success_count, successCount)
+    val failedCountText = stringResource(R.string.receipt_failed_count, failedCount)
+    val unclearCountText = stringResource(R.string.receipt_unclear_count, unclearCount)
+    val cancelledCountText = stringResource(R.string.receipt_cancelled_count, cancelledCount)
+    val runningCountText = stringResource(R.string.receipt_running_count, runningCount)
+    val countSeparator = stringResource(R.string.receipt_count_separator)
     val headerColor = when {
         allSuccess -> Color(0xFF15803D)
         failedCount > 0 || cancelledCount > 0 -> Color(0xFFDC2626)
@@ -76,7 +85,7 @@ internal fun BatchCallResultCard(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = if (successCount > 0 && followupCount == 0) "邀约回执" else result.headline,
+                        text = if (successCount > 0 && followupCount == 0) invitationReceiptTitle else result.headline,
                         color = headerColor,
                         fontSize = 12.sp,
                         lineHeight = 15.sp,
@@ -84,12 +93,12 @@ internal fun BatchCallResultCard(
                     )
                     Text(
                         text = buildList {
-                            if (successCount > 0) add("${successCount} 路成功")
-                            if (failedCount > 0) add("${failedCount} 路未完成")
-                            if (unclearCount > 0) add("${unclearCount} 路待确认")
-                            if (cancelledCount > 0) add("${cancelledCount} 路已取消")
-                            if (runningCount > 0) add("${runningCount} 路执行中")
-                        }.joinToString("，").ifBlank { result.headline },
+                            if (successCount > 0) add(successCountText)
+                            if (failedCount > 0) add(failedCountText)
+                            if (unclearCount > 0) add(unclearCountText)
+                            if (cancelledCount > 0) add(cancelledCountText)
+                            if (runningCount > 0) add(runningCountText)
+                        }.joinToString(countSeparator).ifBlank { result.headline },
                         modifier = Modifier.padding(top = 4.dp),
                         color = Color(0xFF101828),
                         fontSize = 16.sp,
@@ -156,13 +165,13 @@ private fun BatchCallItemRow(
         TaskReceiptOutcome.Cancelled -> Color(0xFFF3F4F6)
     }
     val pillText = when {
-        isRunning && isRecalling -> "重拨中"
-        isRunning -> "拨打中"
-        display == TaskReceiptOutcome.Success -> "任务完成"
-        display == TaskReceiptOutcome.Failed -> "未完成"
-        display == TaskReceiptOutcome.Unclear -> "待确认"
-        display == TaskReceiptOutcome.Cancelled -> "已取消"
-        else -> "待确认"
+        isRunning && isRecalling -> stringResource(R.string.receipt_pill_recalling)
+        isRunning -> stringResource(R.string.receipt_pill_calling)
+        display == TaskReceiptOutcome.Success -> stringResource(R.string.receipt_pill_task_complete)
+        display == TaskReceiptOutcome.Failed -> stringResource(R.string.receipt_pill_incomplete)
+        display == TaskReceiptOutcome.Unclear -> stringResource(R.string.receipt_pill_needs_confirmation)
+        display == TaskReceiptOutcome.Cancelled -> stringResource(R.string.receipt_pill_cancelled)
+        else -> stringResource(R.string.receipt_pill_needs_confirmation)
     }
     Surface(
         modifier = Modifier
@@ -203,7 +212,7 @@ private fun BatchCallItemRow(
             }
             if (item.recalled) {
                 Text(
-                    text = "已自动重拨 1 次",
+                    text = stringResource(R.string.receipt_auto_redial_once),
                     color = Color(0xFF7C3AED),
                     fontSize = 12.sp,
                     modifier = Modifier.padding(top = 6.dp)
@@ -211,7 +220,7 @@ private fun BatchCallItemRow(
             }
             if (!expanded && !item.transcript.isNullOrBlank()) {
                 Text(
-                    text = "已生成通话转写，点击展开",
+                    text = stringResource(R.string.receipt_transcript_ready),
                     color = Color(0xFF667085),
                     fontSize = 12.sp,
                     modifier = Modifier.padding(top = 6.dp)
@@ -227,7 +236,7 @@ private fun BatchCallItemRow(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = item.transcript?.takeIf { it.isNotBlank() } ?: "无有效转写",
+                    text = item.transcript?.takeIf { it.isNotBlank() } ?: stringResource(R.string.receipt_no_valid_transcript),
                     color = Color(0xFF344054),
                     fontSize = 12.sp,
                     lineHeight = 18.sp
