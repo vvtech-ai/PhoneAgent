@@ -13,8 +13,8 @@ internal data class AgentContactLookupResultSubmitRequest(
     val result: Map<String, Any?>,
     val placeholderIndex: Int,
     val failureMessage: String,
-    val languageCode: String,
-    val responseLanguage: String
+    val languageCode: String = "zh-CN",
+    val responseLanguage: String = "Simplified Chinese"
 )
 
 internal data class AgentDeviceContactsLookupResultSubmitRequest(
@@ -25,8 +25,8 @@ internal data class AgentDeviceContactsLookupResultSubmitRequest(
     val channel: String,
     val placeholderIndex: Int,
     val failureMessage: String,
-    val languageCode: String,
-    val responseLanguage: String
+    val languageCode: String = "zh-CN",
+    val responseLanguage: String = "Simplified Chinese"
 )
 
 internal class AgentStreamContactLookupResultSubmitter(

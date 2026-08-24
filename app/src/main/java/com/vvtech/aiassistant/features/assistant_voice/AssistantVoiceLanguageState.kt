@@ -28,7 +28,9 @@ internal class AssistantVoiceLanguageState(
         }
     )
 
-    var code: String = VoiceLanguage.fromCode(initialCode ?: DefaultVoiceLanguageCode).code
+    var code: String = VoiceLanguage.fromCode(
+        initialCode?.takeIf(::isSupportedLanguageCode) ?: DefaultVoiceLanguageCode
+    ).code
         private set
 
     val language: VoiceLanguage
@@ -45,6 +47,17 @@ internal class AssistantVoiceLanguageState(
     }
 
     private companion object {
+        fun isSupportedLanguageCode(code: String): Boolean {
+            val normalized = code.trim()
+            return normalized.equals("en", ignoreCase = true) ||
+                normalized.equals(VoiceLanguage.English.code, ignoreCase = true) ||
+                normalized.equals("zh", ignoreCase = true) ||
+                normalized.equals(VoiceLanguage.Chinese.code, ignoreCase = true) ||
+                normalized.equals("ja", ignoreCase = true) ||
+                normalized.equals("jp", ignoreCase = true) ||
+                normalized.equals(VoiceLanguage.Japanese.code, ignoreCase = true)
+        }
+
         fun initialVoiceLanguageCode(prefs: SharedPreferences): String {
             val storedCode = prefs.getString(VoiceLanguageCodeKey, null)
             val migrationDone = prefs.getBoolean(VoiceLanguageEnglishDefaultMigrationKey, false)

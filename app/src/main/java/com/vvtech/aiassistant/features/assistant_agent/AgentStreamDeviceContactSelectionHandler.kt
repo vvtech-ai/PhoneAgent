@@ -14,8 +14,8 @@ internal data class AgentStreamDeviceContactSelectionRuntime(
     val isVoiceMode: () -> Boolean,
     val scope: CoroutineScope,
     val userIdProvider: () -> String,
-    val languageCodeProvider: () -> String,
-    val responseLanguageProvider: () -> String
+    val languageCodeProvider: () -> String = { "zh-CN" },
+    val responseLanguageProvider: () -> String = { "Simplified Chinese" }
 )
 
 internal data class AgentStreamDeviceContactSelectionCallbacks(

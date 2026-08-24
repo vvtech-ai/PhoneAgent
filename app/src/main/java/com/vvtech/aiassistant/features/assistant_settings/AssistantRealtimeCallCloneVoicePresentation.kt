@@ -37,8 +37,8 @@ internal fun realtimeCallCloneVoicePresentation(
             "重新录制".appText(appLanguage, "Record Again")
         )
     else -> RealtimeCallCloneVoicePresentation(
-        "未克隆".appText(appLanguage, "Not Created"),
-        "声音克隆".appText(appLanguage, "Voice Cloning")
+        "未克隆".appText(appLanguage, "Not Cloned"),
+        "声音克隆".appText(appLanguage, "Clone Voice")
     )
 }
 
@@ -62,7 +62,7 @@ internal fun realtimeCallCloneVoiceDetail(
             )
         !hasClone -> "当前模型暂无可用的克隆音色，完成声音克隆后即可使用".appText(
             appLanguage,
-            "No cloned voice is available for this model yet. Complete Voice Cloning to use one."
+            "No cloned voice is available for this model yet. Complete voice cloning to use it."
         )
         normalizedStatus == "READY" -> "当前模型已有可用的克隆音色".appText(
             appLanguage,

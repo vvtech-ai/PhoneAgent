@@ -19,7 +19,7 @@ internal class AgentStreamCommittedReplyNarrationCoordinator(
     private val isVoiceMode: () -> Boolean,
     private val taskIdProvider: () -> String?,
     private val maybeTtsSignal: (String) -> Unit,
-    private val currentVoiceLanguage: () -> VoiceLanguage,
+    private val currentVoiceLanguage: () -> VoiceLanguage = { VoiceLanguage.Chinese },
 ) {
     private data class PendingReply(
         val eventId: String,

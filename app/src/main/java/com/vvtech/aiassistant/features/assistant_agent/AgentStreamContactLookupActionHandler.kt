@@ -7,8 +7,8 @@ internal data class AgentStreamContactLookupActionRuntime(
     val stateProvider: () -> Index9AssistantUiState,
     val sessionIdProvider: () -> String?,
     val userIdProvider: () -> String,
-    val languageCodeProvider: () -> String,
-    val responseLanguageProvider: () -> String
+    val languageCodeProvider: () -> String = { "zh-CN" },
+    val responseLanguageProvider: () -> String = { "Simplified Chinese" }
 )
 
 internal data class AgentStreamContactLookupActionCallbacks(

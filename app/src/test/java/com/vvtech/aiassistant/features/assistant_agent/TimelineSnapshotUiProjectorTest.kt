@@ -430,7 +430,7 @@ class TimelineSnapshotUiProjectorTest {
 
     @Test
     fun terminalSnapshotClearsOutcomeSyncPendingStatus() {
-        val state = Index9AssistantUiState(status = CALL_OUTCOME_SYNC_PENDING_STATUS)
+        val state = Index9AssistantUiState(status = callOutcomeSyncPendingStatusText())
 
         val next = TimelineSnapshotUiProjector.project(
             snapshot(listOf(item(1, "completed", receipt("COMPLETED", "订位成功")))),

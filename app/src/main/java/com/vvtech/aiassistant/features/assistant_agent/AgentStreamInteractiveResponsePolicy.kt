@@ -24,7 +24,7 @@ internal object AgentStreamInteractiveResponsePolicy {
         state: Index9AssistantUiState,
         response: AgentChatResponse,
         voiceMode: Boolean,
-        voiceLanguage: VoiceLanguage
+        voiceLanguage: VoiceLanguage = VoiceLanguage.Chinese
     ): AgentStreamInteractiveResponsePlan? {
         return when (response.type) {
             TYPE_ASK_USER -> askUser(state, response, voiceMode, voiceLanguage)

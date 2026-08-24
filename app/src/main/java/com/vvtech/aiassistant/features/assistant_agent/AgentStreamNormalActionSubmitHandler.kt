@@ -20,8 +20,8 @@ internal class AgentStreamNormalActionSubmitHandler(
     private val submitAction: (AgentStreamActionSubmitRequest, (() -> Unit)?) -> Unit,
     private val channelProvider: () -> String,
     private val userIdProvider: () -> String,
-    private val languageCodeProvider: () -> String,
-    private val responseLanguageProvider: () -> String
+    private val languageCodeProvider: () -> String = { "zh-CN" },
+    private val responseLanguageProvider: () -> String = { "Simplified Chinese" }
 ) {
     fun submit(input: AgentStreamNormalActionSubmitInput) {
         if (input.appendUserEcho) {

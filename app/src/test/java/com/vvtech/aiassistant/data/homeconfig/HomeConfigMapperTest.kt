@@ -110,18 +110,22 @@ class HomeConfigMapperTest {
         assertEquals("builtin-1", result.config.configVersion)
         assertEquals(listOf("primary", "secondary"), result.config.slogans.map { it.id })
         assertEquals(listOf(
-            "restaurant_booking", "meeting_invite", "apology", "event_invite",
-            "move_car", "sales_promotion", "simultaneous_interpretation"
+            "restaurant_booking", "meeting_invite", "simultaneous_interpretation", "apology",
+            "event_invite", "move_car", "sales_promotion"
         ), result.config.cards.map { it.id })
         assertEquals(listOf(
-            "帮你询位、预订包房", "批量通知参会、确认回执", "代你表达歉意", "邀约嘉宾参加",
-            "联系车主协调挪车", "介绍产品服务", "实时翻译通话。"
+            "Check availability and reserve a private room",
+            "Notify attendees and collect responses",
+            "Translated Calls",
+            "Deliver an apology on your behalf",
+            "Invite guests to attend",
+            "Contact the owner to move the car",
+            "Introduce products and services"
         ), result.config.cards.map { it.subtitle })
         assertEquals(listOf(
-            HomeCardStatus.Enabled, HomeCardStatus.Enabled,
+            HomeCardStatus.Enabled, HomeCardStatus.Enabled, HomeCardStatus.Enabled,
             HomeCardStatus.ComingSoon, HomeCardStatus.ComingSoon,
-            HomeCardStatus.ComingSoon, HomeCardStatus.ComingSoon,
-            HomeCardStatus.ComingSoon
+            HomeCardStatus.ComingSoon, HomeCardStatus.ComingSoon
         ), result.config.cards.map { it.status })
         assertTrue("APK 默认配置不得为卡片图片再次请求 CDN", result.config.cards.all { it.imageUrl == null })
         assertEquals("offline", result.warning)

@@ -29,8 +29,8 @@ class AssistantSettingsHomePrototypeAlignmentTest {
                 "DomesticTranslationAudioSettingsCard.kt"
         ).readText(Charsets.UTF_8)
 
-        assertTrue(source.contains("FinalBackTitleBar(title = \"实时翻译原音\""))
-        assertTrue(source.contains("Text(\"播放原声\""))
+        assertTrue(source.contains("FinalBackTitleBar(title = \"Original Audio\""))
+        assertTrue(source.contains("Text(\"Play Original Audio\""))
     }
 
     @Test

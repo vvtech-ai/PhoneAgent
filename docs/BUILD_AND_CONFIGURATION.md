@@ -23,7 +23,8 @@ Users who do not need a local build can download the signed package from [GitHub
 - Package: `com.vvtech.aiassistant`
 - Version: `1.0.36` (versionCode `30`)
 - ABI: `arm64-v8a`
-- File SHA-256: `ee2dbd2fcd260f6d4a5b927a4567b3d7e356f1b554cdab95fe33b51f289046b6`
+- UI languages: English and Simplified Chinese
+- File SHA-256: `38da610a814ab331fa5bfa29bba33a6eeec5f365a6f9d1017dfe8f225aa3f5ec`
 - Signing certificate SHA-256: `017bb27a94baf1549ce7021363e2efc0bf86d93e6a48834c7489288966af2a4b`
 
 The current public APK uses the project's existing test-distribution certificate. It supports upgrades from earlier builds signed with the same certificate, but it is not an app-store production signature. The private key and passwords are not included in this repository. Any future migration to a production certificate will be documented in the release notes.

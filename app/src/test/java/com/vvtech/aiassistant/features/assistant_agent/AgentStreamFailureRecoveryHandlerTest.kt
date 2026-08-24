@@ -146,13 +146,13 @@ class AgentStreamFailureRecoveryHandlerTest {
             processingTurn = false,
             taskStatus = "ACTIVE",
             status = "已暂停，返回后可继续",
-            callPageData = harness.state.callPageData.copy(status = CALL_OUTCOME_PENDING_STATUS)
+            callPageData = harness.state.callPageData.copy(status = callOutcomePendingStatusText())
         )
 
         harness.handler.handleStreamFailure(0, RuntimeException("Software caused connection abort"), "fallback")
 
         assertEquals("ACTIVE", harness.state.taskStatus)
-        assertEquals(CALL_OUTCOME_SYNC_PENDING_STATUS, harness.state.status)
+        assertEquals(callOutcomeSyncPendingStatusText(), harness.state.status)
         assertFalse(harness.events.any { it.startsWith("markRecovery:") || it.startsWith("startApi:") })
         assertTrue(harness.events.contains("syncTimeline"))
         assertTrue(harness.events.contains("loadConversations"))

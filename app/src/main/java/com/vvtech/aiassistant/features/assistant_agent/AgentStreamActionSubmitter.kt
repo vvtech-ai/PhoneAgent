@@ -23,8 +23,8 @@ internal data class AgentStreamActionSubmitRequest(
     val userId: String,
     val placeholderIndex: Int,
     val failureMessage: String,
-    val languageCode: String,
-    val responseLanguage: String,
+    val languageCode: String = "zh-CN",
+    val responseLanguage: String = "Simplified Chinese",
     val identity: AgentCommandIdentity = AgentCommandIdentity.newIntent(
         sessionId,
         AgentCommandKind.Action,

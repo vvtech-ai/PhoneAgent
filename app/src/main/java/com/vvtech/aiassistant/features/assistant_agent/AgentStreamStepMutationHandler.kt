@@ -18,7 +18,7 @@ internal data class AgentStreamStepMutationCallbacks(
     ) -> TaskBatchCallFinalStepPatch?,
     val maybeTtsSignal: (String) -> Unit,
     val applyAgentResponseState: (AgentChatResponse) -> Unit,
-    val currentVoiceLanguage: () -> VoiceLanguage,
+    val currentVoiceLanguage: () -> VoiceLanguage = { VoiceLanguage.Chinese },
     val releaseStreamOwnership: (Int) -> Unit = {},
 )
 

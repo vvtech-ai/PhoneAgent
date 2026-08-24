@@ -24,7 +24,7 @@ class AssistantVoiceLanguageStateTest {
     fun normalizesAndPersistsChangedLanguage() {
         val persisted = mutableListOf<String>()
         val state = AssistantVoiceLanguageState(
-            initialCode = DefaultVoiceLanguageCode,
+            initialCode = VoiceLanguage.Chinese.code,
             persistCode = persisted::add
         )
 

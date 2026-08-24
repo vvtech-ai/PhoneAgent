@@ -343,9 +343,9 @@ internal fun realtimeCallVoiceCatalogDescription(
     appLanguage: AppLanguage = AppLanguage.SimplifiedChinese
 ): String {
     val modelDisplayName = realtimeCallVoiceModelDisplayName(activeProvider)
-    return "当前通话语音模型 $modelDisplayName 支持以下音色".appText(
+    return "当前语音大模型 $modelDisplayName 支持以下音色".appText(
         appLanguage,
-        "Voices available for the current call model, $modelDisplayName"
+        "Current voice model $modelDisplayName supports these voices."
     )
 }
 

@@ -31,6 +31,7 @@ PhoneAgent focuses on real telephone workflows:
 - **Complete key details**: organize time, location, contacts, numbers, party size, and preferences.
 - **Confirm before execution**: review the callee, key content, and execution scope before dialing.
 - **Agent calling workflow**: understand the goal, collect missing details, request confirmation, and coordinate supported phone tasks with the hosted service.
+- **English and Simplified Chinese UI**: switch the app display language from Settings without changing the language used for a call task.
 - **Switchable voice models**: select from voice models currently enabled by the hosted service to fit different real-time conversation, expression, and cross-language scenarios.
 - **Real-time translation**: display transcripts and translated text for both parties where supported by the model and region.
 - **Contact assistance**: read contacts after permission is granted or accept a manually entered number.
@@ -78,7 +79,8 @@ PhoneAgent separates phone-task intelligence from the voice model. The Agent und
 
 - Requires Android 8.0 (API 26) or later on an `arm64-v8a` device.
 - Connects to the PhoneAgent hosted open-source service by default. An [invite code](https://chaken.ai) is required for first-time activation.
-- File SHA-256: `ee2dbd2fcd260f6d4a5b927a4567b3d7e356f1b554cdab95fe33b51f289046b6`.
+- UI languages: English and Simplified Chinese.
+- File SHA-256: `38da610a814ab331fa5bfa29bba33a6eeec5f365a6f9d1017dfe8f225aa3f5ec`.
 - Signing certificate SHA-256: `017bb27a94baf1549ce7021363e2efc0bf86d93e6a48834c7489288966af2a4b`.
 
 After downloading, allow your browser or file manager to install unknown apps, then open the APK. Android cannot update an installed app with an APK signed by a different certificate. If that happens, back up any required data before uninstalling the old build; uninstalling removes its local data.
