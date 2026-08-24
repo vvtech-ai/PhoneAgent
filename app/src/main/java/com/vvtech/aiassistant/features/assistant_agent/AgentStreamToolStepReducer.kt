@@ -4,21 +4,26 @@ import com.vvtech.aiassistant.core.model.ToolCardInfo
 import com.vvtech.aiassistant.core.model.ToolCallInfo
 import com.vvtech.aiassistant.features.assistant.ClarificationStep
 import com.vvtech.aiassistant.features.assistant.PartialToolCall
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal object AgentStreamToolStepReducer {
 
     fun finalizeStep(step: ClarificationStep, nowMs: Long): ClarificationStep {
         val sanitizedPartials = step.partialToolCalls.map { partial ->
             if (partial.result == null) {
-                partial.copy(argsPreview = "", result = "（已取消）", durationMs = nowMs - partial.startedAt)
+                partial.copy(
+                    argsPreview = "",
+                    result = currentAppText("（已取消）", "(Canceled)"),
+                    durationMs = nowMs - partial.startedAt
+                )
             } else {
-                partial.copy(argsPreview = "", result = COMPLETED_LABEL)
+                partial.copy(argsPreview = "", result = completedLabel())
             }
         }
         val collapsedTools = if (step.partialToolCalls.isNotEmpty()) {
             step.partialToolCalls.mapNotNull { partial ->
                 partial.result ?: return@mapNotNull null
-                ToolCallInfo(name = partial.name, args = "", result = COMPLETED_LABEL)
+                ToolCallInfo(name = partial.name, args = "", result = completedLabel())
             }
         } else {
             sanitizeToolCalls(step.toolCalls)
@@ -69,7 +74,7 @@ internal object AgentStreamToolStepReducer {
             val old = replaced[index]
             replaced[index] = old.copy(
                 argsPreview = "",
-                result = COMPLETED_LABEL,
+                result = completedLabel(),
                 durationMs = nowMs - old.startedAt
             )
             replaced
@@ -78,7 +83,7 @@ internal object AgentStreamToolStepReducer {
                 id = id.ifBlank { "c_${replaced.size}" },
                 name = name,
                 argsPreview = "",
-                result = COMPLETED_LABEL,
+                result = completedLabel(),
                 durationMs = 0
             )
         }
@@ -90,7 +95,7 @@ internal object AgentStreamToolStepReducer {
     }
 
     fun sanitizeToolCalls(toolCalls: List<ToolCallInfo>?): List<ToolCallInfo>? = toolCalls?.map { tool ->
-        ToolCallInfo(name = tool.name, args = "", result = COMPLETED_LABEL)
+        ToolCallInfo(name = tool.name, args = "", result = completedLabel())
     }
 
     fun upsertToolCard(
@@ -114,5 +119,6 @@ internal object AgentStreamToolStepReducer {
         }
     }
 
-    private const val COMPLETED_LABEL = "已完成"
+    private fun completedLabel(): String =
+        currentAppText("已完成", "Completed")
 }

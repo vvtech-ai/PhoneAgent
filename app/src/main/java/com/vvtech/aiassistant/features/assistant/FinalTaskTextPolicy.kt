@@ -107,12 +107,12 @@ internal fun homeNotificationText(record: FinalTaskRecord): String {
 }
 
 internal fun homeNotificationText(item: FinalTaskDisplayItem): String {
-    return taskDisplayHomeNotificationText(
+    return localizedFinalTaskText(taskDisplayHomeNotificationText(
         sceneName = item.sceneName,
         sceneTarget = item.sceneTarget,
         keyInfo = item.keyInfo,
         statusKind = item.statusKind.toTaskDisplayTextStatusKind()
-    )
+    ))
 }
 
 private fun FinalTaskStatusKind.toTaskDisplayTextStatusKind(): TaskDisplayTextStatusKind = when (this) {

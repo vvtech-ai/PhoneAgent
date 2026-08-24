@@ -14,6 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant_voice_clone.VoiceCloneSubmissionState
 
 @Composable
@@ -53,27 +55,28 @@ private data class SubmissionContent(
     val actionLabel: String
 )
 
+@Composable
 private fun submissionContent(state: VoiceCloneSubmissionState, error: String?): SubmissionContent =
     when (state) {
         VoiceCloneSubmissionState.SUBMITTING -> SubmissionContent(
-            "正在提交录音",
-            "请保持当前页面，服务端正在校验人脸摘要、音频质量和朗读内容。",
-            "提交中…"
+            stringResource(R.string.voice_clone_submitting_title),
+            stringResource(R.string.voice_clone_submitting_detail),
+            stringResource(R.string.voice_clone_submitting_action)
         )
         VoiceCloneSubmissionState.PROCESSING -> SubmissionContent(
-            "正在生成声音",
-            "录音已通过校验，声音供应商正在处理。此状态不代表声音克隆已完成。",
-            "刷新状态"
+            stringResource(R.string.voice_clone_processing_title),
+            stringResource(R.string.voice_clone_processing_detail),
+            stringResource(R.string.voice_clone_refresh_status)
         )
         VoiceCloneSubmissionState.FAILED -> SubmissionContent(
-            "本次采集未通过",
-            error?.takeIf(String::isNotBlank) ?: "本次录音未通过校验，请使用新短句重新录制。",
-            "重新录制"
+            stringResource(R.string.voice_clone_failed_title),
+            error?.takeIf(String::isNotBlank) ?: stringResource(R.string.voice_clone_failed_default_detail),
+            stringResource(R.string.voice_identity_record_again)
         )
         VoiceCloneSubmissionState.UNKNOWN -> SubmissionContent(
-            "提交结果确认中",
-            "服务端无法确认供应商结果，已禁止重复提交。请稍后刷新，不会显示为完成。",
-            "刷新状态"
+            stringResource(R.string.voice_clone_unknown_title),
+            stringResource(R.string.voice_clone_unknown_detail),
+            stringResource(R.string.voice_clone_refresh_status)
         )
-        else -> SubmissionContent("", "", "刷新状态")
+        else -> SubmissionContent("", "", stringResource(R.string.voice_clone_refresh_status))
     }

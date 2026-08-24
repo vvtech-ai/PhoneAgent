@@ -1,5 +1,8 @@
 package com.vvtech.aiassistant.features.translation_call.ui
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.domain.translation.TranslationRealtimeProvider
 import java.util.Locale
 
@@ -23,14 +26,14 @@ internal object TranslationProviderUiCatalog {
             id = QwenId,
             provider = TranslationRealtimeProvider.Qwen,
             displayName = "Qwen LT Flash",
-            subtitle = "阿里巴巴 · 实时双向翻译",
+            subtitle = "Alibaba · realtime two-way translation",
             enabledDuringInitialization = true
         ),
         TranslationProviderUiOption(
             id = DoubaoId,
             provider = TranslationRealtimeProvider.Doubao,
             displayName = "Doubao AST LT",
-            subtitle = "字节跳动 · 实时语音翻译服务",
+            subtitle = "ByteDance · realtime speech translation service",
             enabledDuringInitialization = true
         )
     )
@@ -40,14 +43,14 @@ internal object TranslationProviderUiCatalog {
             id = OpenAiId,
             provider = TranslationRealtimeProvider.OpenAi,
             displayName = "GPT RT Translate",
-            subtitle = "GPT 实时翻译模型",
+            subtitle = "GPT realtime translation model",
             enabledDuringInitialization = false
         ),
         TranslationProviderUiOption(
             id = GeminiId,
             provider = TranslationRealtimeProvider.Gemini,
             displayName = "Gemini Live",
-            subtitle = "Google · 实时翻译模型",
+            subtitle = "Google · realtime translation model",
             enabledDuringInitialization = false
         )
     )
@@ -97,4 +100,13 @@ internal object TranslationProviderUiCatalog {
 
     private val QwenDefault: TranslationProviderUiOption
         get() = domesticOptions.first()
+}
+
+@Composable
+internal fun TranslationProviderUiOption.localizedSubtitle(): String = when (id) {
+    TranslationProviderUiCatalog.QwenId -> stringResource(R.string.translation_provider_qwen_subtitle)
+    TranslationProviderUiCatalog.DoubaoId -> stringResource(R.string.translation_provider_doubao_subtitle)
+    TranslationProviderUiCatalog.OpenAiId -> stringResource(R.string.translation_provider_gpt_subtitle)
+    TranslationProviderUiCatalog.GeminiId -> stringResource(R.string.translation_provider_gemini_subtitle)
+    else -> subtitle
 }

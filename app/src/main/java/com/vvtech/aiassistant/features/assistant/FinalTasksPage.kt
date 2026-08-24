@@ -14,8 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant_tasks.buildTaskPageRows
 import com.vvtech.aiassistant.features.assistant_ui.AssistantTaskDesignRow
 import com.vvtech.aiassistant.features.assistant_ui.AssistantTaskInitialLoading
@@ -58,7 +60,7 @@ internal fun FinalTasksPageV3(
                         item = FinalTaskRecord(
                             title = activeConversationTitle,
                             status = FinalTaskStatusKind.Running.label,
-                            detail = "点击继续对话",
+                            detail = stringResource(R.string.tasks_continue_conversation),
                             sourceText = activeConversationTitle
                         ).toFinalTaskDisplayItem(),
                         onClick = onResumeConversation
@@ -68,8 +70,8 @@ internal fun FinalTasksPageV3(
             if (refreshing) {
                 item {
                     AssistantTaskSyncStatusRow(
-                        title = "正在同步...",
-                        detail = "任务列表会自动更新",
+                        title = stringResource(R.string.tasks_syncing),
+                        detail = stringResource(R.string.tasks_sync_detail),
                         error = false,
                         onClick = null
                     )
@@ -78,7 +80,7 @@ internal fun FinalTasksPageV3(
             if (syncError != null) {
                 item {
                     AssistantTaskSyncStatusRow(
-                        title = "同步失败，点击重试",
+                        title = stringResource(R.string.tasks_sync_failed),
                         detail = syncError,
                         error = true,
                         onClick = onRefresh
@@ -120,7 +122,7 @@ internal fun FinalTasksPageV3(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "还没有任务记录",
+                            text = stringResource(R.string.tasks_empty),
                             color = Color(0xFF98A2B3),
                             fontSize = 14.sp
                         )

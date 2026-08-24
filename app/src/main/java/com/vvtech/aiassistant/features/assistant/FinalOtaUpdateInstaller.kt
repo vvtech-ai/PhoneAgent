@@ -20,6 +20,7 @@ import com.vvtech.aiassistant.features.app_ota.finalOtaInstallIntent
 import com.vvtech.aiassistant.features.app_ota.finalOtaInstallPermissionIntent
 import com.vvtech.aiassistant.features.app_ota.finalOtaSafeUrlForLog
 import com.vvtech.aiassistant.features.app_ota.finalOtaTargetFile
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.io.File
 import java.security.MessageDigest
 import kotlinx.coroutines.CoroutineScope
@@ -151,8 +152,8 @@ internal class FinalOtaUpdateInstaller(
         )
         val request = runCatching {
             DownloadManager.Request(Uri.parse(spec.apkUrl))
-                .setTitle("Phone Agent ${spec.versionName.ifBlank { "更新包" }}")
-                .setDescription("正在下载应用更新")
+                .setTitle("Phone Agent ${spec.versionName.ifBlank { currentAppText("更新包", "Update package") }}")
+                .setDescription(currentAppText("正在下载应用更新", "Downloading app update"))
                 .setMimeType(OtaApkMimeType)
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true)
@@ -162,8 +163,8 @@ internal class FinalOtaUpdateInstaller(
             updateState(
                 FinalOtaInstallUiState(
                     phase = FinalOtaInstallPhase.Failed,
-                    message = "下载未开始",
-                    error = throwable.message ?: "下载地址无效"
+                    message = currentAppText("下载未开始", "Download not started"),
+                    error = throwable.message ?: currentAppText("下载地址无效", "Invalid download URL")
                 )
             )
             AppFileLogger.w(OtaLogTag, "download request create failed url=${finalOtaSafeUrlForLog(spec.apkUrl)}", throwable)
@@ -174,9 +175,12 @@ internal class FinalOtaUpdateInstaller(
             .getOrElse { throwable ->
                 updateState(
                     FinalOtaInstallUiState(
-                        phase = FinalOtaInstallPhase.Failed,
-                        message = "下载未开始",
-                        error = throwable.message ?: "系统下载服务不可用"
+                    phase = FinalOtaInstallPhase.Failed,
+                    message = currentAppText("下载未开始", "Download not started"),
+                    error = throwable.message ?: currentAppText(
+                        "系统下载服务不可用",
+                        "System download service is unavailable"
+                    )
                     )
                 )
                 AppFileLogger.w(OtaLogTag, "download enqueue failed url=${finalOtaSafeUrlForLog(spec.apkUrl)}", throwable)
@@ -188,7 +192,7 @@ internal class FinalOtaUpdateInstaller(
             FinalOtaInstallUiState(
                 phase = FinalOtaInstallPhase.Downloading,
                 progressPercent = null,
-                message = "正在下载安装包"
+                message = currentAppText("正在下载安装包", "Downloading update package")
             )
         )
         downloadJob = scope.launch {
@@ -219,8 +223,8 @@ internal class FinalOtaUpdateInstaller(
             updateState(
                 FinalOtaInstallUiState(
                     phase = FinalOtaInstallPhase.Failed,
-                    message = "安装包不可用",
-                    error = "请重新下载更新包"
+                    message = currentAppText("安装包不可用", "Update package unavailable"),
+                    error = currentAppText("请重新下载更新包", "Please download the update package again")
                 )
             )
             return FinalOtaInstallRequest.None
@@ -233,7 +237,10 @@ internal class FinalOtaUpdateInstaller(
             updateState(
                 FinalOtaInstallUiState(
                     phase = FinalOtaInstallPhase.WaitingForInstallPermission,
-                    message = "需要允许本应用安装未知来源应用"
+                    message = currentAppText(
+                        "需要允许本应用安装未知来源应用",
+                        "Allow this app to install unknown apps"
+                    )
                 )
             )
             return FinalOtaInstallRequest.Permission(finalOtaInstallPermissionIntent(appContext))
@@ -245,8 +252,8 @@ internal class FinalOtaUpdateInstaller(
             updateState(
                 FinalOtaInstallUiState(
                     phase = FinalOtaInstallPhase.Failed,
-                    message = "无法准备安装包",
-                    error = throwable.message ?: "FileProvider 配置异常"
+                    message = currentAppText("无法准备安装包", "Unable to prepare update package"),
+                    error = throwable.message ?: currentAppText("FileProvider 配置异常", "FileProvider configuration error")
                 )
             )
             return FinalOtaInstallRequest.None
@@ -256,7 +263,7 @@ internal class FinalOtaUpdateInstaller(
         updateState(
             FinalOtaInstallUiState(
                 phase = FinalOtaInstallPhase.Installing,
-                message = "正在打开系统安装器"
+                message = currentAppText("正在打开系统安装器", "Opening system installer")
             )
         )
         return FinalOtaInstallRequest.Install(finalOtaInstallIntent(uri))
@@ -267,8 +274,11 @@ internal class FinalOtaUpdateInstaller(
         updateState(
             FinalOtaInstallUiState(
                 phase = FinalOtaInstallPhase.Downloaded,
-                message = "安装器打开失败",
-                error = throwable.message ?: "未找到可安装 APK 的系统组件"
+                message = currentAppText("安装器打开失败", "Failed to open installer"),
+                error = throwable.message ?: currentAppText(
+                    "未找到可安装 APK 的系统组件",
+                    "No system component can install the APK"
+                )
             )
         )
     }
@@ -280,15 +290,15 @@ internal class FinalOtaUpdateInstaller(
             updateState(
                 FinalOtaInstallUiState(
                     phase = FinalOtaInstallPhase.Installing,
-                    message = "安装完成，正在切换到新版本"
+                    message = currentAppText("安装完成，正在切换到新版本", "Installed. Switching to the new version")
                 )
             )
         } else if (state.phase == FinalOtaInstallPhase.Installing) {
             updateState(
                 FinalOtaInstallUiState(
                     phase = FinalOtaInstallPhase.Downloaded,
-                    message = "安装未完成",
-                    error = "可再次点击安装继续更新"
+                    message = currentAppText("安装未完成", "Installation not completed"),
+                    error = currentAppText("可再次点击安装继续更新", "Tap Install again to continue the update")
                 )
             )
         }
@@ -300,8 +310,8 @@ internal class FinalOtaUpdateInstaller(
             updateState(
                 FinalOtaInstallUiState(
                     phase = FinalOtaInstallPhase.Downloaded,
-                    message = "安装未完成",
-                    error = "可再次点击安装继续更新"
+                    message = currentAppText("安装未完成", "Installation not completed"),
+                    error = currentAppText("可再次点击安装继续更新", "Tap Install again to continue the update")
                 )
             )
         }
@@ -337,8 +347,8 @@ internal class FinalOtaUpdateInstaller(
                 updateState(
                     FinalOtaInstallUiState(
                         phase = FinalOtaInstallPhase.Failed,
-                        message = "下载失败",
-                        error = "系统下载任务不存在"
+                        message = currentAppText("下载失败", "Download failed"),
+                        error = currentAppText("系统下载任务不存在", "System download task does not exist")
                     )
                 )
                 return
@@ -353,9 +363,9 @@ internal class FinalOtaUpdateInstaller(
                             phase = FinalOtaInstallPhase.Downloading,
                             progressPercent = snapshot.progressPercent,
                             message = if (snapshot.status == DownloadManager.STATUS_PAUSED) {
-                                "下载已暂停，等待网络恢复"
+                                currentAppText("下载已暂停，等待网络恢复", "Download paused. Waiting for network recovery.")
                             } else {
-                                "正在下载安装包"
+                                currentAppText("正在下载安装包", "Downloading update package")
                             }
                         )
                     )
@@ -370,8 +380,8 @@ internal class FinalOtaUpdateInstaller(
                         updateState(
                             FinalOtaInstallUiState(
                                 phase = FinalOtaInstallPhase.Failed,
-                                message = "下载失败",
-                                error = "安装包文件为空"
+                                message = currentAppText("下载失败", "Download failed"),
+                                error = currentAppText("安装包文件为空", "Update package file is empty")
                             )
                         )
                         return
@@ -381,7 +391,7 @@ internal class FinalOtaUpdateInstaller(
                             FinalOtaInstallUiState(
                                 phase = FinalOtaInstallPhase.Verifying,
                                 progressPercent = 100,
-                                message = "正在校验安装包"
+                                message = currentAppText("正在校验安装包", "Verifying update package")
                             )
                         )
                         val matched = withContext(Dispatchers.IO) {
@@ -393,8 +403,8 @@ internal class FinalOtaUpdateInstaller(
                             updateState(
                                 FinalOtaInstallUiState(
                                     phase = FinalOtaInstallPhase.Failed,
-                                    message = "安装包校验失败",
-                                    error = "请重新下载更新包"
+                                    message = currentAppText("安装包校验失败", "Update package verification failed"),
+                                    error = currentAppText("请重新下载更新包", "Please download the update package again")
                                 )
                             )
                             return
@@ -405,7 +415,7 @@ internal class FinalOtaUpdateInstaller(
                         FinalOtaInstallUiState(
                             phase = FinalOtaInstallPhase.Downloaded,
                             progressPercent = 100,
-                            message = "下载完成，准备安装"
+                            message = currentAppText("下载完成，准备安装", "Download complete. Ready to install.")
                         )
                     )
                     onReadyToInstall()
@@ -418,8 +428,11 @@ internal class FinalOtaUpdateInstaller(
                     updateState(
                         FinalOtaInstallUiState(
                             phase = FinalOtaInstallPhase.Failed,
-                            message = "下载失败",
-                            error = "系统错误码：${snapshot.reason ?: "-"}"
+                            message = currentAppText("下载失败", "Download failed"),
+                            error = currentAppText(
+                                "系统错误码：${snapshot.reason ?: "-"}",
+                                "System error code: ${snapshot.reason ?: "-"}"
+                            )
                         )
                     )
                     return

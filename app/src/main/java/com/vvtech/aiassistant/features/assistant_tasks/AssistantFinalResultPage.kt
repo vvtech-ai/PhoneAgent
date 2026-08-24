@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun AssistantFinalResultPage(
@@ -78,14 +79,14 @@ internal fun AssistantFinalResultPage(
                     Box(contentAlignment = Alignment.Center) {
                         Icon(
                             imageVector = Icons.Outlined.ArrowBack,
-                            contentDescription = "返回",
+                            contentDescription = "Back",
                             tint = Color(0xFF1B1D21),
                             modifier = Modifier.size(24.dp)
                         )
                     }
                 }
                 Text(
-                    text = "任务结果",
+                    text = "Task Result",
                     color = Color(0xFF101114),
                     fontSize = 24.sp,
                     lineHeight = 28.sp,
@@ -135,7 +136,11 @@ private fun AssistantFinalAiModelContactButton(enabled: Boolean, loading: Boolea
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = if (loading) "AI 建模中…" else "🤖 AI 建模此联系人",
+                text = if (loading) {
+                    currentAppText("AI 建模中…", "AI Modeling...")
+                } else {
+                    currentAppText("🤖 AI 建模此联系人", "🤖 AI Model This Contact")
+                },
                 color = Color.White,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.ExtraBold
@@ -213,7 +218,7 @@ private fun AssistantFinalResultCard(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "分享",
+                        text = "Share",
                         color = Color.White,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.ExtraBold

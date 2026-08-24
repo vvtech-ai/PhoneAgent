@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant_tasks
 
 import com.vvtech.aiassistant.core.model.CallSessionStatusResponse
 import com.vvtech.aiassistant.core.model.ResultSummaryPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.TaskListItem
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -29,7 +30,7 @@ internal fun summarizeTaskHistoryMeta(raw: String): String {
         .trim()
     if (normalized.isBlank()) return ""
     if (Regex("(?i)(assistant|callee|system):").containsMatchIn(normalized)) {
-        return "通话摘要已记录"
+        return currentAppText("通话摘要已记录", "Call summary recorded")
     }
     val firstSentence = normalized
         .split('。', '！', '？', ';', '；')
@@ -73,8 +74,8 @@ internal fun buildTaskHistoryRecordDisplay(item: TaskListItem): TaskHistoryRecor
         TaskHistoryStatusStyle.Success
     }
     val statusText = when (item.status.uppercase()) {
-        "FAILED" -> "未完成"
-        "SUCCESS", "COMPLETED" -> "已完成"
+        "FAILED" -> currentAppText("未完成", "Incomplete")
+        "SUCCESS", "COMPLETED" -> currentAppText("已完成", "Completed")
         else -> item.status
     }
     val createdText = runCatching {
@@ -86,7 +87,7 @@ internal fun buildTaskHistoryRecordDisplay(item: TaskListItem): TaskHistoryRecor
             ?: item.originText
     )
     return TaskHistoryRecordDisplay(
-        title = item.originText.ifBlank { "已完成任务" },
+        title = item.originText.ifBlank { currentAppText("已完成任务", "Completed Task") },
         status = statusText,
         style = style,
         meta = "$createdText | $detailText"
@@ -94,5 +95,8 @@ internal fun buildTaskHistoryRecordDisplay(item: TaskListItem): TaskHistoryRecor
 }
 
 internal fun buildTaskResultSummaryStatus(result: ResultSummaryPayload): String {
-    return "${result.headline} 路 ${result.status}"
+    return currentAppText(
+        "${result.headline} 路 ${result.status}",
+        "${result.headline} routes ${result.status}"
+    )
 }

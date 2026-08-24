@@ -238,7 +238,7 @@ data class VoiceDialogContextResponse(
     val taskId: String? = null,
     val sceneType: String,
     val dialogKey: String = "",
-    val botName: String = "AI 助手",
+    val botName: String = "AI Assistant",
     val statusMessage: String,
     val systemMessages: List<String> = emptyList(),
     val currentSlots: Map<String, String> = emptyMap(),

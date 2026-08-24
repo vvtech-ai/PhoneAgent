@@ -36,6 +36,7 @@ import com.vvtech.aiassistant.features.assistant_tasks.sameTaskCallSessionTransc
 import com.vvtech.aiassistant.features.assistant_tasks.summarizeTaskHistoryMeta
 import com.vvtech.aiassistant.features.assistant_tasks.taskCallSessionIsStreamingDialogueLine
 import com.vvtech.aiassistant.features.assistant_tasks.taskHistorySortKey
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.time.LocalDateTime
 
 /**
@@ -476,6 +477,6 @@ internal fun seedCallPageStatusUpdate(
     seed: CallPageData,
     note: String
 ): CallPageData = seed.copy(
-    status = "正在发起电话...",
+    status = currentAppText("正在发起电话...", "Starting call..."),
     transcript = seed.transcript + TranscriptLine(role = TranscriptRole.Note, text = note)
 )

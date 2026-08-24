@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -33,6 +34,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.data.model.WorkIdentityItem
 @Composable
 internal fun MyIdentityRequiredField(
@@ -134,7 +136,12 @@ internal fun MyIdentityGenderRow(selected: String, onSelect: (String) -> Unit) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 14.dp)
     ) {
-        Text(text = "性别", color = Color(0xFF111111), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(R.string.identity_gender_label),
+            color = Color(0xFF111111),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold
+        )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -158,7 +165,7 @@ internal fun MyIdentityGenderRow(selected: String, onSelect: (String) -> Unit) {
                 ) {
                     Box(contentAlignment = Alignment.Center) {
                         Text(
-                            text = option,
+                            text = localizedIdentityGenderOption(option),
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                             color = if (active) Color(0xFF0A84FF) else Color(0xFF111111),
                             fontSize = 14.sp,
@@ -213,23 +220,23 @@ internal fun MyIdentityWorkCard(
             modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)
         ) {
             MyIdentityRequiredField(
-                label = "公司",
+                label = stringResource(R.string.identity_company_label),
                 value = item.company,
-                placeholder = "例如：chaken智能科技",
+                placeholder = stringResource(R.string.identity_company_placeholder),
                 onValueChange = { onChange(item.copy(company = it)) }
             )
             MyIdentityDivider()
             MyIdentityRow(
-                label = "部门",
+                label = stringResource(R.string.identity_department_label),
                 value = item.department,
-                placeholder = "例如：产品平台部",
+                placeholder = stringResource(R.string.identity_department_placeholder),
                 onValueChange = { onChange(item.copy(department = it)) }
             )
             MyIdentityDivider()
             MyIdentityRow(
-                label = "职位",
+                label = stringResource(R.string.identity_position_label),
                 value = item.position,
-                placeholder = "例如：产品负责人",
+                placeholder = stringResource(R.string.identity_position_placeholder),
                 onValueChange = { onChange(item.copy(position = it)) }
             )
             if (removable) {
@@ -247,7 +254,7 @@ internal fun MyIdentityWorkCard(
                         modifier = Modifier.size(18.dp)
                     )
                     Text(
-                        text = "移除这条",
+                        text = stringResource(R.string.identity_remove_item),
                         modifier = Modifier.padding(start = 6.dp),
                         color = Color(0xFFE14D46),
                         fontSize = 13.sp,
@@ -257,6 +264,13 @@ internal fun MyIdentityWorkCard(
             }
         }
     }
+}
+
+@Composable
+private fun localizedIdentityGenderOption(option: String): String = when (option) {
+    "男" -> stringResource(R.string.identity_gender_male)
+    "女" -> stringResource(R.string.identity_gender_female)
+    else -> stringResource(R.string.identity_gender_unspecified)
 }
 
 @Composable

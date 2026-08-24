@@ -84,7 +84,10 @@ internal fun ColumnScope.SingleFlowPureVoiceContent(
         null
     }
     val pvLiveAssistantTranscript = if (realFlowEnabled) {
-        state?.liveAssistantTranscript?.trim()?.ifBlank { null }
+        state?.liveAssistantTranscript
+            ?.let { sanitizeUserFacingNetworkText(it, voiceLanguage) }
+            ?.trim()
+            ?.ifBlank { null }
     } else {
         null
     }

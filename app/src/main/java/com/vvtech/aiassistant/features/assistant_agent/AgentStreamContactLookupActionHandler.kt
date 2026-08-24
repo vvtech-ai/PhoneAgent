@@ -1,11 +1,14 @@
 package com.vvtech.aiassistant.features.assistant_agent
 
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class AgentStreamContactLookupActionRuntime(
     val stateProvider: () -> Index9AssistantUiState,
     val sessionIdProvider: () -> String?,
-    val userIdProvider: () -> String
+    val userIdProvider: () -> String,
+    val languageCodeProvider: () -> String,
+    val responseLanguageProvider: () -> String
 )
 
 internal data class AgentStreamContactLookupActionCallbacks(
@@ -26,7 +29,7 @@ internal class AgentStreamContactLookupActionHandler(
             callbacks.clearWithoutPendingTool()
             return
         }
-        callbacks.prepareSubmitting(SubmittingStatus)
+        callbacks.prepareSubmitting(submittingStatus())
         val placeholderIndex = callbacks.appendAssistantPlaceholder()
         submitter.submitContactLookupResult(
             AgentContactLookupResultSubmitRequest(
@@ -35,13 +38,16 @@ internal class AgentStreamContactLookupActionHandler(
                 userId = runtime.userIdProvider(),
                 result = payload,
                 placeholderIndex = placeholderIndex,
-                failureMessage = SubmitFailureMessage
+                failureMessage = submitFailureMessage(),
+                languageCode = runtime.languageCodeProvider(),
+                responseLanguage = runtime.responseLanguageProvider()
             )
         )
     }
 
-    private companion object {
-        private const val SubmittingStatus = "AI处理中"
-        private const val SubmitFailureMessage = "联系人查询回传失败"
-    }
+    private fun submittingStatus(): String =
+        currentAppText("AI处理中", "AI is processing")
+
+    private fun submitFailureMessage(): String =
+        currentAppText("联系人查询回传失败", "Failed to return contact lookup result")
 }

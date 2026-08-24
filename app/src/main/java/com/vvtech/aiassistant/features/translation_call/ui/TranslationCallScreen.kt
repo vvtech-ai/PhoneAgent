@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.domain.translation.TranslationEnvironmentState
 import com.vvtech.aiassistant.features.assistant_calls.formatDialHistoryNumberForDisplay
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.translation_call.state.TranslationCallPhase
 import com.vvtech.aiassistant.features.translation_call.state.TranslationCallTranscriptItem
 import com.vvtech.aiassistant.features.translation_call.state.TranslationCallUiAction
@@ -144,7 +145,9 @@ private fun TranslationTranscriptThread(
     if (transcripts.isEmpty()) {
         Box(modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             Text(
-                text = hint.ifBlank { "请清晰地说话，翻译内容会实时显示在这里" },
+                text = hint.ifBlank {
+                    currentAppText("请清晰地说话，翻译内容会实时显示在这里", "Speak clearly. Translations will appear here in real time")
+                },
                 color = Color.White.copy(alpha = 0.56f),
                 fontSize = 14.sp,
                 textAlign = TextAlign.Center
@@ -218,21 +221,21 @@ private fun TranslationCallControls(
 ) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
         CallControl(
-            "静音",
+            currentAppText("静音", "Mute"),
             if (muted) Icons.Default.MicOff else Icons.Default.Mic,
             muted,
             onClick = onMute
         )
-        CallControl("拨号盘", Icons.Default.Dialpad, dialPadVisible, onClick = onDialPad)
+        CallControl(currentAppText("拨号盘", "Keypad"), Icons.Default.Dialpad, dialPadVisible, onClick = onDialPad)
         CallControl(
-            "扬声器",
+            currentAppText("扬声器", "Speaker"),
             if (speakerEnabled) Icons.Default.VolumeUp else Icons.Default.VolumeOff,
             speakerEnabled,
             onClick = onSpeaker
         )
     }
     Spacer(Modifier.height(14.dp))
-    CallControl("挂断", Icons.Default.CallEnd, active = true, danger = true, onClick = onHangup)
+    CallControl(currentAppText("挂断", "Hang up"), Icons.Default.CallEnd, active = true, danger = true, onClick = onHangup)
 }
 
 @Composable
@@ -289,11 +292,11 @@ private fun TranslationDtmfPad(onDtmf: (Char) -> Unit) {
 }
 private fun TranslationCallPhase.displayText(): String = when (this) {
     TranslationCallPhase.Idle -> ""
-    TranslationCallPhase.Preflight -> "正在检测通话环境"
-    TranslationCallPhase.Dialing -> "正在拨号"
-    TranslationCallPhase.Ringing -> "正在振铃"
-    TranslationCallPhase.Connected -> "翻译准备中"
-    TranslationCallPhase.Translating -> "实时翻译 · 已接通"
-    TranslationCallPhase.Ended -> "通话已结束"
-    TranslationCallPhase.Failed -> "通话不可用"
+    TranslationCallPhase.Preflight -> currentAppText("正在检测通话环境", "Checking call environment")
+    TranslationCallPhase.Dialing -> currentAppText("正在拨号", "Dialing")
+    TranslationCallPhase.Ringing -> currentAppText("正在振铃", "Ringing")
+    TranslationCallPhase.Connected -> currentAppText("翻译准备中", "Preparing translation")
+    TranslationCallPhase.Translating -> currentAppText("实时翻译 · 已接通", "Live translation connected")
+    TranslationCallPhase.Ended -> currentAppText("通话已结束", "Call ended")
+    TranslationCallPhase.Failed -> currentAppText("通话不可用", "Call unavailable")
 }

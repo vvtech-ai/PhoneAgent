@@ -37,6 +37,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -73,7 +74,7 @@ internal fun V88PermissionDialog(
                     Text("AI", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.Black)
                 }
                 Text(
-                    text = "允许 Phone Agent 使用${kind.title}？",
+                    text = stringResource(R.string.permission_dialog_title, localizedPermissionTitle(kind)),
                     modifier = Modifier.padding(top = 16.dp),
                     color = Color.White,
                     fontSize = 17.sp,
@@ -82,7 +83,7 @@ internal fun V88PermissionDialog(
                     textAlign = TextAlign.Center
                 )
                 Text(
-                    text = kind.description,
+                    text = localizedPermissionDescription(kind),
                     modifier = Modifier.padding(top = 8.dp),
                     color = Color.White.copy(alpha = 0.56f),
                     fontSize = 13.sp,
@@ -95,8 +96,8 @@ internal fun V88PermissionDialog(
                         .padding(top = 20.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    V88DarkDialogButton("拒绝", Modifier.weight(1f), onDeny)
-                    V88DarkDialogButton("允许", Modifier.weight(1f), onAllow, primary = true)
+                    V88DarkDialogButton(stringResource(R.string.permission_deny), Modifier.weight(1f), onDeny)
+                    V88DarkDialogButton(stringResource(R.string.permission_allow), Modifier.weight(1f), onAllow, primary = true)
                 }
             }
         }
@@ -175,7 +176,7 @@ internal fun V88VoiceCloneGuideSheet(
                         modifier = Modifier.size(48.dp)
                     )
                     Text(
-                        text = "让 AI 用你的声音打电话",
+                        text = stringResource(R.string.voice_clone_guide_title),
                         modifier = Modifier.padding(top = 16.dp),
                         color = Color(0xFF1A1A2E),
                         fontSize = 20.sp,
@@ -184,7 +185,7 @@ internal fun V88VoiceCloneGuideSheet(
                         textAlign = TextAlign.Center
                     )
                     Text(
-                        text = "克隆后，AI 可以用接近你的声音通话。约 3 分钟完成，也可以稍后再做。",
+                        text = stringResource(R.string.voice_clone_guide_description),
                         modifier = Modifier.padding(top = 8.dp),
                         color = Color(0xFF6B7280),
                         fontSize = 14.sp,
@@ -201,7 +202,7 @@ internal fun V88VoiceCloneGuideSheet(
                         elevation = 0.dp
                     ) {
                         Text(
-                            text = "开始声音克隆",
+                            text = stringResource(R.string.voice_clone_guide_start),
                             modifier = Modifier.padding(vertical = 14.dp),
                             color = Color.White,
                             fontSize = 16.sp,
@@ -210,7 +211,7 @@ internal fun V88VoiceCloneGuideSheet(
                         )
                     }
                     Text(
-                        text = "不再询问",
+                        text = stringResource(R.string.guide_never_ask),
                         modifier = Modifier
                             .padding(top = 8.dp)
                             .clickable(onClick = onNeverAsk)
@@ -221,7 +222,7 @@ internal fun V88VoiceCloneGuideSheet(
                         textAlign = TextAlign.Center
                     )
                     Text(
-                        text = "你也可以稍后在 设置 > 用我的声音通话 中完成",
+                        text = stringResource(R.string.voice_clone_guide_later_hint),
                         modifier = Modifier.padding(top = 2.dp),
                         color = Color(0xFFB0B4C3),
                         fontSize = 12.sp,
@@ -288,7 +289,7 @@ internal fun V88TrustedCalleeGuideSheet(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "可信通信被叫",
+                        text = stringResource(R.string.trusted_callee_title),
                         color = Color(0xFF1A1A2E),
                         fontSize = 20.sp,
                         lineHeight = 24.sp,
@@ -297,13 +298,13 @@ internal fun V88TrustedCalleeGuideSheet(
                     )
                     Image(
                         painter = painterResource(id = R.drawable.chakencalledicon),
-                        contentDescription = "可信通信被叫",
+                        contentDescription = stringResource(R.string.trusted_callee_title),
                         modifier = Modifier
                             .padding(top = 8.dp)
                             .size(117.dp)
                     )
                     Text(
-                        text = "开启可信通信被叫相关权限，展示可信来电身份信息。",
+                        text = stringResource(R.string.trusted_callee_description),
                         modifier = Modifier.padding(top = 14.dp),
                         color = Color(0xFF6B7280),
                         fontSize = 14.sp,
@@ -311,14 +312,14 @@ internal fun V88TrustedCalleeGuideSheet(
                         textAlign = TextAlign.Center
                     )
                     V88TrustedCalleePrimaryButton(
-                        label = "去授权",
+                        label = stringResource(R.string.trusted_callee_authorize),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 20.dp),
                         onClick = onAuthorize
                     )
                     Text(
-                        text = "不再提示",
+                        text = stringResource(R.string.guide_never_ask),
                         modifier = Modifier
                             .padding(top = 8.dp)
                             .clickable(onClick = onNeverAsk)
@@ -359,14 +360,14 @@ internal fun V88TrustedCalleeSecondDialog(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "你可以稍后在设置中开启可信通信被叫。",
+                    text = stringResource(R.string.trusted_callee_later_message),
                     color = Color(0xFF111111),
                     fontSize = 14.sp,
                     lineHeight = 21.sp,
                     textAlign = TextAlign.Center
                 )
                 V88TrustedCalleePrimaryButton(
-                    label = "知道了",
+                    label = stringResource(R.string.ota_got_it),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp),
@@ -376,6 +377,24 @@ internal fun V88TrustedCalleeSecondDialog(
         }
     }
 }
+
+@Composable
+private fun localizedPermissionTitle(kind: V88PermissionKind): String =
+    when (kind) {
+        V88PermissionKind.Microphone -> stringResource(R.string.permission_microphone_title)
+        V88PermissionKind.Storage -> stringResource(R.string.permission_storage_title)
+        V88PermissionKind.Contacts -> stringResource(R.string.permission_contacts_title)
+        V88PermissionKind.Phone -> stringResource(R.string.permission_phone_title)
+    }
+
+@Composable
+private fun localizedPermissionDescription(kind: V88PermissionKind): String =
+    when (kind) {
+        V88PermissionKind.Microphone -> stringResource(R.string.permission_microphone_description)
+        V88PermissionKind.Storage -> stringResource(R.string.permission_storage_description)
+        V88PermissionKind.Contacts -> stringResource(R.string.permission_contacts_description)
+        V88PermissionKind.Phone -> stringResource(R.string.permission_phone_description)
+    }
 
 @Composable
 private fun V88TrustedCalleePrimaryButton(

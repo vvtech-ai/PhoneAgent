@@ -11,8 +11,8 @@ internal fun AssistantVoiceCloneRuntimeState.applyCollection(
             scriptId = collection.scriptId,
             text = collection.scriptText,
             minDurationSeconds = collection.minDurationSeconds,
-            title = "动态短句",
-            recordingTips = "请完整朗读屏幕短句",
+            title = "Dynamic Phrase",
+            recordingTips = "Read the on-screen phrase completely",
             targetDurationSeconds = collection.targetDurationSeconds
         )
     )

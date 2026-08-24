@@ -1,6 +1,7 @@
 package com.vvtech.aiassistant.features.assistant_shell
 
 import com.vvtech.aiassistant.features.assistant.V88VoiceModelOptions
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant.toRealtimeCallProviderValue
 import com.vvtech.aiassistant.features.assistant.toVoiceModelComingSoonName
 
@@ -23,19 +24,30 @@ internal fun handleOverlayVoiceModelSelection(
 ) {
     val option = V88VoiceModelOptions.firstOrNull { it.id == modelId }
     if (option?.enabled == false) {
-        callbacks.onShowMessage("${option.title.toVoiceModelComingSoonName()}调试中，即将推出。")
+        callbacks.onShowMessage(
+            currentAppText(
+                "${option.title.toVoiceModelComingSoonName()}调试中，即将推出。",
+                "${option.title.toVoiceModelComingSoonName()} is in testing and coming soon."
+            )
+        )
         return
     }
     val provider = modelId.toRealtimeCallProviderValue()
     when {
         provider == null -> {
-            callbacks.onShowMessage("该模型调试中，即将推出。")
+            callbacks.onShowMessage(
+                currentAppText("该模型调试中，即将推出。", "This model is in testing and coming soon.")
+            )
         }
         !state.availableVoiceModelIds.contains(modelId) -> {
-            callbacks.onShowMessage("当前模型暂不可用，请稍后重试。")
+            callbacks.onShowMessage(
+                currentAppText("当前模型暂不可用，请稍后重试。", "This model is currently unavailable. Please try again later.")
+            )
         }
         state.realtimeProviderSwitching -> {
-            callbacks.onShowMessage("通话模型正在切换中")
+            callbacks.onShowMessage(
+                currentAppText("通话模型正在切换中", "Call model is switching")
+            )
         }
         modelId == state.selectedVoiceModelId -> {
             callbacks.onShowVoiceModelSheetChange(false)

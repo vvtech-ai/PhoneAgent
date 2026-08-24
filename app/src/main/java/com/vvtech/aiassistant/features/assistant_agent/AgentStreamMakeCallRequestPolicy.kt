@@ -4,6 +4,7 @@ import com.vvtech.aiassistant.core.model.AgentChatResponse
 import com.vvtech.aiassistant.features.assistant.AssistantStage
 import com.vvtech.aiassistant.features.assistant.CallPageData
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class AgentStreamMakeCallRequestPlan(
     val nextState: Index9AssistantUiState,
@@ -25,7 +26,7 @@ internal object AgentStreamMakeCallRequestPolicy {
             currentCallPageSeed.copy(
                 name = it.targetName.ifBlank { currentCallPageSeed.name },
                 sub = it.phoneNumber.ifBlank { currentCallPageSeed.sub },
-                status = "准备拨打",
+                status = currentAppText("准备拨打", "Ready to call"),
                 transcript = AgentStreamCallTranscriptPolicy.mergeDistinctTranscript(
                     currentCallPageSeed.transcript,
                     AgentStreamCallTranscriptPolicy.callSpecTranscriptNotes(it)
@@ -38,7 +39,10 @@ internal object AgentStreamMakeCallRequestPolicy {
                 processingTurn = false,
                 loading = false,
                 error = null,
-                status = "信息确认完毕，准备拨打电话",
+                status = currentAppText(
+                    "信息确认完毕，准备拨打电话",
+                    "Details confirmed. Ready to place the call"
+                ),
                 sceneType = resolvedSceneType,
                 agentCallSpec = response.callSpec,
                 agentQuestions = null,

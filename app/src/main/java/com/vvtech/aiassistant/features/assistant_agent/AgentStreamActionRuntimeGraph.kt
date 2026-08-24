@@ -16,6 +16,7 @@ import com.vvtech.aiassistant.features.assistant.startApiListening
 import com.vvtech.aiassistant.features.assistant.startCallSessionPolling
 import com.vvtech.aiassistant.features.assistant.syncConversationSnapshotForVoiceRecovery
 import com.vvtech.aiassistant.features.assistant.stopCallSessionPolling
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant.viewmodel.ContactSelectionStateHolder
 import com.vvtech.aiassistant.logging.AppFileLogger
 import com.vvtech.aiassistant.logging.RuntimeStateLogDomain
@@ -65,7 +66,9 @@ internal class AgentStreamActionRuntimeGraph(
             setPendingLaunch = { pending -> viewModel.pendingAiCallLaunch = pending },
             isVoiceMode = isVoiceMode,
             scope = viewModel.viewModelScope,
-            userIdProvider = accountIdProvider
+            userIdProvider = accountIdProvider,
+            languageCodeProvider = { viewModel.currentVoiceLanguage().code },
+            responseLanguageProvider = { viewModel.currentVoiceLanguage().agentResponseLanguageName() }
         ),
         callbacks = AgentStreamConfirmCallCallbacks(
             setLatestCallPageSeed = { nextSeed -> viewModel.latestCallPageSeed = nextSeed },
@@ -104,7 +107,9 @@ internal class AgentStreamActionRuntimeGraph(
             actionSubmitter.submit(request, beforeRecover = beforeRecover)
         },
         channelProvider = { if (isVoiceMode()) "voice" else "text" },
-        userIdProvider = accountIdProvider
+        userIdProvider = accountIdProvider,
+        languageCodeProvider = { viewModel.currentVoiceLanguage().code },
+        responseLanguageProvider = { viewModel.currentVoiceLanguage().agentResponseLanguageName() }
     )
     private val normalActionEntryHandler = AgentStreamNormalActionEntryHandler(
         sessionIdProvider = { viewModel.agentSessionId },
@@ -124,7 +129,9 @@ internal class AgentStreamActionRuntimeGraph(
         runtime = AgentStreamContactLookupActionRuntime(
             stateProvider = { viewModel.internalUiState.value },
             sessionIdProvider = { viewModel.agentSessionId },
-            userIdProvider = accountIdProvider
+            userIdProvider = accountIdProvider,
+            languageCodeProvider = { viewModel.currentVoiceLanguage().code },
+            responseLanguageProvider = { viewModel.currentVoiceLanguage().agentResponseLanguageName() }
         ),
         callbacks = AgentStreamContactLookupActionCallbacks(
             clearWithoutPendingTool = contactSelectionStateHolder::clearLookupContactWithoutPendingTool,
@@ -139,7 +146,9 @@ internal class AgentStreamActionRuntimeGraph(
             sessionIdProvider = { viewModel.agentSessionId },
             isVoiceMode = isVoiceMode,
             scope = viewModel.viewModelScope,
-            userIdProvider = accountIdProvider
+            userIdProvider = accountIdProvider,
+            languageCodeProvider = { viewModel.currentVoiceLanguage().code },
+            responseLanguageProvider = { viewModel.currentVoiceLanguage().agentResponseLanguageName() }
         ),
         callbacks = AgentStreamDeviceContactSelectionCallbacks(
             clearWithoutPendingTool = contactSelectionStateHolder::clearDeviceContactsWithoutPendingTool,
@@ -268,7 +277,7 @@ internal class AgentStreamActionRuntimeGraph(
             it.copy(
                 agentCallSpec = null,
                 stage = AssistantStage.Clarifying,
-                status = "请输入要修改的内容"
+                status = currentAppText("请输入要修改的内容", "Enter what you want to change")
             )
         }
     }

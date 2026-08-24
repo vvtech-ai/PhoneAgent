@@ -5,6 +5,7 @@ import com.vvtech.aiassistant.core.model.StartRealtimeSessionRequest
 import com.vvtech.aiassistant.core.model.StopRealtimeSessionRequest
 import com.vvtech.aiassistant.domain.usecase.StartRealtimeSessionUseCase
 import com.vvtech.aiassistant.domain.usecase.StopRealtimeSessionUseCase
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.voice.VoiceRuntimeConfig
 import com.vvtech.aiassistant.voice.VoiceRuntimeEvent
 import com.vvtech.aiassistant.voice.VolcRtcVoiceClient
@@ -32,8 +33,14 @@ internal class AssistantHomeVoiceRuntimeController(
             it.copy(
                 voiceConnecting = false,
                 voiceActive = false,
-                voiceError = "没有拿到麦克风权限，暂时还不能进入实时语音。",
-                voiceHint = "给我麦克风权限后，就能直接语音对话。"
+                voiceError = currentAppText(
+                    "没有拿到麦克风权限，暂时还不能进入实时语音。",
+                    "Microphone permission is required for realtime voice."
+                ),
+                voiceHint = currentAppText(
+                    "给我麦克风权限后，就能直接语音对话。",
+                    "Allow microphone access to start voice chat."
+                )
             )
         }
     }
@@ -65,7 +72,7 @@ internal class AssistantHomeVoiceRuntimeController(
                 voiceConnecting = true,
                 voiceActive = false,
                 voiceError = null,
-                voiceHint = "正在准备实时语音..."
+                voiceHint = currentAppText("正在准备实时语音...", "Preparing realtime voice...")
             )
         }
         deps.scope.launch {
@@ -85,8 +92,12 @@ internal class AssistantHomeVoiceRuntimeController(
                             voiceConnecting = false,
                             voiceActive = false,
                             voiceSessionId = response.sessionId,
-                            voiceError = response.statusMessage.ifBlank { "实时语音暂时不可用" },
-                            voiceHint = response.statusMessage.ifBlank { "先继续打字也可以" }
+                            voiceError = response.statusMessage.ifBlank {
+                                currentAppText("实时语音暂时不可用", "Realtime voice is unavailable")
+                            },
+                            voiceHint = response.statusMessage.ifBlank {
+                                currentAppText("先继续打字也可以", "You can continue by typing")
+                            }
                         )
                     }
                     return@onSuccess
@@ -109,8 +120,12 @@ internal class AssistantHomeVoiceRuntimeController(
                         voiceSessionId = response.sessionId,
                         voiceError = null,
                         voiceHint = when {
-                            response.agentReady -> response.statusMessage.ifBlank { "正在连接实时语音..." }
-                            else -> response.statusMessage.ifBlank { "RTC 已就绪，正在先把语音房间连上..." }
+                            response.agentReady -> response.statusMessage.ifBlank {
+                                currentAppText("正在连接实时语音...", "Connecting realtime voice...")
+                            }
+                            else -> response.statusMessage.ifBlank {
+                                currentAppText("RTC 已就绪，正在先把语音房间连上...", "RTC is ready. Connecting the voice room...")
+                            }
                         }
                     )
                 }
@@ -119,8 +134,8 @@ internal class AssistantHomeVoiceRuntimeController(
                     it.copy(
                         voiceConnecting = false,
                         voiceActive = false,
-                        voiceError = throwable.message ?: "实时语音启动失败",
-                        voiceHint = "先用文字告诉我也可以"
+                        voiceError = throwable.message ?: currentAppText("实时语音启动失败", "Failed to start realtime voice"),
+                        voiceHint = currentAppText("先用文字告诉我也可以", "You can also tell me by text first")
                     )
                 }
             }
@@ -134,7 +149,7 @@ internal class AssistantHomeVoiceRuntimeController(
             it.copy(
                 voiceConnecting = false,
                 voiceActive = false,
-                voiceHint = "实时语音已结束",
+                voiceHint = currentAppText("实时语音已结束", "Realtime voice ended"),
                 voiceError = null
             )
         }
@@ -189,7 +204,7 @@ internal class AssistantHomeVoiceRuntimeController(
                         voiceConnecting = false,
                         voiceActive = false,
                         voiceError = event.message,
-                        voiceHint = "先用文字继续也可以"
+                        voiceHint = currentAppText("先用文字继续也可以", "You can continue by typing")
                     )
                 }
             }
@@ -200,7 +215,7 @@ internal class AssistantHomeVoiceRuntimeController(
                         voiceConnecting = false,
                         voiceActive = false,
                         voiceError = null,
-                        voiceHint = "实时语音已结束"
+                        voiceHint = currentAppText("实时语音已结束", "Realtime voice ended")
                     )
                 }
             }

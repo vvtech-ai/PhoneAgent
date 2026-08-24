@@ -1,6 +1,7 @@
 package com.vvtech.aiassistant.features.assistant_pure_voice
 
 import com.vvtech.aiassistant.features.assistant.V88NetworkMode
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.RealtimeCallProviderResponse
 
 internal enum class PureVoicePrecheckItemState {
@@ -74,7 +75,7 @@ internal fun buildPureVoicePrecheckUiState(
         visible = blocking || waitingForModel,
         inline = false,
         blocking = blocking,
-        title = "正在初始化任务执行环境",
+        title = currentAppText("正在初始化任务执行环境", "Initializing task environment"),
         items = items,
         footer = ""
     )
@@ -83,23 +84,23 @@ internal fun buildPureVoicePrecheckUiState(
 private fun buildNetworkPrecheckItem(networkMode: V88NetworkMode): PureVoicePrecheckItemUiState =
     when (networkMode) {
         V88NetworkMode.Offline -> PureVoicePrecheckItemUiState(
-            title = "网络连接",
-            value = "不可用",
-            detail = "网络连接不可用",
+            title = currentAppText("网络连接", "Network Connection"),
+            value = currentAppText("不可用", "Unavailable"),
+            detail = currentAppText("网络不可用，请检查后重试", "Network unavailable. Check your connection and try again."),
             state = PureVoicePrecheckItemState.Blocked
         )
 
         V88NetworkMode.Weak -> PureVoicePrecheckItemUiState(
-            title = "网络连接",
-            value = "弱网",
-            detail = "网络连接较弱",
+            title = currentAppText("网络连接", "Network Connection"),
+            value = currentAppText("较弱", "Weak"),
+            detail = currentAppText("网络较弱，仍可继续执行", "Weak network. You can continue."),
             state = PureVoicePrecheckItemState.Warning
         )
 
         V88NetworkMode.Normal -> PureVoicePrecheckItemUiState(
-            title = "网络连接",
-            value = "正常",
-            detail = "网络连接正常",
+            title = currentAppText("网络连接", "Network Connection"),
+            value = currentAppText("正常", "Normal"),
+            detail = currentAppText("网络连接正常", "Network connected"),
             state = PureVoicePrecheckItemState.Passed
         )
     }
@@ -112,25 +113,25 @@ private fun buildModelPrecheckItem(
     val cleanError = error?.trim().orEmpty()
     if (loading) {
         return PureVoicePrecheckItemUiState(
-            title = "大模型服务",
-            value = "检测中",
-            detail = "正在连接大模型服务",
+            title = currentAppText("大模型服务", "AI Model Service"),
+            value = currentAppText("检测中", "Checking"),
+            detail = currentAppText("正在连接大模型服务", "Connecting to AI model service"),
             state = PureVoicePrecheckItemState.Checking
         )
     }
     if (cleanError.isNotBlank()) {
         return PureVoicePrecheckItemUiState(
-            title = "大模型服务",
-            value = "不可用",
+            title = currentAppText("大模型服务", "AI Model Service"),
+            value = currentAppText("不可用", "Unavailable"),
             detail = cleanError,
             state = PureVoicePrecheckItemState.Blocked
         )
     }
     if (response == null) {
         return PureVoicePrecheckItemUiState(
-            title = "大模型服务",
-            value = "待确认",
-            detail = "正在连接大模型服务",
+            title = currentAppText("大模型服务", "AI Model Service"),
+            value = currentAppText("等待检测", "Waiting to check"),
+            detail = currentAppText("正在连接大模型服务", "Connecting to AI model service"),
             state = PureVoicePrecheckItemState.Warning
         )
     }
@@ -138,20 +139,24 @@ private fun buildModelPrecheckItem(
     val activeProvider = response.providers.firstOrNull { it.active }
         ?: response.providers.firstOrNull { it.provider == response.activeProvider }
     val displayName = response.activeProviderDisplayName.ifBlank {
-        activeProvider?.displayName ?: response.activeProvider.ifBlank { "实时语音模型" }
+        activeProvider?.displayName ?: response.activeProvider.ifBlank {
+            currentAppText("实时语音模型", "Realtime Voice Model")
+        }
     }
     if (activeProvider != null && (!activeProvider.configured || !activeProvider.available)) {
         return PureVoicePrecheckItemUiState(
-            title = "大模型服务",
-            value = "不可用",
-            detail = activeProvider.statusMessage.ifBlank { "$displayName 未配置或不可用" },
+            title = currentAppText("大模型服务", "AI Model Service"),
+            value = currentAppText("不可用", "Unavailable"),
+            detail = activeProvider.statusMessage.ifBlank {
+                currentAppText("$displayName 未配置或不可用", "$displayName is not configured or unavailable")
+            },
             state = PureVoicePrecheckItemState.Blocked
         )
     }
     return PureVoicePrecheckItemUiState(
-        title = "大模型服务",
+        title = currentAppText("大模型服务", "AI Model Service"),
         value = displayName,
-        detail = "$displayName 已就绪",
+        detail = currentAppText("${displayName} 已就绪", "$displayName ready"),
         state = PureVoicePrecheckItemState.Passed
     )
 }
@@ -159,16 +164,16 @@ private fun buildModelPrecheckItem(
 private fun buildSipPrecheckItem(modelReady: Boolean): PureVoicePrecheckItemUiState =
     if (modelReady) {
         PureVoicePrecheckItemUiState(
-            title = "外呼通道",
-            value = "执行前校验",
-            detail = "执行通话前校验外呼通道",
+            title = currentAppText("外呼通道", "Outbound Call Service"),
+            value = currentAppText("等待检测", "Waiting to check"),
+            detail = currentAppText("等待检测", "Waiting to check"),
             state = PureVoicePrecheckItemState.Warning
         )
     } else {
         PureVoicePrecheckItemUiState(
-            title = "外呼通道",
-            value = "等待检测",
-            detail = "等待检测",
+            title = currentAppText("外呼通道", "Outbound Call Service"),
+            value = currentAppText("等待检测", "Waiting to check"),
+            detail = currentAppText("等待检测", "Waiting to check"),
             state = PureVoicePrecheckItemState.Warning
         )
     }
@@ -179,8 +184,8 @@ private fun PureVoicePrecheckItemUiState.asNetworkDisplay(
     when {
         state == PureVoicePrecheckItemState.Blocked -> this
         stage == PureVoicePrecheckDisplayStage.Network -> copy(
-            value = "检测中",
-            detail = "正在检查网络连接",
+            value = currentAppText("检测中", "Checking"),
+            detail = currentAppText("正在确认网络连接", "Checking network connection"),
             state = PureVoicePrecheckItemState.Checking
         )
         else -> this
@@ -192,13 +197,13 @@ private fun PureVoicePrecheckItemUiState.asModelDisplay(
     when {
         state == PureVoicePrecheckItemState.Blocked -> this
         stage == PureVoicePrecheckDisplayStage.Network -> copy(
-            value = "等待检测",
-            detail = "等待检测",
+            value = currentAppText("等待检测", "Waiting to check"),
+            detail = currentAppText("等待检测", "Waiting to check"),
             state = PureVoicePrecheckItemState.Warning
         )
         stage == PureVoicePrecheckDisplayStage.Model -> copy(
-            value = "检测中",
-            detail = "正在连接大模型服务",
+            value = currentAppText("检测中", "Checking"),
+            detail = currentAppText("正在连接大模型服务", "Connecting to AI model service"),
             state = PureVoicePrecheckItemState.Checking
         )
         else -> this
@@ -210,19 +215,19 @@ private fun PureVoicePrecheckItemUiState.asOutboundDisplay(
     when {
         stage == PureVoicePrecheckDisplayStage.Network ||
             stage == PureVoicePrecheckDisplayStage.Model -> copy(
-                value = "等待检测",
-                detail = "等待检测",
+                value = currentAppText("等待检测", "Waiting to check"),
+                detail = currentAppText("等待检测", "Waiting to check"),
                 state = PureVoicePrecheckItemState.Warning
             )
         stage == PureVoicePrecheckDisplayStage.Outbound -> copy(
-            value = "检测中",
-            detail = "正在检查外呼通道",
+            value = currentAppText("检测中", "Checking"),
+            detail = currentAppText("正在检查外呼通道", "Checking outbound call service"),
             state = PureVoicePrecheckItemState.Checking
         )
         stage == PureVoicePrecheckDisplayStage.Passed ||
             stage == PureVoicePrecheckDisplayStage.Complete -> copy(
-            value = "已就绪",
-            detail = "外呼通道已就绪",
+            value = currentAppText("已就绪", "Ready"),
+            detail = currentAppText("外呼通道已就绪", "Outbound call service ready"),
             state = PureVoicePrecheckItemState.Passed
         )
         else -> this

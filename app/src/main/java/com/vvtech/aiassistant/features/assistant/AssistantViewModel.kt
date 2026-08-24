@@ -138,7 +138,8 @@ class AssistantViewModel(
         AgentTtsBridge(
             ttsClient = ttsApiClient,
             audioPlayer = audioPlayer,
-            scope = viewModelScope
+            scope = viewModelScope,
+            languageCodeProvider = { voiceLanguageCode }
         )
     }
     private val _uiState = MutableStateFlow(Index9AssistantUiState())

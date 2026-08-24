@@ -30,7 +30,9 @@ class AgentStreamTurnUseCaseSelectedContactTest {
                 userId = "user-1",
                 initialSkillId = "restaurant_booking",
                 initialOpening = "想订哪家餐厅？",
-                selectedContact = selectedContact
+                selectedContact = selectedContact,
+                languageCode = "zh-CN",
+                responseLanguage = "Simplified Chinese"
             ),
             userContext = UserContextPayload()
         )
@@ -60,7 +62,9 @@ class AgentStreamTurnUseCaseSelectedContactTest {
                 message = "查询天气",
                 pendingToolCallId = null,
                 channel = "text",
-                userId = "user-1"
+                userId = "user-1",
+                languageCode = "zh-CN",
+                responseLanguage = "Simplified Chinese"
             ),
             userContext = UserContextPayload()
         )

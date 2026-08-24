@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.logging.RuntimeStateLogDomain
 import com.vvtech.aiassistant.logging.RuntimeStateLogEvent
 import com.vvtech.aiassistant.logging.RuntimeStateLogger
@@ -70,7 +71,7 @@ internal class AssistantOutboundNumberRuntimeController(
                 loaded = true
                 logSettings("OUTBOUND_NUMBER_REFRESH_COMPLETED", "success")
             }.onFailure { throwable ->
-                error = throwable.message ?: "固定外呼号码加载失败"
+                error = throwable.message ?: currentAppText("固定外呼号码加载失败", "Failed to load fixed outbound number")
                 logSettings("OUTBOUND_NUMBER_REFRESH_FAILED", "failed", throwable = throwable)
             }
             loading = false
@@ -80,7 +81,7 @@ internal class AssistantOutboundNumberRuntimeController(
     fun save() {
         val normalized = normalizeOutboundDialNumber(draft)
         if (normalized.isBlank()) {
-            error = "请输入外呼号码"
+            error = currentAppText("请输入外呼号码", "Enter an outbound number")
             logSettings("OUTBOUND_NUMBER_SAVE_BLOCKED", "blocked", "number_blank")
             return
         }
@@ -100,10 +101,10 @@ internal class AssistantOutboundNumberRuntimeController(
                 configured = response.configured
                 loaded = true
                 logSettings("OUTBOUND_NUMBER_SAVE_COMPLETED", "success")
-                Toast.makeText(deps.context, "固定外呼号码已保存", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, currentAppText("固定外呼号码已保存", "Fixed outbound number saved"), Toast.LENGTH_SHORT).show()
                 callbacks.onNavigateToDeveloperTools()
             }.onFailure { throwable ->
-                error = throwable.message ?: "固定外呼号码保存失败"
+                error = throwable.message ?: currentAppText("固定外呼号码保存失败", "Failed to save fixed outbound number")
                 logSettings("OUTBOUND_NUMBER_SAVE_FAILED", "failed", throwable = throwable)
             }
             saving = false
@@ -131,10 +132,10 @@ internal class AssistantOutboundNumberRuntimeController(
                 configured = response.configured
                 loaded = true
                 logSettings("OUTBOUND_NUMBER_DELETE_COMPLETED", "success")
-                Toast.makeText(deps.context, "固定外呼号码已删除", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, currentAppText("固定外呼号码已删除", "Fixed outbound number deleted"), Toast.LENGTH_SHORT).show()
                 callbacks.onNavigateToDeveloperTools()
             }.onFailure { throwable ->
-                error = throwable.message ?: "固定外呼号码删除失败"
+                error = throwable.message ?: currentAppText("固定外呼号码删除失败", "Failed to delete fixed outbound number")
                 logSettings("OUTBOUND_NUMBER_DELETE_FAILED", "failed", throwable = throwable)
             }
             deleting = false

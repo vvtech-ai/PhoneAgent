@@ -15,9 +15,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant.DeveloperDataMode
 import com.vvtech.aiassistant.features.assistant.FinalBackTitleBar
 import com.vvtech.aiassistant.features.assistant.FinalDeveloperActionRow
@@ -55,14 +57,14 @@ internal fun AssistantDeveloperToolsPage(args: AssistantDeveloperToolsPageArgs) 
     val callbacks = args.callbacks
     val mode = state.mode
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalBackTitleBar(title = "开发者功能", onBack = callbacks.onBack)
+        FinalBackTitleBar(title = stringResource(R.string.developer_title), onBack = callbacks.onBack)
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(start = 14.dp, end = 14.dp, bottom = 16.dp)
         ) {
             item {
                 Text(
-                    text = "列表数据",
+                    text = stringResource(R.string.developer_list_data),
                     modifier = Modifier.padding(top = 16.dp, bottom = 10.dp, start = 4.dp),
                     color = Color(0xFF111111),
                     fontSize = 17.sp,
@@ -83,13 +85,13 @@ internal fun AssistantDeveloperToolsPage(args: AssistantDeveloperToolsPageArgs) 
                             .padding(horizontal = 16.dp, vertical = 16.dp)
                     ) {
                         Text(
-                            text = "真实数据状态",
+                            text = stringResource(R.string.developer_real_data_status),
                             color = Color(0xFF111111),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "用于清空当前列表或重新拉取真实数据",
+                            text = stringResource(R.string.developer_real_data_description),
                             modifier = Modifier.padding(top = 6.dp),
                             color = Color(0xFF6E6E73),
                             fontSize = 13.sp,
@@ -102,13 +104,13 @@ internal fun AssistantDeveloperToolsPage(args: AssistantDeveloperToolsPageArgs) 
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             FinalDeveloperModeButtonV3(
-                                label = "重新拉取",
+                                label = stringResource(R.string.developer_refetch),
                                 selected = mode == DeveloperDataMode.Filled,
                                 onClick = { callbacks.onChangeMode(DeveloperDataMode.Filled) },
                                 modifier = Modifier.weight(1f)
                             )
                             FinalDeveloperModeButtonV3(
-                                label = "清空列表",
+                                label = stringResource(R.string.developer_clear_list),
                                 selected = mode == DeveloperDataMode.Empty,
                                 onClick = { callbacks.onChangeMode(DeveloperDataMode.Empty) },
                                 modifier = Modifier.weight(1f)
@@ -119,44 +121,44 @@ internal fun AssistantDeveloperToolsPage(args: AssistantDeveloperToolsPageArgs) 
             }
             item {
                 Text(
-                    text = "外呼调试",
+                    text = stringResource(R.string.developer_outbound_debug),
                     modifier = Modifier.padding(top = 14.dp, bottom = 10.dp, start = 4.dp),
                     color = Color(0xFF111111),
                     fontSize = 17.sp,
                     fontWeight = FontWeight.ExtraBold
                 )
                 FinalSettingCardV3(
-                    title = "固定外呼号码",
+                    title = stringResource(R.string.developer_fixed_outbound_number),
                     subtitle = outboundNumberSubtitle(
                         state.outboundNumber,
                         state.outboundLoading,
                         state.outboundConfigured
                     ),
-                    value = "编辑",
+                    value = stringResource(R.string.developer_edit),
                     onClick = callbacks.onOpenOutbound
                 )
             }
             item {
                 Text(
-                    text = "设备位置",
+                    text = stringResource(R.string.developer_device_location),
                     modifier = Modifier.padding(top = 14.dp, bottom = 10.dp, start = 4.dp),
                     color = Color(0xFF111111),
                     fontSize = 17.sp,
                     fontWeight = FontWeight.ExtraBold
                 )
                 FinalSettingCardV3(
-                    title = "当前定位",
+                    title = stringResource(R.string.developer_current_location),
                     subtitle = if (state.locationAvailable && state.locationDisplayText.isNotBlank()) {
                         state.locationDisplayText
                     } else {
-                        "未获取到位置信息"
+                        stringResource(R.string.developer_location_unavailable)
                     },
                     value = if (state.locationAvailable) "✓" else "—"
                 ) {}
             }
             item {
                 Text(
-                    text = "V8.8 模拟能力",
+                    text = stringResource(R.string.developer_mock_capabilities),
                     modifier = Modifier.padding(top = 14.dp, bottom = 10.dp, start = 4.dp),
                     color = Color(0xFF111111),
                     fontSize = 17.sp,
@@ -173,7 +175,7 @@ internal fun AssistantDeveloperToolsPage(args: AssistantDeveloperToolsPageArgs) 
                 ) {
                     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp)) {
                         Text(
-                            text = "网络状态模拟",
+                            text = stringResource(R.string.developer_network_mock),
                             color = Color(0xFF111111),
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold
@@ -194,9 +196,9 @@ internal fun AssistantDeveloperToolsPage(args: AssistantDeveloperToolsPageArgs) 
                             }
                         }
                         FinalDeveloperActionRow(
-                            title = "重置所有权限",
-                            subtitle = "清除模拟权限记录，下次使用重新弹窗",
-                            actionText = "重置",
+                            title = stringResource(R.string.developer_reset_permissions),
+                            subtitle = stringResource(R.string.developer_reset_permissions_description),
+                            actionText = stringResource(R.string.developer_reset),
                             onClick = callbacks.onResetPermissions
                         )
                     }

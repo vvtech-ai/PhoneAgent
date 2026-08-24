@@ -10,9 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 
 @Composable
 internal fun FinalHomeTopBar() {
@@ -34,7 +36,7 @@ internal fun FinalHomeTopBar() {
                 maxLines = 1
             )
             Text(
-                text = "电话智能体 - 你的语音分身",
+                text = stringResource(R.string.auth_tagline),
                 modifier = Modifier.padding(top = 6.dp),
                 color = Color(0xFF6E6E73),
                 fontSize = 13.sp,

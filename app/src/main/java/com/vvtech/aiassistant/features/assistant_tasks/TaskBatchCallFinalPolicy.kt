@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant_tasks
 
 import com.vvtech.aiassistant.core.model.BatchCallItemResultPayload
 import com.vvtech.aiassistant.core.model.BatchCallResultPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class TaskBatchCallFinalStepInput(
     val currentText: String,
@@ -65,9 +66,9 @@ internal object TaskBatchCallFinalPolicy {
         resolvedConversationStatus: String
     ): String {
         return if (resolvedConversationStatus == "COMPLETED") {
-            "任务已完成"
+            currentAppText("任务已完成", "Task completed")
         } else {
-            result?.headline ?: "批量外呼已完成"
+            result?.headline ?: currentAppText("批量外呼已完成", "Batch outbound calls completed")
         }
     }
 

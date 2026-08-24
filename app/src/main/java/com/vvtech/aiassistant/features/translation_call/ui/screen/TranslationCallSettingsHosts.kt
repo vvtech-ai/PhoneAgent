@@ -40,7 +40,8 @@ internal fun RegionAwareSipAccountSettingsHost(
             onBack = { returnToAssistantSettings(navigation) },
             onSelectDomesticAccount = settings.onSelectDomesticSipAccount,
             onSelectInternationalAccount = settings.onSelectInternationalSipAccount
-        )
+        ),
+        appLanguage = settings.appLanguage
     )
 }
 

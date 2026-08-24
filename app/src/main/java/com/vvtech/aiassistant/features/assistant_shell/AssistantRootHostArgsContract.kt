@@ -6,6 +6,7 @@ import com.vvtech.aiassistant.callengine.AssistantClientCallController
 import com.vvtech.aiassistant.callengine.AssistantClientCallState
 import com.vvtech.aiassistant.features.app_logs.AssistantLogUploadRuntimeController
 import com.vvtech.aiassistant.features.assistant.*
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 import com.vvtech.aiassistant.features.translation_call.state.TranslationCallUiState
 import com.vvtech.aiassistant.model.ConversationListItem
 
@@ -75,6 +76,7 @@ internal data class AssistantRootHostValueDeps(
     val taskEntryOptions: AssistantTaskEntryOptionsState,
     val pureVoiceMode: Boolean,
     val voiceLanguage: VoiceLanguage,
+    val appLanguage: AppLanguage,
     val selectedRestaurant: FinalOption?,
     val activeAccountId: String,
     val conversationLoading: Boolean,

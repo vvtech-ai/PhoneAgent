@@ -20,6 +20,7 @@ import com.vvtech.aiassistant.data.model.UserIdentityUpsertRequest
 import com.vvtech.aiassistant.data.repository.AssistantRepository
 import com.vvtech.aiassistant.features.assistant_contacts.AssistantContactDirectoryRuntimeController
 import com.vvtech.aiassistant.features.assistant_contacts.normalizeAssistantContactPhoneKey
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_initialization.AssistantInitializationLoadState
 import com.vvtech.aiassistant.features.assistant_initialization.shouldShowAssistantInitialization
 import kotlinx.coroutines.CoroutineScope
@@ -120,7 +121,7 @@ internal class AssistantContactRuntimeController(
                 }
                 .onFailure { throwable ->
                     userIdentityLoading = false
-                    userIdentityError = throwable.message ?: "身份资料加载失败"
+                    userIdentityError = throwable.message ?: currentAppText("身份资料加载失败", "Failed to load identity details")
                     userIdentityLoadState = AssistantInitializationLoadState.FAILED
                 }
         }
@@ -144,7 +145,7 @@ internal class AssistantContactRuntimeController(
                 userIdentityPayload = payload
                 userIdentityLoadState = AssistantInitializationLoadState.LOADED
                 userIdentitySaving = false
-                Toast.makeText(deps.context, "身份资料已保存", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, currentAppText("身份资料已保存", "Identity details saved"), Toast.LENGTH_SHORT).show()
                 if (shouldReturnToSettings) callbacks.onPageChange(FinalPage.Settings)
             }.onFailure { throwable ->
                 userIdentitySaving = false
@@ -167,10 +168,10 @@ internal class AssistantContactRuntimeController(
                 userIdentityPayload = payload
                 userIdentityLoadState = AssistantInitializationLoadState.LOADED
                 userIdentitySaving = false
-                Toast.makeText(deps.context, "身份已删除，已切换为默认音色", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, currentAppText("身份已删除，已切换为默认音色", "Identity deleted. Switched to the default voice"), Toast.LENGTH_SHORT).show()
             }.onFailure { throwable ->
                 userIdentitySaving = false
-                userIdentityError = throwable.message ?: "删除身份失败"
+                userIdentityError = throwable.message ?: currentAppText("删除身份失败", "Failed to delete identity")
             }
         }
     }
@@ -197,7 +198,7 @@ internal class AssistantContactRuntimeController(
                 if (resumeTaskEntry) {
                     onResumeTaskEntry()
                 }
-                Toast.makeText(deps.context, "身份资料已保存", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, currentAppText("身份资料已保存", "Identity details saved"), Toast.LENGTH_SHORT).show()
             }.onFailure { throwable ->
                 identityOverlaySaving = false
                 identityOverlayError = finalUserIdentitySaveErrorMessage(throwable)

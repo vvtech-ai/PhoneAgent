@@ -10,13 +10,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.features.assistant.VoiceCloneGroupCard
 import com.vvtech.aiassistant.features.assistant.finalHasUploadedVoiceClone
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
+import com.vvtech.aiassistant.features.assistant_i18n.appText
 import com.vvtech.aiassistant.features.assistant_voice_clone.VoiceCloneAvailabilityPolicy
 import java.util.Locale
 
 @Composable
 internal fun AssistantRealtimeCallCloneVoiceSection(
     state: AssistantRealtimeCallVoiceSettingsPageState,
-    callbacks: AssistantRealtimeCallVoiceSettingsPageCallbacks
+    callbacks: AssistantRealtimeCallVoiceSettingsPageCallbacks,
+    appLanguage: AppLanguage = AppLanguage.SimplifiedChinese
 ) {
     val status = state.cloneStatus
     val statusName = status?.status?.uppercase(Locale.ROOT).orEmpty()
@@ -24,12 +27,12 @@ internal fun AssistantRealtimeCallCloneVoiceSection(
     val cloneReady = statusName == "READY"
     val enrollmentAvailable = VoiceCloneAvailabilityPolicy.canEnroll(status)
     val selected = state.response?.selectionMode.equals("CLONE", ignoreCase = true)
-    val presentation = realtimeCallCloneVoicePresentation(status?.status, selected)
+    val presentation = realtimeCallCloneVoicePresentation(status?.status, selected, appLanguage)
 
     Column {
         if (state.cloneLoading && status == null) {
             Text(
-                text = "正在读取克隆音色状态...",
+                text = "正在读取克隆音色状态...".appText(appLanguage, "Loading cloned voice status..."),
                 modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
                 color = Color(0xFF6E6E73),
                 fontSize = 13.sp
@@ -42,7 +45,8 @@ internal fun AssistantRealtimeCallCloneVoiceSection(
                 detail = realtimeCallCloneVoiceDetail(
                     status = status?.status,
                     hasClone = hasClone,
-                    lastError = status?.lastError
+                    lastError = status?.lastError,
+                    appLanguage = appLanguage
                 ),
                 actionLabel = presentation.actionText,
                 enabled = !state.cloneLoading &&

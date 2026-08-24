@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun BatchCallStatusCard(
@@ -71,7 +72,11 @@ internal fun BatchCallStatusCard(
                         .background(if (running) Color(0xFF0A84FF) else Color(0xFF22C55E))
                 )
                 Text(
-                    text = if (running) "通话执行中" else "通话执行完成",
+                    text = if (running) {
+                        currentAppText("通话执行中", "Calls in Progress")
+                    } else {
+                        currentAppText("通话执行完成", "Calls Complete")
+                    },
                     modifier = Modifier.padding(start = 8.dp),
                     color = if (running) Color(0xFF0A84FF) else Color(0xFF15803D),
                     fontSize = 12.sp,
@@ -89,7 +94,7 @@ internal fun BatchCallStatusCard(
                             .background(event.batchCallStatusColor())
                     )
                     Text(
-                        text = event,
+                        text = localizedFinalTaskText(event),
                         modifier = Modifier.padding(start = 8.dp),
                         color = Color(0xFF475467),
                         fontSize = 13.sp,

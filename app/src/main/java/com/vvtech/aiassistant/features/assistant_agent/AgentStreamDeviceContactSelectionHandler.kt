@@ -3,6 +3,7 @@ package com.vvtech.aiassistant.features.assistant_agent
 import com.vvtech.aiassistant.features.assistant.DeviceContactSelectionCandidateUi
 import com.vvtech.aiassistant.features.assistant.DeviceContactSelectionUiState
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -12,7 +13,9 @@ internal data class AgentStreamDeviceContactSelectionRuntime(
     val sessionIdProvider: () -> String?,
     val isVoiceMode: () -> Boolean,
     val scope: CoroutineScope,
-    val userIdProvider: () -> String
+    val userIdProvider: () -> String,
+    val languageCodeProvider: () -> String,
+    val responseLanguageProvider: () -> String
 )
 
 internal data class AgentStreamDeviceContactSelectionCallbacks(
@@ -42,14 +45,14 @@ internal class AgentStreamDeviceContactSelectionHandler(
             return
         }
         if (pendingSelection != null) {
-            callbacks.showSelection(pendingSelection, SelectContactStatus)
+            callbacks.showSelection(pendingSelection, selectContactStatus())
             restartContactSelectionListeningIfNeeded()
             return
         }
         if (!echoText.isNullOrBlank()) {
             callbacks.appendUserStep(echoText)
         }
-        callbacks.prepareSubmitting(SubmittingStatus)
+        callbacks.prepareSubmitting(submittingStatus())
         val placeholderIndex = callbacks.appendAssistantPlaceholder()
         submitter.submitDeviceContactsLookupResult(
             AgentDeviceContactsLookupResultSubmitRequest(
@@ -59,7 +62,9 @@ internal class AgentStreamDeviceContactSelectionHandler(
                 results = results,
                 channel = if (runtime.isVoiceMode()) "voice" else "text",
                 placeholderIndex = placeholderIndex,
-                failureMessage = SubmitFailureMessage
+                failureMessage = submitFailureMessage(),
+                languageCode = runtime.languageCodeProvider(),
+                responseLanguage = runtime.responseLanguageProvider()
             )
         )
     }
@@ -135,9 +140,15 @@ internal class AgentStreamDeviceContactSelectionHandler(
         }
     }
 
-    private companion object {
-        private const val SelectContactStatus = "请选择联系人，可直接说第一个、第二个"
-        private const val SubmittingStatus = "AI处理中"
-        private const val SubmitFailureMessage = "联系人查询回传失败"
-    }
+    private fun selectContactStatus(): String =
+        currentAppText(
+            "请选择联系人，可直接说第一个、第二个",
+            "Choose a contact. You can say first, second, and so on."
+        )
+
+    private fun submittingStatus(): String =
+        currentAppText("AI处理中", "AI is processing")
+
+    private fun submitFailureMessage(): String =
+        currentAppText("联系人查询回传失败", "Failed to return contact lookup result")
 }

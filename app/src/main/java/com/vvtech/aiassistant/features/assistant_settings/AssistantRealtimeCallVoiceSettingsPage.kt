@@ -35,9 +35,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant.FinalBackTitleBar
 import com.vvtech.aiassistant.features.assistant_ui.AssistantCallModelDisplayNames
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
+import com.vvtech.aiassistant.features.assistant_i18n.appText
 import com.vvtech.aiassistant.model.RealtimeCallVoiceItem
 import com.vvtech.aiassistant.model.RealtimeCallVoiceResponse
 import com.vvtech.aiassistant.model.VoiceCloneStatusResponse
@@ -64,7 +67,8 @@ internal data class AssistantRealtimeCallVoiceSettingsPageCallbacks(
 @Composable
 internal fun AssistantRealtimeCallVoiceSettingsPage(
     state: AssistantRealtimeCallVoiceSettingsPageState,
-    callbacks: AssistantRealtimeCallVoiceSettingsPageCallbacks
+    callbacks: AssistantRealtimeCallVoiceSettingsPageCallbacks,
+    appLanguage: AppLanguage = AppLanguage.SimplifiedChinese
 ) {
     val context = LocalContext.current
     var playingVoice by remember { mutableStateOf<String?>(null) }
@@ -74,7 +78,10 @@ internal fun AssistantRealtimeCallVoiceSettingsPage(
         onDispose { player?.release() }
     }
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalBackTitleBar(title = "音色与声音克隆", onBack = callbacks.onBack)
+        FinalBackTitleBar(
+            title = stringResource(R.string.call_voice_title),
+            onBack = callbacks.onBack
+        )
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(start = 14.dp, end = 14.dp, bottom = 16.dp)
@@ -82,7 +89,7 @@ internal fun AssistantRealtimeCallVoiceSettingsPage(
             if (state.loading && state.response == null) {
                 item {
                     Text(
-                        text = "加载中...",
+                        text = stringResource(R.string.call_voice_loading_status),
                         modifier = Modifier.padding(horizontal = 4.dp, vertical = 14.dp),
                         color = Color(0xFF6E6E73),
                         fontSize = 13.sp
@@ -103,13 +110,14 @@ internal fun AssistantRealtimeCallVoiceSettingsPage(
                 item {
                     AssistantRealtimeCallCloneVoiceSection(
                         state = state,
-                        callbacks = callbacks
+                        callbacks = callbacks,
+                        appLanguage = appLanguage
                     )
                 }
             } else {
                 item {
                     Text(
-                        text = "暂不支持声音克隆",
+                        text = stringResource(R.string.call_voice_clone_not_supported),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 12.dp, bottom = 8.dp),
@@ -122,13 +130,16 @@ internal fun AssistantRealtimeCallVoiceSettingsPage(
             item {
                 Column(modifier = Modifier.padding(top = 8.dp, bottom = 10.dp)) {
                     Text(
-                        text = "AI 音色",
+                        text = stringResource(R.string.call_voice_ai_voice_title),
                         color = Color(0xFF344054),
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
-                        text = realtimeCallVoiceCatalogDescription(state.activeProvider),
+                        text = stringResource(
+                            R.string.call_voice_catalog_description,
+                            realtimeCallVoiceModelDisplayName(state.activeProvider)
+                        ),
                         modifier = Modifier.padding(top = 6.dp),
                         color = Color(0xFF6E6E73),
                         fontSize = 12.sp,
@@ -204,7 +215,7 @@ private fun RealtimeCallVoiceRow(
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = realtimeCallVoiceDisplayName(voice.voice, voice.displayName),
+                    text = localizedRealtimeCallVoiceDisplayName(voice.voice, voice.displayName),
                     color = Color(0xFF111111),
                     fontSize = 16.sp,
                     lineHeight = 20.sp,
@@ -213,7 +224,7 @@ private fun RealtimeCallVoiceRow(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = buildVoiceSubtitle(voice),
+                    text = localizedVoiceSubtitle(voice),
                     modifier = Modifier.padding(top = 6.dp),
                     color = Color(0xFF6E6E73),
                     fontSize = 12.sp,
@@ -226,9 +237,9 @@ private fun RealtimeCallVoiceRow(
                 VoicePreviewButton(playing = playing, onClick = onPreview)
                 VoiceStatusBadge(
                     text = when {
-                        selected -> "当前"
-                        switching -> "保存中"
-                        else -> "选择"
+                        selected -> stringResource(R.string.call_voice_status_current)
+                        switching -> stringResource(R.string.call_voice_status_saving)
+                        else -> stringResource(R.string.call_voice_action_select)
                     },
                     selected = selected
                 )
@@ -260,6 +271,24 @@ internal fun buildVoiceSubtitle(voice: RealtimeCallVoiceItem): String = when (vo
 }
 
 @Composable
+private fun localizedRealtimeCallVoiceDisplayName(
+    voiceId: String,
+    backendDisplayName: String
+): String = when (voiceId) {
+    DOUBAO_CLEAR_MALE_VOICE -> stringResource(R.string.call_voice_doubao_clear_male_name)
+    else -> backendDisplayName.ifBlank { voiceId }
+}
+
+@Composable
+private fun localizedVoiceSubtitle(voice: RealtimeCallVoiceItem): String = when (voice.voice) {
+    "Andre" -> stringResource(R.string.call_voice_andre_description)
+    "Ethan" -> stringResource(R.string.call_voice_ethan_description)
+    "Katerina" -> stringResource(R.string.call_voice_katerina_description)
+    DOUBAO_CLEAR_MALE_VOICE -> "Seeduplex clear male."
+    else -> voice.description.ifBlank { voice.voice }
+}
+
+@Composable
 private fun VoicePreviewButton(playing: Boolean, onClick: () -> Unit) {
     Surface(
         modifier = Modifier
@@ -272,7 +301,11 @@ private fun VoicePreviewButton(playing: Boolean, onClick: () -> Unit) {
         Box(contentAlignment = Alignment.Center) {
             Icon(
                 imageVector = if (playing) Icons.Filled.Stop else Icons.Filled.PlayArrow,
-                contentDescription = if (playing) "停止预览" else "播放预览",
+                contentDescription = if (playing) {
+                    stringResource(R.string.call_voice_preview_stop)
+                } else {
+                    stringResource(R.string.call_voice_preview_play)
+                },
                 tint = Color(0xFF344054),
                 modifier = Modifier.size(18.dp)
             )
@@ -301,18 +334,27 @@ internal fun visibleRealtimeCallVoices(
 }
 
 internal fun realtimeCallVoiceDisplayName(voiceId: String, backendDisplayName: String): String = when (voiceId) {
-    DOUBAO_CLEAR_MALE_VOICE -> "清朗男声"
+    DOUBAO_CLEAR_MALE_VOICE -> "Seeduplex Clear Male"
     else -> backendDisplayName.ifBlank { voiceId }
 }
 
-internal fun realtimeCallVoiceCatalogDescription(activeProvider: String): String {
-    val modelDisplayName = if (activeProvider.equals("DOUBAO", ignoreCase = true)) {
+internal fun realtimeCallVoiceCatalogDescription(
+    activeProvider: String,
+    appLanguage: AppLanguage = AppLanguage.SimplifiedChinese
+): String {
+    val modelDisplayName = realtimeCallVoiceModelDisplayName(activeProvider)
+    return "当前通话语音模型 $modelDisplayName 支持以下音色".appText(
+        appLanguage,
+        "Voices available for the current call model, $modelDisplayName"
+    )
+}
+
+private fun realtimeCallVoiceModelDisplayName(activeProvider: String): String =
+    if (activeProvider.equals("DOUBAO", ignoreCase = true)) {
         AssistantCallModelDisplayNames.Doubao
     } else {
         AssistantCallModelDisplayNames.Qwen
     }
-    return "当前语音大模型 $modelDisplayName 支持以下音色"
-}
 
 private fun v61VoicePreviewResource(voiceId: String): Int = when (voiceId) {
     DOUBAO_CLEAR_MALE_VOICE -> R.raw.doubao_clear_male

@@ -28,6 +28,7 @@ import com.vvtech.aiassistant.features.assistant.PureVoiceThreadStageIndicator
 import com.vvtech.aiassistant.features.assistant.PureVoiceToolCard
 import com.vvtech.aiassistant.features.assistant.SummaryData
 import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant.VoiceRole
 import com.vvtech.aiassistant.features.assistant.pureVoiceToolIcon
 import com.vvtech.aiassistant.features.assistant.pureVoiceHasVisibleCallDialogue
@@ -70,7 +71,13 @@ internal fun PureVoiceThreadList(
         }
         if (renderState.showEmptyState) {
             item(key = "empty") {
-                PureVoiceThreadStageIndicator(text = voiceLanguage.standbyText, done = false)
+                PureVoiceThreadStageIndicator(
+                    text = currentAppText(
+                        "请按住下方语音按钮，说出你的需求。",
+                        "Press and hold the voice button below, then say what you need."
+                    ),
+                    done = false
+                )
             }
         }
         val ocrByAnchor = PureVoiceOcrDisplayOrdering.byAnchor(
@@ -113,7 +120,9 @@ internal fun PureVoiceThreadList(
             item(key = "processing") {
                 PureVoiceThinkingCard(
                     title = "Phone Agent",
-                    steps = listOf(renderState.displayStatus.ifBlank { voiceLanguage.aiThinkingText })
+                    steps = listOf(renderState.displayStatus.ifBlank {
+                        currentAppText("AI 思考中...", "AI is thinking...")
+                    })
                 )
             }
         }
@@ -279,7 +288,7 @@ internal fun callResultThreadPageData(
     sceneType: String?
 ): CallPageData {
     val current = CallPageData(
-        name = result.metadata?.get("targetName").orEmpty().ifBlank { "AI 外呼" },
+        name = result.metadata?.get("targetName").orEmpty().ifBlank { currentAppText("AI 外呼", "AI Call") },
         sub = result.metadata?.get("phoneNumber").orEmpty(),
         status = "",
         transcript = emptyList(),

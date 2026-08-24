@@ -271,16 +271,16 @@ internal fun V88NetworkStatusLayer(
                     modifier = Modifier.padding(horizontal = 22.dp, vertical = 24.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("无网络连接", color = Color(0xFF111111), fontSize = 22.sp, fontWeight = FontWeight.ExtraBold)
+                    Text("No Network Connection", color = Color(0xFF111111), fontSize = 22.sp, fontWeight = FontWeight.ExtraBold)
                     Text(
-                        text = "请检查网络设置后重试",
+                        text = "Check your network settings and try again.",
                         modifier = Modifier.padding(top = 8.dp),
                         color = Color(0xFF6E6E73),
                         fontSize = 14.sp,
                         textAlign = TextAlign.Center
                     )
                     FinalActionButton(
-                        label = "重试",
+                        label = "Retry",
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 18.dp),
@@ -307,7 +307,7 @@ internal fun V88AttachmentSummaryCard(
         elevation = 0.dp
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text("参考资料", color = Color(0xFF111111), fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
+            Text("Reference Materials", color = Color(0xFF111111), fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -319,7 +319,11 @@ internal fun V88AttachmentSummaryCard(
                 elevation = 0.dp
             ) {
                 Text(
-                    text = if (uploaded) "✓ 2 个文件已上传：会议章程.pdf、参会联络表.xlsx" else "点击添加参考资料",
+                    text = if (uploaded) {
+                        "✓ 2 files uploaded: Meeting Rules.pdf, Attendee Contacts.xlsx"
+                    } else {
+                        "Tap to add reference materials"
+                    },
                     modifier = Modifier.padding(horizontal = 14.dp, vertical = 16.dp),
                     color = if (uploaded) Color(0xFF1F8F45) else Color(0xFF667085),
                     fontSize = 14.sp,
@@ -329,7 +333,7 @@ internal fun V88AttachmentSummaryCard(
             }
             if (uploaded) {
                 Text(
-                    text = "AI 已提炼话术要点：确认参会方式；说明会议时间地点；记录需改派代表或请假原因。",
+                    text = "AI has extracted talking points: confirm attendance method, explain meeting time and location, and record delegate changes or leave reasons.",
                     modifier = Modifier.padding(top = 10.dp),
                     color = Color(0xFF6E6E73),
                     fontSize = 13.sp,

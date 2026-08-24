@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.domain.modelquality.ModelLatencyReading
 import com.vvtech.aiassistant.features.assistant.V88VoiceModelOption
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.model_quality.ModelLatencyPill
 import kotlinx.coroutines.launch
 @Composable
@@ -100,7 +101,7 @@ internal fun V88VoiceModelSheet(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "选择 AI 通话模型",
+                        text = currentAppText("选择 AI 通话模型", "Choose AI Call Model"),
                         color = Color(0xFF1A1A2E),
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Bold
@@ -108,7 +109,7 @@ internal fun V88VoiceModelSheet(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Rounded.Refresh,
-                            contentDescription = "刷新模型延迟",
+                            contentDescription = currentAppText("刷新模型延迟", "Refresh model latency"),
                             tint = if (latencyState.refreshing) {
                                 Color(0xFFC7C7CC)
                             } else {
@@ -152,7 +153,10 @@ internal fun V88VoiceModelSheet(
                     }
                 }
                 Text(
-                    text = "切换引擎后将在下次通话时生效",
+                    text = currentAppText(
+                        "模型切换将在下一次通话生效",
+                        "Model changes take effect on the next call"
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp),

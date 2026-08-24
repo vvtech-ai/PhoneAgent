@@ -14,6 +14,7 @@ import com.vvtech.aiassistant.domain.usecase.LoadAssistantSessionUseCase
 import com.vvtech.aiassistant.domain.usecase.SendAssistantTurnUseCase
 import com.vvtech.aiassistant.domain.usecase.StartRealtimeSessionUseCase
 import com.vvtech.aiassistant.domain.usecase.StopRealtimeSessionUseCase
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.location.FusedLocationProvider
 import com.vvtech.aiassistant.model.UserContextPayload
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,8 +25,8 @@ import kotlinx.coroutines.launch
 
 data class AssistantHomeUiState(
     val taskId: String? = null,
-    val title: String = "生活任务助手",
-    val subtitle: String = "今天想让我帮你处理什么？",
+    val title: String = "Task Assistant",
+    val subtitle: String = "What would you like me to handle today?",
     val sceneType: String = "GENERAL",
     val taskStatus: String = "INIT",
     val messages: List<AssistantMessageItem> = emptyList(),
@@ -34,11 +35,11 @@ data class AssistantHomeUiState(
     val error: String? = null,
     val draft: String = "",
     val userContext: UserContextPayload? = null,
-    val locationSummary: String = "正在获取定位...",
+    val locationSummary: String = "Getting location...",
     val locating: Boolean = false,
     val voiceConnecting: Boolean = false,
     val voiceActive: Boolean = false,
-    val voiceHint: String = "也可以直接用实时语音和我说",
+    val voiceHint: String = currentAppText("也可以直接用实时语音和我说", "You can also talk to me by voice"),
     val voiceError: String? = null,
     val voiceSessionId: String? = null
 )
@@ -80,7 +81,7 @@ class AssistantHomeViewModel : ViewModel() {
                     _uiState.update { state ->
                         state.copy(
                             loading = false,
-                            error = throwable.message ?: "会话加载失败"
+                            error = throwable.message ?: currentAppText("会话加载失败", "Failed to load session")
                         )
                     }
                 }
@@ -99,13 +100,13 @@ class AssistantHomeViewModel : ViewModel() {
 
     fun refreshLocation(context: Context) {
         viewModelScope.launch {
-            _uiState.update { it.copy(locating = true, locationSummary = "正在获取定位...") }
+            _uiState.update { it.copy(locating = true, locationSummary = "Getting location...") }
             val result = runCatching { FusedLocationProvider(context.applicationContext).locateOnce() }
             result.onSuccess { location ->
                 _uiState.update {
                     it.copy(
                         userContext = if (location.success) location.userContext else null,
-                        locationSummary = if (location.summary.isBlank()) "定位已更新" else location.summary,
+                        locationSummary = if (location.summary.isBlank()) "Location updated" else location.summary,
                         locating = false
                     )
                 }
@@ -114,7 +115,7 @@ class AssistantHomeViewModel : ViewModel() {
                     it.copy(
                         userContext = null,
                         locating = false,
-                        locationSummary = throwable.message ?: "定位失败，将使用通用推荐。"
+                        locationSummary = throwable.message ?: "Location failed. General recommendations will be used."
                     )
                 }
             }
@@ -126,7 +127,7 @@ class AssistantHomeViewModel : ViewModel() {
             it.copy(
                 userContext = null,
                 locating = false,
-                locationSummary = "没有定位权限，将使用通用推荐。"
+                locationSummary = "Location permission is unavailable. General recommendations will be used."
             )
         }
     }
@@ -268,7 +269,7 @@ class AssistantHomeViewModel : ViewModel() {
                     _uiState.update { state ->
                         state.copy(
                             sending = false,
-                            error = throwable.message ?: "消息发送失败"
+                            error = throwable.message ?: currentAppText("消息发送失败", "Failed to send message")
                         )
                     }
                 }
@@ -304,7 +305,7 @@ class AssistantHomeViewModel : ViewModel() {
                     _uiState.update { state ->
                         state.copy(
                             sending = false,
-                            error = throwable.message ?: "操作执行失败"
+                            error = throwable.message ?: currentAppText("操作执行失败", "Failed to perform action")
                         )
                     }
                 }
@@ -320,7 +321,7 @@ class AssistantHomeViewModel : ViewModel() {
             state.copy(
                 taskId = session.session.taskId,
                 title = session.session.title,
-                subtitle = session.session.subtitle ?: "今天想让我帮你处理什么？",
+                subtitle = session.session.subtitle ?: "What would you like me to handle today?",
                 sceneType = session.session.sceneType,
                 taskStatus = session.session.taskStatus,
                 messages = session.messages,

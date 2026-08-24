@@ -21,9 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 
 @Composable
 internal fun FinalNormalCallPageV3(
@@ -37,7 +39,7 @@ internal fun FinalNormalCallPageV3(
     onHangup: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalFlowTopBar(backLabel = "返回", onBack = onBack)
+        FinalFlowTopBar(backLabel = stringResource(R.string.common_back), onBack = onBack)
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -61,7 +63,7 @@ internal fun FinalNormalCallPageV3(
                 )
             }
             Text(
-                text = if (phoneNumber.isBlank()) "未知号码" else phoneNumber,
+                text = if (phoneNumber.isBlank()) stringResource(R.string.calls_unknown_number) else phoneNumber,
                 modifier = Modifier.padding(top = 18.dp),
                 color = Color(0xFF111111),
                 fontSize = 34.sp,
@@ -91,7 +93,7 @@ internal fun FinalNormalCallPageV3(
                             .background(Color(0xFF34C759), CircleShape)
                     )
                     Text(
-                        text = "普通通话 · 已接通",
+                        text = stringResource(R.string.normal_call_connected),
                         color = Color(0xFF34C759),
                         fontSize = 12.sp,
                         fontWeight = FontWeight.ExtraBold
@@ -106,13 +108,17 @@ internal fun FinalNormalCallPageV3(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 FinalCallControlV3(
-                    label = if (muted) "取消静音" else "静音",
+                    label = if (muted) {
+                        stringResource(R.string.call_control_unmute)
+                    } else {
+                        stringResource(R.string.call_control_mute)
+                    },
                     icon = "🎙",
                     modifier = Modifier.weight(1f),
                     onClick = onMuteToggle
                 )
                 FinalCallControlV3(
-                    label = "键盘",
+                    label = stringResource(R.string.call_control_keypad),
                     icon = "⌗",
                     modifier = Modifier.weight(1f),
                     onClick = {}
@@ -125,13 +131,17 @@ internal fun FinalNormalCallPageV3(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 FinalCallControlV3(
-                    label = if (speakerEnabled) "关闭外放" else "开启外放",
+                    label = if (speakerEnabled) {
+                        stringResource(R.string.call_control_speaker_off)
+                    } else {
+                        stringResource(R.string.call_control_speaker_on)
+                    },
                     icon = "🔊",
                     modifier = Modifier.weight(1f),
                     onClick = onSpeakerToggle
                 )
                 FinalCallControlV3(
-                    label = "添加通话",
+                    label = stringResource(R.string.call_control_add_call),
                     icon = "+",
                     modifier = Modifier.weight(1f),
                     onClick = {}
@@ -139,7 +149,7 @@ internal fun FinalNormalCallPageV3(
             }
             Spacer(modifier = Modifier.weight(1f))
             FinalActionButton(
-                label = "结束通话",
+                label = stringResource(R.string.call_control_end_call),
                 tone = FinalButtonTone.Danger,
                 modifier = Modifier
                     .fillMaxWidth()

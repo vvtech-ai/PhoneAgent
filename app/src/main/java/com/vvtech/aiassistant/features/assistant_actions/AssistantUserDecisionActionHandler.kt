@@ -11,6 +11,7 @@ import com.vvtech.aiassistant.features.assistant.TranscriptRole
 import com.vvtech.aiassistant.features.assistant.localizedConfirmingSelectionOptionStatus
 import com.vvtech.aiassistant.features.assistant.localizedSelectionOptionConfirmFailureError
 import com.vvtech.aiassistant.features.assistant.localizedSelectionOptionConfirmFailureStatus
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_session.AssistantSessionPendingSelectionContinuation
 import com.vvtech.aiassistant.features.assistant_session.AssistantSessionSelectionSheetPolicy
 import com.vvtech.aiassistant.features.assistant.viewmodel.InteractionChannel
@@ -85,10 +86,10 @@ internal class AssistantUserDecisionActionHandler(
                 viewModel.voiceDuplexCoordinator.suspendDialogAudioForCall("summary_confirm_call")
             }
             val callSeed = viewModel.latestCallPageSeed.copy(
-                status = "正在发起电话...",
+                status = currentAppText("正在发起电话...", "Starting call..."),
                 transcript = viewModel.latestCallPageSeed.transcript + TranscriptLine(
                     role = TranscriptRole.Note,
-                    text = "已按当前确认内容发起后端外呼。"
+                    text = "Backend outbound call has started with the current confirmed details."
                 )
             )
             uiState.update {
@@ -107,7 +108,11 @@ internal class AssistantUserDecisionActionHandler(
             uiState.update {
                 it.copy(
                     processingTurn = true,
-                    status = if (opensCallPage) "正在外呼..." else "正在继续处理..."
+                    status = if (opensCallPage) {
+                        currentAppText("正在外呼...", "Calling...")
+                    } else {
+                        currentAppText("正在继续处理...", "Continuing...")
+                    }
                 )
             }
             runCatching {
@@ -125,12 +130,19 @@ internal class AssistantUserDecisionActionHandler(
                 uiState.update {
                     it.copy(
                         processingTurn = false,
-                        error = throwable.message ?: "操作执行失败",
-                        status = if (opensCallPage) "外呼失败" else "处理失败"
+                        error = throwable.message ?: currentAppText("操作执行失败", "Failed to perform action"),
+                        status = if (opensCallPage) {
+                            currentAppText("外呼失败", "Outbound call failed")
+                        } else {
+                            currentAppText("处理失败", "Processing failed")
+                        }
                     )
                 }
                 if (opensCallPage) {
-                    viewModel.appendCallNote(throwable.message ?: "澶栧懠澶辫触锛岃绋嶅悗鍐嶈瘯")
+                    viewModel.appendCallNote(throwable.message ?: currentAppText(
+                        "外呼失败，请稍后再试",
+                        "Outbound call failed. Please try again later."
+                    ))
                 }
             }
         }

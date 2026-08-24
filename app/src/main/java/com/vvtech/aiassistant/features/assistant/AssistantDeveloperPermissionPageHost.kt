@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import com.vvtech.aiassistant.features.assistant_settings.AssistantDeveloperToolsPageArgs
 import com.vvtech.aiassistant.features.assistant_settings.AssistantDeveloperToolsPageCallbacks
 import com.vvtech.aiassistant.features.assistant_settings.AssistantDeveloperToolsPageState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_shell.AssistantSettingsNavigationCallbacks
 import com.vvtech.aiassistant.features.assistant_shell.openAssistantOutboundNumberEdit
 import com.vvtech.aiassistant.features.assistant_shell.returnToAssistantDeveloperTools
@@ -55,10 +56,10 @@ internal fun AssistantDeveloperPermissionPageHost(
                                         onShowNetworkBlockerChange(false)
                                         when (it) {
                                             V88NetworkMode.Weak -> {
-                                                Toast.makeText(context, "网络信号弱，加载可能较慢", Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(context, currentAppText("网络信号弱，加载可能较慢", "Weak network. Loading may be slower"), Toast.LENGTH_SHORT).show()
                                             }
                                             V88NetworkMode.Offline -> {
-                                                Toast.makeText(context, "网络已断开", Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(context, currentAppText("网络已断开", "Network disconnected"), Toast.LENGTH_SHORT).show()
                                             }
                                             V88NetworkMode.Normal -> Unit
                                         }
@@ -69,7 +70,7 @@ internal fun AssistantDeveloperPermissionPageHost(
                                         onContactsPermissionGrantedChange(false)
                                         onPhonePermissionGrantedChange(false)
                                         onResetDialerLocationPermissionAndOpenDialSheet()
-                                        Toast.makeText(context, "模拟权限已重置", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(context, currentAppText("模拟权限已重置", "Mock permissions reset"), Toast.LENGTH_SHORT).show()
                                     }
                                 )
                             )

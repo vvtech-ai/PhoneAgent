@@ -25,11 +25,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.data.model.UserIdentityPayload
 import com.vvtech.aiassistant.data.model.UserIdentityUpsertRequest
 import com.vvtech.aiassistant.features.translation_call.ui.TranslationProviderUiCatalog
@@ -116,15 +118,15 @@ internal fun V61InitializationOverlay(
                         onNameChange = { name = it },
                         onGenderChange = { gender = it },
                         onPhoneChange = { phone = it.filter(Char::isDigit).take(11) },
-                        actionLabel = "下一步",
+                        actionLabel = stringResource(R.string.initialization_next),
                         onNext = { step = 2 }
                     )
                     2 -> V61ProviderStep(
-                        title = "通话语音模型",
-                        subtitle = "选择AI 外呼通话模型",
+                        title = stringResource(R.string.initialization_call_model_title),
+                        subtitle = stringResource(R.string.initialization_call_model_subtitle),
                         selected = callProvider,
                         options = resolvedCallProviderOptions,
-                        primaryLabel = "下一步",
+                        primaryLabel = stringResource(R.string.initialization_next),
                         onSelected = { callProvider = it },
                         onContinue = {
                             onSelectCallProvider(callProvider)
@@ -132,11 +134,15 @@ internal fun V61InitializationOverlay(
                         }
                     )
                     else -> V61ProviderStep(
-                        title = "同声传译模型",
-                        subtitle = "选择AI 同声传译模型",
+                        title = stringResource(R.string.initialization_translation_model_title),
+                        subtitle = stringResource(R.string.initialization_translation_model_subtitle),
                         selected = translationProvider,
                         options = V61TranslationProviderOptions,
-                        primaryLabel = if (saving) "保存中" else "完成",
+                        primaryLabel = if (saving) {
+                            stringResource(R.string.identity_saving)
+                        } else {
+                            stringResource(R.string.initialization_done)
+                        },
                         error = error,
                         onSelected = { translationProvider = it },
                         onContinue = {
@@ -186,7 +192,7 @@ private fun V61InitializationHeader(
             )
         }
         Text(
-            text = "初始化设置",
+            text = stringResource(R.string.initialization_title),
             modifier = Modifier.align(Alignment.Center),
             color = Color(0xFF111111),
             fontSize = 18.sp,
@@ -194,7 +200,7 @@ private fun V61InitializationHeader(
         )
         if (step == 1) {
             Text(
-                text = "跳过",
+                text = stringResource(R.string.initialization_skip),
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
                     .clickable(onClick = onSkipIdentity)
@@ -227,14 +233,14 @@ internal fun V61IdentityStep(
     ) {
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = "身份信息",
+            text = stringResource(R.string.identity_section_profile),
             modifier = Modifier.padding(top = 34.dp),
             color = Color(0xFF111111),
             fontSize = 22.sp,
             fontWeight = FontWeight.ExtraBold
         )
         Text(
-            text = "设置身份信息以便Agent更好的进行沟通",
+            text = stringResource(R.string.identity_init_subtitle),
             modifier = Modifier.padding(top = 8.dp),
             color = Color(0xFF667085),
             fontSize = 14.sp
@@ -245,12 +251,17 @@ internal fun V61IdentityStep(
                 .padding(horizontal = 10.dp, vertical = 30.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            V61InputCard("姓名", name, "让AI知道该如何介绍自己", onNameChange)
+            V61InputCard(
+                stringResource(R.string.identity_name_label),
+                name,
+                stringResource(R.string.identity_name_placeholder),
+                onNameChange
+            )
             V61GenderCard(gender, onGenderChange)
             V61InputCard(
-                label = "手机号码",
+                label = stringResource(R.string.identity_phone_label),
                 value = phone,
-                placeholder = "请输入手机号码",
+                placeholder = stringResource(R.string.identity_phone_placeholder),
                 onValueChange = onPhoneChange,
                 keyboardType = KeyboardType.Phone
             )
@@ -260,7 +271,7 @@ internal fun V61IdentityStep(
         }
         Spacer(modifier = Modifier.weight(1f))
         FinalActionButton(
-            label = if (saving) "保存中" else actionLabel,
+            label = if (saving) stringResource(R.string.identity_saving) else actionLabel,
             enabled = name.isNotBlank() && !saving,
             modifier = Modifier
                 .fillMaxWidth()
@@ -370,7 +381,7 @@ private fun V61DemoIdentityInputField(
 private fun V61DemoIdentityGenderField(selected: String, onSelected: (String) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(7.dp)) {
         Text(
-            "性别",
+            stringResource(R.string.identity_gender_label),
             color = Color(0xFF4B5563),
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold
@@ -395,7 +406,7 @@ private fun V61DemoIdentityGenderField(selected: String, onSelected: (String) ->
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            option,
+                            localizedV61IdentityGenderOption(option),
                             color = if (selectedOption) Color(0xFF0A84FF) else Color(0xFF4B5563),
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold
@@ -413,10 +424,23 @@ private fun V61GenderCard(selected: String, onSelected: (String) -> Unit) {
 }
 
 @Composable
+private fun localizedV61IdentityGenderOption(option: String): String =
+    when (option) {
+        "男" -> stringResource(R.string.identity_gender_male)
+        "女" -> stringResource(R.string.identity_gender_female)
+        else -> stringResource(R.string.identity_gender_unspecified)
+    }
+
+@Composable
 private fun V61LegacyGenderCard(selected: String, onSelected: (String) -> Unit) {
     Surface(color = Color(0xFFF7F8FA), shape = RoundedCornerShape(14.dp), elevation = 0.dp) {
         Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp)) {
-            Text("性别", color = Color(0xFF344054), fontSize = 12.sp, fontWeight = FontWeight.Medium)
+            Text(
+                stringResource(R.string.identity_gender_label),
+                color = Color(0xFF344054),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium
+            )
             Row(modifier = Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 MyIdentityGenderOptions.forEach { option ->
                     Surface(
@@ -426,7 +450,12 @@ private fun V61LegacyGenderCard(selected: String, onSelected: (String) -> Unit) 
                         border = BorderStroke(1.dp, if (selected == option) Color(0xFF6C5CE7) else Color(0xFFE4E7EC)),
                         elevation = 0.dp
                     ) {
-                        Text(option, modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp), color = Color(0xFF344054), fontSize = 13.sp)
+                        Text(
+                            localizedV61IdentityGenderOption(option),
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
+                            color = Color(0xFF344054),
+                            fontSize = 13.sp
+                        )
                     }
                 }
             }

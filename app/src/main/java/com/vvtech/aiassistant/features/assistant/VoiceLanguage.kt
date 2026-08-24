@@ -4,7 +4,8 @@ import java.util.Locale
 
 const val VoiceLanguagePrefsName = "index9_native_screen"
 const val VoiceLanguageCodeKey = "voice_language_code"
-const val DefaultVoiceLanguageCode = "zh-CN"
+const val VoiceLanguageEnglishDefaultMigrationKey = "voice_language_english_default_migrated"
+const val DefaultVoiceLanguageCode = "en-US"
 
 enum class VoiceLanguage(
     val code: String,
@@ -20,8 +21,8 @@ enum class VoiceLanguage(
 ) {
     Chinese(
         code = "zh-CN",
-        label = "汉语",
-        settingsValue = "汉语",
+        label = "Chinese",
+        settingsValue = "Chinese",
         locale = Locale.SIMPLIFIED_CHINESE,
         firstWelcome = "请按住下方语音按钮，说出你的需求。",
         repeatWelcome = "请按住下方语音按钮，说出你的需求。",
@@ -32,7 +33,7 @@ enum class VoiceLanguage(
     ),
     English(
         code = "en-US",
-        label = "英语",
+        label = "English",
         settingsValue = "English",
         locale = Locale.US,
         firstWelcome = "Tell me what you need. I can help book a restaurant, hotel, flight, or make a call.",
@@ -44,8 +45,8 @@ enum class VoiceLanguage(
     ),
     Japanese(
         code = "ja-JP",
-        label = "日语",
-        settingsValue = "日本語",
+        label = "Japanese",
+        settingsValue = "Japanese",
         locale = Locale.JAPAN,
         firstWelcome = "こんにちは、AIアシスタントです。レストランやホテルの予約など、必要なことを話してください。",
         repeatWelcome = "ご要望をお話しください。",

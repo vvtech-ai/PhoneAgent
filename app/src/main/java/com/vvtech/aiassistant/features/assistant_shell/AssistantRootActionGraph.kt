@@ -9,7 +9,9 @@ import com.vvtech.aiassistant.features.assistant.AssistantViewModel
 import com.vvtech.aiassistant.features.assistant.FinalMainTab
 import com.vvtech.aiassistant.features.assistant.FinalPage
 import com.vvtech.aiassistant.features.assistant.V88NetworkMode
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_agent.AgentInitialSkillLaunchStore
+import com.vvtech.aiassistant.features.assistant.localizedInitialSkillOpening
 
 internal data class AssistantRootActionGraphDeps(
     val context: Context,
@@ -122,7 +124,17 @@ internal fun buildAssistantRootActionGraph(
             },
             onOpenNewSingleFlow = { plan ->
                 plan.initialSkillId?.let {
-                    AgentInitialSkillLaunchStore.arm(it, plan.initialSkillOpening)
+                    val voiceLanguage = assistantViewModel.currentVoiceLanguage()
+                    AgentInitialSkillLaunchStore.armWithBackendOpening(
+                        skillId = it,
+                        opening = localizedInitialSkillOpening(
+                            it,
+                            plan.initialSkillOpening,
+                            voiceLanguage
+                        ),
+                        backendOpening = plan.initialSkillOpening,
+                        sendBackendOpening = voiceLanguage != VoiceLanguage.English
+                    )
                 }
                     ?: AgentInitialSkillLaunchStore.clear()
                 taskEntry.singleFlowInitialCommand = plan.initialCommand
@@ -186,7 +198,7 @@ internal fun buildAssistantRootActionGraph(
             },
             onEnableDeveloperMode = { state.rootSettings.enableDeveloperMode() },
             onShowDeveloperModeUnlocked = {
-                Toast.makeText(deps.context, "已进入开发者模式", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, currentAppText("已进入开发者模式", "Developer mode enabled"), Toast.LENGTH_SHORT).show()
             },
             onApplyCallsMainTab = navigationState::applyCallsMainTab,
             onCloseHomeComposer = state.homeComposer::close,

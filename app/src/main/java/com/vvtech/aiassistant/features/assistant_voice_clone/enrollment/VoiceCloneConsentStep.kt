@@ -23,6 +23,7 @@ import com.vvtech.aiassistant.features.assistant.VoiceAccentBlue
 import com.vvtech.aiassistant.features.assistant.VoiceCard
 import com.vvtech.aiassistant.features.assistant.VoiceTextPrimary
 import com.vvtech.aiassistant.features.assistant.VoiceTextSecondary
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal const val VOICE_CLONE_AUTH_DESCRIPTION =
     "只有完成身份认证的用户，才能使用声音克隆服务。"
@@ -34,6 +35,21 @@ internal const val VOICE_CLONE_FOLLOW_UP_DESCRIPTION =
     "后续通话完善声音需单独开启授权。"
 internal const val VOICE_CLONE_CONSENT_DESCRIPTION =
     "我确认由本人申请使用本人声音，并同意进行身份认证"
+
+internal fun voiceCloneAuthDescription(): String =
+    currentAppText(VOICE_CLONE_AUTH_DESCRIPTION, "Verify your identity to continue.")
+
+internal fun voiceCloneAfterAuthDescription(): String =
+    currentAppText(VOICE_CLONE_AFTER_AUTH_DESCRIPTION, "Next, record your voice.")
+
+internal fun voiceCloneUnauthorizedDescription(): String =
+    currentAppText(VOICE_CLONE_UNAUTHORIZED_DESCRIPTION, "AI should not use your voice for calls without authorization.")
+
+internal fun voiceCloneFollowUpDescription(): String =
+    currentAppText(VOICE_CLONE_FOLLOW_UP_DESCRIPTION, "Separate authorization is required to improve the voice in later calls.")
+
+internal fun voiceCloneConsentDescription(): String =
+    currentAppText(VOICE_CLONE_CONSENT_DESCRIPTION, "I confirm that I am applying to use my own voice and agree to identity verification.")
 
 @Composable
 internal fun VoiceCloneConsentStep(args: VoiceCloneEnrollmentUiArgs) {
@@ -53,14 +69,14 @@ internal fun VoiceCloneConsentStep(args: VoiceCloneEnrollmentUiArgs) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "身份认证",
+                    text = currentAppText("身份认证", "Identity Verification"),
                     color = VoiceTextPrimary,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
                 )
                 Text(
-                    text = VOICE_CLONE_AUTH_DESCRIPTION,
+                    text = voiceCloneAuthDescription(),
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                     color = VoiceTextSecondary,
                     fontSize = 13.sp,
@@ -70,12 +86,12 @@ internal fun VoiceCloneConsentStep(args: VoiceCloneEnrollmentUiArgs) {
             }
         }
         Column {
-            ConsentInfoLine(VOICE_CLONE_AFTER_AUTH_DESCRIPTION)
-            ConsentInfoLine(VOICE_CLONE_UNAUTHORIZED_DESCRIPTION)
-            ConsentInfoLine(VOICE_CLONE_FOLLOW_UP_DESCRIPTION)
+            ConsentInfoLine(voiceCloneAfterAuthDescription())
+            ConsentInfoLine(voiceCloneUnauthorizedDescription())
+            ConsentInfoLine(voiceCloneFollowUpDescription())
         }
         VoiceCloneAgreementRow(
-            text = VOICE_CLONE_CONSENT_DESCRIPTION,
+            text = voiceCloneConsentDescription(),
             checked = state.agreementAccepted,
             enabled = !state.busy,
             modifier = Modifier.fillMaxWidth(),
@@ -83,7 +99,11 @@ internal fun VoiceCloneConsentStep(args: VoiceCloneEnrollmentUiArgs) {
         )
         ConsentError(state.errorMessage)
         ConsentPrimaryButton(
-            text = if (state.busy) "正在进入认证…" else "开始认证",
+            text = if (state.busy) {
+                currentAppText("正在进入认证…", "Starting verification...")
+            } else {
+                currentAppText("开始认证", "Start Verification")
+            },
             enabled = state.agreementAccepted && !state.busy,
             onClick = args.onContinueConsent
         )

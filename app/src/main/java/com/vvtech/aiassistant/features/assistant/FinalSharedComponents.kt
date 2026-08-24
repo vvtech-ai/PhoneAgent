@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -39,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.features.assistant_ui.AssistantPauseGlyph
 import com.vvtech.aiassistant.features.assistant_ui.AssistantVoiceWave
+import com.vvtech.aiassistant.R
 import kotlin.math.max
 
 @Composable
@@ -106,7 +108,7 @@ internal fun FinalTopBar(
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Menu,
-                    contentDescription = "设置",
+                    contentDescription = stringResource(R.string.common_settings_content_description),
                     tint = Color(0xFF344256),
                     modifier = Modifier.size(18.dp)
                 )

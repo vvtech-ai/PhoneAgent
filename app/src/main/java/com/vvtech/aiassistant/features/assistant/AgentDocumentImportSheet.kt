@@ -28,10 +28,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.core.model.DocumentImportRequestPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 fun AgentDocumentImportSheet(
@@ -51,7 +54,7 @@ fun AgentDocumentImportSheet(
             .padding(start = 16.dp, end = 16.dp, top = 18.dp, bottom = 16.dp)
     ) {
         Text(
-            text = request.title?.takeIf { it.isNotBlank() } ?: "上传文件",
+            text = request.title?.takeIf { it.isNotBlank() } ?: currentAppText("上传文件", "Upload File"),
             color = Color(0xFF111111),
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold
@@ -108,13 +111,17 @@ fun AgentDocumentImportSheet(
                     )
                 }
                 Text(
-                    text = if (importing) "正在解析文件" else "点击选择文件",
+                    text = if (importing) {
+                        stringResource(R.string.document_import_parsing)
+                    } else {
+                        stringResource(R.string.document_import_choose_file)
+                    },
                     color = Color(0xFF111111),
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "支持 Markdown、TXT",
+                    text = stringResource(R.string.document_import_supported_formats),
                     color = Color(0xFF6B7280),
                     fontSize = 12.sp
                 )

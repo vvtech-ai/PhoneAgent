@@ -3,6 +3,7 @@ package com.vvtech.aiassistant.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vvtech.aiassistant.account.AccountIdentityProvider
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.TaskListItem
 import com.vvtech.aiassistant.repository.AppContainer
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +36,12 @@ class TaskListViewModel : ViewModel() {
                     _uiState.update { it.copy(loading = false, tasks = tasks, error = null) }
                 }
                 .onFailure { throwable ->
-                    _uiState.update { it.copy(loading = false, error = throwable.message ?: "任务加载失败") }
+                    _uiState.update {
+                        it.copy(
+                            loading = false,
+                            error = throwable.message ?: currentAppText("任务加载失败", "Failed to load tasks")
+                        )
+                    }
                 }
         }
     }

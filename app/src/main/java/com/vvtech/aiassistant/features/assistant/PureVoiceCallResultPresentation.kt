@@ -13,6 +13,7 @@ import com.vvtech.aiassistant.features.assistant_tasks.CallDisplayOutcome
 import com.vvtech.aiassistant.features.assistant_tasks.callDisplayIsBookingScene
 import com.vvtech.aiassistant.features.assistant_tasks.callResultOutcome
 import com.vvtech.aiassistant.features.assistant_tasks.callResultStatusText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class PureVoiceCallResultPresentation(
     val state: PureVoiceCallResultState,
@@ -86,11 +87,11 @@ internal fun pureVoiceCallResultPresentation(
         ),
         style = PureVoiceCallResultStyle(
             title = when {
-                pendingResult -> "结果确认中"
-                bookingResult && partialResult -> "任务部分完成"
-                bookingResult && !failureResult -> "任务完成"
-                bookingResult -> "任务失败"
-                else -> "执行结果"
+                pendingResult -> currentAppText("结果确认中", "Confirming Result")
+                bookingResult && partialResult -> currentAppText("任务部分完成", "Partially Complete")
+                bookingResult && !failureResult -> currentAppText("任务完成", "Task Complete")
+                bookingResult -> currentAppText("任务失败", "Task Failed")
+                else -> currentAppText("执行结果", "Results")
             },
             titleColor = resultTitleColor(pendingResult, partialResult, failureResult),
             borderColor = resultBorderColor(pendingResult, partialResult, failureResult),
@@ -109,7 +110,7 @@ internal fun pureVoiceCallResultPresentation(
 internal fun pureVoiceNotificationResultStatus(result: CallResultPayload?): String? {
     result ?: return null
     val headline = result.headline.filterNot(Char::isWhitespace)
-    val successStatus = NotificationSuccessStatuses[headline]
+    val successStatus = notificationSuccessStatus(headline)
     val recognizedNotification = successStatus != null || headline in NotificationFailureMarkers
     if (!recognizedNotification) return null
     val outcome = callResultOutcome(result)
@@ -119,7 +120,7 @@ internal fun pureVoiceNotificationResultStatus(result: CallResultPayload?): Stri
     ) {
         successStatus
     } else {
-        "失败"
+        currentAppText("失败", "Failed")
     }
 }
 
@@ -142,8 +143,8 @@ internal fun PureVoiceCallResultBody(plan: PureVoiceCallResultPresentation) {
                 PureVoiceSummaryRow(label, value)
             }
             PureVoiceSummaryRow(
-                label = "状态",
-                value = if (plan.state.failureResult) plan.content.resultStatus else "✓任务完成",
+                label = "Status",
+                value = if (plan.state.failureResult) plan.content.resultStatus else "✓ Task Complete",
                 valueColor = plan.style.titleColor,
             )
         }
@@ -156,13 +157,13 @@ internal fun PureVoiceCallResultBody(plan: PureVoiceCallResultPresentation) {
         )
         plan.state.bookingResult -> {
             plan.content.bookingRows.forEach { (label, value) -> PureVoiceSummaryRow(label, value) }
-            PureVoiceSummaryRow("状态", "✓任务完成", valueColor = Color(0xFF34C759))
+            PureVoiceSummaryRow("Status", "✓ Task Complete", valueColor = Color(0xFF34C759))
         }
         else -> {
-            PureVoiceSummaryRow("状态", plan.content.resultStatus)
+            PureVoiceSummaryRow("Status", plan.content.resultStatus)
             plan.content.contactRows.forEach { (label, value) -> PureVoiceSummaryRow(label, value) }
             plan.content.failureReason.takeIf { plan.state.failureResult && it.isNotBlank() }?.let {
-                PureVoiceSummaryRow("原因", it)
+                PureVoiceSummaryRow("Reason", it)
             }
         }
     }
@@ -186,16 +187,17 @@ private fun resultGradient(pending: Boolean, partial: Boolean, failure: Boolean)
     else -> listOf(Color(0xFFFFF1F0), Color(0xFFFFDAD6))
 }
 
-private val NotificationSuccessStatuses = mapOf(
-    "会议通知已送达" to "已通知",
-    "挪车已通知车主" to "已通知车主",
-    "挪车已通知物业" to "已通知物业",
-    "挪车已通知保安" to "已通知保安",
-    "挪车已通知停车场" to "已通知停车场",
-    "挪车已通知公司前台" to "已通知公司前台",
-    "挪车已通知114" to "已通知114",
-    "挪车已通知122" to "已通知122",
-)
+private fun notificationSuccessStatus(headline: String): String? = when (headline) {
+    "会议通知已送达" -> currentAppText("已通知", "Notified")
+    "挪车已通知车主" -> currentAppText("已通知车主", "Owner Notified")
+    "挪车已通知物业" -> currentAppText("已通知物业", "Property Office Notified")
+    "挪车已通知保安" -> currentAppText("已通知保安", "Security Notified")
+    "挪车已通知停车场" -> currentAppText("已通知停车场", "Parking Lot Notified")
+    "挪车已通知公司前台" -> currentAppText("已通知公司前台", "Reception Notified")
+    "挪车已通知114" -> currentAppText("已通知114", "114 Notified")
+    "挪车已通知122" -> currentAppText("已通知122", "122 Notified")
+    else -> null
+}
 
 private val NotificationFailureMarkers = setOf(
     "挪车通知失败",

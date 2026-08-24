@@ -10,14 +10,14 @@ import org.junit.Test
 
 class AssistantVoiceLanguageStateTest {
     @Test
-    fun defaultsToChineseWhenInitialCodeIsMissingOrInvalid() {
+    fun defaultsToEnglishWhenInitialCodeIsMissingOrInvalid() {
         val missing = AssistantVoiceLanguageState(initialCode = null)
         val invalid = AssistantVoiceLanguageState(initialCode = "not-a-language")
 
         assertEquals(DefaultVoiceLanguageCode, missing.code)
-        assertEquals(VoiceLanguage.Chinese, missing.language)
+        assertEquals(VoiceLanguage.English, missing.language)
         assertEquals(DefaultVoiceLanguageCode, invalid.code)
-        assertEquals(VoiceLanguage.Chinese, invalid.language)
+        assertEquals(VoiceLanguage.English, invalid.language)
     }
 
     @Test

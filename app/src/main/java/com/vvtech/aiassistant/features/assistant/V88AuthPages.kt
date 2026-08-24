@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -105,7 +106,7 @@ internal fun V88LoginPage(
                 textAlign = TextAlign.Center
             )
             Text(
-                text = "电话智能体 - 你的语音分身",
+                text = stringResource(R.string.auth_tagline),
                 modifier = Modifier.padding(top = 6.dp),
                 color = Color(0xFF8B8FA3),
                 fontSize = 14.sp,
@@ -115,7 +116,7 @@ internal fun V88LoginPage(
             Spacer(modifier = Modifier.height(40.dp))
             V88LoginInputGroup(
                 value = phone,
-                placeholder = "请输入手机号",
+                placeholder = stringResource(R.string.auth_phone_placeholder),
                 keyboardType = KeyboardType.Phone,
                 prefix = "+86",
                 imeAction = ImeAction.Next,
@@ -127,7 +128,7 @@ internal fun V88LoginPage(
             Spacer(modifier = Modifier.height(12.dp))
             V88LoginInputGroup(
                 value = code,
-                placeholder = "请输入验证码",
+                placeholder = stringResource(R.string.auth_code_placeholder),
                 keyboardType = KeyboardType.Number,
                 inputModifier = Modifier.focusRequester(codeFocusRequester),
                 imeAction = ImeAction.Done,
@@ -142,9 +143,9 @@ internal fun V88LoginPage(
                 trailing = {
                     V88LoginCodeButton(
                         label = when {
-                            sendingCode -> "发送中..."
-                            retrySeconds > 0 -> "${retrySeconds}s后重试"
-                            else -> "获取验证码"
+                            sendingCode -> stringResource(R.string.auth_sending_code)
+                            retrySeconds > 0 -> stringResource(R.string.auth_retry_seconds, retrySeconds)
+                            else -> stringResource(R.string.auth_get_code)
                         },
                         enabled = !sendingCode && !loggingIn && retrySeconds <= 0,
                         onClick = onSendCode
@@ -153,7 +154,11 @@ internal fun V88LoginPage(
                 onValueChange = onCodeChange
             )
             V88LoginPrimaryButton(
-                label = if (loggingIn) "登录中..." else "登录 / 注册",
+                label = if (loggingIn) {
+                    stringResource(R.string.auth_logging_in)
+                } else {
+                    stringResource(R.string.auth_login_register)
+                },
                 enabled = !loggingIn && !sendingCode,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -348,7 +353,7 @@ internal fun V88ActivationPage(
                 textAlign = TextAlign.Center
             )
             Text(
-                text = "电话智能体 - 你的语音分身",
+                text = stringResource(R.string.auth_tagline),
                 modifier = Modifier.padding(top = 6.dp),
                 color = Color(0xFF8B8FA3),
                 fontSize = 14.sp,
@@ -358,7 +363,7 @@ internal fun V88ActivationPage(
             Spacer(modifier = Modifier.height(40.dp))
             V88LoginInputGroup(
                 value = activationCode,
-                placeholder = "请输入邀请码",
+                placeholder = stringResource(R.string.auth_activation_placeholder),
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done,
                 keyboardActions = KeyboardActions(
@@ -372,7 +377,11 @@ internal fun V88ActivationPage(
                 onValueChange = onActivationChange
             )
             V88LoginPrimaryButton(
-                label = if (loggingIn) "验证中..." else "确认",
+                label = if (loggingIn) {
+                    stringResource(R.string.auth_verifying)
+                } else {
+                    stringResource(R.string.auth_confirm)
+                },
                 enabled = !loggingIn && activationCode.isNotBlank(),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -380,7 +389,7 @@ internal fun V88ActivationPage(
                 onClick = onConfirm
             )
             Text(
-                text = "返回登录",
+                text = stringResource(R.string.auth_back_to_login),
                 modifier = Modifier
                     .padding(top = 24.dp)
                     .clickable(onClick = onBackLogin),

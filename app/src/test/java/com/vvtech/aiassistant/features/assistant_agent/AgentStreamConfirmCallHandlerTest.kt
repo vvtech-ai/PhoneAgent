@@ -189,7 +189,9 @@ class AgentStreamConfirmCallHandlerTest {
                 },
                 isVoiceMode = { voiceMode },
                 scope = scope,
-                userIdProvider = { "user-1" }
+                userIdProvider = { "user-1" },
+                languageCodeProvider = { "zh-CN" },
+                responseLanguageProvider = { "Simplified Chinese" }
             ),
             callbacks = AgentStreamConfirmCallCallbacks(
                 setLatestCallPageSeed = { seed ->

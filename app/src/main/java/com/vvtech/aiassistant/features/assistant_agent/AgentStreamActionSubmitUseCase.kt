@@ -28,6 +28,8 @@ internal class AgentStreamActionSubmitUseCase(
                 commandId = request.identity.commandId,
                 idempotencyKey = request.identity.idempotencyKey,
                 traceId = request.identity.traceId,
+                languageCode = null,
+                responseLanguage = null,
             )
         )
     }

@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 import com.vvtech.aiassistant.core.model.AskQuestionsPayload
 import com.vvtech.aiassistant.core.model.AssistantHistoryItem
 import com.vvtech.aiassistant.core.model.CallSpecPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.ConversationDetail
 import com.vvtech.aiassistant.model.ConversationListItem
 import com.vvtech.aiassistant.model.ReservationSlot
@@ -32,26 +33,45 @@ internal fun outboundNumberSubtitle(
     loading: Boolean,
     configured: Boolean
 ): String = when {
-    loading -> "正在读取当前固定外呼号码"
-    outboundNumber.isBlank() -> "尚未配置固定外呼号码"
-    configured -> "当前生效：${maskPhone(outboundNumber)}"
-    else -> "已保存但后端标记为未配置：${maskPhone(outboundNumber)}"
+    loading -> currentAppText("正在读取当前固定外呼号码", "Loading current outbound number")
+    outboundNumber.isBlank() -> currentAppText("尚未配置固定外呼号码", "No fixed outbound number configured")
+    configured -> currentAppText("当前生效：${maskPhone(outboundNumber)}", "Active: ${maskPhone(outboundNumber)}")
+    else -> currentAppText("已保存但后端标记为未配置：${maskPhone(outboundNumber)}", "Saved, but backend marks it unconfigured: ${maskPhone(outboundNumber)}")
 }
 
 internal fun finalVoiceCloneStatusDescription(status: VoiceCloneStatusResponse?): String {
     if (status == null) {
-        return "录完固定脚本后上传生成专属音色，当前仅用于 AI 外呼。"
+        return currentAppText(
+            "录完固定脚本后上传生成专属音色，当前仅用于 AI 外呼。",
+            "Record the fixed script and upload it to create your voice. It is currently used only for AI outbound calls."
+        )
     }
     return when (status.status.uppercase(Locale.ROOT)) {
-        "PROCESSING", "GENERATING" -> "声音样本已上传，正在生成音色，完成后即可启用。"
+        "PROCESSING", "GENERATING" -> currentAppText(
+            "声音样本已上传，正在生成音色，完成后即可启用。",
+            "Voice samples uploaded. Generating the voice now. You can enable it when it is ready."
+        )
         "READY" -> if (status.active) {
-            "当前 AI 外呼会优先使用这套克隆音色。"
+            currentAppText(
+                "当前 AI 外呼会优先使用这套克隆音色。",
+                "AI outbound calls will prioritize this cloned voice."
+            )
         } else {
-            "声音已生成完成，点击启用后 AI 外呼会使用该音色。"
+            currentAppText(
+                "声音已生成完成，点击启用后 AI 外呼会使用该音色。",
+                "Voice generation is complete. Enable it to use this voice for AI outbound calls."
+            )
         }
-        "EXPIRED" -> status.lastError.ifBlank { "旧版本声音样本已过期，请重新录制后再启用。" }
-        "FAILED" -> status.lastError.ifBlank { "生成失败，请重新录制并上传这段脚本。" }
-        else -> "建议在安静环境录制，语速自然，避免背景音乐和回声。"
+        "EXPIRED" -> status.lastError.ifBlank {
+            currentAppText("旧版本声音样本已过期，请重新录制后再启用。", "The old voice samples expired. Please record again before enabling.")
+        }
+        "FAILED" -> status.lastError.ifBlank {
+            currentAppText("生成失败，请重新录制并上传这段脚本。", "Generation failed. Please record and upload this script again.")
+        }
+        else -> currentAppText(
+            "建议在安静环境录制，语速自然，避免背景音乐和回声。",
+            "Record in a quiet environment, speak naturally, and avoid background music or echo."
+        )
     }
 }
 
@@ -72,16 +92,16 @@ internal fun voiceCloneStatusLabel(
     status: VoiceCloneStatusResponse?,
     loading: Boolean
 ): String {
-    if (loading) return "同步中"
-    if (status == null) return "未读取"
-    if (status.active) return "已启用"
+    if (loading) return currentAppText("同步中", "Syncing")
+    if (status == null) return currentAppText("未读取", "Not Loaded")
+    if (status.active) return currentAppText("已启用", "Enabled")
     return when (status.status.uppercase(Locale.ROOT)) {
-        "READY" -> "可启用"
-        "PROCESSING", "GENERATING" -> "生成中"
-        "EXPIRED" -> "已过期"
-        "FAILED" -> "生成失败"
-        "EMPTY", "NONE", "NOT_CONFIGURED" -> "未录制"
-        else -> status.status.ifBlank { "未启用" }
+        "READY" -> currentAppText("可启用", "Ready")
+        "PROCESSING", "GENERATING" -> currentAppText("生成中", "Generating")
+        "EXPIRED" -> currentAppText("已过期", "Expired")
+        "FAILED" -> currentAppText("生成失败", "Generation Failed")
+        "EMPTY", "NONE", "NOT_CONFIGURED" -> currentAppText("未录制", "Not Recorded")
+        else -> status.status.ifBlank { currentAppText("未启用", "Not Enabled") }
     }
 }
 
@@ -90,12 +110,17 @@ internal fun voiceCloneSettingsSubtitle(
     loading: Boolean,
     error: String?
 ): String = when {
-    loading -> "正在同步声音克隆状态"
+    loading -> currentAppText("正在同步声音克隆状态", "Syncing voice cloning status")
     !error.isNullOrBlank() -> error
-    status == null -> "点击进入后读取当前声音克隆状态"
-    status.active -> "AI 外呼会优先使用已启用的克隆音色"
-    status.status.uppercase(Locale.ROOT) == "READY" -> "已有 ${status.sampleCount} 条样本，可启用克隆音色"
-    status.status.uppercase(Locale.ROOT) == "EXPIRED" -> status.lastError.ifBlank { "旧版本声音样本已过期，请重新录制。" }
+    status == null -> currentAppText("点击进入后读取当前声音克隆状态", "Open to load current voice cloning status")
+    status.active -> currentAppText("AI 外呼会优先使用已启用的克隆音色", "AI outbound calls will prioritize the enabled cloned voice")
+    status.status.uppercase(Locale.ROOT) == "READY" -> currentAppText("已有 ${status.sampleCount} 条样本，可启用克隆音色", "${status.sampleCount} samples ready. You can enable the cloned voice")
+    status.status.uppercase(Locale.ROOT) == "EXPIRED" -> status.lastError.ifBlank {
+        currentAppText("旧版本声音样本已过期，请重新录制。", "Old voice samples expired. Please record again.")
+    }
     status.lastError.isNotBlank() -> status.lastError
-    else -> "当前状态：${status.status.ifBlank { "未配置" }}，样本 ${status.sampleCount} 条"
+    else -> currentAppText(
+        "当前状态：${status.status.ifBlank { "未配置" }}，样本 ${status.sampleCount} 条",
+        "Current status: ${status.status.ifBlank { "Not Configured" }}, ${status.sampleCount} samples"
+    )
 }

@@ -9,6 +9,7 @@ import com.vvtech.aiassistant.features.assistant.AssistantViewModel
 import com.vvtech.aiassistant.features.assistant.TaskVoiceAsrEvent
 import com.vvtech.aiassistant.features.assistant.localizedVoiceUnavailableStatus
 import com.vvtech.aiassistant.features.assistant.viewmodel.InteractionChannel
+import com.vvtech.aiassistant.features.assistant_agent.isCallOutcomePendingStatusText
 import com.vvtech.aiassistant.logging.RuntimeStateLogDomain
 import com.vvtech.aiassistant.logging.RuntimeStateLogEvent
 import com.vvtech.aiassistant.logging.RuntimeStateLogger
@@ -212,10 +213,6 @@ internal class VoiceRuntimeSessionController(
 
     private fun isCallOutcomePending(state: Index9AssistantUiState): Boolean =
         state.processingTurn &&
-            (state.status == CallOutcomePendingStatus ||
-                state.callPageData.status == CallOutcomePendingStatus)
-
-    private companion object {
-        const val CallOutcomePendingStatus = "正在确认通话结果"
-    }
+            (isCallOutcomePendingStatusText(state.status) ||
+                isCallOutcomePendingStatusText(state.callPageData.status))
 }

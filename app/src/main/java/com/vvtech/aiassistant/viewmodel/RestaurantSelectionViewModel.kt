@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.CallTaskResponse
 import com.vvtech.aiassistant.model.Restaurant
 import com.vvtech.aiassistant.repository.AppContainer
@@ -59,7 +60,12 @@ class RestaurantSelectionViewModel : ViewModel() {
                     }
                 }
                 .onFailure { throwable ->
-                    _uiState.update { it.copy(loading = false, error = throwable.message ?: "餐厅选择失败") }
+                    _uiState.update {
+                        it.copy(
+                            loading = false,
+                            error = throwable.message ?: currentAppText("餐厅选择失败", "Failed to select restaurant")
+                        )
+                    }
                 }
         }
     }
@@ -82,7 +88,12 @@ class RestaurantSelectionViewModel : ViewModel() {
                     }
                 }
                 .onFailure { throwable ->
-                    _uiState.update { it.copy(calling = false, error = throwable.message ?: "外呼失败") }
+                    _uiState.update {
+                        it.copy(
+                            calling = false,
+                            error = throwable.message ?: currentAppText("外呼失败", "Failed to start call")
+                        )
+                    }
                 }
         }
     }
@@ -107,7 +118,15 @@ class RestaurantSelectionViewModel : ViewModel() {
                     }
                 }
                 .onFailure { throwable ->
-                    _uiState.update { it.copy(loading = false, error = throwable.message ?: "餐厅列表加载失败") }
+                    _uiState.update {
+                        it.copy(
+                            loading = false,
+                            error = throwable.message ?: currentAppText(
+                                "餐厅列表加载失败",
+                                "Failed to load restaurant list"
+                            )
+                        )
+                    }
                 }
         }
     }

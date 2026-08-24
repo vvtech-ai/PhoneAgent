@@ -37,10 +37,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.callengine.AssistantCallMode
 import com.vvtech.aiassistant.callengine.AssistantCallPhase
 import com.vvtech.aiassistant.callengine.AssistantClientCallState
@@ -108,7 +110,7 @@ internal fun AssistantClientSipCallPage(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "通话中",
+                    text = stringResource(R.string.sip_call_in_progress),
                     color = Color(0xFF9AA9C3),
                     fontSize = 17.sp
                 )
@@ -123,19 +125,19 @@ internal fun AssistantClientSipCallPage(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             CallControl(
-                label = "静音",
+                label = stringResource(R.string.sip_call_muted),
                 icon = if (state.muted) Icons.Default.MicOff else Icons.Default.Mic,
                 active = state.muted,
                 onClick = onToggleMuted
             )
             CallControl(
-                label = "拨号盘",
+                label = stringResource(R.string.sip_call_dialpad),
                 icon = Icons.Default.Dialpad,
                 active = showDialPad,
                 onClick = { showDialPad = !showDialPad }
             )
             CallControl(
-                label = "扬声器",
+                label = stringResource(R.string.sip_call_speaker),
                 icon = if (state.speakerEnabled) Icons.Default.VolumeUp else Icons.Default.VolumeOff,
                 active = state.speakerEnabled,
                 onClick = onToggleSpeaker
@@ -143,7 +145,7 @@ internal fun AssistantClientSipCallPage(
         }
         Spacer(Modifier.height(28.dp))
         CallControl(
-            label = "挂断",
+            label = stringResource(R.string.sip_call_hangup),
             icon = Icons.Default.CallEnd,
             active = true,
             danger = true,
@@ -156,18 +158,22 @@ internal fun AssistantClientSipCallPage(
 @Composable
 private fun CallStateChip(phase: AssistantCallPhase, translation: Boolean) {
     val text = when (phase) {
-        AssistantCallPhase.REGISTERING -> "正在注册 SIP"
-        AssistantCallPhase.DIALING -> "正在拨号"
-        AssistantCallPhase.RINGING -> "正在振铃"
-        AssistantCallPhase.CONNECTED -> "已接通"
-        AssistantCallPhase.TRANSLATING -> "实时翻译 · 已接通"
-        AssistantCallPhase.FAILED -> "呼叫失败"
-        AssistantCallPhase.ENDED -> "通话结束"
+        AssistantCallPhase.REGISTERING -> stringResource(R.string.sip_phase_registering)
+        AssistantCallPhase.DIALING -> stringResource(R.string.sip_phase_dialing)
+        AssistantCallPhase.RINGING -> stringResource(R.string.sip_phase_ringing)
+        AssistantCallPhase.CONNECTED -> stringResource(R.string.sip_phase_connected)
+        AssistantCallPhase.TRANSLATING -> stringResource(R.string.sip_phase_translating)
+        AssistantCallPhase.FAILED -> stringResource(R.string.sip_phase_failed)
+        AssistantCallPhase.ENDED -> stringResource(R.string.sip_phase_ended)
         AssistantCallPhase.IDLE -> ""
     }
     val color = if (phase == AssistantCallPhase.FAILED) Color(0xFFFF6868) else Color(0xFF42D984)
     Text(
-        text = if (translation && phase == AssistantCallPhase.CONNECTED) "翻译准备中" else text,
+        text = if (translation && phase == AssistantCallPhase.CONNECTED) {
+            stringResource(R.string.sip_translation_preparing)
+        } else {
+            text
+        },
         modifier = Modifier
             .clip(RoundedCornerShape(28.dp))
             .background(color.copy(alpha = 0.16f))

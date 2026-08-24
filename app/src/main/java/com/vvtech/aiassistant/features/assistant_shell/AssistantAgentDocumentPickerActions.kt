@@ -1,8 +1,15 @@
 package com.vvtech.aiassistant.features.assistant_shell
 
 import com.vvtech.aiassistant.core.model.DocumentImportRequestPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal const val AgentDocumentPickerUnavailableMessage = "未找到可用的系统文件选择器"
+
+internal fun localizedAgentDocumentPickerUnavailableMessage(): String =
+    currentAppText(
+        AgentDocumentPickerUnavailableMessage,
+        "No system file picker is available"
+    )
 
 private val DefaultAgentDocumentPickerMimeTypes = listOf("text/plain", "text/markdown", "text/*")
 
@@ -36,7 +43,7 @@ internal fun launchAssistantAgentDocumentPicker(
         callbacks.onLaunchDocumentPicker(mimeTypes.toTypedArray())
     }.onFailure {
         callbacks.onClearAgentDocumentRequest()
-        callbacks.onShowMessage(AgentDocumentPickerUnavailableMessage)
+        callbacks.onShowMessage(localizedAgentDocumentPickerUnavailableMessage())
         callbacks.onAgentDocumentPickerCancelled()
     }
 }

@@ -3,6 +3,7 @@ package com.vvtech.aiassistant.features.assistant_agent
 import com.vvtech.aiassistant.core.model.AgentChatResponse
 import com.vvtech.aiassistant.features.assistant.AssistantStage
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal object AgentStreamLookupRequestStateReducer {
     fun contactLookupRequest(
@@ -13,7 +14,7 @@ internal object AgentStreamLookupRequestStateReducer {
             stage = AssistantStage.Clarifying,
             processingTurn = true,
             error = null,
-            status = "AI处理中",
+            status = currentAppText("AI处理中", "AI is processing"),
             agentOptions = null,
             agentQuestions = null,
             agentPermissionRequest = null,
@@ -37,7 +38,7 @@ internal object AgentStreamLookupRequestStateReducer {
             stage = AssistantStage.Clarifying,
             processingTurn = true,
             error = null,
-            status = "AI处理中",
+            status = currentAppText("AI处理中", "AI is processing"),
             agentOptions = null,
             agentQuestions = null,
             agentPermissionRequest = null,

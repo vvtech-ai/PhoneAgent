@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import androidx.compose.ui.viewinterop.AndroidView
 import com.bumptech.glide.Glide
 import com.vvtech.aiassistant.features.assistant.PureVoiceBubble
@@ -52,7 +53,7 @@ internal fun LazyListScope.pureVoiceOcrAttachmentItems(
         when (attachment.status) {
             PureVoiceOcrStatus.Processing -> PureVoiceThinkingCard(
                 title = "Phone Agent",
-                steps = listOf("AI 思考中")
+                steps = listOf(currentAppText("AI 思考中...", "AI is thinking..."))
             )
 
             PureVoiceOcrStatus.Success -> PureVoiceOcrResultCard(attachment)
@@ -109,7 +110,7 @@ private fun PureVoiceOcrResultCard(attachment: PureVoiceOcrAttachment) {
             }
             Spacer(Modifier.height(12.dp))
             Text(
-                text = "图中完整文字信息",
+                text = "Full text in image",
                 color = Color(0xFF64748B),
                 fontSize = 11.sp,
                 fontWeight = FontWeight.SemiBold
@@ -155,7 +156,7 @@ private fun PureVoiceOcrFormattedText(
                 )
             ) {
                 Text(
-                    text = if (expanded) "收起" else "展开",
+                    text = if (expanded) currentAppText("收起", "Collapse") else currentAppText("展开", "Expand"),
                     fontSize = 11.sp,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -173,7 +174,7 @@ private fun PureVoiceOcrCardHeader(attachment: PureVoiceOcrAttachment) {
         )
         Column(modifier = Modifier.padding(start = 10.dp)) {
             Text(
-                text = "已识别图片文字",
+                text = "Recognized image text",
                 color = Color(0xFF111827),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.ExtraBold
@@ -237,17 +238,32 @@ private fun PureVoiceOcrImage(
 private fun PureVoiceOcrAttachment.fieldSummary(): String {
     val labels = fields.map { it.label }.distinct().take(3)
     return if (labels.isEmpty()) {
-        "已提取图片中的文字信息"
+        currentAppText("已提取图片中的文字信息", "Extracted text from the image")
     } else {
-        "已从图片中提取${labels.joinToString("、")}等信息"
+        currentAppText(
+            "已从图片中提取${labels.joinToString("、")}等信息",
+            "Extracted image details"
+        )
     }
 }
 
 private fun PureVoiceOcrFailure?.userMessage(): String = when (this) {
-    PureVoiceOcrFailure.EmptyText -> "未识别到有效文字，请重新选择图片"
-    PureVoiceOcrFailure.AiRefinementFailed -> "图片文字整理失败，请重新选择图片"
-    PureVoiceOcrFailure.CloudCommitFailed -> "图片保存失败，请重新选择图片"
-    PureVoiceOcrFailure.RecognitionFailed, null -> "图片文字识别失败，请重新选择图片"
+    PureVoiceOcrFailure.EmptyText -> currentAppText(
+        "未识别到有效文字，请重新选择图片",
+        "No readable text found. Please choose another image"
+    )
+    PureVoiceOcrFailure.AiRefinementFailed -> currentAppText(
+        "图片文字整理失败，请重新选择图片",
+        "Failed to organize the image text. Please choose another image"
+    )
+    PureVoiceOcrFailure.CloudCommitFailed -> currentAppText(
+        "图片保存失败，请重新选择图片",
+        "Failed to save the image. Please choose another image"
+    )
+    PureVoiceOcrFailure.RecognitionFailed, null -> currentAppText(
+        "图片文字识别失败，请重新选择图片",
+        "Failed to recognize image text. Please choose another image"
+    )
 }
 
 internal fun String.isOcrCardCollapsible(): Boolean = length > OCR_CARD_PREVIEW_CHARS

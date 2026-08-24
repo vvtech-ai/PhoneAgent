@@ -20,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.res.stringResource
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.app_ota.FinalOtaInstallUiState
 
 internal data class FinalOtaUpdateDialogState(
@@ -76,9 +78,9 @@ internal fun FinalOtaUpdateDialog(
                 ) {
                     Text(
                         text = when {
-                            !state.hasUpdate -> "当前已是最新版本"
-                            state.forceUpdate -> "发现重要版本更新"
-                            else -> "发现新版本"
+                            !state.hasUpdate -> stringResource(R.string.ota_latest_title)
+                            state.forceUpdate -> stringResource(R.string.ota_force_update_title)
+                            else -> stringResource(R.string.ota_update_title)
                         },
                         color = Color(0xFF111111),
                         fontSize = 19.sp,
@@ -86,7 +88,7 @@ internal fun FinalOtaUpdateDialog(
                     )
                     if (state.hasUpdate) {
                         Text(
-                            text = "新版本：${state.versionName.ifBlank { "-" }}",
+                            text = stringResource(R.string.ota_new_version, state.versionName.ifBlank { "-" }),
                             modifier = Modifier.padding(top = 8.dp),
                             color = Color(0xFF344054),
                             fontSize = 14.sp,
@@ -95,9 +97,9 @@ internal fun FinalOtaUpdateDialog(
                     }
                     Text(
                         text = when {
-                            !state.hasUpdate -> "你正在使用最新版本。"
+                            !state.hasUpdate -> stringResource(R.string.ota_latest_detail)
                             state.releaseNotes.isNotBlank() -> state.releaseNotes
-                            else -> "本次更新包含体验优化与问题修复。"
+                            else -> stringResource(R.string.ota_default_release_notes)
                         },
                         modifier = Modifier.padding(top = 12.dp),
                         color = Color(0xFF6E6E73),
@@ -106,7 +108,7 @@ internal fun FinalOtaUpdateDialog(
                     )
                     if (state.forceUpdate) {
                         Text(
-                            text = "该版本为强制更新，更新完成前不可继续使用当前版本。",
+                            text = stringResource(R.string.ota_force_update_detail),
                             modifier = Modifier.padding(top = 10.dp),
                             color = Color(0xFFE14D46),
                             fontSize = 13.sp,
@@ -143,7 +145,11 @@ internal fun FinalOtaUpdateDialog(
                 ) {
                     if (!state.forceUpdate) {
                         FinalActionButton(
-                            label = if (state.hasUpdate) "稍后" else "知道了",
+                            label = if (state.hasUpdate) {
+                                stringResource(R.string.ota_later)
+                            } else {
+                                stringResource(R.string.ota_got_it)
+                            },
                             tone = FinalButtonTone.Secondary,
                             modifier = Modifier.weight(1f),
                             onClick = onDismiss

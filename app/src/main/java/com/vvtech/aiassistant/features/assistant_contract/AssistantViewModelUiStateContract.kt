@@ -11,6 +11,7 @@ import com.vvtech.aiassistant.features.assistant.viewmodel.DefaultConfirmLabel
 import com.vvtech.aiassistant.features.assistant.viewmodel.DefaultIdleExample
 import com.vvtech.aiassistant.features.assistant.viewmodel.DefaultIdleStatus
 import com.vvtech.aiassistant.features.assistant.viewmodel.DefaultRetryLabel
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_timeline.ConversationTimelineItem
 
 enum class AgentContactInputSource(val wireValue: String) {
@@ -64,9 +65,9 @@ data class Index9AssistantUiState(
     val callMonitorAudioRouteState: CallMonitorAudioRouteState = CallMonitorAudioRouteState(),
     val humanMicrophoneMuted: Boolean = false,
     val callPageData: CallPageData = CallPageData(
-        name = "AI 助理",
-        sub = "实时外呼",
-        status = "等待发起",
+        name = currentAppText("AI 助理", "AI Assistant"),
+        sub = currentAppText("实时外呼", "Live outbound call"),
+        status = currentAppText("等待发起", "Waiting to start"),
         transcript = emptyList()
     ),
     val showAiCallPage: Boolean = false,

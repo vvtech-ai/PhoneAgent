@@ -8,14 +8,30 @@ import com.vvtech.aiassistant.features.assistant.localizedVoiceRecoveryResumeSta
 import com.vvtech.aiassistant.features.assistant.networkTaskErrorStatusMessage
 import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingError
 import com.vvtech.aiassistant.features.assistant.voiceRecoveryDecision
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_voice.VoiceListenTriggers
 import com.vvtech.aiassistant.logging.RuntimeStateLogDomain
 import com.vvtech.aiassistant.logging.RuntimeStateLogEvent
 import com.vvtech.aiassistant.logging.RuntimeStateLogger
 
-internal const val CALL_OUTCOME_PENDING_STATUS = "正在确认通话结果"
-internal const val CALL_OUTCOME_SYNC_PENDING_STATUS = "通话已结束，结果同步中，请稍后刷新"
-internal const val CALL_STATUS_SYNC_PENDING_STATUS = "正在确认通话状态"
+internal fun callOutcomePendingStatusText(): String =
+    currentAppText("正在确认通话结果", "Confirming call result")
+
+internal fun callOutcomeSyncPendingStatusText(): String =
+    currentAppText(
+        "通话已结束，结果同步中，请稍后刷新",
+        "Call ended. Syncing results; refresh shortly."
+    )
+
+internal fun callStatusSyncPendingStatusText(): String =
+    currentAppText("正在确认通话状态", "Confirming call status")
+
+internal fun isCallOutcomePendingStatusText(status: String): Boolean =
+    status == "正在确认通话结果" || status == "Confirming call result"
+
+internal fun isCallOutcomeSyncPendingStatusText(status: String): Boolean =
+    status == "通话已结束，结果同步中，请稍后刷新" ||
+        status == "Call ended. Syncing results; refresh shortly."
 
 internal data class AgentStreamFailureRecoveryRuntime(
     val stateProvider: () -> Index9AssistantUiState,
@@ -116,7 +132,7 @@ internal class AgentStreamFailureRecoveryHandler(
             callbacks.updateState {
                 AgentStreamErrorUiStateReducer.applyBatchSyncPending(
                     state = it,
-                    statusText = CALL_STATUS_SYNC_PENDING_STATUS,
+                    statusText = callStatusSyncPendingStatusText(),
                     clearError = true
                 )
             }
@@ -142,7 +158,7 @@ internal class AgentStreamFailureRecoveryHandler(
             callbacks.updateState {
                 AgentStreamErrorUiStateReducer.applyBatchSyncPending(
                     state = it,
-                    statusText = CALL_OUTCOME_SYNC_PENDING_STATUS,
+                    statusText = callOutcomeSyncPendingStatusText(),
                     clearError = true
                 )
             }
@@ -179,18 +195,46 @@ internal class AgentStreamFailureRecoveryHandler(
             }
             return
         }
-        callbacks.cancelTextProcessingStatusProgress()
-        clearRecoverablePlaceholder(stepIndex)
-        callbacks.markTaskErrorRecoveryInProgress("EXECUTION_ERROR")
+        val serverSideHttpFailure = isServerSideHttpFailure(throwable)
         val status = structuredFailure
             ?.takeIf { it.hasStructuredFailure }
             ?.message
             ?.takeIf { it.isNotBlank() }
+            ?: currentAppText(
+                chinese = "服务异常，请稍后重试",
+                english = "Service error. Please try again."
+            ).takeIf { serverSideHttpFailure }
             ?: voiceRecoveryDecision(
                 throwable.message,
                 language,
                 localizedVoiceRecoveryResumeStatus(language)
             ).status
+        callbacks.cancelTextProcessingStatusProgress()
+        if (serverSideHttpFailure) {
+            callbacks.mutateStep(stepIndex) { step ->
+                AgentStreamPlaceholderStepReducer.applyErrorPlaceholder(step, status)
+            }
+            callbacks.finalizeStep(stepIndex)
+            callbacks.markTaskErrorRecoveryInProgress("EXECUTION_ERROR")
+            callbacks.updateState {
+                AgentStreamErrorUiStateReducer.applyExecutionError(
+                    state = it,
+                    errorText = status,
+                    statusText = status
+                )
+            }
+            callbacks.stopApiListening()
+            logFailureDecision(
+                eventType = "AGENT_RECOVERY_LISTEN_SKIPPED",
+                trigger = VoiceListenTriggers.AgentTransportFailureRecovery,
+                result = "skipped",
+                reason = "server_side_http_failure",
+                throwable = throwable
+            )
+            return
+        }
+        clearRecoverablePlaceholder(stepIndex)
+        callbacks.markTaskErrorRecoveryInProgress("EXECUTION_ERROR")
         callbacks.updateState {
             AgentStreamErrorUiStateReducer.applyVoiceRecovery(
                 state = it,
@@ -265,12 +309,18 @@ internal class AgentStreamFailureRecoveryHandler(
     }
 
     private fun isAwaitingCompletedCallOutcome(state: Index9AssistantUiState): Boolean {
-        return state.status == CALL_OUTCOME_PENDING_STATUS ||
-            state.callPageData.status == CALL_OUTCOME_PENDING_STATUS
+        return isCallOutcomePendingStatusText(state.status) ||
+            isCallOutcomePendingStatusText(state.callPageData.status)
     }
 
     private fun hasActiveSingleCall(state: Index9AssistantUiState): Boolean {
         return state.currentCallId?.isNotBlank() == true
+    }
+
+    private fun isServerSideHttpFailure(throwable: Throwable): Boolean {
+        val text = throwable.message.orEmpty()
+        return Regex("""\bHTTP\s*(?:429|500|502|503|504)\b""", RegexOption.IGNORE_CASE)
+            .containsMatchIn(text)
     }
 
     private fun logFailureDecision(

@@ -215,7 +215,7 @@ private fun SingleFlowTextInput(
                 decorationBox = { inner ->
                     if (textInput.isBlank() && !recording) {
                         Text(
-                            text = "说点什么...",
+                            text = "Say something...",
                             color = Color(0xFFA0A8B4),
                             fontSize = 15.sp
                         )
@@ -248,7 +248,7 @@ private fun SingleFlowTextInput(
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Send,
-                    contentDescription = "发送",
+                    contentDescription = "Send",
                     tint = if (sendEnabled) Color.White else Color(0xFF98A2B3),
                     modifier = Modifier.size(20.dp)
                 )

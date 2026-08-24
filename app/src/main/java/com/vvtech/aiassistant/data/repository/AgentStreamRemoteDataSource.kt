@@ -8,14 +8,33 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import retrofit2.HttpException
 
 internal class AgentStreamRemoteDataSource(
     private val streamingApiService: AssistantApiService,
     private val eventParser: AgentStreamSseEventParser = AgentStreamSseEventParser()
 ) {
     fun stream(request: AgentChatRequest): Flow<AgentStreamEvent> = flow {
-        AppFileLogger.d("TTS_DIAG", "agentChatStream: opening SSE connection")
-        val body = streamingApiService.agentChatStream(request)
+        AppFileLogger.d(
+            "TTS_DIAG",
+            "agentChatStream: opening SSE connection " +
+                "channel=${request.channel.orEmpty()} " +
+                "skill=${request.initialSkillId.orEmpty()} " +
+                "openingLen=${request.initialOpening?.length ?: 0} " +
+                "language=${request.languageCode.orEmpty()} " +
+                "responseLanguage=${request.responseLanguage.orEmpty()} " +
+                "messageLen=${request.message?.length ?: 0}"
+        )
+        val body = try {
+            streamingApiService.agentChatStream(request)
+        } catch (error: HttpException) {
+            AppFileLogger.w(
+                "AGENT_HTTP",
+                "agentChatStream failed code=${error.code()} " +
+                    "body=${error.response()?.errorBody()?.string()?.take(1000).orEmpty()}"
+            )
+            throw error
+        }
         AppFileLogger.d("TTS_DIAG", "agentChatStream: SSE body received, starting read loop")
         body.byteStream().bufferedReader(Charsets.UTF_8).use { reader ->
             var event: String? = null

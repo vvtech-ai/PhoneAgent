@@ -44,6 +44,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.model.VoiceCloneScriptItem
 import com.vvtech.aiassistant.model.VoiceCloneStatusResponse
 import com.vvtech.aiassistant.features.assistant_voice_clone.enrollment.VoiceCloneEnrollmentStep
@@ -76,24 +78,24 @@ internal fun FinalVoiceIdentityPageV3(
     val cloneSelected = hasClone && cloneReady && status?.active == true
     val enrollmentAvailable = VoiceCloneAvailabilityPolicy.canEnroll(status)
     val cloneStatus = when {
-        cloneExpired -> "已过期"
-        !hasClone -> "未克隆"
-        !cloneReady -> "生成中"
+        cloneExpired -> stringResource(R.string.voice_identity_expired)
+        !hasClone -> stringResource(R.string.voice_identity_not_cloned)
+        !cloneReady -> stringResource(R.string.voice_identity_generating)
         cloneSelected -> ""
-        else -> "已克隆"
+        else -> stringResource(R.string.voice_identity_cloned)
     }
+    val expiredDetail = stringResource(R.string.voice_identity_expired_detail)
     val cloneDetail = when {
-        cloneExpired -> status?.lastError?.ifBlank { "旧版本声音样本已过期，请重新录制。" }
-            ?: "旧版本声音样本已过期，请重新录制。"
-        !hasClone -> "当前语音引擎还没有克隆音色"
-        !cloneReady -> "克隆音色正在生成中，完成后可以切换使用"
-        else -> "已为当前语音引擎完成克隆"
+        cloneExpired -> status?.lastError?.ifBlank { expiredDetail } ?: expiredDetail
+        !hasClone -> stringResource(R.string.voice_identity_no_clone_detail)
+        !cloneReady -> stringResource(R.string.voice_identity_generating_detail)
+        else -> stringResource(R.string.voice_identity_ready_detail)
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
         VoiceTopBar(
-            backLabel = "返回",
-            title = "语音",
+            backLabel = stringResource(R.string.common_back),
+            title = stringResource(R.string.voice_identity_title),
             onBack = onBack
         )
         LazyColumn(
@@ -103,7 +105,7 @@ internal fun FinalVoiceIdentityPageV3(
             item { Spacer(modifier = Modifier.height(16.dp)) }
             item {
                 VoiceChoiceCard(
-                    title = "AI 声音",
+                    title = stringResource(R.string.voice_identity_ai_voice),
                     selected = !cloneSelected,
                     enabled = !actionLoading,
                     onClick = onSelectAiVoice
@@ -114,7 +116,12 @@ internal fun FinalVoiceIdentityPageV3(
                     selected = cloneSelected,
                     status = cloneStatus,
                     detail = cloneDetail,
-                    actionLabel = if (hasClone || cloneExpired) "重新录制" else "开始克隆",
+                    actionLabel = if (hasClone || cloneExpired) {
+                        stringResource(R.string.voice_identity_record_again)
+                    } else {
+                        stringResource(R.string.voice_identity_start_clone)
+                    },
+                    notCloned = !hasClone,
                     enabled = !loading && !actionLoading && (cloneReady || enrollmentAvailable),
                     showAction = enrollmentAvailable,
                     onSelect = {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -34,7 +35,7 @@ internal fun refreshFinalDeviceContacts(
             assistantViewModel.clearSystemDeviceContactsCache()
             Toast.makeText(
                 context,
-                throwable.message ?: "读取本机联系人失败",
+                throwable.message ?: currentAppText("读取本机联系人失败", "Failed to read device contacts"),
                 Toast.LENGTH_SHORT
             ).show()
         }

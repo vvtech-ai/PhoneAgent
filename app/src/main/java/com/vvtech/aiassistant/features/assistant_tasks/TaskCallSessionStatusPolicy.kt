@@ -1,6 +1,7 @@
 package com.vvtech.aiassistant.features.assistant_tasks
 
 import com.vvtech.aiassistant.core.model.CallSessionStatusResponse
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.Locale
 
 internal data class TaskCallSessionStatusFacts(
@@ -83,10 +84,13 @@ private fun taskCallSessionHandoffNote(
 ): String? {
     if (!appendNote) return null
     val note = when (response.handoffMode.normalizedCallSessionValue()) {
-        "HUMAN_ACTIVE" -> "已切换为人工接管"
-        "HUMAN_REQUESTED" -> "已收到人工接管请求，等待接管链路就绪"
-        "AI_RESUMING" -> "正在切回 AI 代打"
-        "AI_ACTIVE" -> "AI 代打继续处理中"
+        "HUMAN_ACTIVE" -> currentAppText("已切换为人工接管", "Switched to human takeover")
+        "HUMAN_REQUESTED" -> currentAppText(
+            "已收到人工接管请求，等待接管链路就绪",
+            "Human takeover requested. Waiting for the connection to be ready"
+        )
+        "AI_RESUMING" -> currentAppText("正在切回 AI 代打", "Switching back to AI calling")
+        "AI_ACTIVE" -> currentAppText("AI 代打继续处理中", "AI calling is still in progress")
         else -> response.statusMessage
     }
     return note.takeIf { it.isNotBlank() }

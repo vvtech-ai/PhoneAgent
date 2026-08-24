@@ -9,6 +9,7 @@ import com.vvtech.aiassistant.model.MessageRole
 import com.vvtech.aiassistant.model.ReservationSlot
 import com.vvtech.aiassistant.model.UserContextPayload
 import com.vvtech.aiassistant.repository.AppContainer
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +20,13 @@ data class ConversationUiState(
     val taskId: String? = null,
     val status: String = "INIT",
     val messages: List<ChatMessage> = listOf(
-        ChatMessage(MessageRole.AI, "直接告诉我订餐需求，我会先补齐最少信息，再继续后续流程。")
+        ChatMessage(
+            MessageRole.AI,
+            currentAppText(
+                "直接告诉我订餐需求，我会先补齐最少信息，再继续后续流程。",
+                "Tell me your restaurant booking needs. I will collect the minimum required details before continuing."
+            )
+        )
     ),
     val slot: ReservationSlot = ReservationSlot(),
     val missingFields: List<String> = emptyList(),
@@ -28,7 +35,7 @@ data class ConversationUiState(
     val error: String? = null,
     val readyToOpenRestaurants: Boolean = false,
     val userContext: UserContextPayload? = null,
-    val locationSummary: String = "正在获取定位...",
+    val locationSummary: String = currentAppText("正在获取定位...", "Getting location..."),
     val locating: Boolean = false
 )
 
@@ -70,13 +77,22 @@ class ConversationViewModel : ViewModel() {
 
     fun refreshLocation(context: Context) {
         viewModelScope.launch {
-            _uiState.update { it.copy(locating = true, locationSummary = "正在获取定位...") }
+            _uiState.update {
+                it.copy(
+                    locating = true,
+                    locationSummary = currentAppText("正在获取定位...", "Getting location...")
+                )
+            }
             val result = runCatching { FusedLocationProvider(context.applicationContext).locateOnce() }
             result.onSuccess { location ->
                 _uiState.update {
                     it.copy(
                         userContext = if (location.success) location.userContext else null,
-                        locationSummary = if (location.summary.isBlank()) "定位已更新" else location.summary,
+                        locationSummary = if (location.summary.isBlank()) {
+                            currentAppText("定位已更新", "Location updated")
+                        } else {
+                            location.summary
+                        },
                         locating = false
                     )
                 }
@@ -85,7 +101,10 @@ class ConversationViewModel : ViewModel() {
                     it.copy(
                         userContext = null,
                         locating = false,
-                        locationSummary = throwable.message ?: "定位失败，将使用通用推荐。"
+                        locationSummary = throwable.message ?: currentAppText(
+                            "定位失败，将使用通用推荐。",
+                            "Location failed. General recommendations will be used."
+                        )
                     )
                 }
             }
@@ -98,7 +117,10 @@ class ConversationViewModel : ViewModel() {
             it.copy(
                 userContext = null,
                 locating = false,
-                locationSummary = "未授权定位，将使用通用推荐。"
+                locationSummary = currentAppText(
+                    "未授权定位，将使用通用推荐。",
+                    "Location access is not granted. General recommendations will be used."
+                )
             )
         }
     }
@@ -142,7 +164,7 @@ class ConversationViewModel : ViewModel() {
                 _uiState.update { state ->
                     state.copy(
                         loading = false,
-                        error = throwable.message ?: "消息发送失败"
+                        error = throwable.message ?: currentAppText("消息发送失败", "Failed to send message")
                     )
                 }
             }
@@ -167,7 +189,12 @@ class ConversationViewModel : ViewModel() {
                     }
                 }
                 .onFailure { throwable ->
-                    _uiState.update { it.copy(loading = false, error = throwable.message ?: "确认失败") }
+                    _uiState.update {
+                        it.copy(
+                            loading = false,
+                            error = throwable.message ?: currentAppText("确认失败", "Failed to confirm")
+                        )
+                    }
                 }
         }
     }
@@ -182,11 +209,11 @@ class ConversationViewModel : ViewModel() {
             runCatching { repository.getTaskDetail(taskId) }
                 .onSuccess { detail ->
                     val summaryMessage = buildString {
-                        append("已加载任务 ")
+                        append(currentAppText("已加载任务 ", "Loaded task "))
                         append(detail.taskId)
-                        append("，当前状态为 ")
+                        append(currentAppText("，当前状态为 ", ". Current status: "))
                         append(detail.status)
-                        append("。")
+                        append(currentAppText("。", "."))
                         if (!detail.finalResult.isNullOrBlank()) {
                             append(" ")
                             append(detail.finalResult)
@@ -208,7 +235,12 @@ class ConversationViewModel : ViewModel() {
                     )
                 }
                 .onFailure { throwable ->
-                    _uiState.update { it.copy(loading = false, error = throwable.message ?: "任务加载失败") }
+                    _uiState.update {
+                        it.copy(
+                            loading = false,
+                            error = throwable.message ?: currentAppText("任务加载失败", "Failed to load task")
+                        )
+                    }
                 }
         }
     }

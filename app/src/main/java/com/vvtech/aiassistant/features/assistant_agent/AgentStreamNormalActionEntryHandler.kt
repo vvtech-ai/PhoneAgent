@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant_agent
 
 import com.vvtech.aiassistant.core.model.DocumentParseResult
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal class AgentStreamNormalActionEntryHandler(
     private val sessionIdProvider: () -> String?,
@@ -22,7 +23,7 @@ internal class AgentStreamNormalActionEntryHandler(
                 stateReducer = { AgentStreamActionSubmitStatePolicy.optionSelected(it, ProcessingStatusText) },
                 contextReason = "agent_select_option",
                 logAction = "select_option",
-                failureMessage = "选择失败"
+                failureMessage = currentAppText("选择失败", "Selection failed")
             )
         )
     }
@@ -40,7 +41,7 @@ internal class AgentStreamNormalActionEntryHandler(
                 stateReducer = { AgentStreamActionSubmitStatePolicy.answersSubmitted(it, ProcessingStatusText) },
                 contextReason = "agent_answer_questions",
                 logAction = "answer_questions",
-                failureMessage = "提交失败"
+                failureMessage = currentAppText("提交失败", "Submission failed")
             )
         )
     }
@@ -68,7 +69,7 @@ internal class AgentStreamNormalActionEntryHandler(
                 stateReducer = { AgentStreamActionSubmitStatePolicy.permissionResultSubmitted(it, ProcessingStatusText) },
                 contextReason = "agent_permission_result",
                 logAction = "permission_result",
-                failureMessage = "权限结果提交失败"
+                failureMessage = currentAppText("权限结果提交失败", "Failed to submit permission result")
             )
         )
     }
@@ -83,7 +84,7 @@ internal class AgentStreamNormalActionEntryHandler(
                 stateReducer = { AgentStreamActionSubmitStatePolicy.documentSubmitted(it, ProcessingStatusText) },
                 contextReason = "agent_submit_document",
                 logAction = "submit_document",
-                failureMessage = "文档结果提交失败",
+                failureMessage = currentAppText("文档结果提交失败", "Failed to submit document result"),
                 beforeRecover = {
                     updateUiState { it.copy(agentDocumentImporting = false) }
                 }
@@ -92,4 +93,5 @@ internal class AgentStreamNormalActionEntryHandler(
     }
 }
 
-private const val ProcessingStatusText = "AI处理中"
+private val ProcessingStatusText: String
+    get() = currentAppText("AI处理中", "AI is processing")

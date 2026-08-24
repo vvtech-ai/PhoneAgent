@@ -31,6 +31,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -39,6 +40,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun FinalComposerPanelV2(
@@ -121,12 +124,12 @@ internal fun FinalComposerPanelV2(
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     FinalModeButton(
-                        label = "语音",
+                        label = stringResource(R.string.home_mode_voice),
                         selected = mode == ComposerMode.Voice,
                         onClick = { onModeChange(ComposerMode.Voice) }
                     )
                     FinalModeButton(
-                        label = "文字",
+                        label = stringResource(R.string.home_mode_text),
                         selected = mode == ComposerMode.Text,
                         onClick = { onModeChange(ComposerMode.Text) }
                     )
@@ -134,7 +137,11 @@ internal fun FinalComposerPanelV2(
             }
 
             Text(
-                text = if (taskStarted) "继续任务" else "新建任务",
+                text = if (taskStarted) {
+                    stringResource(R.string.home_task_continue)
+                } else {
+                    stringResource(R.string.home_task_new)
+                },
                 modifier = Modifier.padding(start = 4.dp, bottom = 10.dp),
                 color = Color(0xFF98A2B3),
                 fontSize = 12.sp,
@@ -151,16 +158,23 @@ internal fun FinalComposerPanelV2(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         val titleText = when {
-                            apiTtsPlaying -> "AI 播报中"
-                            processingTurn -> "AI 思考中..."
-                            voiceRecording -> apiAsrPartialText?.takeIf { it.isNotBlank() } ?: "正在收音..."
-                            else -> "点击麦克风开始"
+                            apiTtsPlaying -> currentAppText("AI 播报中", "AI is speaking")
+                            processingTurn -> currentAppText("AI 思考中...", "AI is thinking...")
+                            voiceRecording -> apiAsrPartialText?.takeIf { it.isNotBlank() }
+                                ?: currentAppText("正在收音...", "Listening...")
+                            else -> currentAppText("点击麦克风开始", "Tap the microphone to start")
                         }
                         val subtitleText = when {
-                            apiTtsPlaying -> "点击暂停播报，继续后开始收音"
-                            processingTurn -> "请稍等"
-                            voiceRecording -> "再次点击结束本轮输入"
-                            else -> "可切换文字输入"
+                            apiTtsPlaying -> currentAppText(
+                                "点击暂停播报，继续后开始收音",
+                                "Tap to pause playback; listening resumes afterward"
+                            )
+                            processingTurn -> currentAppText("请稍等", "Please wait")
+                            voiceRecording -> currentAppText(
+                                "再次点击结束本轮输入",
+                                "Tap again to finish this input"
+                            )
+                            else -> currentAppText("可切换文字输入", "You can switch to text input")
                         }
                         Text(
                             text = titleText,
@@ -215,7 +229,7 @@ internal fun FinalComposerPanelV2(
                                 voiceRecording -> FinalPauseGlyph()
                                 else -> Icon(
                                     imageVector = Icons.Outlined.Mic,
-                                    contentDescription = "语音输入",
+                                    contentDescription = stringResource(R.string.home_voice_input_content_description),
                                     tint = Color.White,
                                     modifier = Modifier.size(24.dp)
                                 )
@@ -292,7 +306,7 @@ internal fun FinalComposerPanelV2(
                         Box(contentAlignment = Alignment.Center) {
                             Icon(
                                 imageVector = Icons.Rounded.Send,
-                                contentDescription = "发送",
+                                contentDescription = stringResource(R.string.home_send_content_description),
                                 tint = if (sendEnabled) Color(0xFF0A84FF) else Color(0x993C6EAA),
                                 modifier = Modifier.size(22.dp)
                             )

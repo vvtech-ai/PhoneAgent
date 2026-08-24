@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.features.assistant.PureVoiceBottomControl
 import com.vvtech.aiassistant.features.assistant.PureVoiceBottomControlMode
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_ui.AssistantCallModelDisplayNames
 
 @Composable
@@ -101,14 +102,14 @@ internal fun PureVoiceModeDock(
         )
         PureVoiceDockIconButton(
             image = Icons.Rounded.Add,
-            contentDescription = "添加图片",
+            contentDescription = "Add image",
             modifier = Modifier.align(Alignment.CenterStart).padding(start = 20.dp),
             transparent = true,
             onClick = onAddClick
         )
         PureVoiceDockIconButton(
             image = Icons.Rounded.ChatBubbleOutline,
-            contentDescription = "切换到文字输入",
+            contentDescription = "Switch to text input",
             modifier = Modifier.align(Alignment.CenterEnd).padding(end = 20.dp),
             transparent = true,
             onClick = onSwitchToText
@@ -138,7 +139,7 @@ internal fun PureVoiceTextModeDock(
     ) {
         PureVoiceDockIconButton(
             image = Icons.Rounded.Add,
-            contentDescription = "添加图片",
+            contentDescription = "Add image",
             transparent = true,
             onClick = onAddClick
         )
@@ -165,7 +166,7 @@ internal fun PureVoiceTextModeDock(
                     keyboardActions = KeyboardActions(onSend = { submitText() }),
                     decorationBox = { inner ->
                         if (state.textInput.isBlank()) {
-                            Text("输入任务内容", color = Color(0xFFA0A8B4), fontSize = 15.sp)
+                            Text("Enter task details", color = Color(0xFFA0A8B4), fontSize = 15.sp)
                         }
                         inner()
                     }
@@ -173,13 +174,13 @@ internal fun PureVoiceTextModeDock(
                 Row(modifier = Modifier.align(Alignment.CenterEnd)) {
                     PureVoiceDockIconButton(
                         image = Icons.Rounded.KeyboardVoice,
-                        contentDescription = "切换到语音输入",
+                        contentDescription = "Switch to voice input",
                         transparent = true,
                         onClick = onSwitchToVoice
                     )
                     PureVoiceDockIconButton(
                         image = if (showStop) Icons.Rounded.Stop else Icons.Rounded.Send,
-                        contentDescription = if (showStop) "停止当前处理" else "发送文字",
+                        contentDescription = if (showStop) currentAppText("停止当前处理", "Stop current processing") else currentAppText("发送文字", "Send"),
                         enabled = showStop || canSend,
                         emphasized = true,
                         stop = showStop,

@@ -32,9 +32,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.data.model.ContactDirectoryEntry
 import com.vvtech.aiassistant.data.model.ContactDirectoryUpsertRequest
 
@@ -71,12 +73,16 @@ internal fun ContactDetailScreen(
 
     Column(modifier = Modifier.fillMaxSize()) {
         FinalBackTitleBar(
-            title = "联系人详情",
+            title = stringResource(R.string.contact_detail_title),
             onBack = onBack,
             trailing = {
                 ContactDetailSaveButton(
                     enabled = canSave,
-                    label = if (saving) "保存中" else "保存",
+                    label = if (saving) {
+                        stringResource(R.string.identity_saving)
+                    } else {
+                        stringResource(R.string.identity_save)
+                    },
                     onClick = {
                         onSave(
                             ContactDirectoryUpsertRequest(
@@ -100,7 +106,7 @@ internal fun ContactDetailScreen(
                 .padding(horizontal = 18.dp, vertical = 12.dp)
         ) {
             if (loading) {
-                MyIdentityHintCard(text = "正在加载联系人信息…")
+                MyIdentityHintCard(text = stringResource(R.string.contact_detail_loading))
                 Spacer(Modifier.size(10.dp))
             }
             if (!error.isNullOrBlank()) {
@@ -108,13 +114,17 @@ internal fun ContactDetailScreen(
                 Spacer(Modifier.size(10.dp))
             }
 
+            val noPhoneText = stringResource(R.string.contact_phone_not_set)
             ContactDetailCard {
-                ContactDetailReadOnlyRow(label = "电话", value = phone.ifBlank { "未设置号码" })
+                ContactDetailReadOnlyRow(
+                    label = stringResource(R.string.contact_phone_label),
+                    value = phone.ifBlank { noPhoneText }
+                )
                 ContactDetailDivider()
                 MyIdentityRow(
-                    label = "姓名",
+                    label = stringResource(R.string.contact_name_label),
                     value = displayName,
-                    placeholder = "请输入称呼",
+                    placeholder = stringResource(R.string.contact_name_placeholder),
                     onValueChange = { displayName = it.take(128) }
                 )
                 ContactDetailDivider()
@@ -125,36 +135,36 @@ internal fun ContactDetailScreen(
             }
 
             Spacer(Modifier.size(18.dp))
-            MyIdentitySectionTitle("说话方式")
+            MyIdentitySectionTitle(stringResource(R.string.contact_speaking_style_title))
             Text(
-                text = "AI 给此人打电话时按这个语气，比如称呼、客套程度、是否直来直去",
+                text = stringResource(R.string.contact_speaking_style_description),
                 modifier = Modifier.padding(start = 4.dp, bottom = 8.dp),
                 color = Color(0xFF6E6E73),
                 fontSize = 12.sp
             )
             MyIdentityMultilineCard(
                 value = speakingStyle,
-                placeholder = "例如：叫他张哥，语气随意带点客套，可以拉拉家常",
+                placeholder = stringResource(R.string.contact_speaking_style_placeholder),
                 onValueChange = { speakingStyle = it.take(256) }
             )
 
             Spacer(Modifier.size(18.dp))
-            MyIdentitySectionTitle("补充描述")
+            MyIdentitySectionTitle(stringResource(R.string.contact_extra_description_title))
             Text(
-                text = "AI 通话会参考你写的这段话",
+                text = stringResource(R.string.contact_extra_description_description),
                 modifier = Modifier.padding(start = 4.dp, bottom = 8.dp),
                 color = Color(0xFF6E6E73),
                 fontSize = 12.sp
             )
             MyIdentityMultilineCard(
                 value = description,
-                placeholder = "例如：前同事现合作伙伴，叫他老王，说话直一点，上次聊到他孩子刚上小学",
+                placeholder = stringResource(R.string.contact_extra_description_placeholder),
                 onValueChange = { description = it.take(2000) }
             )
 
             Spacer(Modifier.size(24.dp))
             FinalActionButton(
-                label = if (saving) "保存中" else "保存",
+                label = if (saving) stringResource(R.string.identity_saving) else stringResource(R.string.identity_save),
                 tone = FinalButtonTone.Primary,
                 enabled = canSave,
                 modifier = Modifier
@@ -176,7 +186,7 @@ internal fun ContactDetailScreen(
             if (onDelete != null && initial != null) {
                 Spacer(Modifier.size(12.dp))
                 FinalActionButton(
-                    label = "删除联系人",
+                    label = stringResource(R.string.contact_delete_action),
                     tone = FinalButtonTone.Danger,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -249,10 +259,16 @@ private fun ContactDetailRelationRow(selected: String, onOpenSheet: () -> Unit) 
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "主要关系", color = Color(0xFF111111), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(R.string.contact_primary_relation_label),
+            color = Color(0xFF111111),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold
+        )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = selected.ifBlank { "请选择" },
+                text = selected.takeIf { it.isNotBlank() }?.let { localizedContactRelation(it) }
+                    ?: stringResource(R.string.contact_relation_choose),
                 color = if (selected.isBlank()) Color(0xFF8E8E93) else Color(0xFF0A84FF),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
@@ -292,7 +308,7 @@ private fun ContactDetailRelationSheet(
         ) {
             Column(modifier = Modifier.padding(start = 18.dp, end = 18.dp, top = 16.dp, bottom = 24.dp)) {
                 Text(
-                    text = "选择主要关系",
+                    text = stringResource(R.string.contact_relation_sheet_title),
                     color = Color(0xFF111111),
                     fontSize = 17.sp,
                     fontWeight = FontWeight.ExtraBold,
@@ -310,7 +326,7 @@ private fun ContactDetailRelationSheet(
                         elevation = 0.dp
                     ) {
                         Text(
-                            text = option,
+                            text = localizedContactRelation(option),
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp),
                             color = if (active) Color(0xFF0A84FF) else Color(0xFF111111),
                             fontSize = 15.sp,
@@ -321,6 +337,16 @@ private fun ContactDetailRelationSheet(
             }
         }
     }
+}
+
+@Composable
+private fun localizedContactRelation(option: String): String = when (option) {
+    "家人" -> stringResource(R.string.contact_relation_family)
+    "同学" -> stringResource(R.string.contact_relation_classmate)
+    "同事" -> stringResource(R.string.contact_relation_colleague)
+    "客户" -> stringResource(R.string.contact_relation_customer)
+    "商家" -> stringResource(R.string.contact_relation_business)
+    else -> stringResource(R.string.contact_relation_other)
 }
 
 @Composable

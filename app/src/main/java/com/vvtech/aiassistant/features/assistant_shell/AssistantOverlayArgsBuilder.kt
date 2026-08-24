@@ -12,6 +12,7 @@ import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
 import com.vvtech.aiassistant.features.assistant.V88NetworkMode
 import com.vvtech.aiassistant.features.assistant.V88PermissionKind
 import com.vvtech.aiassistant.features.assistant.V88VoiceModelOption
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 
 internal class AssistantOverlayArgsBuilderInput(
     val navigation: AssistantOverlayNavigationInput,
@@ -30,7 +31,8 @@ internal class AssistantOverlayNavigationInput(
     val assistantNavHidden: Boolean,
     val taskBadgeCount: Int,
     val pureVoiceMode: Boolean,
-    val currentPage: FinalPage
+    val currentPage: FinalPage,
+    val appLanguage: AppLanguage
 )
 
 internal class AssistantOverlayAiCallInput(
@@ -136,6 +138,7 @@ internal fun buildAssistantOverlayArgs(
         args.taskBadgeCount = taskBadgeCount
         args.pureVoiceMode = pureVoiceMode
         args.currentPage = currentPage
+        args.appLanguage = appLanguage
     }
     with(input.aiCall) {
         args.selectedRestaurantTitle = selectedRestaurantTitle

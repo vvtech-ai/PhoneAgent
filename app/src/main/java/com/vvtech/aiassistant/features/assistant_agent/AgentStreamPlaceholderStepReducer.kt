@@ -27,7 +27,15 @@ internal object AgentStreamPlaceholderStepReducer {
         step: ClarificationStep,
         safeErrorText: String
     ): ClarificationStep {
-        return step.copy(text = if (step.text.isBlank()) "（$safeErrorText）" else step.text)
+        return step.copy(
+            text = if (step.text.isBlank()) safeErrorText else step.text,
+            status = "",
+            thinking = null,
+            streaming = false,
+            thinkingStartedAt = null,
+            thinkingDurationMs = null,
+            partialToolCalls = emptyList()
+        )
     }
 
     fun newRetryStep(nowMs: Long): ClarificationStep {

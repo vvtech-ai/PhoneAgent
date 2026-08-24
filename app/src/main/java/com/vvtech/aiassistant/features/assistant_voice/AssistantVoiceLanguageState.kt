@@ -5,7 +5,10 @@ import android.content.SharedPreferences
 import com.vvtech.aiassistant.features.assistant.DefaultVoiceLanguageCode
 import com.vvtech.aiassistant.features.assistant.VoiceLanguage
 import com.vvtech.aiassistant.features.assistant.VoiceLanguageCodeKey
+import com.vvtech.aiassistant.features.assistant.VoiceLanguageEnglishDefaultMigrationKey
 import com.vvtech.aiassistant.features.assistant.VoiceLanguagePrefsName
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguageManager
 
 internal class AssistantVoiceLanguageState(
     initialCode: String?,
@@ -16,9 +19,12 @@ internal class AssistantVoiceLanguageState(
     )
 
     private constructor(prefs: SharedPreferences) : this(
-        initialCode = prefs.getString(VoiceLanguageCodeKey, DefaultVoiceLanguageCode),
+        initialCode = initialVoiceLanguageCode(prefs),
         persistCode = { code ->
-            prefs.edit().putString(VoiceLanguageCodeKey, code).apply()
+            prefs.edit()
+                .putString(VoiceLanguageCodeKey, code)
+                .putBoolean(VoiceLanguageEnglishDefaultMigrationKey, true)
+                .apply()
         }
     )
 
@@ -36,5 +42,26 @@ internal class AssistantVoiceLanguageState(
         code = normalized
         persistCode(normalized)
         return true
+    }
+
+    private companion object {
+        fun initialVoiceLanguageCode(prefs: SharedPreferences): String {
+            val storedCode = prefs.getString(VoiceLanguageCodeKey, null)
+            val migrationDone = prefs.getBoolean(VoiceLanguageEnglishDefaultMigrationKey, false)
+            val shouldMigrateToEnglish =
+                !migrationDone &&
+                    AppLanguageManager.currentAppLanguage() == AppLanguage.English &&
+                    (storedCode.isNullOrBlank() || VoiceLanguage.fromCode(storedCode) == VoiceLanguage.Chinese)
+
+            if (shouldMigrateToEnglish) {
+                prefs.edit()
+                    .putString(VoiceLanguageCodeKey, VoiceLanguage.English.code)
+                    .putBoolean(VoiceLanguageEnglishDefaultMigrationKey, true)
+                    .apply()
+                return VoiceLanguage.English.code
+            }
+
+            return storedCode ?: DefaultVoiceLanguageCode
+        }
     }
 }

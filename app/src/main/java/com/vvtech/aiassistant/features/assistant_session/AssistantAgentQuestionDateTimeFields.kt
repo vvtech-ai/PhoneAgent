@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.Calendar
 
 internal enum class AgentQuestionDateTimeMode { Date, Time, DateTime }
@@ -36,9 +37,9 @@ internal fun AgentQuestionDateTimeField(
     val context = LocalContext.current
     val display = value.orEmpty().ifBlank {
         when (mode) {
-            AgentQuestionDateTimeMode.Date -> "选择日期"
-            AgentQuestionDateTimeMode.Time -> "选择时间"
-            AgentQuestionDateTimeMode.DateTime -> "选择日期和时间"
+            AgentQuestionDateTimeMode.Date -> currentAppText("选择日期", "Select Date")
+            AgentQuestionDateTimeMode.Time -> currentAppText("选择时间", "Select Time")
+            AgentQuestionDateTimeMode.DateTime -> currentAppText("选择日期和时间", "Select Date and Time")
         }
     }
     OutlinedButton(
@@ -82,7 +83,10 @@ internal fun AgentConfirmField(
     onSelect: (String) -> Unit
 ) {
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        listOf("yes" to "是", "no" to "否").forEach { (id, label) ->
+        listOf(
+            "yes" to currentAppText("是", "Yes"),
+            "no" to currentAppText("否", "No")
+        ).forEach { (id, label) ->
             val isSelected = id == selected
             Box(
                 modifier = Modifier

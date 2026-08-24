@@ -8,6 +8,7 @@ import android.location.LocationManager
 import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
 import androidx.core.os.CancellationSignal
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.UserContextPayload
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
@@ -36,30 +37,51 @@ class FusedLocationProvider(private val appContext: Context) {
     @SuppressLint("MissingPermission")
     suspend fun locateOnce(): DeviceLocationResult {
         if (!hasLocationPermission()) {
-            return DeviceLocationResult(summary = "未授权定位，将使用通用推荐。")
+            return DeviceLocationResult(summary = currentAppText(
+                "未授权定位，将使用通用推荐。",
+                "Location access is not granted. General recommendations will be used."
+            ))
         }
 
         val locationManager = appContext.getSystemService(Context.LOCATION_SERVICE) as? LocationManager
-            ?: return DeviceLocationResult(summary = "设备定位服务不可用，将使用通用推荐。")
+            ?: return DeviceLocationResult(summary = currentAppText(
+                "设备定位服务不可用，将使用通用推荐。",
+                "Device location service is unavailable. General recommendations will be used."
+            ))
 
         if (!LocationManagerCompat.isLocationEnabled(locationManager)) {
-            return DeviceLocationResult(summary = "系统定位服务未开启，将使用通用推荐。")
+            return DeviceLocationResult(summary = currentAppText(
+                "系统定位服务未开启，将使用通用推荐。",
+                "System location is off. General recommendations will be used."
+            ))
         }
 
         requestSystemCurrentLocation(locationManager)?.let { location ->
             val source = if (location.provider == LocationManager.GPS_PROVIDER) {
                 "GPS"
             } else {
-                "基站/WiFi"
+                currentAppText("基站/WiFi", "cellular/Wi-Fi")
             }
-            return toSuccessResult(location, "已通过${source}获取当前位置")
+            return toSuccessResult(
+                location,
+                currentAppText("已通过${source}获取当前位置", "Current location detected via $source")
+            )
         }
 
         requestSystemLastKnownLocation(locationManager)?.let { location ->
-            return toSuccessResult(location, "已使用系统最近一次有效定位")
+            return toSuccessResult(
+                location,
+                currentAppText(
+                    "已使用系统最近一次有效定位",
+                    "Using the most recent valid system location"
+                )
+            )
         }
 
-        return DeviceLocationResult(summary = "当前位置精度不足，将使用通用推荐。请打开系统定位并稍后重试。")
+        return DeviceLocationResult(summary = currentAppText(
+            "当前位置精度不足，将使用通用推荐。请打开系统定位并稍后重试。",
+            "Location accuracy is too low. General recommendations will be used. Turn on system location and try again later."
+        ))
     }
 
     private fun hasLocationPermission(): Boolean {
@@ -76,7 +98,7 @@ class FusedLocationProvider(private val appContext: Context) {
 
     private fun toSuccessResult(location: Location, summary: String): DeviceLocationResult {
         val accuracySuffix = if (location.hasAccuracy() && location.accuracy > 0f) {
-            "（精度约 ${location.accuracy.toInt()} 米）"
+            currentAppText("（精度约 ${location.accuracy.toInt()} 米）", " (about ${location.accuracy.toInt()} m accuracy)")
         } else {
             ""
         }
@@ -85,7 +107,10 @@ class FusedLocationProvider(private val appContext: Context) {
                 lat = location.latitude,
                 lng = location.longitude
             ),
-            summary = summary + accuracySuffix + "，城市和区域将由服务端补全。",
+            summary = summary + accuracySuffix + currentAppText(
+                "，城市和区域将由服务端补全。",
+                ". City and region details will be completed by the service."
+            ),
             success = true
         )
     }

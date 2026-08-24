@@ -49,6 +49,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -57,6 +58,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 @Composable
 internal fun SfSelectionSheetCard(
     sheet: SelectionSheetData,
@@ -148,7 +150,7 @@ internal fun SfVoiceContactConfirmCard(contact: PersonalInfoEntry) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Surface(shape = RoundedCornerShape(999.dp), color = Color(0xFFEAF3FF)) {
                     Text(
-                        text = "等待确认",
+                        text = stringResource(R.string.selection_waiting_confirm),
                         color = Color(0xFF1978F3),
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
@@ -156,7 +158,7 @@ internal fun SfVoiceContactConfirmCard(contact: PersonalInfoEntry) {
                     )
                 }
                 Text(
-                    text = "预订人信息",
+                    text = stringResource(R.string.selection_booker_info),
                     modifier = Modifier.padding(start = 8.dp),
                     color = Color(0xFF16202C),
                     fontSize = 14.sp,
@@ -177,7 +179,7 @@ internal fun SfVoiceContactConfirmCard(contact: PersonalInfoEntry) {
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "${contact.name}${contact.gender.sfDisplayLabel()}",
+                            text = "${contact.name}${contact.gender.sfLocalizedDisplayLabel()}",
                             color = Color(0xFF111827),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
@@ -194,7 +196,7 @@ internal fun SfVoiceContactConfirmCard(contact: PersonalInfoEntry) {
                     if (contact.isDefault) {
                         Surface(shape = RoundedCornerShape(999.dp), color = Color.White.copy(alpha = 0.82f)) {
                             Text(
-                                text = "默认",
+                                text = stringResource(R.string.selection_default),
                                 color = Color(0xFF1978F3),
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
@@ -205,7 +207,7 @@ internal fun SfVoiceContactConfirmCard(contact: PersonalInfoEntry) {
                 }
             }
             Text(
-                text = "可语音回复“确认”或“重新输入”",
+                text = stringResource(R.string.selection_voice_confirm_hint),
                 modifier = Modifier.padding(top = 8.dp),
                 color = Color(0xFF667085),
                 fontSize = 12.sp,
@@ -213,4 +215,10 @@ internal fun SfVoiceContactConfirmCard(contact: PersonalInfoEntry) {
             )
         }
     }
+}
+
+@Composable
+private fun PersonalInfoGender.sfLocalizedDisplayLabel(): String = when (this) {
+    PersonalInfoGender.Mr -> stringResource(R.string.identity_gender_mr)
+    PersonalInfoGender.Ms -> stringResource(R.string.identity_gender_ms)
 }

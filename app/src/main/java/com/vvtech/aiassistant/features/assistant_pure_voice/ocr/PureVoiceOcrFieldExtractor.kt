@@ -17,19 +17,19 @@ internal object PureVoiceOcrFieldExtractor {
     private val definitions = listOf(
         FieldDefinition(
             key = "phone",
-            label = "电话",
+            label = "Phone",
             priority = 0,
             aliases = setOf("电话", "手机", "联系电话", "tel", "phone", "mobile")
         ),
         FieldDefinition(
             key = "name",
-            label = "姓名",
+            label = "Name",
             priority = 1,
             aliases = setOf("姓名", "联系人", "name", "contact")
         ),
         FieldDefinition(
             key = "organization",
-            label = "机构",
+            label = "Organization",
             priority = 2,
             aliases = setOf(
                 "机构",
@@ -45,13 +45,13 @@ internal object PureVoiceOcrFieldExtractor {
         ),
         FieldDefinition(
             key = "time",
-            label = "时间",
+            label = "Time",
             priority = 3,
             aliases = setOf("时间", "日期", "date", "time")
         ),
         FieldDefinition(
             key = "place",
-            label = "地址",
+            label = "Address",
             priority = 4,
             aliases = setOf("地址", "地点", "会场", "address", "location")
         )
@@ -88,7 +88,7 @@ internal object PureVoiceOcrFieldExtractor {
                 } else {
                     PureVoiceOcrField(
                         key = "other_${normalizeLabel(sourceLabel)}",
-                        label = sourceLabel,
+                        label = "Other",
                         value = value
                     )
                 }
@@ -97,7 +97,7 @@ internal object PureVoiceOcrFieldExtractor {
 
             phonePattern.findAll(line).forEach { match ->
                 candidates += Candidate(
-                    PureVoiceOcrField("phone", "电话", match.value.trim()),
+                    PureVoiceOcrField("phone", "Phone", match.value.trim()),
                     priority = 0,
                     ordinal = ordinal++
                 )
@@ -109,7 +109,7 @@ internal object PureVoiceOcrFieldExtractor {
             ).joinToString(" ").trim()
             if (temporalValue.isNotBlank()) {
                 candidates += Candidate(
-                    PureVoiceOcrField("time", "时间", temporalValue),
+                    PureVoiceOcrField("time", "Time", temporalValue),
                     priority = 3,
                     ordinal = ordinal++
                 )
@@ -117,7 +117,7 @@ internal object PureVoiceOcrFieldExtractor {
 
             if (line.length <= 40 && organizationSuffixPattern.matches(line)) {
                 candidates += Candidate(
-                    PureVoiceOcrField("organization", "机构", line),
+                    PureVoiceOcrField("organization", "Organization", line),
                     priority = 2,
                     ordinal = ordinal++
                 )

@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.vvtech.aiassistant.account.AccountIdentityProvider
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.repository.TaskRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -55,7 +56,7 @@ internal class AssistantAuthRuntimeController(
     fun sendLoginCode() {
         val phone = normalizeLoginMainlandPhone(authPhoneDraft)
         if (phone.isBlank()) {
-            Toast.makeText(deps.context, "请输入正确的手机号码", Toast.LENGTH_SHORT).show()
+            Toast.makeText(deps.context, currentAppText("请输入正确的手机号码", "Enter a valid phone number"), Toast.LENGTH_SHORT).show()
             return
         }
         if (authSendingCode || (authCodeRetrySeconds > 0 && authCodeRetryPhone == phone)) return
@@ -67,9 +68,9 @@ internal class AssistantAuthRuntimeController(
                 authPhoneDraft = response.phone
                 authCodeRetryPhone = response.phone
                 authCodeRetrySeconds = max(1, response.resendCooldownSeconds)
-                Toast.makeText(deps.context, "验证码已发送", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, currentAppText("验证码已发送", "Verification code sent"), Toast.LENGTH_SHORT).show()
             }.onFailure { throwable ->
-                Toast.makeText(deps.context, throwable.message ?: "验证码发送失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, throwable.message ?: currentAppText("验证码发送失败", "Failed to send verification code"), Toast.LENGTH_SHORT).show()
             }
             authSendingCode = false
         }
@@ -84,17 +85,17 @@ internal class AssistantAuthRuntimeController(
             loginChallenge = authLoginChallenge
         )
         if (phone.isBlank()) {
-            Toast.makeText(deps.context, "请输入正确的手机号码", Toast.LENGTH_SHORT).show()
+            Toast.makeText(deps.context, currentAppText("请输入正确的手机号码", "Enter a valid phone number"), Toast.LENGTH_SHORT).show()
             return
         }
         if (submission.loginChallenge == null &&
             !Regex("^\\d{4,8}$").matches(submission.smsCode)
         ) {
-            Toast.makeText(deps.context, "请输入正确的验证码", Toast.LENGTH_SHORT).show()
+            Toast.makeText(deps.context, currentAppText("请输入正确的验证码", "Enter a valid verification code"), Toast.LENGTH_SHORT).show()
             return
         }
         if (authActivationOpen && submission.activationCode.isNullOrBlank()) {
-            Toast.makeText(deps.context, "请输入邀请码", Toast.LENGTH_SHORT).show()
+            Toast.makeText(deps.context, currentAppText("请输入邀请码", "Enter invitation code"), Toast.LENGTH_SHORT).show()
             return
         }
         if (authLoggingIn) return
@@ -116,7 +117,7 @@ internal class AssistantAuthRuntimeController(
                         authCodeDraft = ""
                     }
                     authActivationOpen = true
-                    Toast.makeText(deps.context, "请输入邀请码", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(deps.context, currentAppText("请输入邀请码", "Enter invitation code"), Toast.LENGTH_SHORT).show()
                     authLoggingIn = false
                     return@onSuccess
                 }
@@ -138,9 +139,9 @@ internal class AssistantAuthRuntimeController(
                 authCodeRetrySeconds = 0
                 authCodeRetryPhone = ""
                 mockLoggedIn = true
-                Toast.makeText(deps.context, "登录成功", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, currentAppText("登录成功", "Signed in"), Toast.LENGTH_SHORT).show()
             }.onFailure { throwable ->
-                Toast.makeText(deps.context, throwable.message ?: "登录失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, throwable.message ?: currentAppText("登录失败", "Sign-in failed"), Toast.LENGTH_SHORT).show()
             }
             authLoggingIn = false
         }
@@ -161,13 +162,13 @@ internal class AssistantAuthRuntimeController(
                 .putBoolean(FinalTrustedCalleeSdkGuideSeenKey, true)
                 .apply()
             if (!OptionalIncallSdkBridge.openMainUi(deps.context)) {
-                Toast.makeText(deps.context, "可信来电组件未安装", Toast.LENGTH_SHORT).show()
+                Toast.makeText(deps.context, currentAppText("可信来电组件未安装", "Trusted call component is not installed"), Toast.LENGTH_SHORT).show()
             }
             return
         }
         deps.prefs.edit().putBoolean(FinalTrustedCalleeAuthorizedKey, true).apply()
         if (!OptionalIncallSdkBridge.openSettings(deps.context)) {
-            Toast.makeText(deps.context, "可信来电组件未安装", Toast.LENGTH_SHORT).show()
+            Toast.makeText(deps.context, currentAppText("可信来电组件未安装", "Trusted call component is not installed"), Toast.LENGTH_SHORT).show()
         }
     }
 

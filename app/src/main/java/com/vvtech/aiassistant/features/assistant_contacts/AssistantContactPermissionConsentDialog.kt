@@ -1,13 +1,21 @@
 package com.vvtech.aiassistant.features.assistant_contacts
 
 import androidx.compose.runtime.Composable
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_ui.AssistantConfirmationDialog
 
 internal object AssistantContactPermissionDialogText {
-    const val title = "允许访问通讯录？"
-    const val description = "用于选择联系人并发起通话任务"
-    const val allow = "继续授权"
-    const val deny = "暂不"
+    val title: String
+        get() = currentAppText("允许访问通讯录？", "Allow Contacts Access?")
+    val description: String
+        get() = currentAppText(
+            "用于选择联系人并发起通话任务",
+            "Used to select contacts and start calling tasks"
+        )
+    val allow: String
+        get() = currentAppText("继续授权", "Continue")
+    val deny: String
+        get() = currentAppText("暂不", "Not Now")
 }
 
 @Composable

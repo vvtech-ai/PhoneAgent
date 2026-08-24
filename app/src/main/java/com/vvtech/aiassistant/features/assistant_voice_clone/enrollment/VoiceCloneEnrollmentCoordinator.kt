@@ -9,6 +9,7 @@ import com.vvtech.aiassistant.data.local.voiceclone.VoiceCloneVerificationEnviro
 import com.vvtech.aiassistant.data.local.voiceclone.VoiceCloneVerificationEnvironmentProvider
 import com.vvtech.aiassistant.data.repository.voiceclone.VoiceCloneEnrollmentRepository
 import com.vvtech.aiassistant.data.remote.voiceclone.VoiceCloneVerificationClientObservationRequest
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.VoiceCloneStatusResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -111,7 +112,10 @@ internal class VoiceCloneEnrollmentCoordinator(
         if (snapshot.step != VoiceCloneEnrollmentStep.VERIFIED || attemptId.isNullOrBlank()) {
             runtimeLogger.activationBlocked(snapshot.step)
             onResult(Result.failure(
-                IllegalStateException("本次声音克隆记录已失效，请重新开始。")
+                IllegalStateException(currentAppText(
+                    "本次声音克隆记录已失效，请重新开始。",
+                    "This voice cloning record has expired. Please start again."
+                ))
             ))
             return
         }
@@ -146,7 +150,10 @@ internal class VoiceCloneEnrollmentCoordinator(
         val activity = context.findActivity()
         if (activity == null) {
             runtimeLogger.verificationBlocked("activity_unavailable")
-            dispatch(VoiceCloneEnrollmentEvent.Failed("当前页面无法启动实名认证，请重新进入。"))
+            dispatch(VoiceCloneEnrollmentEvent.Failed(currentAppText(
+                "当前页面无法启动实名认证，请重新进入。",
+                "This page cannot start identity verification. Please reopen it."
+            )))
             return
         }
         val generation = ++sessionGeneration
@@ -239,7 +246,10 @@ internal class VoiceCloneEnrollmentCoordinator(
             }
             return
         }
-        val queryAttemptId = attemptId ?: return fail(IllegalStateException("认证流水已失效"))
+        val queryAttemptId = attemptId ?: return fail(IllegalStateException(currentAppText(
+            "认证流水已失效",
+            "The verification session has expired."
+        )))
         repeat(MAX_STATUS_POLLS) {
             if (generation != sessionGeneration) return
             val status = runCatching { repository.status(queryAttemptId) }
@@ -275,7 +285,10 @@ internal class VoiceCloneEnrollmentCoordinator(
             delay(STATUS_POLL_INTERVAL_MS)
         }
         reportClientObservation(queryAttemptId, diagnosis, environment, sdkElapsedMs)
-        fail(IllegalStateException("认证结果查询超时，请重新开始。"))
+        fail(IllegalStateException(currentAppText(
+            "认证结果查询超时，请重新开始。",
+            "Verification result lookup timed out. Please start again."
+        )))
     }
 
     private fun reportClientObservation(
@@ -304,9 +317,18 @@ internal class VoiceCloneEnrollmentCoordinator(
     }
 
     private fun validateIdentity(state: VoiceCloneEnrollmentState): String? = when {
-        state.step != VoiceCloneEnrollmentStep.IDENTITY -> "请先阅读并同意授权说明。"
-        state.realName.trim().length !in 2..32 -> "请输入正确的真实姓名。"
-        !ChinaIdCardValidator.isValid(state.idCardNumber) -> "请输入正确的身份证号码。"
+        state.step != VoiceCloneEnrollmentStep.IDENTITY -> currentAppText(
+            "请先阅读并同意授权说明。",
+            "Read and agree to the authorization notice first."
+        )
+        state.realName.trim().length !in 2..32 -> currentAppText(
+            "请输入正确的真实姓名。",
+            "Enter a valid legal name."
+        )
+        !ChinaIdCardValidator.isValid(state.idCardNumber) -> currentAppText(
+            "请输入正确的身份证号码。",
+            "Enter a valid ID number."
+        )
         else -> null
     }
 
@@ -335,7 +357,10 @@ internal class VoiceCloneEnrollmentCoordinator(
         runtimeLogger.failed(snapshot, throwable)
         dispatch(
             VoiceCloneEnrollmentEvent.Failed(
-                throwable.message?.takeIf { it.isNotBlank() } ?: "实名认证失败，请重新开始。"
+                throwable.message?.takeIf { it.isNotBlank() } ?: currentAppText(
+                    "实名认证失败，请重新开始。",
+                    "Identity verification failed. Please start again."
+                )
             )
         )
     }

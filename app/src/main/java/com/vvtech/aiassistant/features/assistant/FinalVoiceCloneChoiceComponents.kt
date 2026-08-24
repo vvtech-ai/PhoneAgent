@@ -34,6 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.vvtech.aiassistant.R
 @Composable
 internal fun VoiceTopBar(
     backLabel: String,
@@ -100,6 +102,7 @@ internal fun VoiceCloneGroupCard(
     status: String,
     detail: String,
     actionLabel: String,
+    notCloned: Boolean = false,
     enabled: Boolean,
     showAction: Boolean,
     onSelect: () -> Unit,
@@ -122,7 +125,7 @@ internal fun VoiceCloneGroupCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "我的克隆音色",
+                    text = stringResource(R.string.voice_identity_my_clone),
                     color = Color(0xFF111111),
                     fontSize = 16.sp,
                     lineHeight = 20.sp,
@@ -143,7 +146,7 @@ internal fun VoiceCloneGroupCard(
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
                     .clip(RoundedCornerShape(16.dp))
-                    .background(if (status == "未克隆") Color(0x148E8E93) else Color(0x0F0A84FF))
+                    .background(if (notCloned) Color(0x148E8E93) else Color(0x0F0A84FF))
                     .padding(horizontal = 13.dp, vertical = 12.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -176,7 +179,7 @@ internal fun VoiceCheckMark(visible: Boolean) {
             elevation = 0.dp
         ) {
             Text(
-                text = "当前使用",
+                text = stringResource(R.string.voice_identity_current),
                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
                 color = Color(0xFF0A84FF),
                 fontSize = 12.sp,

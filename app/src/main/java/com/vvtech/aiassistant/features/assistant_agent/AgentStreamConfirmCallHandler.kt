@@ -1,8 +1,12 @@
 package com.vvtech.aiassistant.features.assistant_agent
 
+import com.vvtech.aiassistant.core.model.CallSpecPayload
 import com.vvtech.aiassistant.features.assistant.CallPageData
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant.VoiceLanguage
 import com.vvtech.aiassistant.features.assistant.containsTransportNetworkError
+import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.logging.RuntimeStateLogDomain
 import com.vvtech.aiassistant.logging.RuntimeStateLogEvent
 import com.vvtech.aiassistant.logging.RuntimeStateLogger
@@ -19,7 +23,9 @@ internal data class AgentStreamConfirmCallRuntime(
     val setPendingLaunch: (Boolean) -> Unit,
     val isVoiceMode: () -> Boolean,
     val scope: CoroutineScope,
-    val userIdProvider: () -> String
+    val userIdProvider: () -> String,
+    val languageCodeProvider: () -> String,
+    val responseLanguageProvider: () -> String
 )
 
 internal typealias AgentStreamConfirmCallSubmitAction = (
@@ -70,8 +76,8 @@ internal class AgentStreamConfirmCallHandler(
                 latestCallPageSeed = runtime.latestCallPageSeedProvider(),
                 sessionId = sessionId,
                 auto = auto,
-                dialingStatusText = DialingStatusText,
-                manualEchoText = ManualEchoText
+                dialingStatusText = dialingStatusText(),
+                manualEchoText = manualEchoText()
             )
         )
         callbacks.setLatestCallPageSeed(launchPlan.callPageSeed)
@@ -105,12 +111,18 @@ internal class AgentStreamConfirmCallHandler(
             AgentStreamActionSubmitRequest(
                 sessionId = sessionId,
                 actionId = ConfirmCallActionId,
+                actionPayload = confirmCallActionPayload(
+                    languageCode = runtime.languageCodeProvider(),
+                    callSpec = state.agentCallSpec
+                ),
                 contextReason = ContextReason,
                 logAction = ConfirmCallActionId,
                 channel = if (runtime.isVoiceMode()) "voice" else "text",
                 userId = runtime.userIdProvider(),
                 placeholderIndex = placeholderIndex,
-                failureMessage = FailureMessage
+                failureMessage = failureMessage(),
+                languageCode = runtime.languageCodeProvider(),
+                responseLanguage = runtime.responseLanguageProvider()
             ),
             { throwable ->
                 val failureState = runtime.stateProvider()
@@ -193,11 +205,138 @@ internal class AgentStreamConfirmCallHandler(
         private const val AutoConfirmDelayMs = 1500L
         private const val ConfirmCallActionId = "confirm_call"
         private const val ContextReason = "agent_confirm_call"
-        private const val DialingStatusText = "正在拨打电话..."
-        private const val ManualEchoText = "已确认拨打"
-        private const val FailureMessage = "拨打失败"
         private const val SuspendReason = "agent_call_confirm"
     }
+
+    private fun dialingStatusText(): String =
+        currentAppText("正在拨打电话...", "Calling...")
+
+    private fun manualEchoText(): String =
+        currentAppText("已确认拨打", "Call confirmed")
+
+    private fun failureMessage(): String =
+        currentAppText("拨打失败", "Call failed")
+
+    private fun confirmCallActionPayload(
+        languageCode: String,
+        callSpec: CallSpecPayload?
+    ): Map<String, Any>? {
+        if (!languageCode.startsWith("en", ignoreCase = true)) return null
+        val callSpecPayload = callSpec?.let { englishCallSpecPayload(it, languageCode) }
+        return buildMap {
+            put("languageCode", languageCode)
+            put("responseLanguage", "English")
+            put("callLanguage", "en-US")
+            put("calleeLanguage", "en-US")
+            put("spokenLanguage", "en-US")
+            put("scriptLanguage", "English")
+            put("displayLanguage", "English")
+            put("callInstruction", englishOutboundCallInstruction())
+            put(
+                "instructions",
+                listOf(
+                    "Conduct the outbound phone call in English only.",
+                    "Every AI spoken line to the callee must be English.",
+                    "Every call transcript, status, tool result, summary, and receipt field must be displayed in English.",
+                    "Do not output Chinese or pinyin-style fake English.",
+                    "If the callee replies in Chinese, understand it internally and continue responding in English.",
+                    "Preserve real phone numbers and addresses. Use an English alias for Chinese business names when obvious."
+                )
+            )
+            if (callSpecPayload != null) {
+                put("callSpec", callSpecPayload)
+                put("call_spec", callSpecPayload)
+                put("makeCall", callSpecPayload)
+                put("make_call", callSpecPayload)
+            }
+        }
+    }
+
+    private fun englishCallSpecPayload(
+        spec: CallSpecPayload,
+        languageCode: String
+    ): Map<String, Any> {
+        val targetName = englishDisplayText(spec.targetName)
+        val primaryGoal = englishDisplayText(spec.primaryGoal)
+        val summaryLines = spec.summaryLines.map(::englishDisplayText)
+        val rules = englishCallRules(spec.negotiationRules)
+        val boundaries = englishCallBoundaries(spec.boundaries)
+        return buildMap {
+            put("phoneNumber", spec.phoneNumber)
+            put("scene", spec.scene)
+            put("targetName", targetName)
+            put("primaryGoal", primaryGoal)
+            put("summaryLines", summaryLines)
+            put("negotiationRules", rules)
+            put("boundaries", boundaries)
+            put("languageCode", languageCode)
+            put("responseLanguage", "English")
+            put("callLanguage", "en-US")
+            put("spokenLanguage", "en-US")
+            put("scriptLanguage", "English")
+            put("openingText", "Hello, is this $targetName?")
+            put(
+                "successCriteria",
+                listOf(
+                    "Confirm the reservation or call task result in English.",
+                    "Return the result summary and receipt fields in English.",
+                    "Keep real phone numbers and addresses unchanged."
+                )
+            )
+            put("callInstruction", englishOutboundCallInstruction())
+        }
+    }
+
+    private fun englishCallRules(existing: List<String>?): List<String> =
+        mergeEnglishCallGuidance(
+            existing,
+            listOf(
+                "Speak to the callee in English only.",
+                "Ask every question and confirmation in English.",
+                "If the callee answers in Chinese, infer the meaning internally and answer back in English.",
+                "Do not use Chinese words, Chinese numerals, or pinyin-style fake English in the call script."
+            )
+        )
+
+    private fun englishCallBoundaries(existing: List<String>?): List<String> =
+        mergeEnglishCallGuidance(
+            existing,
+            listOf(
+                "English-only outbound call.",
+                "English-only transcript and result display.",
+                "No Chinese fallback for restaurant booking details.",
+                "No pinyin conversion as a substitute for English translation."
+            )
+        )
+
+    private fun mergeEnglishCallGuidance(
+        existing: List<String>?,
+        required: List<String>
+    ): List<String> {
+        val merged = existing.orEmpty()
+            .map(::englishDisplayText)
+            .filter { it.isNotBlank() }
+            .toMutableList()
+        required.forEach { rule ->
+            if (merged.none { it.equals(rule, ignoreCase = true) }) merged += rule
+        }
+        return merged
+    }
+
+    private fun englishDisplayText(raw: String): String =
+        sanitizeUserFacingNetworkText(raw, VoiceLanguage.English)
+
+    private fun englishOutboundCallInstruction(): String =
+        "Conduct the outbound phone conversation in English only. " +
+            "The AI must speak English to the callee even when the callee, restaurant, address, " +
+            "phone number, or local business data is Chinese. " +
+            "Translate callee replies internally and continue in English. " +
+            "Write call scripts, spoken prompts, status text, tool results, summaries, receipt fields, " +
+            "and transcripts in English. " +
+            "Do not output Chinese, Chinese numerals, or pinyin-style fake English such as " +
+            "'yu ding jiao ben yi sheng cheng' or 'zheng zai bo da dian hua'. " +
+            "Use English words for phone endings, party size, time, private room, booking status, " +
+            "and confirmation messages. Preserve phone numbers and addresses as data."
 
     private fun hasPendingOrVisibleCallContext(state: Index9AssistantUiState): Boolean {
         return state.showAiCallPage ||

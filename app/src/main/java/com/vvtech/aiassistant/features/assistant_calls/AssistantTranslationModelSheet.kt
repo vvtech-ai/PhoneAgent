@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
@@ -46,6 +47,7 @@ import com.vvtech.aiassistant.domain.translation.TranslationModelNetworkQualityS
 import com.vvtech.aiassistant.features.model_quality.ModelLatencyPill
 import com.vvtech.aiassistant.features.translation_call.ui.TranslationProviderUiCatalog
 import com.vvtech.aiassistant.features.translation_call.ui.TranslationProviderUiOption
+import com.vvtech.aiassistant.features.translation_call.ui.localizedSubtitle
 
 @Composable
 internal fun AssistantTranslationModelSheet(
@@ -101,7 +103,7 @@ internal fun AssistantTranslationModelSheet(
                     }
                 }
                 Text(
-                    text = "切换后将在下次翻译通话时生效",
+                    text = stringResource(R.string.translation_model_sheet_next_call_note),
                     modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
                     color = TranslationModelSheetColors.TextSecondary,
                     fontSize = 12.sp
@@ -129,7 +131,7 @@ private fun TranslationModelSheetHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "选择实时翻译模型",
+            text = stringResource(R.string.translation_model_sheet_title),
             modifier = Modifier.weight(1f),
             color = TranslationModelSheetColors.TextPrimary,
             fontSize = 17.sp,
@@ -142,7 +144,11 @@ private fun TranslationModelSheetHeader(
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_translation_model_refresh),
-                contentDescription = if (refreshing) "正在刷新模型状态" else "刷新模型状态",
+                contentDescription = if (refreshing) {
+                    stringResource(R.string.translation_model_refreshing_content_description)
+                } else {
+                    stringResource(R.string.translation_model_refresh_content_description)
+                },
                 modifier = Modifier.size(22.dp).rotate(if (refreshing) rotation else 0f),
                 tint = if (refreshing) Color(0xFF9CA3AF) else TranslationModelSheetColors.Primary
             )
@@ -153,7 +159,7 @@ private fun TranslationModelSheetHeader(
         ) {
             Icon(
                 imageVector = Icons.Default.Close,
-                contentDescription = "关闭",
+                contentDescription = stringResource(R.string.common_close),
                 modifier = Modifier.size(22.dp),
                 tint = Color(0xFF999999)
             )
@@ -213,7 +219,7 @@ private fun TranslationModelOptionRow(
                     )
                 }
                 Text(
-                    text = option.subtitle,
+                    text = option.localizedSubtitle(),
                     modifier = Modifier.padding(top = 2.dp),
                     color = if (enabled) {
                         TranslationModelSheetColors.TextSecondary

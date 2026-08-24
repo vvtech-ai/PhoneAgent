@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import com.vvtech.aiassistant.account.AccountIdentityProvider
 import com.vvtech.aiassistant.data.repository.ContactDirectoryContainer
 import com.vvtech.aiassistant.data.repository.ContactDirectoryRepository
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -40,7 +41,7 @@ internal class AssistantContactAiModelRuntimeController(
     fun modelCallContact(callId: String) {
         val userId = AccountIdentityProvider.accountId
         if (userId.isBlank() || callId.isBlank()) {
-            Toast.makeText(deps.context, "建模缺少账号或通话ID", Toast.LENGTH_SHORT).show()
+            Toast.makeText(deps.context, currentAppText("建模缺少账号或通话ID", "Modeling requires an account and call ID"), Toast.LENGTH_SHORT).show()
             return
         }
         if (inFlight) return
@@ -53,14 +54,14 @@ internal class AssistantContactAiModelRuntimeController(
                 callbacks.onModeledContactCreated()
                 Toast.makeText(
                     deps.context,
-                    "已建模：${entry.displayName ?: entry.phone}",
+                    currentAppText("已建模：${entry.displayName ?: entry.phone}", "Modeled: ${entry.displayName ?: entry.phone}"),
                     Toast.LENGTH_SHORT
                 ).show()
             }.onFailure { throwable ->
                 inFlight = false
                 Toast.makeText(
                     deps.context,
-                    "建模失败：${throwable.message ?: "请重试"}",
+                    currentAppText("建模失败：${throwable.message ?: "请重试"}", "Modeling failed: ${throwable.message ?: "Try again"}"),
                     Toast.LENGTH_LONG
                 ).show()
             }

@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant_shell
 import android.Manifest
 import android.widget.Toast
 import com.vvtech.aiassistant.features.assistant.*
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_pure_voice.buildPureVoicePrecheckUiState
 import com.vvtech.aiassistant.features.assistant_ui.AssistantCallModelDisplayNames
 import com.vvtech.aiassistant.features.assistant.toV88VoiceModelOptions
@@ -131,6 +132,7 @@ private fun AssistantRootHostArgsFactoryDeps.mainArgs(): AssistantRootPageHostMa
             values = AssistantRootPageHostMainValueDeps(
                 currentPage = page.currentPage,
                 voiceLanguage = values.voiceLanguage,
+                appLanguage = values.appLanguage,
                 selectedRestaurant = values.selectedRestaurant,
                 activeAccountId = values.activeAccountId,
                 pureVoiceMode = values.pureVoiceMode,
@@ -144,7 +146,7 @@ private fun AssistantRootHostArgsFactoryDeps.mainArgs(): AssistantRootPageHostMa
                 onTaskPageEntered = navigation.onTaskPageEntered,
                 onOpenSubPage = navigation.onOpenSubPage,
                 onBackToMainTab = navigation.onBackToMainTab,
-                onShareResult = { showMessage("分享功能待接入") }
+                onShareResult = { showMessage(currentAppText("分享功能待接入", "Sharing is coming soon")) }
             )
         )
     )
@@ -158,7 +160,8 @@ private fun AssistantRootHostArgsFactoryDeps.overlayArgs(): AssistantOverlayHost
                 assistantNavHidden = state.pageHost.assistantNavHidden,
                 taskBadgeCount = state.homeNotification.taskBadgeCount,
                 pureVoiceMode = values.pureVoiceMode,
-                currentPage = page.currentPage
+                currentPage = page.currentPage,
+                appLanguage = values.appLanguage
             ),
             aiCall = AssistantRootOverlayAiCallDeps(
                 selectedRestaurantTitle = values.selectedRestaurant?.title,

@@ -1,5 +1,6 @@
 package com.vvtech.aiassistant.callengine
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
@@ -92,7 +93,10 @@ private class AssistantQwenDirection(
 
     fun start() {
         if (!config.configured) {
-            onError("Qwen 实时翻译配置缺失")
+            onError(currentAppText(
+                "Qwen 实时翻译配置缺失",
+                "Qwen realtime translation configuration is missing"
+            ))
             return
         }
         val request = Request.Builder()

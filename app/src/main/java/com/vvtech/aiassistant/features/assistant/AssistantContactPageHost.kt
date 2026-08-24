@@ -6,6 +6,7 @@ import com.vvtech.aiassistant.features.assistant_contacts.AssistantContactDetail
 import com.vvtech.aiassistant.features.assistant_contacts.AssistantContactMethodEditPageArgs
 import com.vvtech.aiassistant.features.assistant_contacts.AssistantContactMethodEditPageCallbacks
 import com.vvtech.aiassistant.features.assistant_contacts.AssistantContactMethodEditPageState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun AssistantContactPageHost(args: AssistantContactPageHostArgs) {
@@ -87,7 +88,10 @@ internal fun AssistantContactPageHost(args: AssistantContactPageHostArgs) {
                         error = error,
                         canDelete = mode == ContactEditMode.Edit && editingEntry?.isDefault == false,
                         deleteHint = if (mode == ContactEditMode.Edit && editingEntry?.isDefault == true) {
-                            "默认联系方式不可直接删除，请先在列表中设置其他默认项。"
+                            currentAppText(
+                                "默认联系方式不可直接删除，请先在列表中设置其他默认项。",
+                                "The default contact method cannot be deleted directly. Set another default in the list first."
+                            )
                         } else {
                             null
                         }

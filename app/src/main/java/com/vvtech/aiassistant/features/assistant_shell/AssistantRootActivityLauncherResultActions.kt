@@ -2,12 +2,26 @@ package com.vvtech.aiassistant.features.assistant_shell
 
 import android.Manifest
 import com.vvtech.aiassistant.core.model.PermissionRequestPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal const val AssistantAgentPermissionGrantedStatus = "OK"
 internal const val AssistantAgentPermissionDeniedStatus = "DENIED"
 internal const val AssistantAgentPermissionGrantedMessage = "授权成功"
 internal const val AssistantAgentPermissionDeniedMessage = "用户拒绝授权"
 internal const val AssistantTranslationAudioPermissionDeniedMessage = "请授予麦克风权限后再使用实时翻译通话"
+
+internal fun localizedAssistantAgentPermissionMessage(granted: Boolean): String =
+    if (granted) {
+        currentAppText(AssistantAgentPermissionGrantedMessage, "Permission granted")
+    } else {
+        currentAppText(AssistantAgentPermissionDeniedMessage, "Permission denied")
+    }
+
+internal fun localizedAssistantTranslationAudioPermissionDeniedMessage(): String =
+    currentAppText(
+        AssistantTranslationAudioPermissionDeniedMessage,
+        "Allow microphone access before using live translation calls"
+    )
 
 internal data class AssistantAgentPermissionLauncherResultCallbacks(
     val consumeAgentPermissionRequest: () -> PermissionRequestPayload?,
@@ -29,7 +43,7 @@ internal fun handleAssistantAgentPermissionLauncherResult(
         request,
         if (granted) AssistantAgentPermissionGrantedStatus else AssistantAgentPermissionDeniedStatus,
         granted,
-        if (granted) AssistantAgentPermissionGrantedMessage else AssistantAgentPermissionDeniedMessage
+        localizedAssistantAgentPermissionMessage(granted)
     )
 }
 
@@ -76,7 +90,7 @@ internal fun handleAssistantTranslationAudioPermissionResult(
     if (granted) {
         callbacks.onAudioPermissionGranted()
     } else {
-        callbacks.onShowMessage(AssistantTranslationAudioPermissionDeniedMessage)
+        callbacks.onShowMessage(localizedAssistantTranslationAudioPermissionDeniedMessage())
     }
 }
 

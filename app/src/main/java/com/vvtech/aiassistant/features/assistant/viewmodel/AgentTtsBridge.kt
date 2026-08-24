@@ -4,7 +4,11 @@ import com.vvtech.aiassistant.logging.AppFileLogger
 
 import android.os.Handler
 import android.os.Looper
+import com.vvtech.aiassistant.features.assistant.DefaultVoiceLanguageCode
+import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
 import com.vvtech.aiassistant.features.assistant.speech.AudioPlayer
+import com.vvtech.aiassistant.features.assistant.speech.DEFAULT_TTS_SPEAKER
 import com.vvtech.aiassistant.features.assistant.speech.TtsApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -19,7 +23,8 @@ class AgentTtsBridge(
     private val ttsClient: TtsApiClient,
     private val audioPlayer: AudioPlayer,
     private val scope: CoroutineScope,
-    private val speaker: String = "zh_male_taocheng_uranus_bigtts"
+    private val speaker: String = DEFAULT_TTS_SPEAKER,
+    private val languageCodeProvider: () -> String = { DefaultVoiceLanguageCode }
 ) {
 
     private data class CompletionCallbacks(
@@ -39,6 +44,7 @@ class AgentTtsBridge(
     private val oneShotCompletionCallbacks = ConcurrentLinkedQueue<CompletionCallbacks>()
     private var synthesisJob: Job? = null
     private var active = false
+    private var activeLanguageCode = DefaultVoiceLanguageCode
 
     init {
         audioPlayer.onPlaybackComplete = {
@@ -62,6 +68,7 @@ class AgentTtsBridge(
 
     fun feedTextDelta(delta: String) {
         if (delta.isEmpty()) return
+        activeLanguageCode = VoiceLanguage.fromCode(languageCodeProvider()).code
         buffer.append(delta)
         AppFileLogger.d(TAG, "feedTextDelta: deltaLength=${delta.length} bufferLen=${buffer.length}")
         drainSentences()
@@ -70,10 +77,12 @@ class AgentTtsBridge(
 
     fun feedSignalText(
         text: String,
+        languageCode: String = languageCodeProvider(),
         onComplete: (() -> Unit)? = null,
         onError: (() -> Unit)? = null
     ) {
         if (text.isBlank()) return
+        activeLanguageCode = VoiceLanguage.fromCode(languageCode).code
         AppFileLogger.d(TAG, "feedSignalText len=${text.length}")
         if (onComplete != null || onError != null) {
             oneShotCompletionCallbacks.add(CompletionCallbacks(onComplete = onComplete, onError = onError))
@@ -187,22 +196,26 @@ class AgentTtsBridge(
         if (isSynthesizing()) return
         val sentence = pendingSentences.poll() ?: return
         if (!active) return
+        val languageCode = activeLanguageCode
+        val selectedSpeaker = speakerForLanguage(languageCode)
+        val spokenSentence = normalizeTtsSentenceForLanguage(sentence, languageCode)
         AppFileLogger.i(
             TAG,
-            "TTS_DIAG TTS request started textLen=${sentence.length} " +
-                "speaker=$speaker format=${ttsClient.audioFormat} remaining=${pendingSentences.size}"
+            "TTS_DIAG TTS request started textLen=${spokenSentence.length} " +
+                "language=$languageCode speaker=$selectedSpeaker format=${ttsClient.audioFormat} " +
+                "remaining=${pendingSentences.size}"
         )
-        onBeforeSentenceSynthesis?.invoke(sentence)
+        onBeforeSentenceSynthesis?.invoke(spokenSentence)
         synthesisJob = scope.launch {
             ttsClient.synthesize(
-                text = sentence,
-                speaker = speaker,
+                text = spokenSentence,
+                speaker = selectedSpeaker,
                 onAudioChunk = { chunk ->
                     if (active) {
                         AppFileLogger.i(
                             TAG,
                             "TTS_DIAG TTS audio received bytes=${chunk.size} " +
-                                "format=${ttsClient.audioFormat} textLen=${sentence.length}"
+                                "format=${ttsClient.audioFormat} textLen=${spokenSentence.length}"
                         )
                         audioPlayer.enqueue(chunk, ttsClient.audioFormat)
                     } else {
@@ -216,7 +229,7 @@ class AgentTtsBridge(
                 onComplete = {
                     AppFileLogger.i(
                         TAG,
-                        "TTS_DIAG TTS returned success textLen=${sentence.length} " +
+                        "TTS_DIAG TTS returned success textLen=${spokenSentence.length} " +
                             "pending=${pendingSentences.size} playerPlaying=${audioPlayer.isPlaying()}"
                     )
                     synthesisJob = null
@@ -230,7 +243,7 @@ class AgentTtsBridge(
                 onError = { throwable ->
                     AppFileLogger.e(
                         TAG,
-                        "TTS_DIAG TTS returned failure textLen=${sentence.length} " +
+                        "TTS_DIAG TTS returned failure textLen=${spokenSentence.length} " +
                             "message=${throwable.message}",
                         throwable
                     )
@@ -243,6 +256,13 @@ class AgentTtsBridge(
                     }
                 }
             )
+        }
+    }
+
+    private fun speakerForLanguage(languageCode: String): String {
+        return when (VoiceLanguage.fromCode(languageCode)) {
+            VoiceLanguage.English -> ENGLISH_TTS_SPEAKER
+            else -> speaker
         }
     }
 
@@ -275,3 +295,190 @@ class AgentTtsBridge(
         }
     }
 }
+
+private const val ENGLISH_TTS_SPEAKER = "Andre"
+
+internal fun normalizeTtsSentenceForLanguage(
+    sentence: String,
+    languageCode: String
+): String {
+    if (VoiceLanguage.fromCode(languageCode) != VoiceLanguage.English) return sentence
+    return normalizeEnglishTtsSentence(sentence)
+}
+
+private fun normalizeEnglishTtsSentence(sentence: String): String {
+    var text = sanitizeUserFacingNetworkText(sentence, VoiceLanguage.English)
+    text = text.replace(Regex("""\(\s*\d{4}-\d{1,2}-\d{1,2}[^)]*\)"""), "")
+    text = text.replace(Regex("""\b(\d{1,2})\s*p\.\s*m\.""", RegexOption.IGNORE_CASE)) { match ->
+        val hour = match.groupValues[1].toIntOrNull() ?: return@replace match.value
+        "${numberToEnglishWords(if (hour > 12) hour - 12 else hour)} PM"
+    }
+    text = text.replace(Regex("""\b(\d{1,2})\s*a\.\s*m\.""", RegexOption.IGNORE_CASE)) { match ->
+        val hour = match.groupValues[1].toIntOrNull() ?: return@replace match.value
+        "${numberToEnglishWords(if (hour == 0) 12 else hour)} AM"
+    }
+    text = text.replace(Regex("""\b(\d{1,2}):00\b""")) { match ->
+        val hour = match.groupValues[1].toIntOrNull() ?: return@replace match.value
+        val displayHour = when {
+            hour == 0 -> 12
+            hour > 12 -> hour - 12
+            else -> hour
+        }
+        val suffix = if (hour >= 12) "PM" else "AM"
+        "${numberToEnglishWords(displayHour)} $suffix"
+    }
+    text = text.replace(Regex("""(?:下午|晚上|今晚)\s*(\d{1,2})\s*点""")) { match ->
+        val hour = match.groupValues[1].toIntOrNull() ?: return@replace match.value
+        "${numberToEnglishWords(if (hour > 12) hour - 12 else hour)} PM"
+    }
+    text = text.replace(Regex("""(?:上午|早上)\s*(\d{1,2})\s*点""")) { match ->
+        val hour = match.groupValues[1].toIntOrNull() ?: return@replace match.value
+        "${numberToEnglishWords(if (hour == 0) 12 else hour)} AM"
+    }
+    text = text.replace(Regex("""\b(\d{1,2})\s*点""")) { match ->
+        val hour = match.groupValues[1].toIntOrNull() ?: return@replace match.value
+        val displayHour = when {
+            hour == 0 -> 12
+            hour > 12 -> hour - 12
+            else -> hour
+        }
+        val suffix = if (hour >= 12) "PM" else "AM"
+        "${numberToEnglishWords(displayHour)} $suffix"
+    }
+    text = text.replace(Regex("""\b(\d{1,2}):([0-5]\d)\b""")) { match ->
+        val hour = match.groupValues[1].toIntOrNull() ?: return@replace match.value
+        val minute = match.groupValues[2].toIntOrNull() ?: return@replace match.value
+        "${numberToEnglishWords(hour)} ${numberToEnglishWords(minute)}"
+    }
+    text = text.replace(Regex("""\bending in\s+(\d{3,4})\b""", RegexOption.IGNORE_CASE)) { match ->
+        "ending in ${digitsToEnglishWords(match.groupValues[1])}"
+    }
+    text = text.replace(Regex("""\b(\d+)\s*(?:people|persons|guests)\b""", RegexOption.IGNORE_CASE)) { match ->
+        val count = match.groupValues[1].toIntOrNull() ?: return@replace match.value
+        "${numberToEnglishWords(count)} people"
+    }
+    text = text.replace(Regex("""([一二三四五六七八九十两俩]+)\s*(?:people|persons|guests)\b""")) { match ->
+        "${chineseNumberToEnglishWords(match.groupValues[1]) ?: match.groupValues[1]} people"
+    }
+    text = text.replace(Regex("""\bNo\.\s*(\d+)\b""", RegexOption.IGNORE_CASE)) { match ->
+        val number = match.groupValues[1].toIntOrNull() ?: return@replace match.value
+        "number ${numberToEnglishWords(number)}"
+    }
+    text = text.replace(Regex("""\b\d{3,}\b""")) { match ->
+        digitsToEnglishWords(match.value)
+    }
+    text = text.replace(Regex("""\b\d{1,2}\b""")) { match ->
+        numberToEnglishWords(match.value.toInt())
+    }
+    return text
+        .replace(Regex("""[ \t\u00A0]+"""), " ")
+        .trim()
+}
+
+private fun digitsToEnglishWords(digits: String): String =
+    digits.mapNotNull { digitToEnglishWord(it) }.joinToString(" ")
+
+private fun digitToEnglishWord(char: Char): String? = when (char) {
+    '0' -> "zero"
+    '1' -> "one"
+    '2' -> "two"
+    '3' -> "three"
+    '4' -> "four"
+    '5' -> "five"
+    '6' -> "six"
+    '7' -> "seven"
+    '8' -> "eight"
+    '9' -> "nine"
+    else -> null
+}
+
+private fun numberToEnglishWords(number: Int): String {
+    if (number < 0) return "minus ${numberToEnglishWords(-number)}"
+    if (number < 20) return SmallNumberWords[number]
+    if (number < 100) {
+        val tens = TensNumberWords[number / 10]
+            ?: return number.toString().mapNotNull { digitToEnglishWord(it) }.joinToString(" ")
+        val ones = number % 10
+        return if (ones == 0) tens else "$tens ${SmallNumberWords[ones]}"
+    }
+    if (number < 1000) {
+        val hundreds = number / 100
+        val rest = number % 100
+        return if (rest == 0) {
+            "${SmallNumberWords[hundreds]} hundred"
+        } else {
+            "${SmallNumberWords[hundreds]} hundred ${numberToEnglishWords(rest)}"
+        }
+    }
+    return number.toString().mapNotNull { digitToEnglishWord(it) }.joinToString(" ")
+}
+
+private fun chineseNumberToEnglishWords(text: String): String? =
+    chineseNumberToInt(text)?.let(::numberToEnglishWords)
+
+private fun chineseNumberToInt(text: String): Int? {
+    val normalized = text.replace("两", "二").replace("俩", "二")
+    if (normalized.isBlank()) return null
+    if (normalized == "十") return 10
+    if (normalized.contains("十")) {
+        val parts = normalized.split("十", limit = 2)
+        val tens = parts.getOrNull(0)
+            ?.takeIf { it.isNotBlank() }
+            ?.let(::singleChineseDigitToInt)
+            ?: 1
+        val ones = parts.getOrNull(1)
+            ?.takeIf { it.isNotBlank() }
+            ?.let(::singleChineseDigitToInt)
+            ?: 0
+        return tens * 10 + ones
+    }
+    return singleChineseDigitToInt(normalized)
+}
+
+private fun singleChineseDigitToInt(text: String): Int? = when (text) {
+    "零" -> 0
+    "一" -> 1
+    "二" -> 2
+    "三" -> 3
+    "四" -> 4
+    "五" -> 5
+    "六" -> 6
+    "七" -> 7
+    "八" -> 8
+    "九" -> 9
+    else -> null
+}
+
+private val SmallNumberWords = listOf(
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen"
+)
+
+private val TensNumberWords = mapOf(
+    2 to "twenty",
+    3 to "thirty",
+    4 to "forty",
+    5 to "fifty",
+    6 to "sixty",
+    7 to "seventy",
+    8 to "eighty",
+    9 to "ninety"
+)

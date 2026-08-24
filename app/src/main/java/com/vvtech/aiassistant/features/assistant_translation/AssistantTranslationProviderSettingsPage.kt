@@ -17,9 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.domain.translation.TranslationRealtimeProvider
 import com.vvtech.aiassistant.features.assistant.FinalActionButton
 import com.vvtech.aiassistant.features.assistant.FinalBackTitleBar
@@ -51,7 +53,7 @@ internal fun AssistantTranslationProviderSettingsPage(
         TranslationProviderUiCatalog.option(activeProvider)?.provider ==
             TranslationRealtimeProvider.Qwen
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalBackTitleBar(title = "\u5b9e\u65f6\u7ffb\u8bd1\u901a\u8bdd", onBack = onBack)
+        FinalBackTitleBar(title = stringResource(R.string.dial_live_translation_title), onBack = onBack)
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(start = 14.dp, end = 14.dp, bottom = 16.dp)
@@ -68,13 +70,13 @@ internal fun AssistantTranslationProviderSettingsPage(
                 ) {
                     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {
                         Text(
-                            text = "\u5207\u6362\u540e\u53ea\u5f71\u54cd\u65b0\u53d1\u8d77\u7684\u7ffb\u8bd1\u901a\u8bdd",
+                            text = stringResource(R.string.translation_provider_switch_title),
                             color = Color(0xFF111111),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "Seeduplex 默认使用用户音色，Qwen LT Flash 支持系统女声/男声音色",
+                            text = stringResource(R.string.translation_provider_voice_note),
                             modifier = Modifier.padding(top = 8.dp),
                             color = Color(0xFF6E6E73),
                             fontSize = 13.sp,
@@ -86,7 +88,7 @@ internal fun AssistantTranslationProviderSettingsPage(
             if (loading && providerResponse == null) {
                 item {
                     Text(
-                        text = "\u6b63\u5728\u8bfb\u53d6\u7ffb\u8bd1\u6a21\u578b\u72b6\u6001...",
+                        text = stringResource(R.string.translation_provider_loading),
                         modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
                         color = Color(0xFF6E6E73),
                         fontSize = 13.sp

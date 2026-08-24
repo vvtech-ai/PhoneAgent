@@ -5,6 +5,7 @@ import com.vvtech.aiassistant.features.assistant.AssistantStage
 import com.vvtech.aiassistant.features.assistant.CallUiMode
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
 import com.vvtech.aiassistant.features.assistant.TranscriptRole
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.util.Locale
 
 internal object AssistantSessionTerminalResultReducer {
@@ -57,8 +58,8 @@ internal object AssistantSessionTerminalResultReducer {
             return normalizedCallStatus
         }
         return when (taskStatus.uppercase(Locale.ROOT)) {
-            "FAILED", "CANCELLED", "CANCELED" -> "通话未完成"
-            else -> "通话已结束"
+            "FAILED", "CANCELLED", "CANCELED" -> currentAppText("通话未完成", "Call Incomplete")
+            else -> currentAppText("通话已结束", "Call Ended")
         }
     }
 

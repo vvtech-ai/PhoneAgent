@@ -1,6 +1,8 @@
 package com.vvtech.aiassistant.features.assistant
 
 import com.vvtech.aiassistant.core.model.TranslationCallStatusResponse
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguageManager
+import com.vvtech.aiassistant.features.assistant_i18n.appText
 import com.vvtech.aiassistant.features.assistant_shell.AssistantNormalCallNavigationCallbacks
 import com.vvtech.aiassistant.features.assistant_shell.AssistantNormalCallNavigationState
 import com.vvtech.aiassistant.features.assistant_shell.navigateAfterAssistantNormalCallHangup
@@ -74,13 +76,23 @@ internal fun buildAssistantCallPageHostArgs(
             onMuteToggle = { onNormalMutedChange(!normalCallMuted) },
             onSpeakerToggle = { onNormalSpeakerChange(!normalCallSpeaker) },
             onHangup = {
-                val targetNumber = lastDialedNumber.ifBlank { dialInput }.ifBlank { "未知号码" }
-                val nowMeta = "刚刚 · 普通通话结束，时长 ${formatSeconds(normalCallSeconds)}"
+                val appLanguage = AppLanguageManager.currentAppLanguage()
+                val targetNumber = lastDialedNumber.ifBlank { dialInput }.ifBlank {
+                    "未知号码".appText(appLanguage, "Unknown Number")
+                }
+                val nowText = "刚刚".appText(appLanguage, "Just now")
+                val callEndedText = "普通通话结束".appText(appLanguage, "Regular call ended")
+                val durationText = "时长".appText(appLanguage, "Duration")
+                val metaSeparator = "，".appText(appLanguage, ", ")
+                val nowMeta = "$nowText · $callEndedText$metaSeparator$durationText ${formatSeconds(normalCallSeconds)}"
                 val occurredAtMillis = System.currentTimeMillis()
                 onAppendCallRecord(
                     FinalCallRecord(
-                        title = "拨打 ${formatDialNumber(targetNumber)}",
-                        status = "普通通话",
+                        title = "拨打 ${formatDialNumber(targetNumber)}".appText(
+                            appLanguage,
+                            "Call ${formatDialNumber(targetNumber)}"
+                        ),
+                        status = "普通通话".appText(appLanguage, "Regular Call"),
                         meta = nowMeta,
                         success = true,
                         occurredAtMillis = occurredAtMillis,

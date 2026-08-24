@@ -1,6 +1,7 @@
 package com.vvtech.aiassistant.features.assistant_voice_clone.enrollment
 
 import com.vvtech.aiassistant.data.repository.voiceclone.VoiceCloneEnrollmentRepository
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -35,7 +36,7 @@ internal class VoiceCloneIdentityReplacementGate(
                 if (generation == generationProvider()) {
                     dispatch(
                         VoiceCloneEnrollmentEvent.InputRejected(
-                            throwable.message ?: "身份信息核验失败，请重试。"
+                            throwable.message ?: currentAppText("身份信息核验失败，请重试。", "Identity information check failed. Please try again.")
                         )
                     )
                 }

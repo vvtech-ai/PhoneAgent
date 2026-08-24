@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant
 
 import com.vvtech.aiassistant.features.assistant_voice_clone.VoiceCloneAvailabilityPolicy
 import com.vvtech.aiassistant.features.assistant_voice_clone.logVoiceCloneRuntime
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.VoiceCloneStatusResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -28,7 +29,7 @@ internal class AssistantVoiceCloneFlowOpenHandler(
             return
         }
         if (state.loading.value) {
-            onMessage("身份认证凭证正在恢复，请稍候")
+            onMessage(currentAppText("身份认证凭证正在恢复，请稍候", "Restoring identity verification credentials. Please wait."))
             return
         }
 
@@ -59,14 +60,20 @@ internal class AssistantVoiceCloneFlowOpenHandler(
                     )
                 }
             }.onFailure { throwable ->
-                state.error.value = throwable.message ?: "身份认证凭证恢复失败"
+                state.error.value = throwable.message ?: currentAppText(
+                    "身份认证凭证恢复失败",
+                    "Failed to restore identity verification credentials"
+                )
                 logVoiceCloneRuntime(
                     "VOICE_CLONE_ENTRY_RECOVERY_FAILED",
                     result = "failed",
                     reason = "request_failed",
                     throwable = throwable
                 )
-                onMessage("身份认证凭证恢复未成功，请点击身份认证重试")
+                onMessage(currentAppText(
+                    "身份认证凭证恢复未成功，请点击身份认证重试",
+                    "Identity verification credentials were not restored. Tap identity verification to try again."
+                ))
             }
             state.loading.value = false
         }

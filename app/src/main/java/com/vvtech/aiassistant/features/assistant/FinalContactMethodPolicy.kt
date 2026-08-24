@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 import com.vvtech.aiassistant.core.model.AskQuestionsPayload
 import com.vvtech.aiassistant.core.model.AssistantHistoryItem
 import com.vvtech.aiassistant.core.model.CallSpecPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.ConversationDetail
 import com.vvtech.aiassistant.model.ConversationListItem
 import com.vvtech.aiassistant.model.ReservationSlot
@@ -96,12 +97,12 @@ internal fun sanitizeContactMethodNameInput(raw: String): String {
 
 internal fun validatePersonalInfoInput(name: String, phone: String): String? {
     val trimmedName = name.trim()
-    if (trimmedName.isBlank()) return "请输入姓名"
+    if (trimmedName.isBlank()) return currentAppText("请输入姓名", "Enter your name")
     if (!FinalContactMethodNameRegex.matches(trimmedName)) {
-        return "姓名仅支持 1-4 个汉字"
+        return currentAppText("姓名仅支持 1-4 个汉字", "Name must be 1-4 Chinese characters")
     }
     if (normalizeMainlandPhone(phone).isBlank()) {
-        return "请输入正确的手机号码"
+        return currentAppText("请输入正确的手机号码", "Enter a valid mobile number")
     }
     return null
 }
@@ -193,6 +194,6 @@ internal fun maskPhone(phone: String): String {
 }
 
 internal fun PersonalInfoGender.displayLabel(): String = when (this) {
-    PersonalInfoGender.Mr -> "先生"
-    PersonalInfoGender.Ms -> "女士"
+    PersonalInfoGender.Mr -> currentAppText("先生", "Mr.")
+    PersonalInfoGender.Ms -> currentAppText("女士", "Ms.")
 }

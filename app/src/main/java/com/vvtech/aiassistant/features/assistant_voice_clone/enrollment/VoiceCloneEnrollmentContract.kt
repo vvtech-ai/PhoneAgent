@@ -1,5 +1,7 @@
 package com.vvtech.aiassistant.features.assistant_voice_clone.enrollment
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
+
 internal enum class VoiceCloneEnrollmentStep {
     CONSENT,
     IDENTITY,
@@ -220,7 +222,10 @@ internal object VoiceCloneEnrollmentReducer {
                     errorMessage = null
                 )
             } else {
-                resetWithError("声音克隆未被服务端接受，请重新开始。")
+                resetWithError(currentAppText(
+                    "声音克隆未被服务端接受，请重新开始。",
+                    "The voice clone was not accepted by the server. Please start again."
+                ))
             }
         is VoiceCloneEnrollmentEvent.InputRejected -> state.copy(busy = false, errorMessage = event.message)
         is VoiceCloneEnrollmentEvent.Failed -> resetVerificationWithError(state, event.message)
@@ -255,9 +260,15 @@ internal object VoiceCloneEnrollmentReducer {
     }
 
     private fun serverFailureMessage(providerSubCode: String?): String = when (providerSubCode) {
-        "205" -> "活体检测存在风险，请确认由本人在正常设备环境下重新认证。"
-        "220" -> "跟读内容未完整识别，请在安静环境中连续读完整句话后重新认证。"
-        else -> "实名认证未通过，请重新开始。"
+        "205" -> currentAppText(
+            "活体检测存在风险，请确认由本人在正常设备环境下重新认证。",
+            "Liveness verification detected a risk. Make sure you are verifying yourself on a normal device, then try again."
+        )
+        "220" -> currentAppText(
+            "跟读内容未完整识别，请在安静环境中连续读完整句话后重新认证。",
+            "The read-aloud content was not fully recognized. Try again in a quiet place and read the full sentence continuously."
+        )
+        else -> currentAppText("实名认证未通过，请重新开始。", "Real-name verification failed. Please start again.")
     }
 
     private val ACCEPTED_CLONE_STATUSES = setOf("READY", "PROCESSING")

@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 private val PureVoiceCallBlue = Color(0xFF007AFF)
 private val PureVoiceCallGreen = Color(0xFF34C759)
@@ -73,7 +74,7 @@ internal fun PureVoiceCallCard(data: CallPageData) {
         ) {
             Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp)) {
                 Text(
-                    text = "通话实时转写",
+                    text = currentAppText("通话实时转写", "Live Call Transcript"),
                     color = PureVoiceCallBlue,
                     fontSize = 11.sp,
                     lineHeight = 15.sp,
@@ -87,12 +88,12 @@ internal fun PureVoiceCallCard(data: CallPageData) {
                         transcript.forEach { line ->
                             val speaker = when (line.role) {
                                 TranscriptRole.Assistant -> "AI"
-                                TranscriptRole.Remote -> "对方"
-                                TranscriptRole.Note -> "记录"
+                                TranscriptRole.Remote -> currentAppText("对方", "Other Side")
+                                TranscriptRole.Note -> currentAppText("记录", "Note")
                             }
                             Row(verticalAlignment = Alignment.Top) {
                                 Text(
-                                    text = "$speaker：",
+                                    text = "$speaker${currentAppText("：", ": ")}",
                                     color = when (line.role) {
                                         TranscriptRole.Assistant -> PureVoiceCallBlue
                                         TranscriptRole.Remote -> PureVoiceCallGreen
@@ -103,7 +104,10 @@ internal fun PureVoiceCallCard(data: CallPageData) {
                                     fontWeight = FontWeight.Bold
                                 )
                                 Text(
-                                    text = line.text,
+                                    text = currentAppText(
+                                        line.text,
+                                        sanitizeUserFacingNetworkText(line.text, VoiceLanguage.English)
+                                    ),
                                     modifier = Modifier.weight(1f),
                                     color = Color(0xFF1F2937),
                                     fontSize = 13.sp,
@@ -114,7 +118,10 @@ internal fun PureVoiceCallCard(data: CallPageData) {
                     }
                 } else {
                     Text(
-                        text = "等待实时对话记录...",
+                        text = currentAppText(
+                            "等待实时对话记录...",
+                            "Waiting for realtime conversation records..."
+                        ),
                         modifier = Modifier.padding(top = 10.dp),
                         color = Color(0xFF667085),
                         fontSize = 13.sp,

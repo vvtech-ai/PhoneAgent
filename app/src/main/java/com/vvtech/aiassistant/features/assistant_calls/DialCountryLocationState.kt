@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.vvtech.aiassistant.domain.translation.TranslationRegionState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.translation_call.state.TranslationRegionStateHolder
 import kotlinx.coroutines.launch
 
@@ -46,7 +47,7 @@ internal data class DialCountryLocationState(
     val status: DialCountryLocationStatus,
     val country: DialCountry? = null,
     val message: String,
-    val actionLabel: String = "获取",
+    val actionLabel: String = currentAppText("获取", "Detect"),
     val requestLocation: () -> Unit = {}
 )
 
@@ -164,41 +165,48 @@ internal fun dialCountryLocationState(
         return DialCountryLocationState(
             status = transientStatus,
             message = when (transientStatus) {
-                DialCountryLocationStatus.REQUESTING_PERMISSION -> "正在请求定位权限…"
-                DialCountryLocationStatus.LOCATING -> "正在获取当前位置…"
-                DialCountryLocationStatus.DENIED -> "未获得定位权限，点击重试"
-                DialCountryLocationStatus.BLOCKED -> "位置权限已关闭，请前往设置"
-                else -> "点击获取当前位置"
+                DialCountryLocationStatus.REQUESTING_PERMISSION -> currentAppText("正在请求定位权限…", "Requesting location access…")
+                DialCountryLocationStatus.LOCATING -> currentAppText("正在获取当前位置…", "Detecting your location…")
+                DialCountryLocationStatus.DENIED -> currentAppText("未获得定位权限，点击重试", "Location access not granted. Try again")
+                DialCountryLocationStatus.BLOCKED -> currentAppText("位置权限已关闭，请前往设置", "Location access is off. Open Settings")
+                else -> currentAppText("点击获取当前位置", "Tap to detect your location")
             },
             actionLabel = if (transientStatus == DialCountryLocationStatus.BLOCKED) {
-                "前往设置"
+                currentAppText("前往设置", "Open Settings")
             } else {
-                "获取"
+                currentAppText("获取", "Detect")
             }
         )
     }
     return when (regionState) {
         TranslationRegionState.Resolving -> DialCountryLocationState(
             status = DialCountryLocationStatus.LOCATING,
-            message = "正在获取当前位置…"
+            message = currentAppText("正在获取当前位置…", "Detecting your location…")
         )
         is TranslationRegionState.Resolved -> {
             val country = resolveLocatedDialCountry(regionState.countryIso)
             if (country == null) {
                 DialCountryLocationState(
                     status = DialCountryLocationStatus.UNSUPPORTED,
-                    message = "当前所在国家或地区暂不支持拨号区号选择"
+                    message = currentAppText(
+                        "当前所在国家或地区暂不支持拨号区号选择",
+                        "Country calling code selection is not supported in your current country or region"
+                    )
                 )
             } else {
                 DialCountryLocationState(
                     status = DialCountryLocationStatus.SUCCESS,
                     country = country,
-                    message = "当前位置 · ${country.name} ${country.dialCode}"
+                    message = currentAppText(
+                        "当前位置 · ${country.name} ${country.dialCode}",
+                        "Current Location · ${country.displayName()} ${country.dialCode}"
+                    )
                 )
             }
         }
         is TranslationRegionState.Unavailable -> {
-            val idle = regionState.reason == "尚未获取可信位置"
+            val reason = regionState.reason
+            val idle = reason == "尚未获取可信位置"
             DialCountryLocationState(
                 status = if (idle) {
                     DialCountryLocationStatus.IDLE
@@ -206,9 +214,15 @@ internal fun dialCountryLocationState(
                     DialCountryLocationStatus.FAILED
                 },
                 message = when {
-                    idle -> "点击获取当前位置"
-                    hasPermission -> "无法确定当前位置，请检查系统定位后重试"
-                    else -> "${regionState.reason}，点击重试"
+                    idle -> currentAppText("点击获取当前位置", "Tap to detect your location")
+                    hasPermission -> currentAppText(
+                        "无法确定当前位置，请检查系统定位后重试",
+                        "Unable to detect your location. Check system location and try again"
+                    )
+                    else -> currentAppText(
+                        "${reason}，点击重试",
+                        "Unable to detect your location. Try again"
+                    )
                 }
             )
         }

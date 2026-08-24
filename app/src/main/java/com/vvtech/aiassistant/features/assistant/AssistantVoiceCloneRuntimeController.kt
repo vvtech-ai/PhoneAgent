@@ -18,6 +18,7 @@ import com.vvtech.aiassistant.features.assistant_voice_clone.enrollment.VoiceClo
 import com.vvtech.aiassistant.features.assistant_voice_clone.face.FacePresenceSnapshot
 import com.vvtech.aiassistant.features.assistant_voice_clone.face.FacePresenceTracker
 import com.vvtech.aiassistant.features.assistant_voice_clone.face.VoiceCloneCameraCallbacks
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_voice_clone.face.VoiceCloneFaceUiArgs
 import com.vvtech.aiassistant.model.VoiceCloneScriptItem
 import com.vvtech.aiassistant.model.VoiceCloneStatusResponse
@@ -154,7 +155,10 @@ internal class AssistantVoiceCloneRuntimeController(
                 onDismissReplacement = enrollmentCoordinator::dismissReplacement,
                 onStartVerification = enrollmentCoordinator::startVerification,
                 onVerificationPermissionDenied = {
-                    enrollmentCoordinator.reset("人脸跟读认证需要摄像头和麦克风权限，请重新开始。")
+                    enrollmentCoordinator.reset(currentAppText(
+                        "人脸跟读认证需要摄像头和麦克风权限，请重新开始。",
+                        "Face and read-aloud verification needs camera and microphone permissions. Please start again."
+                    ))
                 }
             ),
             voiceCloneSubmissionState = submissionState,
@@ -181,7 +185,10 @@ internal class AssistantVoiceCloneRuntimeController(
         },
         onStartUsingVoiceClone = ::startUsingVoiceClone,
         onVoiceCloneLifecycleInterrupted = {
-            terminateAndReset("应用进入后台，本次采集已结束，请重新开始。")
+            terminateAndReset(currentAppText(
+                "应用进入后台，本次采集已结束，请重新开始。",
+                "The app went to the background, so this collection ended. Please start again."
+            ))
         }
     )
 
@@ -229,24 +236,25 @@ internal class AssistantVoiceCloneRuntimeController(
     fun uploadSamples() {
         if (uploading) { logVoiceCloneRuntime("VOICE_CLONE_UPLOAD_SKIPPED", "skipped", "already_uploading", status?.status); return }
         if (recordingScriptId != null) {
-            error = "请先结束当前录音，再提交样本。"
+            error = currentAppText("请先结束当前录音，再提交样本。", "Finish the current recording before submitting samples.")
             logVoiceCloneRuntime("VOICE_CLONE_UPLOAD_BLOCKED", "blocked", "recording_active", status?.status)
             return
         }
         val primaryScript = scripts.firstOrNull()
         if (primaryScript == null) {
-            error = "当前没有可用的录音脚本。"
+            error = currentAppText("当前没有可用的录音脚本。", "No recording script is available.")
             logVoiceCloneRuntime("VOICE_CLONE_UPLOAD_BLOCKED", "blocked", "script_missing", status?.status)
             return
         }
         val primarySample = samples[primaryScript.scriptId]
         if (primarySample == null) {
-            error = "请先完成录音后再提交。"
+            error = currentAppText("请先完成录音后再提交。", "Complete the recording before submitting.")
             logVoiceCloneRuntime("VOICE_CLONE_UPLOAD_BLOCKED", "blocked", "sample_missing", status?.status)
             return
         }
         if (primarySample.qualityBlocked) {
-            error = primarySample.qualityWarnings.firstOrNull() ?: "录音质量未达标，请重新录制。"
+            error = primarySample.qualityWarnings.firstOrNull()
+                ?: currentAppText("录音质量未达标，请重新录制。", "Recording quality is too low. Please record again.")
             logVoiceCloneRuntime("VOICE_CLONE_UPLOAD_BLOCKED", "blocked", "quality_blocked", status?.status)
             return
         }
@@ -254,7 +262,10 @@ internal class AssistantVoiceCloneRuntimeController(
         val attemptId = enrollment.attemptId
         val collectionId = enrollment.collection?.collectionId
         if (attemptId.isNullOrBlank() || collectionId.isNullOrBlank()) {
-            error = "认证或采集会话已失效，请重新开始。"
+            error = currentAppText(
+                "认证或采集会话已失效，请重新开始。",
+                "The verification or collection session expired. Please start again."
+            )
             logVoiceCloneRuntime("VOICE_CLONE_UPLOAD_BLOCKED", "blocked", "correlation_missing")
             return
         }
@@ -276,7 +287,10 @@ internal class AssistantVoiceCloneRuntimeController(
                     )
                 )
                 check(VoiceCloneUploadPolicy.isAcceptedProviderStatus(response.status)) {
-                    "声音克隆供应商未接受本次录音"
+                    currentAppText(
+                        "声音克隆供应商未接受本次录音",
+                        "The voice cloning provider did not accept this recording."
+                    )
                 }
                 response
             }.onSuccess { nextStatus ->
@@ -292,14 +306,26 @@ internal class AssistantVoiceCloneRuntimeController(
                 logVoiceCloneRuntime("VOICE_CLONE_UPLOAD_COMPLETED", "success", statusValue = nextStatus.status, attemptId = attemptId, collectionId = collectionId)
                 toast(
                     when (nextSubmissionState) {
-                        VoiceCloneSubmissionState.READY -> "声音刻录已生成，可手动启用。"
-                        VoiceCloneSubmissionState.PROCESSING -> "录音已提交，正在生成声音。"
-                        else -> "声音提交状态异常，请稍后查看。"
+                        VoiceCloneSubmissionState.READY -> currentAppText(
+                            "声音克隆已生成，可手动启用。",
+                            "Voice clone is ready. You can enable it manually."
+                        )
+                        VoiceCloneSubmissionState.PROCESSING -> currentAppText(
+                            "录音已提交，正在生成声音。",
+                            "Recording submitted. Your voice is being generated."
+                        )
+                        else -> currentAppText(
+                            "声音提交状态异常，请稍后查看。",
+                            "Voice submission status is abnormal. Please check later."
+                        )
                     }
                 )
             }.onFailure { throwable ->
                 clearDraft()
-                val message = throwable.message ?: "采集失败，请重新开始。"
+                val message = throwable.message ?: currentAppText(
+                    "采集失败，请重新开始。",
+                    "Collection failed. Please start again."
+                )
                 submissionState = if (message.contains("提交结果确认中")) {
                     VoiceCloneSubmissionState.UNKNOWN
                 } else {
@@ -315,16 +341,17 @@ internal class AssistantVoiceCloneRuntimeController(
     fun submitRecording() {
         val primaryScript = scripts.firstOrNull()
         if (primaryScript == null) {
-            error = "当前没有可提交的录音脚本。"
+            error = currentAppText("当前没有可提交的录音脚本。", "No recording script can be submitted.")
             return
         }
         val currentSample = samples[primaryScript.scriptId]
         if (currentSample == null) {
-            error = "请先完成录音后再提交。"
+            error = currentAppText("请先完成录音后再提交。", "Complete the recording before submitting.")
             return
         }
         if (currentSample.qualityBlocked) {
-            error = currentSample.qualityWarnings.firstOrNull() ?: "录音质量未达标，请重新录制。"
+            error = currentSample.qualityWarnings.firstOrNull()
+                ?: currentAppText("录音质量未达标，请重新录制。", "Recording quality is too low. Please record again.")
             return
         }
         currentScriptIndex = 0
@@ -342,9 +369,17 @@ internal class AssistantVoiceCloneRuntimeController(
             }.onSuccess { nextStatus ->
                 status = nextStatus
                 logVoiceCloneRuntime("VOICE_CLONE_ACTIVE_CHANGE_COMPLETED", "success", nextStatus.status, attributes = mapOf("active" to nextStatus.active.toString()))
-                toast(if (active) "已切换为我的克隆音色" else "已切换为 AI 声音")
+                toast(if (active) {
+                    currentAppText("已切换为我的克隆音色", "Switched to my cloned voice")
+                } else {
+                    currentAppText("已切换为 AI 声音", "Switched to AI voice")
+                })
             }.onFailure { throwable ->
-                error = throwable.message ?: if (active) "启用克隆音色失败" else "切换 AI 声音失败"
+                error = throwable.message ?: if (active) {
+                    currentAppText("启用克隆音色失败", "Failed to enable cloned voice")
+                } else {
+                    currentAppText("切换 AI 声音失败", "Failed to switch to AI voice")
+                }
                 logVoiceCloneRuntime("VOICE_CLONE_ACTIVE_CHANGE_FAILED", "failed", throwable = throwable, attributes = mapOf("requestedActive" to active.toString()))
             }
             actionLoading = false
@@ -371,7 +406,7 @@ internal class AssistantVoiceCloneRuntimeController(
         if (status?.active == true) {
             setActive(false)
         } else {
-            toast("已切换为 AI 声音")
+            toast(currentAppText("已切换为 AI 声音", "Switched to AI voice"))
         }
     }
 
@@ -381,7 +416,10 @@ internal class AssistantVoiceCloneRuntimeController(
         when {
             currentStatus?.active == true && ready -> Unit
             ready -> setActive(true)
-            finalHasUploadedVoiceClone(currentStatus) -> toast("克隆音色正在生成中，请稍后再试")
+            finalHasUploadedVoiceClone(currentStatus) -> toast(currentAppText(
+                "克隆音色正在生成中，请稍后再试",
+                "Your cloned voice is still being generated. Please try again later."
+            ))
             else -> openFlow(resetRecording = true)
         }
     }
@@ -439,9 +477,18 @@ internal class AssistantVoiceCloneRuntimeController(
         }
         toast(
             when (nextSubmissionState) {
-                VoiceCloneSubmissionState.READY -> "声音克隆已生成，可手动启用。"
-                VoiceCloneSubmissionState.PROCESSING -> "跟读已提交，正在生成克隆音色。"
-                else -> "声音克隆状态异常，请重新开始。"
+                VoiceCloneSubmissionState.READY -> currentAppText(
+                    "声音克隆已生成，可手动启用。",
+                    "Voice clone is ready. You can enable it manually."
+                )
+                VoiceCloneSubmissionState.PROCESSING -> currentAppText(
+                    "跟读已提交，正在生成克隆音色。",
+                    "Read-aloud sample submitted. Your cloned voice is being generated."
+                )
+                else -> currentAppText(
+                    "声音克隆状态异常，请重新开始。",
+                    "Voice clone status is abnormal. Please start again."
+                )
             }
         )
     }
@@ -486,7 +533,10 @@ internal class AssistantVoiceCloneRuntimeController(
                 }
             }
             submissionState = VoiceCloneSubmissionState.UNKNOWN
-            error = "声音生成状态查询超时，请稍后在语音设置中查看。"
+            error = currentAppText(
+                "声音生成状态查询超时，请稍后在语音设置中查看。",
+                "Voice generation status timed out. Check voice settings later."
+            )
         }
     }
 

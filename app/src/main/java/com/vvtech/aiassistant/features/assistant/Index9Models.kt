@@ -4,6 +4,7 @@ import com.vvtech.aiassistant.core.model.CallSpecPayload
 import com.vvtech.aiassistant.core.model.BatchCallResultPayload
 import com.vvtech.aiassistant.core.model.CallResultPayload
 import com.vvtech.aiassistant.domain.task.ReceiptField
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 enum class AssistantStage {
     Idle,
@@ -33,7 +34,7 @@ enum class StatusStyle {
 }
 
 data class SummaryData(
-    val taskLabel: String = "任务",
+    val taskLabel: String = currentAppText("任务", "Task"),
     val task: String,
     val targetLabel: String,
     val target: String,

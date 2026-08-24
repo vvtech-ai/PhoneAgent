@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.vvtech.aiassistant.data.repository.recording.CallRecordingRepository
 import com.vvtech.aiassistant.data.repository.recording.CallRecordingRepositoryProvider
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.logging.AppFileLogger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -144,7 +145,7 @@ internal class CallRecordingViewModel(
                 mutableState.update {
                     it.copy(
                         playbackState = CallRecordingPlaybackState.Error,
-                        message = "录音加载失败",
+                        message = currentAppText("录音加载失败", "Failed to load recording"),
                     )
                 }
                 return@launch
@@ -217,7 +218,7 @@ internal class CallRecordingViewModel(
         mutableState.update {
             it.copy(
                 playbackState = CallRecordingPlaybackState.Error,
-                message = "录音加载失败",
+                message = currentAppText("录音加载失败", "Failed to load recording"),
             )
         }
     }

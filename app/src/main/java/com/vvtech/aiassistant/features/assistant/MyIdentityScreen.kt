@@ -21,6 +21,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.data.model.UserIdentityPayload
 import com.vvtech.aiassistant.data.model.UserIdentityUpsertRequest
 import com.vvtech.aiassistant.data.model.UserIdentityVerifiedMetadataRequest
@@ -103,7 +105,7 @@ internal fun MyIdentityScreen(
     val canSave = draft.isValid() && !saving
 
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalBackTitleBar(title = "我的身份", onBack = onBack)
+        FinalBackTitleBar(title = stringResource(R.string.identity_title), onBack = onBack)
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -111,7 +113,7 @@ internal fun MyIdentityScreen(
                 .padding(horizontal = 18.dp, vertical = 12.dp)
         ) {
             if (loading) {
-                MyIdentityHintCard(text = "正在加载身份信息…")
+                MyIdentityHintCard(text = stringResource(R.string.identity_loading))
                 Spacer(Modifier.size(10.dp))
             }
             if (!error.isNullOrBlank()) {
@@ -141,14 +143,14 @@ internal fun MyIdentityScreen(
             if (!editing && shouldShowIdentityAuthentication(status)) {
                 Spacer(Modifier.size(16.dp))
                 FinalActionButton(
-                    label = "声音克隆",
+                    label = stringResource(R.string.identity_voice_clone),
                     tone = FinalButtonTone.Primary,
                     enabled = !saving,
                     modifier = Modifier.fillMaxWidth(),
                     onClick = onOpenVoiceModelSettings
                 )
                 Text(
-                    text = "声音克隆用于使用我的声音进行 AI 通话",
+                    text = stringResource(R.string.identity_voice_clone_description),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 8.dp),
@@ -174,7 +176,7 @@ internal fun MyIdentityScreen(
 @Composable
 private fun MyIdentityEmptyState(onFill: () -> Unit) {
     Text(
-        text = "暂无身份信息",
+        text = stringResource(R.string.identity_empty_title),
         modifier = Modifier.fillMaxWidth().padding(top = 72.dp),
         color = Color(0xFF111111),
         fontSize = 20.sp,
@@ -182,14 +184,14 @@ private fun MyIdentityEmptyState(onFill: () -> Unit) {
         textAlign = TextAlign.Center
     )
     Text(
-        text = "用于AI在通话中更好的沟通。",
+        text = stringResource(R.string.identity_empty_description),
         modifier = Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 28.dp),
         color = Color(0xFF6E6E73),
         fontSize = 14.sp,
         textAlign = TextAlign.Center
     )
     FinalActionButton(
-        label = "填写身份信息",
+        label = stringResource(R.string.identity_fill_action),
         tone = FinalButtonTone.Primary,
         enabled = true,
         modifier = Modifier.fillMaxWidth(),
@@ -206,20 +208,20 @@ private fun MyIdentityEditForm(
     onDraftChange: (MyIdentityDraft) -> Unit,
     onSave: () -> Unit
 ) {
-    MyIdentitySectionTitle("身份信息")
+    MyIdentitySectionTitle(stringResource(R.string.identity_section_profile))
     MyIdentityFieldCard {
         MyIdentityRequiredField(
-            label = "姓名",
+            label = stringResource(R.string.identity_name_label),
             value = draft.name,
-            placeholder = "让AI知道该如何介绍自己",
+            placeholder = stringResource(R.string.identity_name_placeholder),
             enabled = nameEditable,
             onValueChange = { onDraftChange(draft.copy(name = it.take(128))) }
         )
         MyIdentityDivider()
         MyIdentityRow(
-            label = "手机号码",
+            label = stringResource(R.string.identity_phone_label),
             value = draft.contactPhone,
-            placeholder = "请输入手机号码",
+            placeholder = stringResource(R.string.identity_phone_placeholder),
             keyboardType = KeyboardType.Phone,
             onValueChange = {
                 onDraftChange(draft.copy(contactPhone = it.filter(Char::isDigit).take(11)))
@@ -233,7 +235,7 @@ private fun MyIdentityEditForm(
     }
     Spacer(Modifier.size(24.dp))
     FinalActionButton(
-        label = if (saving) "保存中" else "保存",
+        label = if (saving) stringResource(R.string.identity_saving) else stringResource(R.string.identity_save),
         tone = FinalButtonTone.Primary,
         enabled = canSave,
         modifier = Modifier.fillMaxWidth(),

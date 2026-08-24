@@ -25,9 +25,15 @@ import com.vvtech.aiassistant.features.assistant.VoiceCard
 import com.vvtech.aiassistant.features.assistant.VoicePrimaryButton
 import com.vvtech.aiassistant.features.assistant.VoiceTextPrimary
 import com.vvtech.aiassistant.features.assistant.VoiceTextSecondary
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal const val voiceCloneReadAloudGuidance =
     "请使用正常语速，连续清晰地读完整句话；数字按中文读音读出，例如 7 读作“七”。"
+
+private fun localizedVoiceCloneReadAloudGuidance(): String = currentAppText(
+    voiceCloneReadAloudGuidance,
+    "Read the full sentence clearly at a natural pace. Read numbers aloud in Chinese, for example 7 as \"qi\"."
+)
 
 internal data class VoiceCloneEnrollmentUiArgs(
     val state: VoiceCloneEnrollmentState,
@@ -67,7 +73,12 @@ private fun VoiceCloneIdentityStep(
 ) {
     val state = args.state
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        PrototypeSmallHint("请填写本人真实姓名和身份证号")
+        PrototypeSmallHint(
+            currentAppText(
+                "请填写本人真实姓名和身份证号",
+                "Enter your legal name and Resident ID number."
+            )
+        )
         VoiceCard(
             modifier = Modifier.fillMaxWidth(),
             color = Color.White,
@@ -79,9 +90,9 @@ private fun VoiceCloneIdentityStep(
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
                 VoiceCloneIdentityField(
-                    label = "姓名",
+                    label = currentAppText("姓名", "Name"),
                     value = state.displayRealName,
-                    placeholder = "请输入姓名",
+                    placeholder = currentAppText("请输入姓名", "Enter name"),
                     enabled = !state.busy,
                     onEditStarted = {
                         args.onIdentityEditStarted(VoiceCloneIdentityFieldKind.REAL_NAME)
@@ -89,9 +100,9 @@ private fun VoiceCloneIdentityStep(
                     onValueChange = { args.onIdentityChange(it, state.idCardNumber) }
                 )
                 VoiceCloneIdentityField(
-                    label = "身份证号",
+                    label = currentAppText("身份证号", "ID Number"),
                     value = state.displayIdCardNumber,
-                    placeholder = "请输入身份证号",
+                    placeholder = currentAppText("请输入身份证号", "Enter your Resident ID number"),
                     enabled = !state.busy,
                     keyboardType = KeyboardType.Ascii,
                     onEditStarted = {
@@ -103,13 +114,20 @@ private fun VoiceCloneIdentityStep(
         }
         EnrollmentError(state.errorMessage)
         Text(
-            "提交后将进入阿里云人脸与跟读认证。同一次跟读会同时用于声音克隆，不会再次要求录音。",
+            currentAppText(
+                "提交后将进入阿里云人脸与跟读认证。同一次跟读会同时用于声音克隆，不会再次要求录音。",
+                "After submission, you will enter Aliyun face and read-aloud verification. The same read-aloud session is used for voice cloning, so no separate recording is required."
+            ),
             color = VoiceTextSecondary,
             fontSize = 13.sp,
             lineHeight = 21.sp
         )
         VoicePrimaryButton(
-            text = if (state.busy) "正在准备认证…" else "开始人脸跟读认证",
+            text = if (state.busy) {
+                currentAppText("正在准备认证…", "Preparing verification...")
+            } else {
+                currentAppText("开始人脸跟读认证", "Start Face & Voice Verification")
+            },
             enabled = !state.busy,
             onClick = { args.onPrepareVerification(startVerification) }
         )
@@ -130,22 +148,31 @@ private fun VoiceCloneIdentityReplacementDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
-            Text("将替换当前认证身份", fontWeight = FontWeight.Bold)
+            Text(
+                currentAppText("替换当前认证身份？", "Replace the current verified identity?"),
+                fontWeight = FontWeight.Bold
+            )
         },
         text = {
             Text(
-                "检测到本次认证人与当前已认证身份不是同一人。继续后，" +
-                    "仅在新身份认证成功时更新身份信息，并使原身份创建的克隆音色不可用。"
+                currentAppText(
+                    "检测到本次认证人与当前已认证身份不是同一人。继续后，仅在新身份认证成功时更新身份信息，并使原身份创建的克隆音色不可用。",
+                    "The person in this verification does not match the currently verified identity. Continuing will update the identity only if the new verification succeeds, and cloned voices created by the old identity will become unavailable."
+                )
             )
         },
         confirmButton = {
             TextButton(onClick = onConfirm) {
-                Text("继续并替换", color = Color(0xFFE14D46), fontWeight = FontWeight.Bold)
+                Text(
+                    currentAppText("继续并替换", "Continue and Replace"),
+                    color = Color(0xFFE14D46),
+                    fontWeight = FontWeight.Bold
+                )
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消", color = VoiceTextPrimary)
+                Text(currentAppText("取消", "Cancel"), color = VoiceTextPrimary)
             }
         }
     )
@@ -158,9 +185,12 @@ private fun VoiceCloneVerifyingStep(state: VoiceCloneEnrollmentState) {
     Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
         PrototypeSmallHint(
             if (collectionFinished) {
-                "人脸与跟读采集已完成"
+                currentAppText("人脸与跟读采集已完成", "Face and read-aloud capture complete")
             } else {
-                "请按阿里云页面提示保持本人正脸并准确跟读"
+                currentAppText(
+                    "请按阿里云页面提示保持本人正脸并准确跟读",
+                    "Follow the Aliyun page instructions: keep your face centered and read aloud accurately"
+                )
             }
         )
         VoiceCard(
@@ -173,7 +203,11 @@ private fun VoiceCloneVerifyingStep(state: VoiceCloneEnrollmentState) {
                 modifier = Modifier.fillMaxWidth().padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text("请朗读以下内容：", color = VoiceTextSecondary, fontSize = 13.sp)
+                Text(
+                    currentAppText("请朗读以下内容：", "Please read the following:"),
+                    color = VoiceTextSecondary,
+                    fontSize = 13.sp
+                )
                 Text(
                     state.scriptText.orEmpty(),
                     color = VoiceTextPrimary,
@@ -182,7 +216,7 @@ private fun VoiceCloneVerifyingStep(state: VoiceCloneEnrollmentState) {
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    voiceCloneReadAloudGuidance,
+                    localizedVoiceCloneReadAloudGuidance(),
                     color = VoiceTextSecondary,
                     fontSize = 12.sp,
                     lineHeight = 18.sp
@@ -191,9 +225,15 @@ private fun VoiceCloneVerifyingStep(state: VoiceCloneEnrollmentState) {
         }
         VoiceCloneVerificationCard(
             status = state.errorMessage ?: if (collectionFinished) {
-                "采集已完成，正在核验认证结果并生成克隆音色，请稍候…"
+                currentAppText(
+                    "采集已完成，正在核验认证结果并生成克隆音色，请稍候…",
+                    "Capture complete. Verifying results and creating your cloned voice..."
+                )
             } else {
-                "正在进行人脸与跟读采集，请按阿里云页面提示完成操作…"
+                currentAppText(
+                    "正在进行人脸与跟读采集，请按阿里云页面提示完成操作…",
+                    "Face and read-aloud capture is in progress. Follow the Aliyun page instructions..."
+                )
             },
             error = !state.errorMessage.isNullOrBlank()
         )
@@ -203,9 +243,12 @@ private fun VoiceCloneVerifyingStep(state: VoiceCloneEnrollmentState) {
 @Composable
 private fun VoiceCloneCloningStep(state: VoiceCloneEnrollmentState) {
     Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
-        PrototypeSmallHint("人脸与跟读认证已通过")
+        PrototypeSmallHint(currentAppText("人脸与跟读认证已通过", "Face and read-aloud verification passed"))
         VoiceCloneVerificationCard(
-            status = state.errorMessage ?: "正在使用本次跟读生成克隆音色，请稍候…",
+            status = state.errorMessage ?: currentAppText(
+                "正在使用本次跟读生成克隆音色，请稍候…",
+                "Creating your cloned voice from this read-aloud session..."
+            ),
             error = !state.errorMessage.isNullOrBlank()
         )
     }

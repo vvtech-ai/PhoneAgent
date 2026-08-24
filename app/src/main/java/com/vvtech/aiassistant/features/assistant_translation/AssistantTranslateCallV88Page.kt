@@ -162,19 +162,19 @@ internal fun AssistantTranslateCallV88Page(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AssistantTranslateCallControl(
-                    label = "静音",
+                    label = "Mute",
                     icon = Icons.Outlined.Mic,
                     active = muted,
                     onClick = onMuteToggle
                 )
                 AssistantTranslateCallControl(
-                    label = "挂断",
+                    label = "Hang Up",
                     icon = Icons.Rounded.CallEnd,
                     danger = true,
                     onClick = onHangup
                 )
                 AssistantTranslateCallControl(
-                    label = "扬声器",
+                    label = "Speaker",
                     icon = Icons.Outlined.VolumeUp,
                     active = speakerEnabled,
                     onClick = onSpeakerToggle

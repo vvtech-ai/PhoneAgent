@@ -14,6 +14,7 @@ import com.vvtech.aiassistant.features.assistant_calls.DialTargetSelection
 import com.vvtech.aiassistant.features.assistant_calls.dialCountryByIso
 import com.vvtech.aiassistant.features.assistant_calls.dialTranslationLanguageCodes
 import com.vvtech.aiassistant.features.assistant_calls.normalizeDialTarget
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.translation_call.state.TranslationCallLaunchInput
 import com.vvtech.aiassistant.features.translation_call.state.TranslationCallLaunchResult
 
@@ -111,7 +112,7 @@ internal class AssistantRootCallEntryActions(
     fun runHistoryCall(target: DialTargetSelection): Boolean {
         if (target.callKind != DialRecentCallKind.TRANSLATION) {
             if (normalizeDialTarget(target.phoneNumber).isBlank()) {
-                deps.onShowMessage("通话记录号码格式不正确")
+                deps.onShowMessage(currentAppText("通话记录号码格式不正确", "Call history number format is invalid"))
                 return false
             }
             return deps.onLaunchSystemDialer(target.phoneNumber)
@@ -119,12 +120,12 @@ internal class AssistantRootCallEntryActions(
         return when (deps.callDialState.dialer.restoreHistoryTarget(target)) {
             is ContactDialNumberResult.Supported -> startClientSipCall(translation = true)
             ContactDialNumberResult.UnsupportedCountry -> {
-                deps.onShowMessage("暂不支持该号码国家或地区")
+                deps.onShowMessage(currentAppText("暂不支持该号码国家或地区", "This number's country or region is not supported yet"))
                 false
             }
             ContactDialNumberResult.Invalid,
             ContactDialNumberResult.TooLong -> {
-                deps.onShowMessage("通话记录号码格式不正确")
+                deps.onShowMessage(currentAppText("通话记录号码格式不正确", "Call history number format is invalid"))
                 false
             }
         }
@@ -133,7 +134,7 @@ internal class AssistantRootCallEntryActions(
     fun openDialFromContact(): Boolean {
         val target = deps.selectedContactSystemDialPhoneProvider().trim()
         if (normalizeDialTarget(target).isBlank()) {
-            deps.onShowMessage("联系人号码格式不正确")
+            deps.onShowMessage(currentAppText("联系人号码格式不正确", "Contact number format is invalid"))
             return false
         }
         return deps.onLaunchSystemDialer(target)

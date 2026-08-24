@@ -49,6 +49,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -57,6 +58,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 @Composable
 internal fun SfUserBubble(text: String) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
@@ -209,7 +211,7 @@ internal fun SfSummaryCard(text: String) {
                 color = Color(0xFFEEF5FF)
             ) {
                 Text(
-                    text = "准备执行",
+                    text = stringResource(R.string.summary_ready_to_execute),
                     color = Color(0xFF1978F3),
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,

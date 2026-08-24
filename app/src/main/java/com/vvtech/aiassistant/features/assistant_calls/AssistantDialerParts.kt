@@ -25,10 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.translation_call.ui.TranslationProviderUiCatalog
 
 @Composable
@@ -37,6 +39,7 @@ internal fun DialerNumberHeader(
     country: DialCountry,
     onCountryClick: () -> Unit
 ) {
+    val numberPlaceholder = stringResource(R.string.dial_number_placeholder)
     Row(
         modifier = Modifier.fillMaxWidth().height(80.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -55,7 +58,7 @@ internal fun DialerNumberHeader(
             )
             Icon(
                 Icons.Default.KeyboardArrowDown,
-                contentDescription = "选择国家或地区",
+                contentDescription = stringResource(R.string.dial_select_country),
                 tint = Color(0xFF667085),
                 modifier = Modifier.padding(horizontal = 5.dp).size(18.dp)
             )
@@ -67,7 +70,8 @@ internal fun DialerNumberHeader(
                 .background(Color(0xFFD0D5DD))
         )
         Text(
-            text = formatDialInputForDisplay(dialNumber, country.iso).ifBlank { "请输入号码" },
+            text = formatDialInputForDisplay(dialNumber, country.iso)
+                .ifBlank { numberPlaceholder },
             modifier = Modifier.weight(1f),
             color = if (dialNumber.isBlank()) Color(0xFFB7BAC2) else Color(0xFF111111),
             fontSize = 22.sp,
@@ -115,7 +119,7 @@ internal fun TranslationLanguageLine(
             )
             Icon(
                 Icons.Default.KeyboardArrowDown,
-                contentDescription = "选择模型",
+                contentDescription = stringResource(R.string.dial_select_model),
                 tint = Color(0xFF667085),
                 modifier = Modifier.size(17.dp)
             )
@@ -125,9 +129,13 @@ internal fun TranslationLanguageLine(
             verticalAlignment = Alignment.CenterVertically
         ) {
             val label = if (translateEnabled) {
-                "我方 $myLanguage  ⇄  $otherLanguage 对方"
+                stringResource(
+                    R.string.dial_language_line,
+                    localizedDialLanguageName(myLanguage),
+                    localizedDialLanguageName(otherLanguage)
+                )
             } else {
-                "实时翻译  关"
+                stringResource(R.string.dial_translation_off)
             }
             Text(
                 label,
@@ -138,7 +146,7 @@ internal fun TranslationLanguageLine(
             )
             Icon(
                 Icons.Default.KeyboardArrowDown,
-                contentDescription = "设置双方语言",
+                contentDescription = stringResource(R.string.dial_set_languages),
                 tint = Color(0xFF667085),
                 modifier = Modifier.size(17.dp)
             )
@@ -160,7 +168,7 @@ internal fun DialerBottomActions(
         Box(Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
             Icon(
                 Icons.Default.Close,
-                contentDescription = "关闭拨号盘",
+                contentDescription = stringResource(R.string.dial_close_keypad),
                 tint = Color(0xFF4B4D52),
                 modifier = Modifier.size(28.dp).clickable(onClick = onClose)
             )
@@ -180,7 +188,11 @@ internal fun DialerBottomActions(
         ) {
             Icon(
                 Icons.Default.Phone,
-                contentDescription = if (translateEnabled) "实时翻译呼叫" else "普通呼叫",
+                contentDescription = if (translateEnabled) {
+                    stringResource(R.string.dial_live_translation_call)
+                } else {
+                    stringResource(R.string.dial_normal_call)
+                },
                 tint = Color.White,
                 modifier = Modifier.size(25.dp)
             )
@@ -188,7 +200,7 @@ internal fun DialerBottomActions(
         Box(Modifier.weight(1f), contentAlignment = Alignment.CenterEnd) {
             Icon(
                 Icons.Default.Backspace,
-                contentDescription = "删除",
+                contentDescription = stringResource(R.string.dial_delete),
                 tint = Color(0xFF4B4D52),
                 modifier = Modifier.size(28.dp).clickable(onClick = onDelete)
             )

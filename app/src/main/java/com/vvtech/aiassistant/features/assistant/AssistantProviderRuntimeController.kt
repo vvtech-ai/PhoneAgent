@@ -13,6 +13,7 @@ import com.vvtech.aiassistant.features.assistant_model.AiCallModelLatencySource
 import com.vvtech.aiassistant.features.assistant_model.aiCallModelLatencyReading
 import com.vvtech.aiassistant.features.assistant_initialization.AssistantInitializationLoadState
 import com.vvtech.aiassistant.features.assistant_initialization.assistantProviderLoadState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_settings.realtimeCallVoiceDisplayName
 import com.vvtech.aiassistant.features.assistant_ui.AssistantCallModelDisplayNames
 import com.vvtech.aiassistant.model.RealtimeCallProviderResponse
@@ -123,7 +124,7 @@ internal class AssistantProviderRuntimeController(
         get() {
             val response = realtimeCallVoiceResponse
             if (response?.selectionMode.equals("CLONE", ignoreCase = true)) {
-                return "我的克隆音色"
+                return currentAppText("我的克隆音色", "My Cloned Voice")
             }
             val activeVoice = response?.voices?.firstOrNull { it.selected }
             val voiceId = activeVoice?.voice ?: response?.activeVoice.orEmpty()
@@ -157,7 +158,10 @@ internal class AssistantProviderRuntimeController(
                 realtimeProviderResponse = response
                 logSettings("CALL_PROVIDER_REFRESH_COMPLETED", provider = response.activeProvider, result = "success")
             }.onFailure { throwable ->
-                realtimeProviderError = throwable.message ?: "通话模型状态加载失败"
+                realtimeProviderError = throwable.message ?: currentAppText(
+                    "通话模型状态加载失败",
+                    "Failed to load call model status"
+                )
                 logSettings("CALL_PROVIDER_REFRESH_FAILED", result = "failed", throwable = throwable)
             }
             realtimeProviderLoading = false
@@ -179,7 +183,10 @@ internal class AssistantProviderRuntimeController(
                 realtimeCallVoiceResponse = response
                 logSettings("CALL_VOICE_REFRESH_COMPLETED", provider = response.activeVoice, result = "success")
             }.onFailure { throwable ->
-                realtimeCallVoiceError = throwable.message ?: "AI通话音色加载失败"
+                realtimeCallVoiceError = throwable.message ?: currentAppText(
+                    "AI通话音色加载失败",
+                    "Failed to load AI call voices"
+                )
                 logSettings("CALL_VOICE_REFRESH_FAILED", result = "failed", throwable = throwable)
             }
             realtimeCallVoiceLoading = false
@@ -201,7 +208,10 @@ internal class AssistantProviderRuntimeController(
                 translationProviderResponse = response
                 logSettings("TRANSLATION_PROVIDER_REFRESH_COMPLETED", provider = response.activeProvider, result = "success")
             }.onFailure { throwable ->
-                translationProviderError = throwable.message ?: "实时翻译模型状态加载失败"
+                translationProviderError = throwable.message ?: currentAppText(
+                    "实时翻译模型状态加载失败",
+                    "Failed to load live translation model status"
+                )
                 logSettings("TRANSLATION_PROVIDER_REFRESH_FAILED", result = "failed", throwable = throwable)
             }
             translationProviderLoading = false
@@ -225,17 +235,26 @@ internal class AssistantProviderRuntimeController(
                 logSettings("CALL_PROVIDER_SWITCH_COMPLETED", response.activeProvider, result = "success")
                 Toast.makeText(
                     deps.context,
-                    "通话模型已切换为 ${response.activeProviderDisplayName.trim()}",
+                    currentAppText(
+                        "通话模型已切换为 ${response.activeProviderDisplayName.trim()}",
+                        "Call model switched to ${response.activeProviderDisplayName.trim()}"
+                    ),
                     Toast.LENGTH_SHORT
                 ).show()
             }.onFailure { throwable ->
-                realtimeProviderError = throwable.message ?: "通话模型切换失败"
+                realtimeProviderError = throwable.message ?: currentAppText(
+                    "通话模型切换失败",
+                    "Failed to switch call model"
+                )
                 logSettings("CALL_PROVIDER_SWITCH_FAILED", provider, result = "failed", throwable = throwable)
             }
             if (!realtimeProviderError.isNullOrBlank()) {
                 Toast.makeText(
                     deps.context,
-                    "通话模型切换失败，请检查网络或本地服务连接",
+                    currentAppText(
+                        "通话模型切换失败，请检查网络或本地服务连接",
+                        "Failed to switch call model. Check your network or local service connection."
+                    ),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -270,14 +289,20 @@ internal class AssistantProviderRuntimeController(
                 Toast.makeText(
                     deps.context,
                     if (response.selectionMode.equals("CLONE", ignoreCase = true)) {
-                        "已切换为我的克隆音色"
+                        currentAppText("已切换为我的克隆音色", "Switched to my cloned voice")
                     } else {
-                        "AI通话音色已切换为 ${response.activeVoiceDisplayName.ifBlank { response.activeVoice }}"
+                        currentAppText(
+                            "AI通话音色已切换为 ${response.activeVoiceDisplayName.ifBlank { response.activeVoice }}",
+                            "AI call voice switched to ${response.activeVoiceDisplayName.ifBlank { response.activeVoice }}"
+                        )
                     },
                     Toast.LENGTH_SHORT
                 ).show()
             }.onFailure { throwable ->
-                realtimeCallVoiceError = throwable.message ?: "AI通话音色切换失败"
+                realtimeCallVoiceError = throwable.message ?: currentAppText(
+                    "AI通话音色切换失败",
+                    "Failed to switch AI call voice"
+                )
                 logSettings("CALL_VOICE_SWITCH_FAILED", selectionMode, result = "failed", throwable = throwable)
             }
             realtimeCallVoiceSwitching = false
@@ -300,17 +325,26 @@ internal class AssistantProviderRuntimeController(
                 logSettings("TRANSLATION_PROVIDER_SWITCH_COMPLETED", response.activeProvider, result = "success")
                 Toast.makeText(
                     deps.context,
-                    "翻译通话模型已切换为 ${response.activeProviderDisplayName}",
+                    currentAppText(
+                        "翻译通话模型已切换为 ${response.activeProviderDisplayName}",
+                        "Translation call model switched to ${response.activeProviderDisplayName}"
+                    ),
                     Toast.LENGTH_SHORT
                 ).show()
             }.onFailure { throwable ->
-                translationProviderError = throwable.message ?: "翻译通话模型切换失败"
+                translationProviderError = throwable.message ?: currentAppText(
+                    "翻译通话模型切换失败",
+                    "Failed to switch translation call model"
+                )
                 logSettings("TRANSLATION_PROVIDER_SWITCH_FAILED", provider, result = "failed", throwable = throwable)
             }
             if (!translationProviderError.isNullOrBlank()) {
                 Toast.makeText(
                     deps.context,
-                    "同声传译模型切换失败，请检查网络或本地服务连接",
+                    currentAppText(
+                        "同声传译模型切换失败，请检查网络或本地服务连接",
+                        "Failed to switch interpretation model. Check your network or local service connection."
+                    ),
                     Toast.LENGTH_SHORT
                 ).show()
             }

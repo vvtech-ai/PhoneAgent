@@ -2,6 +2,9 @@ package com.vvtech.aiassistant.features.assistant_tasks
 
 import com.vvtech.aiassistant.features.assistant.TranscriptLine
 import com.vvtech.aiassistant.features.assistant.TranscriptRole
+import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.sanitizeCallTranscriptDisplayText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -26,22 +29,22 @@ internal fun parseTaskCallDialogueDetail(detail: String): List<TranscriptLine> {
             when {
                 line.startsWith("assistant:", ignoreCase = true) -> TranscriptLine(
                     role = TranscriptRole.Assistant,
-                    text = line.substringAfter(':').trim()
+                    text = localizeCallTranscriptText(line.substringAfter(':').trim())
                 )
 
                 line.startsWith("callee:", ignoreCase = true) -> TranscriptLine(
                     role = TranscriptRole.Remote,
-                    text = line.substringAfter(':').trim()
+                    text = localizeCallTranscriptText(line.substringAfter(':').trim())
                 )
 
                 line.startsWith("merchant:", ignoreCase = true) -> TranscriptLine(
                     role = TranscriptRole.Remote,
-                    text = line.substringAfter(':').trim()
+                    text = localizeCallTranscriptText(line.substringAfter(':').trim())
                 )
 
                 line.startsWith("remote:", ignoreCase = true) -> TranscriptLine(
                     role = TranscriptRole.Remote,
-                    text = line.substringAfter(':').trim()
+                    text = localizeCallTranscriptText(line.substringAfter(':').trim())
                 )
 
                 else -> null
@@ -50,6 +53,9 @@ internal fun parseTaskCallDialogueDetail(detail: String): List<TranscriptLine> {
         .filter { it.text.isNotBlank() }
         .toList()
 }
+
+private fun localizeCallTranscriptText(raw: String): String =
+    currentAppText(raw, sanitizeCallTranscriptDisplayText(raw, VoiceLanguage.English))
 
 internal fun taskCallSessionIsStreamingDialogueLine(line: TranscriptLine): Boolean {
     return line.role == TranscriptRole.Assistant || line.role == TranscriptRole.Remote

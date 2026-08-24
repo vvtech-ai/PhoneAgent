@@ -18,6 +18,8 @@ internal data class AgentStreamTurnUseCaseRequest(
     val initialSkillId: String? = null,
     val initialOpening: String? = null,
     val selectedContact: SelectedContactTaskContext? = null,
+    val languageCode: String,
+    val responseLanguage: String,
     val identity: AgentCommandIdentity = AgentCommandIdentity.newIntent(
         sessionId,
         AgentCommandKind.UserTurn,
@@ -39,7 +41,10 @@ internal class AgentStreamTurnUseCase(
         return streamProvider(
             AgentChatRequest(
                 sessionId = request.sessionId,
-                message = request.message,
+                message = agentBackendMessageForLanguage(
+                    message = request.message,
+                    languageCode = request.languageCode
+                ),
                 userContext = userContext,
                 pendingToolCallId = request.pendingToolCallId,
                 channel = request.channel,
@@ -51,6 +56,8 @@ internal class AgentStreamTurnUseCase(
                 traceId = request.identity.traceId,
                 supersedesCommandId = request.supersedesCommandId,
                 selectedContact = request.selectedContact,
+                languageCode = null,
+                responseLanguage = null,
             )
         )
     }

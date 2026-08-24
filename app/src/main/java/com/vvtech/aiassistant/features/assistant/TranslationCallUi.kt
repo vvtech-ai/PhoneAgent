@@ -33,10 +33,12 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.core.model.TranslationCallStatusResponse
 import com.vvtech.aiassistant.core.model.TranslationLanguageMode
 import com.vvtech.aiassistant.core.model.TranslationVoiceCapabilitiesResponse
@@ -107,33 +109,37 @@ internal fun FinalTranslationDialPage(
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item {
-            TranslationTopBar(title = "实时翻译电话", onBack = onBack)
+            TranslationTopBar(title = stringResource(R.string.translation_dial_title), onBack = onBack)
         }
         item {
             TranslationSectionCard {
-                Text("拨打号码", fontSize = 14.sp, color = Color(0xFF667085))
+                Text(stringResource(R.string.translation_phone_label), fontSize = 14.sp, color = Color(0xFF667085))
                 Spacer(Modifier.height(8.dp))
                 TranslationTextField(
                     value = draft.phoneNumber,
-                    placeholder = "输入手机或座机号码",
+                    placeholder = stringResource(R.string.translation_phone_placeholder),
                     onValueChange = onPhoneChange
                 )
                 Spacer(Modifier.height(10.dp))
-                Text("备注名称", fontSize = 14.sp, color = Color(0xFF667085))
+                Text(stringResource(R.string.translation_display_name_label), fontSize = 14.sp, color = Color(0xFF667085))
                 Spacer(Modifier.height(8.dp))
                 TranslationTextField(
                     value = draft.displayName,
-                    placeholder = "例如 海外酒店前台",
+                    placeholder = stringResource(R.string.translation_display_name_placeholder),
                     onValueChange = onDisplayNameChange
                 )
             }
         }
         item {
             TranslationSectionCard {
-                Text("翻译服务", fontSize = 14.sp, color = Color(0xFF667085))
+                Text(stringResource(R.string.translation_service_label), fontSize = 14.sp, color = Color(0xFF667085))
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = capabilities?.provider ?: if (loading) "加载中..." else "未获取",
+                    text = capabilities?.provider ?: if (loading) {
+                        stringResource(R.string.translation_loading)
+                    } else {
+                        stringResource(R.string.translation_not_loaded)
+                    },
                     fontSize = 18.sp,
                     color = Color(0xFF111827),
                     fontWeight = FontWeight.SemiBold
@@ -141,10 +147,10 @@ internal fun FinalTranslationDialPage(
                 Spacer(Modifier.height(8.dp))
                 Text(
                     text = when {
-                        capabilities == null && loading -> "正在检查当前后端的翻译能力。"
-                        capabilities == null -> "未能获取当前翻译服务能力。"
-                        !capabilities.translationSupported -> "当前服务暂不支持实时翻译电话，请先在设置里切到支持翻译的服务。"
-                        else -> "当前服务支持实时翻译电话。"
+                        capabilities == null && loading -> stringResource(R.string.translation_capability_checking)
+                        capabilities == null -> stringResource(R.string.translation_capability_failed)
+                        !capabilities.translationSupported -> stringResource(R.string.translation_capability_unsupported)
+                        else -> stringResource(R.string.translation_capability_supported)
                     },
                     fontSize = 13.sp,
                     color = Color(0xFF667085)
@@ -154,28 +160,31 @@ internal fun FinalTranslationDialPage(
                     Text(error, color = Color(0xFFB42318), fontSize = 13.sp)
                 }
                 Spacer(Modifier.height(10.dp))
-                TranslationGhostButton(label = "刷新能力", onClick = onRefreshCapabilities)
+                TranslationGhostButton(label = stringResource(R.string.translation_refresh_capability), onClick = onRefreshCapabilities)
             }
         }
         item {
             TranslationSectionCard {
-                Text("语言模式", fontSize = 14.sp, color = Color(0xFF667085))
+                Text(stringResource(R.string.translation_language_mode), fontSize = 14.sp, color = Color(0xFF667085))
                 Spacer(Modifier.height(8.dp))
                 TranslationSegmentedRow(
-                    options = listOf("AUTO" to "自动识别", "MANUAL" to "手动指定"),
+                    options = listOf(
+                        "AUTO" to stringResource(R.string.translation_mode_auto),
+                        "MANUAL" to stringResource(R.string.translation_mode_manual)
+                    ),
                     selected = draft.languageMode.name,
                     onSelected = { key -> onLanguageModeChange(TranslationLanguageMode.valueOf(key)) }
                 )
                 if (draft.languageMode == TranslationLanguageMode.MANUAL) {
                     Spacer(Modifier.height(12.dp))
-                    Text("你的语言", fontSize = 13.sp, color = Color(0xFF667085))
+                    Text(stringResource(R.string.translation_your_language), fontSize = 13.sp, color = Color(0xFF667085))
                     Spacer(Modifier.height(8.dp))
                     TranslationLanguagePicker(
                         selected = draft.callerLanguage,
                         onSelected = onCallerLanguageChange
                     )
                     Spacer(Modifier.height(10.dp))
-                    Text("对方语言", fontSize = 13.sp, color = Color(0xFF667085))
+                    Text(stringResource(R.string.translation_other_language), fontSize = 13.sp, color = Color(0xFF667085))
                     Spacer(Modifier.height(8.dp))
                     TranslationLanguagePicker(
                         selected = draft.calleeLanguage,
@@ -184,7 +193,7 @@ internal fun FinalTranslationDialPage(
                 } else {
                     Spacer(Modifier.height(10.dp))
                     Text(
-                        "默认会先按中文对英文准备；如果检测到双方同语种，会自动切到原音直通。",
+                        stringResource(R.string.translation_auto_language_hint),
                         fontSize = 13.sp,
                         color = Color(0xFF667085)
                     )
@@ -194,35 +203,38 @@ internal fun FinalTranslationDialPage(
         if (FinalVoiceCloneFeatureVisible) {
             item {
                 TranslationSectionCard {
-                    Text("翻译电话音色", fontSize = 14.sp, color = Color(0xFF667085))
+                    Text(stringResource(R.string.translation_voice_title), fontSize = 14.sp, color = Color(0xFF667085))
                     Spacer(Modifier.height(8.dp))
                     val capability = capabilities?.voiceCapability.orEmpty()
                     when (capability) {
                         "USER_VOICE_CLONE_SUPPORTED" -> {
                             TranslationSegmentedRow(
-                                options = listOf("DEFAULT" to "默认音色", "USER_CLONE" to "用户音色"),
+                                options = listOf(
+                                    "DEFAULT" to stringResource(R.string.translation_voice_default),
+                                    "USER_CLONE" to stringResource(R.string.translation_voice_user_clone)
+                                ),
                                 selected = draft.voiceMode.name,
                                 onSelected = { key -> onVoiceModeChange(TranslationVoiceMode.valueOf(key)) }
                             )
                             Spacer(Modifier.height(8.dp))
                             Text(
-                                "当前模型支持用户音色和内置音色两种模式。",
+                                stringResource(R.string.translation_voice_clone_supported),
                                 fontSize = 13.sp,
                                 color = Color(0xFF667085)
                             )
                         }
                         "SOURCE_VOICE_MIMIC_ONLY" -> Text(
-                            "当前模型会自动跟随对方音色，不需要额外选择音色，也不会复用声音刻录里的静态音色。",
+                            stringResource(R.string.translation_voice_mimic_only),
                             fontSize = 13.sp,
                             color = Color(0xFF667085)
                         )
                         "BUILT_IN_VOICE_ONLY" -> Text(
-                            "当前模型仅支持内置音色，首版不会直接复用已有声音刻录音色。",
+                            stringResource(R.string.translation_voice_builtin_only),
                             fontSize = 13.sp,
                             color = Color(0xFF667085)
                         )
                         else -> Text(
-                            "当前模型暂不提供翻译电话音色设置。",
+                            stringResource(R.string.translation_voice_not_available),
                             fontSize = 13.sp,
                             color = Color(0xFF667085)
                         )
@@ -250,7 +262,7 @@ internal fun FinalTranslationDialPage(
         }
         item {
             TranslationPrimaryButton(
-                label = "发起实时翻译电话",
+                label = stringResource(R.string.translation_start_call),
                 enabled = capabilities?.translationSupported == true && draft.phoneNumber.isNotBlank(),
                 onClick = onStartCall
             )
@@ -273,6 +285,8 @@ internal fun FinalTranslationCallPage(
     onRefresh: () -> Unit,
     onHangup: () -> Unit
 ) {
+    val connectingChannelText = stringResource(R.string.translation_connecting_channel)
+    val passthroughSameLanguageText = stringResource(R.string.translation_passthrough_same_language)
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -282,7 +296,7 @@ internal fun FinalTranslationCallPage(
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item {
-            TranslationTopBar(title = "翻译通话中", onBack = onBack, dark = true)
+            TranslationTopBar(title = stringResource(R.string.translation_calling_title), onBack = onBack, dark = true)
         }
         item {
             Surface(
@@ -303,7 +317,7 @@ internal fun FinalTranslationCallPage(
                     Spacer(Modifier.height(8.dp))
                     Text(
                         text = localizedTranslationCallMessage(status?.statusMessage)
-                            .ifBlank { "正在建立翻译通道..." },
+                            .ifBlank { connectingChannelText },
                         color = Color(0xFFD0D5DD),
                         fontSize = 14.sp
                     )
@@ -315,7 +329,7 @@ internal fun FinalTranslationCallPage(
                         ) {
                             Text(
                                 text = localizedTranslationCallMessage(status.passthroughReason)
-                                    .ifBlank { "已检测同语种，当前直通" },
+                                    .ifBlank { passthroughSameLanguageText },
                                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
                                 color = Color(0xFFFFD166),
                                 fontSize = 12.sp,
@@ -324,17 +338,17 @@ internal fun FinalTranslationCallPage(
                         }
                     }
                     Spacer(Modifier.height(14.dp))
-                    TranslationStatusPill("通话状态", localizedTranslationCallState(status?.callState))
+                    TranslationStatusPill(stringResource(R.string.translation_call_status), localizedTranslationCallState(status?.callState))
                     Spacer(Modifier.height(8.dp))
-                    TranslationStatusPill("翻译状态", localizedTranslationSessionState(status?.translationState))
+                    TranslationStatusPill(stringResource(R.string.translation_session_status), localizedTranslationSessionState(status?.translationState))
                     Spacer(Modifier.height(8.dp))
-                    TranslationStatusPill("模型", status?.provider ?: "--")
+                    TranslationStatusPill(stringResource(R.string.translation_model_label), status?.provider ?: "--")
                     if (FinalVoiceCloneFeatureVisible) {
                         Spacer(Modifier.height(8.dp))
                         TranslationStatusPill(
-                            "音色",
+                            stringResource(R.string.translation_voice_label),
                             if (status?.voiceCapability == "SOURCE_VOICE_MIMIC_ONLY") {
-                                "自动跟随对方音色"
+                                stringResource(R.string.translation_voice_follow_remote)
                             } else {
                                 status?.effectiveCallerToCalleeVoice ?: "--"
                             }
@@ -353,38 +367,38 @@ internal fun FinalTranslationCallPage(
         }
         item {
             TranslationSectionCard(containerColor = Color.White) {
-                Text("语言识别", fontSize = 15.sp, color = Color(0xFF111827), fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.translation_language_detection), fontSize = 15.sp, color = Color(0xFF111827), fontWeight = FontWeight.SemiBold)
                 Spacer(Modifier.height(10.dp))
-                TranslationStatusRow("你的语言", displayLanguageLabel(status?.callerDetectedLanguage))
+                TranslationStatusRow(stringResource(R.string.translation_your_language), displayLanguageLabel(status?.callerDetectedLanguage))
                 Spacer(Modifier.height(8.dp))
-                TranslationStatusRow("对方语言", displayLanguageLabel(status?.calleeDetectedLanguage))
+                TranslationStatusRow(stringResource(R.string.translation_other_language), displayLanguageLabel(status?.calleeDetectedLanguage))
             }
         }
         item {
             TranslationSectionCard(containerColor = Color.White) {
-                Text("手动纠正语言", fontSize = 15.sp, color = Color(0xFF111827), fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.translation_manual_language_fix), fontSize = 15.sp, color = Color(0xFF111827), fontWeight = FontWeight.SemiBold)
                 Spacer(Modifier.height(10.dp))
-                Text("你的语言", fontSize = 13.sp, color = Color(0xFF667085))
+                Text(stringResource(R.string.translation_your_language), fontSize = 13.sp, color = Color(0xFF667085))
                 Spacer(Modifier.height(8.dp))
                 TranslationLanguagePicker(selected = callerLanguageDraft, onSelected = onCallerLanguageChange)
                 Spacer(Modifier.height(10.dp))
-                Text("对方语言", fontSize = 13.sp, color = Color(0xFF667085))
+                Text(stringResource(R.string.translation_other_language), fontSize = 13.sp, color = Color(0xFF667085))
                 Spacer(Modifier.height(8.dp))
                 TranslationLanguagePicker(selected = calleeLanguageDraft, onSelected = onCalleeLanguageChange)
                 Spacer(Modifier.height(10.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    TranslationGhostButton(label = "刷新状态", onClick = onRefresh, modifier = Modifier.weight(1f))
-                    TranslationPrimaryButton(label = "应用纠正", onClick = onApplyOverride, modifier = Modifier.weight(1f))
+                    TranslationGhostButton(label = stringResource(R.string.translation_refresh_status), onClick = onRefresh, modifier = Modifier.weight(1f))
+                    TranslationPrimaryButton(label = stringResource(R.string.translation_apply_correction), onClick = onApplyOverride, modifier = Modifier.weight(1f))
                 }
             }
         }
         item {
             TranslationSectionCard(containerColor = Color.White) {
-                Text("字幕流", fontSize = 15.sp, color = Color(0xFF111827), fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.translation_subtitles), fontSize = 15.sp, color = Color(0xFF111827), fontWeight = FontWeight.SemiBold)
                 Spacer(Modifier.height(10.dp))
                 if (status?.subtitleItems.isNullOrEmpty()) {
                     Text(
-                        "当前还没有字幕事件，接入实时音频后这里会显示原文或译文字幕。",
+                        stringResource(R.string.translation_empty_subtitles),
                         fontSize = 13.sp,
                         color = Color(0xFF667085)
                     )
@@ -408,7 +422,10 @@ internal fun FinalTranslationCallPage(
                                     )
                                     Spacer(Modifier.height(6.dp))
                                     Text(
-                                        "原文 · ${displayLanguageLabel(item.sourceLanguage)}",
+                                        stringResource(
+                                            R.string.translation_source_text_label,
+                                            displayLanguageLabel(item.sourceLanguage)
+                                        ),
                                         color = Color(0xFF475467),
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.Medium
@@ -418,7 +435,10 @@ internal fun FinalTranslationCallPage(
                                     if (item.translatedText.isNotBlank() && item.translatedText != item.sourceText) {
                                         Spacer(Modifier.height(10.dp))
                                         Text(
-                                            "译文 · ${displayLanguageLabel(item.translatedLanguage)}",
+                                            stringResource(
+                                                R.string.translation_translated_text_label,
+                                                displayLanguageLabel(item.translatedLanguage)
+                                            ),
                                             color = Color(0xFF475467),
                                             fontSize = 12.sp,
                                             fontWeight = FontWeight.Medium
@@ -457,7 +477,7 @@ internal fun FinalTranslationCallPage(
                 ) {
                     Icon(Icons.Rounded.CallEnd, contentDescription = null, tint = Color.White)
                     Spacer(Modifier.width(8.dp))
-                    Text("结束通话", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                    Text(stringResource(R.string.translation_hangup), color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                 }
             }
         }

@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/ck_ic_title_back_arrow" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbarTrackVertical="@android:color/transparent"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_banner"
+                android:layout_width="match_parent"
+                android:layout_height="184dp"
+                android:background="@drawable/ck_bg_setting_img">
+
+                <TextView
+                    android:id="@+id/banner_title1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="52dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="@string/ck_splash_title"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/img_banner_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/banner_title2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="@string/ck_setting_title2"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/img_banner_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/banner_title1" />
+
+                <ImageView
+                    android:id="@+id/img_banner_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ck_setting_chaken"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_permission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ck_bg_setting_tx"
+                android:paddingBottom="19dp">
+
+                <TextView
+                    android:id="@+id/tx_grant_permission"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="12dp"
+                    android:text="@string/grant_the_permission"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/switch_permission"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_permission"
+                    android:layout_width="40dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="17dp"
+                    android:thumb="@drawable/ck_selector_switch_circle_thumb"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tx_grant_permission"
+                    app:track="@drawable/ck_selector_switch_green" />
+
+                <TextView
+                    android:id="@+id/tx_why_permisison"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:text="@string/why_permission"
+                    android:textColor="#FF808080"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@id/switch_permission"
+                    app:layout_constraintStart_toStartOf="@id/tx_grant_permission"
+                    app:layout_constraintTop_toBottomOf="@id/tx_grant_permission" />
+
+                <TextView
+                    android:id="@+id/tx_call_permission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/call_permission"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tx_why_permisison"
+                    app:layout_constraintTop_toBottomOf="@id/tx_why_permisison" />
+
+                <TextView
+                    android:id="@+id/tx_why_call_permission"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="46dp"
+                    android:text="@string/why_call_permission"
+                    android:textColor="#FF808080"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@id/state_call_permission"
+                    app:layout_constraintStart_toStartOf="@id/tx_call_permission"
+                    app:layout_constraintTop_toBottomOf="@id/tx_call_permission" />
+
+                <TextView
+                    android:id="@+id/state_call_permission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_granted"
+                    android:textColor="@color/chaken_base_blue"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/switch_permission"
+                    app:layout_constraintTop_toTopOf="@id/tx_call_permission" />
+
+                <TextView
+                    android:id="@+id/tx_default_app_permission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/default_app_permission"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tx_call_permission"
+                    app:layout_constraintTop_toBottomOf="@id/tx_why_call_permission" />
+
+                <TextView
+                    android:id="@+id/why_default_app_permission"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="46dp"
+                    android:text="@string/why_default_app_permission"
+                    android:textColor="#FF808080"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@id/state_default_app_permission"
+                    app:layout_constraintStart_toStartOf="@id/tx_default_app_permission"
+                    app:layout_constraintTop_toBottomOf="@id/tx_default_app_permission" />
+
+                <TextView
+                    android:id="@+id/state_default_app_permission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_not_granted"
+                    android:textColor="#FF808080"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/switch_permission"
+                    app:layout_constraintTop_toTopOf="@id/tx_default_app_permission" />
+
+                <TextView
+                    android:id="@+id/tx_floating_permission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/floating_permission"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tx_call_permission"
+                    app:layout_constraintTop_toBottomOf="@id/why_default_app_permission" />
+
+                <TextView
+                    android:id="@+id/why_floating_permission"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="46dp"
+                    android:layout_marginBottom="19dp"
+                    android:text="@string/why_floating_permission"
+                    android:textColor="#FF808080"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@id/state_floating_permission"
+                    app:layout_constraintStart_toStartOf="@id/tx_floating_permission"
+                    app:layout_constraintTop_toBottomOf="@id/tx_floating_permission" />
+
+                <TextView
+                    android:id="@+id/state_floating_permission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/permission_not_granted"
+                    android:textColor="#FF808080"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/switch_permission"
+                    app:layout_constraintTop_toTopOf="@id/tx_floating_permission" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container_lock_per"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tx_call_permission"
+                    app:layout_constraintTop_toBottomOf="@id/why_floating_permission">
+
+                    <TextView
+                        android:id="@+id/tx_lock_per"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lock_per"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/why_tx_lock_per"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="46dp"
+                        android:text="@string/why_lock_per"
+                        android:textColor="#FF808080"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/arrow_lock_per"
+                        app:layout_constraintStart_toStartOf="@id/tx_lock_per"
+                        app:layout_constraintTop_toBottomOf="@id/tx_lock_per" />
+
+                    <ImageView
+                        android:id="@+id/arrow_lock_per"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="5dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ck_ic_arrow_lock_per"
+                        app:layout_constraintBottom_toBottomOf="@id/why_tx_lock_per"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tx_lock_per" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#FFD1D1D1"
+                    app:layout_constraintEnd_toEndOf="@id/state_floating_permission"
+                    app:layout_constraintStart_toStartOf="@id/why_floating_permission"
+                    app:layout_constraintTop_toBottomOf="@id/container_lock_per" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container_contact_permission"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tx_call_permission"
+                    app:layout_constraintTop_toBottomOf="@id/divider">
+
+                    <TextView
+                        android:id="@+id/tx_contact_permission"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/load_contact_permission"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/why_contact_permission"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="19dp"
+                        android:text="@string/why_contact_permission"
+                        android:textColor="#FF808080"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/state_contact_permission"
+                        app:layout_constraintStart_toStartOf="@id/tx_contact_permission"
+                        app:layout_constraintTop_toBottomOf="@id/tx_contact_permission" />
+
+                    <TextView
+                        android:id="@+id/state_contact_permission"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/permission_not_granted"
+                        android:textColor="#FF808080"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/why_contact_permission"
+                        app:layout_constraintEnd_toStartOf="@id/arrow_contact_per"
+                        app:layout_constraintTop_toTopOf="@id/tx_contact_permission" />
+
+                    <ImageView
+                        android:id="@+id/arrow_contact_per"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="5dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ck_ic_arrow_lock_per"
+                        app:layout_constraintBottom_toBottomOf="@id/why_contact_permission"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tx_contact_permission" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_set_phone_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/ck_bg_setting_tx_all_corners"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tx_my_phone_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/my_num"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/why_my_phone_num"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/why_set_phone_num"
+                    android:textColor="#FF8F8F8F"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tx_state_set_nums"
+                    app:layout_constraintStart_toStartOf="@id/tx_my_phone_num"
+                    app:layout_constraintTop_toBottomOf="@id/tx_my_phone_num" />
+
+                <TextView
+                    android:id="@+id/tx_state_set_nums"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/state_set_nums"
+                    android:textColor="#FFE50112"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/img_num_arrow"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/img_num_arrow"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ck_ic_arrow_lock_per"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_up_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="23dp"
+                android:background="@drawable/ck_bg_setting_tx_all_corners"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tx_up_log_or_about_us"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/up_log"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tx_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="V2.0"
+                    android:textColor="#FF8F8F8F"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/about_right_arrow"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/about_right_arrow"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ck_ic_arrow_lock_per"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_continue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="22dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/ck_shape_btn_agr_agree"
+                android:foreground="?attr/selectableItemBackground"
+                android:maxWidth="387dp"
+                android:paddingVertical="12dp"
+                android:text="@string/go_to_grant_permission"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:padding="3dp"
+                android:text="@string/skip"
+                android:textColor="#FF000000" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

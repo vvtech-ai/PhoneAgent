@@ -35,6 +35,7 @@ import com.vvtech.aiassistant.features.assistant.FinalFadeEase
 import com.vvtech.aiassistant.features.assistant.FinalMainTab
 import com.vvtech.aiassistant.features.assistant.FinalMotionDurationMs
 import com.vvtech.aiassistant.features.assistant.FinalMotionEase
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 
 @Composable
 internal fun AssistantBottomNavigationBar(
@@ -42,7 +43,8 @@ internal fun AssistantBottomNavigationBar(
     onSelect: (FinalMainTab) -> Unit,
     onDialClick: () -> Unit,
     hidden: Boolean = false,
-    taskBadgeCount: Int = 0
+    taskBadgeCount: Int = 0,
+    appLanguage: AppLanguage = AppLanguage.English
 ) {
     var navContainerHeightPx by remember { mutableStateOf(0) }
     val density = LocalDensity.current
@@ -74,7 +76,8 @@ internal fun AssistantBottomNavigationBar(
             BottomNavigationSurface(
                 selected = selected,
                 onSelect = onSelect,
-                taskBadgeCount = taskBadgeCount
+                taskBadgeCount = taskBadgeCount,
+                appLanguage = appLanguage
             )
             CenterActionButton(
                 centerDialMode = true,
@@ -90,13 +93,14 @@ internal fun AssistantBottomNavigationBar(
 private fun BottomNavigationSurface(
     selected: FinalMainTab,
     onSelect: (FinalMainTab) -> Unit,
-    taskBadgeCount: Int
+    taskBadgeCount: Int,
+    appLanguage: AppLanguage
 ) {
     val items = listOf(
-        BottomNavigationItemSpec(FinalMainTab.Home, R.drawable.ic_final_tab_home, "\u9996\u9875"),
-        BottomNavigationItemSpec(FinalMainTab.Contacts, R.drawable.ic_final_tab_contacts, "\u8054\u7cfb\u4eba"),
-        BottomNavigationItemSpec(FinalMainTab.Tasks, R.drawable.ic_final_tab_tasks, "\u4efb\u52a1", taskBadgeCount),
-        BottomNavigationItemSpec(FinalMainTab.Settings, R.drawable.ic_final_tab_settings, "\u8bbe\u7f6e")
+        BottomNavigationItemSpec(FinalMainTab.Home, R.drawable.ic_final_tab_home, tabLabel(appLanguage, "Home", "首页")),
+        BottomNavigationItemSpec(FinalMainTab.Contacts, R.drawable.ic_final_tab_contacts, tabLabel(appLanguage, "Contacts", "联系人")),
+        BottomNavigationItemSpec(FinalMainTab.Tasks, R.drawable.ic_final_tab_tasks, tabLabel(appLanguage, "Tasks", "任务"), taskBadgeCount),
+        BottomNavigationItemSpec(FinalMainTab.Settings, R.drawable.ic_final_tab_settings, tabLabel(appLanguage, "Settings", "设置"))
     )
     Surface(
         modifier = Modifier
@@ -135,6 +139,9 @@ private fun BottomNavigationSurface(
         }
     }
 }
+
+private fun tabLabel(language: AppLanguage, english: String, chinese: String): String =
+    if (language == AppLanguage.English) english else chinese
 
 private data class BottomNavigationItemSpec(
     val tab: FinalMainTab,

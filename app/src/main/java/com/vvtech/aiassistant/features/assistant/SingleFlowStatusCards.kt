@@ -57,6 +57,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 @Composable
 internal fun SfRealSummaryCard(
     summary: SummaryData,
@@ -72,7 +73,7 @@ internal fun SfRealSummaryCard(
         Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp)) {
             Surface(shape = RoundedCornerShape(999.dp), color = Color(0xFFEEF5FF)) {
                 Text(
-                    text = "任务确认",
+                    text = currentAppText("任务确认", "Task Confirmation"),
                     color = Color(0xFF1978F3),
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
@@ -91,10 +92,10 @@ internal fun SfRealSummaryCard(
             SfSummaryLine(label = summary.timeLabel, value = summary.time)
             SfSummaryLine(label = summary.extraLabel, value = summary.extra)
             summary.contactValue?.takeIf { it.isNotBlank() }?.let {
-                SfSummaryLine(label = summary.contactLabel ?: "联系方式", value = it)
+                SfSummaryLine(label = summary.contactLabel ?: currentAppText("联系方式", "Contact"), value = it)
             }
             summary.detailValue?.takeIf { it.isNotBlank() }?.let {
-                SfSummaryLine(label = summary.detailLabel ?: "补充信息", value = it)
+                SfSummaryLine(label = summary.detailLabel ?: currentAppText("补充信息", "Additional Info"), value = it)
             }
             if (showAction) {
                 SfAiCtaBubble(
@@ -111,7 +112,10 @@ internal fun SfRealSummaryCard(
                     border = BorderStroke(1.dp, Color(0xFFD8E8FF))
                 ) {
                     Text(
-                        text = "等待语音确认：确认 / 开始 / 就这样",
+                        text = currentAppText(
+                            "等待语音确认：确认 / 开始 / 就这样",
+                            "Waiting for voice confirmation: confirm / start / that's it"
+                        ),
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
                         color = Color(0xFF1978F3),
                         fontSize = 13.sp,
@@ -166,23 +170,32 @@ internal fun SfRealCallStatusCard(
     ) {
         Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp)) {
             Text(
-                text = "通话实时转写",
+                text = currentAppText("通话实时转写", "Live Call Transcript"),
                 color = Color(0xFF0A84FF),
                 fontSize = 12.sp,
                 fontWeight = FontWeight.ExtraBold
             )
             if (showCallState) {
                 Text(
-                    text = data.status.ifBlank { if (mode == CallUiMode.Human) "人工接管中" else "AI 通话中" },
+                    text = currentAppText(
+                        data.status,
+                        sanitizeUserFacingNetworkText(data.status, VoiceLanguage.English)
+                    ).ifBlank {
+                        if (mode == CallUiMode.Human) {
+                            currentAppText("人工接管中", "Human takeover in progress")
+                        } else {
+                            currentAppText("AI 通话中", "AI call in progress")
+                        }
+                    },
                     modifier = Modifier.padding(top = 5.dp),
                     color = Color(0xFF667085),
                     fontSize = 13.sp,
                     lineHeight = 18.sp
                 )
                 val modeText = when {
-                    handoffInFlight -> "接管状态切换中"
-                    mode == CallUiMode.Human -> "当前由人工接管"
-                    else -> "当前由 AI 执行"
+                    handoffInFlight -> currentAppText("正在切换接管状态", "Switching takeover state")
+                    mode == CallUiMode.Human -> currentAppText("当前由人工处理", "Currently handled by a human")
+                    else -> currentAppText("当前由 AI 处理", "Currently handled by AI")
                 }
                 Text(
                     text = modeText,
@@ -195,11 +208,16 @@ internal fun SfRealCallStatusCard(
             transcript.takeLast(6).forEach { line ->
                 val role = when (line.role) {
                     TranscriptRole.Assistant -> "AI"
-                    TranscriptRole.Remote -> "对方"
-                    TranscriptRole.Note -> "状态"
+                    TranscriptRole.Remote -> currentAppText("对方", "Other Side")
+                    TranscriptRole.Note -> currentAppText("状态", "Status")
                 }
                 Text(
-                    text = "$role：${line.text}",
+                    text = "$role${currentAppText("：", ": ")}${
+                        currentAppText(
+                            line.text,
+                            sanitizeUserFacingNetworkText(line.text, VoiceLanguage.English)
+                        )
+                    }",
                     modifier = Modifier.padding(top = 8.dp),
                     color = Color(0xFF1F2937),
                     fontSize = 13.sp,
@@ -208,7 +226,10 @@ internal fun SfRealCallStatusCard(
             }
             if (transcript.isEmpty()) {
                 Text(
-                    text = "等待实时对话记录...",
+                    text = currentAppText(
+                        "等待实时对话记录...",
+                        "Waiting for realtime conversation records..."
+                    ),
                     modifier = Modifier.padding(top = 8.dp),
                     color = Color(0xFF667085),
                     fontSize = 13.sp,
@@ -241,7 +262,7 @@ internal fun SfBackendStateCard(
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "真实流程状态",
+                text = currentAppText("真实流程状态", "Live Flow Status"),
                 color = Color(0xFF0A84FF),
                 fontSize = 12.sp,
                 fontWeight = FontWeight.ExtraBold
@@ -256,7 +277,10 @@ internal fun SfBackendStateCard(
             )
             if (state.processingTurn) {
                 Text(
-                    text = "后端正在处理当前轮对话...",
+                    text = currentAppText(
+                        "后端正在处理当前轮对话...",
+                        "The backend is processing the current turn..."
+                    ),
                     modifier = Modifier.padding(top = 8.dp),
                     color = Color(0xFF6E6E73),
                     fontSize = 13.sp
@@ -273,7 +297,13 @@ internal fun SfBackendStateCard(
             }
             state.clarificationSteps.takeLast(2).forEach { step ->
                 Text(
-                    text = "${if (step.role == VoiceRole.User) "用户" else "AI"}：${step.text}",
+                    text = "${
+                        if (step.role == VoiceRole.User) {
+                            currentAppText("用户", "User")
+                        } else {
+                            "AI"
+                        }
+                    }${currentAppText("：", ": ")}${step.text}",
                     modifier = Modifier.padding(top = 8.dp),
                     color = Color(0xFF344054),
                     fontSize = 13.sp,
@@ -375,7 +405,10 @@ internal fun SfBackendStateCard(
                 )
                 if (onSubmitSceneSupplement != null) {
                     Text(
-                        text = "可在下方输入补充信息后继续发送。",
+                        text = currentAppText(
+                            "可在下方输入补充信息后继续发送。",
+                            "Enter additional information below, then send again."
+                        ),
                         modifier = Modifier.padding(top = 8.dp),
                         color = Color(0xFF0A84FF),
                         fontSize = 12.sp,

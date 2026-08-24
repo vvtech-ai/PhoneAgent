@@ -2,7 +2,9 @@ package com.vvtech.aiassistant.features.assistant
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.features.assistant_ui.AssistantAiLoadingBubble
 import com.vvtech.aiassistant.features.assistant_ui.AssistantBackIconBar
 import com.vvtech.aiassistant.features.assistant_ui.AssistantBackTitleBar
@@ -103,10 +105,16 @@ internal fun FinalGenderSelectorV3(
     onSelect: (PersonalInfoGender) -> Unit
 ) {
     AssistantSegmentedSelector(
-        label = "性别",
+        label = stringResource(R.string.identity_gender_label),
         selected = selected,
         options = PersonalInfoGender.values().map { option ->
-            AssistantSegmentedSelectorItem(value = option, label = option.displayLabel())
+            AssistantSegmentedSelectorItem(
+                value = option,
+                label = when (option) {
+                    PersonalInfoGender.Mr -> stringResource(R.string.identity_gender_mr)
+                    PersonalInfoGender.Ms -> stringResource(R.string.identity_gender_ms)
+                }
+            )
         },
         onSelect = onSelect
     )

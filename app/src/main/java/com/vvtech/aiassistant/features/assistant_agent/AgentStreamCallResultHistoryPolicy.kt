@@ -4,6 +4,7 @@ import com.vvtech.aiassistant.core.model.CallResultPayload
 import com.vvtech.aiassistant.features.assistant.CallPageData
 import com.vvtech.aiassistant.features.assistant.StatusStyle
 import com.vvtech.aiassistant.features.assistant.TranscriptLine
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.UserContextPayload
 
 internal data class AgentCallResultHistoryEntry(
@@ -43,7 +44,8 @@ internal object AgentStreamCallResultHistoryPolicy {
             taskId = safeSessionId,
             callId = metadata["callId"].orEmpty(),
             title = currentCallPage.name.ifBlank {
-                callResult?.headline?.trim()?.takeIf { it.isNotBlank() } ?: "AI代打结果"
+                callResult?.headline?.trim()?.takeIf { it.isNotBlank() }
+                    ?: currentAppText("AI代打结果", "AI Call Result")
             },
             status = resultStatusText,
             style = if (resolvedConversationStatus == "COMPLETED") StatusStyle.Success else StatusStyle.Failure,

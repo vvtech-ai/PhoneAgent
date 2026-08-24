@@ -22,9 +22,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 
 private val SheetTextPrimary = Color(0xFF111111)
 private val SheetTextSecondary = Color(0xFF6B7280)
@@ -57,7 +59,7 @@ fun AgentDeviceContactSelectionSheet(
             .padding(start = 16.dp, end = 16.dp, top = 18.dp, bottom = 16.dp)
     ) {
         Text(
-            text = "请选择联系人",
+            text = stringResource(R.string.contact_picker_title),
             color = SheetTextPrimary,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold
@@ -83,13 +85,13 @@ fun AgentDeviceContactSelectionSheet(
         Spacer(modifier = Modifier.height(14.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             ActionButton(
-                text = "取消",
+                text = stringResource(R.string.common_cancel),
                 background = Color(0xFFF1F3F5),
                 textColor = SheetTextPrimary,
                 onClick = onCancel
             )
             ActionButton(
-                text = "确认",
+                text = stringResource(R.string.common_confirm),
                 background = SheetBlue,
                 textColor = Color.White,
                 onClick = { onConfirm(selections.toMap()) }

@@ -22,9 +22,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.data.model.UserIdentityPayload
 import com.vvtech.aiassistant.data.model.UserIdentityUpsertRequest
 
@@ -61,7 +63,7 @@ internal fun V61IdentityCompletionOverlay(
         Box(modifier = Modifier.fillMaxWidth()) {
             Icon(
                 imageVector = Icons.Rounded.ArrowBack,
-                contentDescription = "返回首页",
+                contentDescription = stringResource(R.string.identity_back_home),
                 tint = Color(0xFF111111),
                 modifier = Modifier
                     .align(Alignment.CenterStart)
@@ -70,7 +72,7 @@ internal fun V61IdentityCompletionOverlay(
                     .padding(7.dp)
             )
             Text(
-                text = "补齐身份信息",
+                text = stringResource(R.string.identity_completion_title),
                 modifier = Modifier.align(Alignment.Center),
                 color = Color(0xFF111111),
                 fontSize = 18.sp,
@@ -87,7 +89,7 @@ internal fun V61IdentityCompletionOverlay(
                 onNameChange = { name = it },
                 onGenderChange = { gender = it },
                 onPhoneChange = { phone = it.filter(Char::isDigit).take(11) },
-                actionLabel = "保存并继续",
+                actionLabel = stringResource(R.string.identity_save_continue),
                 onNext = {
                     submitted = true
                     onSubmit(

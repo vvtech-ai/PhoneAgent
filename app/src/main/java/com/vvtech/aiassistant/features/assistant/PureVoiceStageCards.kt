@@ -64,6 +64,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.core.model.CallSpecPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 @Composable
 internal fun PureVoiceThreadStageIndicator(text: String, done: Boolean) {
@@ -182,7 +183,7 @@ internal fun PureVoiceThinkingCard(
                     }
                 }
                 Text(
-                    text = "AI 思考过程",
+                    text = currentAppText("AI 思考过程", "AI Thinking Process"),
                     modifier = Modifier.padding(top = 5.dp),
                     fontSize = 12.sp,
                     lineHeight = 16.sp,
@@ -389,23 +390,34 @@ internal fun PureVoiceInfoRetrievalStage(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         PureVoiceThreadStageIndicator(
-            text = "阶段2 · 信息检索 · 可用工具: [search, get_detail, compare]",
+            text = currentAppText(
+                "阶段 2 · 信息检索 · 可用工具：[搜索、详情、对比]",
+                "Stage 2 · Information retrieval · Available tools: [search, get_detail, compare]"
+            ),
             done = false
         )
         PureVoiceThinkingCard(
             title = "Phone Agent",
             steps = listOf(
-                "进入需求确认子流程",
-                "识别为候选选择任务",
-                "召回候选结果并按相关性排序"
+                currentAppText("进入细节确认流程", "Enter detail confirmation flow"),
+                currentAppText("识别为候选项选择任务", "Identify this as a candidate selection task"),
+                currentAppText("检索候选项并按相关性排序", "Retrieve candidates and sort by relevance")
             )
         )
+        val category = selectionSheet?.targetLabel
+            ?: pureVoiceResolvedTaskScene(sceneType, summary, detailSupplement)
+            ?: currentAppText("任务搜索", "Task Search")
+        val query = pureVoiceSearchQuery(firstUserText, summary, detailSupplement)
         PureVoiceToolCard(
             icon = "S",
-            name = "Action: search()",
-            body = "category: \"${selectionSheet?.targetLabel ?: pureVoiceResolvedTaskScene(sceneType, summary, detailSupplement) ?: "任务检索"}\"\nquery: \"${pureVoiceSearchQuery(firstUserText, summary, detailSupplement)}\"",
-            result = selectionSheet?.let { "Observe: 返回 ${it.options.size} 个候选" }
-                ?: "Observe: 已返回候选结果"
+            name = currentAppText("动作：search()", "Action: search()"),
+            body = currentAppText(
+                "分类：\"$category\"\n查询：\"$query\"",
+                "category: \"$category\"\nquery: \"$query\""
+            ),
+            result = selectionSheet?.let {
+                currentAppText("观察：返回 ${it.options.size} 个候选项", "Observe: returned ${it.options.size} candidates")
+            } ?: currentAppText("观察：已返回候选项", "Observe: candidates returned")
         )
     }
 }

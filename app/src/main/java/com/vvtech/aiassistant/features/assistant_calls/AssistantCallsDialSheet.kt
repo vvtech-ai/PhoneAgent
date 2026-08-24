@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.vvtech.aiassistant.features.assistant.FinalCallRecord
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.domain.translation.TranslationModelNetworkQualityState
 
 internal data class AssistantCallsDialSheetState(
@@ -202,7 +203,7 @@ internal fun AssistantCallsDialSheet(
                 onDigit = { digit ->
                     val atDigitLimit = dialNumber.count(Char::isDigit) >= MaxDialNationalDigits
                     if (digit.any(Char::isDigit) && atDigitLimit) {
-                        Toast.makeText(context, "号码最多输入14位", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, currentAppText("号码最多输入14位", "Phone number can contain up to 14 digits"), Toast.LENGTH_SHORT).show()
                     } else {
                         onDigit(digit)
                     }

@@ -26,9 +26,11 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 
 @Composable
 internal fun AgentCallDetailPage(
@@ -38,10 +40,14 @@ internal fun AgentCallDetailPage(
     onReturnTask: (FinalCallRecord) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalBackBar(title = "通话转号", onBack = onBack)
+        FinalBackBar(title = stringResource(R.string.call_detail_title), onBack = onBack)
         if (record == null) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "未找到通话记录", color = Color(0xFF98A2B3), fontSize = 14.sp)
+                Text(
+                    text = stringResource(R.string.call_detail_not_found),
+                    color = Color(0xFF98A2B3),
+                    fontSize = 14.sp
+                )
             }
             return@Column
         }
@@ -63,7 +69,7 @@ internal fun AgentCallDetailPage(
             if (dialogueTranscript.isEmpty()) {
                 item(key = "empty_transcript") {
                     Text(
-                        text = "暂无通话转写",
+                        text = stringResource(R.string.call_detail_empty_transcript),
                         modifier = Modifier.padding(top = 22.dp),
                         color = Color(0xFF98A2B3),
                         fontSize = 13.sp
@@ -89,6 +95,8 @@ internal fun AgentCallDetailPage(
 
 @Composable
 private fun AgentCallDetailHero(record: FinalCallRecord) {
+    val unknownCallee = stringResource(R.string.call_detail_unknown_callee)
+    val unknownPhone = stringResource(R.string.call_detail_unknown_phone)
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -96,21 +104,21 @@ private fun AgentCallDetailHero(record: FinalCallRecord) {
         verticalArrangement = Arrangement.spacedBy(7.dp)
     ) {
         Text(
-            text = "Agent 通话记录",
+            text = stringResource(R.string.call_detail_record_title),
             color = Color(0xFF7B8493),
             fontSize = 14.sp,
             lineHeight = 18.sp,
             fontWeight = FontWeight.ExtraBold
         )
         Text(
-            text = record.title.ifBlank { "未记录被叫" },
+            text = record.title.ifBlank { unknownCallee },
             color = Color(0xFF111111),
             fontSize = 23.sp,
             lineHeight = 28.sp,
             fontWeight = FontWeight.ExtraBold
         )
         Text(
-            text = record.phoneNumber.ifBlank { "未记录号码" },
+            text = record.phoneNumber.ifBlank { unknownPhone },
             color = Color(0xFF6E6E73),
             fontSize = 15.sp,
             lineHeight = 20.sp,
@@ -192,14 +200,14 @@ private fun AgentCallDetailFooter(
         horizontalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterHorizontally)
     ) {
         AgentCallDetailFooterButton(
-            label = "拨号",
+            label = stringResource(R.string.call_detail_dial),
             modifier = Modifier.weight(1f),
             colors = listOf(Color(0xFF34C759), Color(0xFF28A745)),
             enabled = record.phoneNumber.isNotBlank(),
             onClick = { onDial(record) }
         )
         AgentCallDetailFooterButton(
-            label = "返回任务",
+            label = stringResource(R.string.call_detail_return_task),
             modifier = Modifier.weight(1f),
             colors = listOf(Color(0xFF0A84FF), Color(0xFF0071EB)),
             enabled = false,

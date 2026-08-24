@@ -19,9 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.callengine.AssistantClientCallTranscript
 
 @Composable
@@ -38,7 +41,7 @@ internal fun AssistantClientCallTranscriptThread(
     }
     if (transcripts.isEmpty()) {
         Box(modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-            Text("正在等待双方对话…", color = Color(0xFF9AA9C3), fontSize = 15.sp)
+            Text(stringResource(R.string.call_transcript_waiting), color = Color(0xFF9AA9C3), fontSize = 15.sp)
         }
         return
     }
@@ -67,7 +70,7 @@ private fun TranscriptMessageBubble(transcript: AssistantClientCallTranscript) {
                 .fillMaxWidth(0.84f)
         ) {
             Text(
-                text = if (local) "我" else "对方",
+                text = if (local) stringResource(R.string.call_transcript_me) else stringResource(R.string.call_transcript_other_party),
                 modifier = Modifier.padding(horizontal = 5.dp, vertical = 3.dp),
                 color = Color(0xFF9EABC2),
                 fontSize = 11.sp,
@@ -119,4 +122,4 @@ private fun TranscriptMessageBubble(transcript: AssistantClientCallTranscript) {
 }
 
 private fun languageBadge(language: String): String =
-    language.trim().ifBlank { "原文" }.uppercase()
+    language.trim().ifBlank { currentAppText("原文", "Original") }.uppercase()

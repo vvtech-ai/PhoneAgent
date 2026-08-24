@@ -6,6 +6,9 @@ import com.vvtech.aiassistant.core.model.CallSpecPayload
 import com.vvtech.aiassistant.features.assistant.CallPageData
 import com.vvtech.aiassistant.features.assistant.TranscriptLine
 import com.vvtech.aiassistant.features.assistant.TranscriptRole
+import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal object AgentStreamCallTranscriptPolicy {
     fun callResultPageData(
@@ -70,14 +73,14 @@ internal object AgentStreamCallTranscriptPolicy {
         val scene = resolveCallSpecSceneType(spec.scene, "")
         put(
             when (scene) {
-                "FOOD_ORDERING" -> "餐厅"
-                "HOTEL_BOOKING" -> "酒店"
-                else -> "联系人"
+                "FOOD_ORDERING" -> currentAppText("餐厅", "Restaurant")
+                "HOTEL_BOOKING" -> currentAppText("酒店", "Hotel")
+                else -> currentAppText("联系人", "Contact")
             },
             spec.targetName
         )
-        put("电话", spec.phoneNumber)
-        put("需求", spec.primaryGoal)
+        put(currentAppText("电话", "Phone"), spec.phoneNumber)
+        put(currentAppText("需求", "Request"), spec.primaryGoal)
         spec.summaryLines.forEach { line ->
             val index = line.indexOf('：').takeIf { it >= 0 } ?: line.indexOf(':')
             if (index <= 0 || index >= line.lastIndex) return@forEach
@@ -87,7 +90,10 @@ internal object AgentStreamCallTranscriptPolicy {
             put(mapped.first, mapped.second)
         }
         return fields.map { (label, value) ->
-            TranscriptLine(TranscriptRole.Note, "通话任务字段：$label：$value")
+            TranscriptLine(
+                TranscriptRole.Note,
+                currentAppText("通话任务字段：$label：$value", "Call task field: $label: $value")
+            )
         }
     }
 
@@ -106,30 +112,34 @@ internal object AgentStreamCallTranscriptPolicy {
         val normalizedKey = key.trim()
         val normalizedValue = value.trim().takeIf { it.isNotBlank() } ?: return null
         val label = when (normalizedKey) {
-            "restaurantName", "餐厅", "饭店" -> "餐厅"
+            "restaurantName", "餐厅", "饭店" -> currentAppText("餐厅", "Restaurant")
             "targetName" -> when (scene) {
-                "FOOD_ORDERING" -> "餐厅"
-                "HOTEL_BOOKING" -> "酒店"
-                else -> "联系人"
+                "FOOD_ORDERING" -> currentAppText("餐厅", "Restaurant")
+                "HOTEL_BOOKING" -> currentAppText("酒店", "Hotel")
+                else -> currentAppText("联系人", "Contact")
             }
-            "hotelName", "酒店" -> "酒店"
-            "reservationTime", "mainDate", "time", "用餐时间", "到店时间", "时间" -> "时间"
-            "partySize", "guestCount", "用餐人数", "人数" -> "人数"
-            "needPrivateRoom", "privateRoom", "包房", "包间" -> "包房"
-            "contactName", "联系人", "预订人" -> "联系人"
-            "contactPhone", "phone", "联系电话", "手机号" -> "联系电话"
-            "roomType", "房型" -> "房型"
+            "hotelName", "酒店" -> currentAppText("酒店", "Hotel")
+            "reservationTime", "mainDate", "time", "用餐时间", "到店时间", "时间" -> currentAppText("时间", "Time")
+            "partySize", "guestCount", "用餐人数", "人数" -> currentAppText("人数", "Party Size")
+            "needPrivateRoom", "privateRoom", "包房", "包间" -> currentAppText("包房", "Private Room")
+            "contactName", "联系人", "预订人" -> currentAppText("联系人", "Contact")
+            "contactPhone", "phone", "联系电话", "手机号" -> currentAppText("联系电话", "Phone")
+            "roomType", "房型" -> currentAppText("房型", "Room Type")
             else -> return null
         }
         val displayValue = when (normalizedKey) {
             "reservationTime", "mainDate" -> normalizedValue.replace('T', ' ')
             "partySize", "guestCount" -> {
-                if (Regex("""^\d+$""").matches(normalizedValue)) "${normalizedValue}人" else normalizedValue
+                if (Regex("""^\d+$""").matches(normalizedValue)) {
+                    currentAppText("${normalizedValue}人", "$normalizedValue people")
+                } else {
+                    normalizedValue
+                }
             }
             "needPrivateRoom", "privateRoom" -> {
                 when (normalizedValue.lowercase()) {
-                    "true", "yes", "1" -> "需要包房"
-                    "false", "no", "0" -> "不需要包房"
+                    "true", "yes", "1" -> currentAppText("需要包房", "Private room needed")
+                    "false", "no", "0" -> currentAppText("不需要包房", "No private room needed")
                     else -> normalizedValue
                 }
             }
@@ -161,10 +171,14 @@ internal object AgentStreamCallTranscriptPolicy {
     }
 
     private fun callResultSummaryLine(result: CallResultPayload): TranscriptLine? {
-        val title = if (looksLikeBookingResult(result)) "预订结果" else "AI代打结果"
-        val headline = result.headline.trim()
-        val detail = result.detail.trim()
-        val reason = result.metadata?.get("agentReason")?.trim().orEmpty()
+        val title = if (looksLikeBookingResult(result)) {
+            currentAppText("预订结果", "Reservation Result")
+        } else {
+            currentAppText("AI代打结果", "AI Call Result")
+        }
+        val headline = englishCallDisplayText(result.headline)
+        val detail = englishCallDisplayText(result.detail)
+        val reason = englishCallDisplayText(result.metadata?.get("agentReason")).trim()
         val detailText = listOf(detail, reason)
             .map { it.trim() }
             .filter { it.isNotBlank() && it != headline }
@@ -178,7 +192,9 @@ internal object AgentStreamCallTranscriptPolicy {
             headline.isNotBlank() -> "$title：$headline"
             else -> title
         }
-        return text.takeIf { it.isNotBlank() }?.let { TranscriptLine(TranscriptRole.Note, it) }
+        return text.takeIf { it.isNotBlank() }?.let {
+            TranscriptLine(TranscriptRole.Note, currentAppText(it, englishCallDisplayText(it)))
+        }
     }
 
     private fun looksLikeBookingResult(result: CallResultPayload): Boolean {
@@ -219,8 +235,11 @@ internal object AgentStreamCallTranscriptPolicy {
                 TranscriptRole.Remote
             else -> return null
         }
-        return TranscriptLine(role = role, text = text)
+        return TranscriptLine(role = role, text = currentAppText(text, englishCallDisplayText(text)))
     }
+
+    private fun englishCallDisplayText(raw: String?): String =
+        sanitizeUserFacingNetworkText(raw, VoiceLanguage.English)
 
     private fun firstDialogueSeparatorIndex(line: String): Int {
         val ascii = line.indexOf(':')

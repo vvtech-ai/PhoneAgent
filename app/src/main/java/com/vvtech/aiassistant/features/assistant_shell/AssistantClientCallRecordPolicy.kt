@@ -6,6 +6,8 @@ import com.vvtech.aiassistant.features.assistant.DialCallKind
 import com.vvtech.aiassistant.features.assistant.FinalCallRecord
 import com.vvtech.aiassistant.features.assistant.TranscriptLine
 import com.vvtech.aiassistant.features.assistant.TranscriptRole
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguageManager
+import com.vvtech.aiassistant.features.assistant_i18n.appText
 import com.vvtech.aiassistant.features.assistant_calls.callFailureUserMessage
 import com.vvtech.aiassistant.features.translation_call.state.TranslationCallUiState
 import java.text.SimpleDateFormat
@@ -15,19 +17,24 @@ import java.util.Locale
 internal fun buildAssistantClientCallRecord(
     result: AssistantClientCallResult
 ): FinalCallRecord {
+    val appLanguage = AppLanguageManager.currentAppLanguage()
     val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     val start = formatter.format(Date(result.startedAtMillis))
     val end = formatter.format(Date(result.endedAtMillis))
     val duration = formatClientCallDuration(result.durationSeconds)
     val translation = result.request.mode == AssistantCallMode.TRANSLATION
     val status = when {
-        result.success -> "已完成"
-        result.failureReason.isNotBlank() -> "呼叫失败"
-        else -> "已结束"
+        result.success -> "已完成".appText(appLanguage, "Completed")
+        result.failureReason.isNotBlank() -> "呼叫失败".appText(appLanguage, "Call Failed")
+        else -> "已结束".appText(appLanguage, "Ended")
+    }
+    val callType = if (translation) {
+        "实时翻译".appText(appLanguage, "Live Translation")
+    } else {
+        "普通通话".appText(appLanguage, "Regular Call")
     }
     return FinalCallRecord(
-        title = "${if (translation) "实时翻译" else "普通通话"} " +
-            result.request.displayName.ifBlank { result.request.phoneNumber },
+        title = "$callType ${result.request.displayName.ifBlank { result.request.phoneNumber }}",
         status = status,
         meta = "$start · $duration",
         success = result.success,
@@ -65,13 +72,21 @@ internal fun buildTranslationCallRecord(
     success: Boolean,
     endedAtMillis: Long = System.currentTimeMillis()
 ): FinalCallRecord {
+    val appLanguage = AppLanguageManager.currentAppLanguage()
     val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     val start = formatter.format(Date(state.startedAtMs))
     val end = formatter.format(Date(endedAtMillis))
-    val status = if (success) "已完成" else "呼叫失败"
+    val status = if (success) {
+        "已完成".appText(appLanguage, "Completed")
+    } else {
+        "呼叫失败".appText(appLanguage, "Call Failed")
+    }
     val number = state.plan?.targetE164.orEmpty()
     return FinalCallRecord(
-        title = "实时翻译 ${state.targetDisplayName.ifBlank { number }}",
+        title = "实时翻译 ${state.targetDisplayName.ifBlank { number }}".appText(
+            appLanguage,
+            "Live Translation ${state.targetDisplayName.ifBlank { number }}"
+        ),
         status = status,
         meta = "$start · ${formatClientCallDuration(state.elapsedSeconds.toLong())}",
         success = success,

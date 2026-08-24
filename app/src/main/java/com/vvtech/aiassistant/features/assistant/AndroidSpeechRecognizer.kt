@@ -10,6 +10,7 @@ import android.provider.Settings
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 /**
  * One-shot speech recognizer used to mirror spoken turns into the on-screen
@@ -50,7 +51,10 @@ class AndroidSpeechRecognizer(
         val normalizedLanguageCode = VoiceLanguage.fromCode(languageCode).code
         val useOnDevice = shouldUseOnDeviceRecognizer()
         if (!useOnDevice && !SpeechRecognizer.isRecognitionAvailable(appContext)) {
-            onEvent(SpeechRecognitionEvent.Error("当前设备不可用系统语音识别"))
+            onEvent(SpeechRecognitionEvent.Error(currentAppText(
+                "当前设备不可用系统语音识别",
+                "System speech recognition is unavailable on this device"
+            )))
             return
         }
 
@@ -67,7 +71,10 @@ class AndroidSpeechRecognizer(
                 runCatching {
                     speechRecognizer?.startListening(buildIntent(useOnDevice, normalizedLanguageCode))
                 }.onFailure { throwable ->
-                    settleWithError(throwable.message ?: "语音识别启动失败", token)
+                    settleWithError(
+                        throwable.message ?: currentAppText("语音识别启动失败", "Failed to start speech recognition"),
+                        token
+                    )
                 }
             },
             START_DELAY_MS
@@ -140,8 +147,14 @@ class AndroidSpeechRecognizer(
 
                 override fun onResults(results: Bundle?) {
                     val text = extractTopResult(results)
-                    if (text.isBlank()) {
-                        settleWithError("这次没有听清，你再说一遍", sessionToken)
+                if (text.isBlank()) {
+                        settleWithError(
+                            currentAppText(
+                                "这次没有听清，你再说一遍",
+                                "I didn't catch that. Please say it again"
+                            ),
+                            sessionToken
+                        )
                     } else {
                         sessionSettled = true
                         eventSink?.invoke(SpeechRecognitionEvent.FinalResult(text))
@@ -207,24 +220,36 @@ class AndroidSpeechRecognizer(
 
     private fun startupTimeoutMessage(useOnDevice: Boolean): String {
         return if (useOnDevice) {
-            "本机语音识别启动超时，正在等待实时字幕兜底"
+            currentAppText(
+                "本机语音识别启动超时，正在等待实时字幕兜底",
+                "On-device speech recognition timed out. Waiting for live captions instead."
+            )
         } else if (isFakeRecognitionService()) {
-            "当前系统语音识别服务不可用，正在等待实时字幕兜底"
+            currentAppText(
+                "当前系统语音识别服务不可用，正在等待实时字幕兜底",
+                "System speech recognition is unavailable. Waiting for live captions instead."
+            )
         } else {
-            "系统语音识别服务未就绪，正在等待实时字幕兜底"
+            currentAppText(
+                "系统语音识别服务未就绪，正在等待实时字幕兜底",
+                "System speech recognition is not ready. Waiting for live captions instead."
+            )
         }
     }
 
     private fun errorMessage(code: Int): String {
         return when (code) {
-            SpeechRecognizer.ERROR_AUDIO -> "语音输入异常，请再试一次"
-            SpeechRecognizer.ERROR_CLIENT -> "语音识别服务暂时不可用"
-            SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "没有拿到录音权限"
-            SpeechRecognizer.ERROR_NETWORK, SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> "语音识别网络异常"
-            SpeechRecognizer.ERROR_NO_MATCH, SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "这次没有听清，你再说一遍"
-            SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> "我还在听上一句，稍等一下"
-            SpeechRecognizer.ERROR_SERVER -> "语音识别服务暂时不可用"
-            else -> "语音识别失败，错误码 $code"
+            SpeechRecognizer.ERROR_AUDIO -> currentAppText("语音输入异常，请再试一次", "Voice input error. Please try again.")
+            SpeechRecognizer.ERROR_CLIENT -> currentAppText("语音识别服务暂时不可用", "Speech recognition is temporarily unavailable.")
+            SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> currentAppText("没有拿到录音权限", "Microphone permission is not granted.")
+            SpeechRecognizer.ERROR_NETWORK, SpeechRecognizer.ERROR_NETWORK_TIMEOUT ->
+                currentAppText("语音识别网络异常", "Speech recognition network error.")
+            SpeechRecognizer.ERROR_NO_MATCH, SpeechRecognizer.ERROR_SPEECH_TIMEOUT ->
+                currentAppText("这次没有听清，你再说一遍", "I did not catch that. Please say it again.")
+            SpeechRecognizer.ERROR_RECOGNIZER_BUSY ->
+                currentAppText("我还在听上一句，稍等一下", "I am still processing the previous input. Please wait.")
+            SpeechRecognizer.ERROR_SERVER -> currentAppText("语音识别服务暂时不可用", "Speech recognition is temporarily unavailable.")
+            else -> currentAppText("语音识别失败，错误码 $code", "Speech recognition failed. Error code $code.")
         }
     }
 

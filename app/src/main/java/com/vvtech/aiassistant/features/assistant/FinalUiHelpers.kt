@@ -12,6 +12,7 @@ import com.vvtech.aiassistant.features.assistant_tasks.taskDisplayRecordSortInst
 import com.vvtech.aiassistant.features.assistant_tasks.taskDisplayRelativeTimeLabel
 import com.vvtech.aiassistant.features.assistant_tasks.taskDisplaySortEpochMillis
 import com.vvtech.aiassistant.features.assistant_tasks.taskDisplayStartTimeLabel
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.ConversationDetail
 import com.vvtech.aiassistant.model.ConversationListItem
 import com.vvtech.aiassistant.model.ReservationSlot
@@ -54,9 +55,13 @@ internal data class FinalTaskDisplayItem(
     val statusLabel: String = statusKind.label
 ) {
     val displayTitle: String
-        get() = if (sceneTarget.isBlank()) sceneName else "$sceneName · $sceneTarget"
+        get() {
+            val localizedSceneName = localizedFinalTaskText(sceneName)
+            val localizedSceneTarget = localizedFinalTaskText(sceneTarget)
+            return if (sceneTarget.isBlank()) localizedSceneName else "$localizedSceneName · $localizedSceneTarget"
+        }
     val secondaryLine: String
-        get() = finalTaskSecondaryLine(startTimeLabel, appointmentTimeLabel, keyInfo)
+        get() = localizedFinalTaskText(finalTaskSecondaryLine(startTimeLabel, appointmentTimeLabel, keyInfo))
 }
 
 internal fun isFinalTaskPageLoading(
@@ -121,16 +126,18 @@ internal fun finalCallTimeLabel(
         val now = Instant.ofEpochMilli(nowMillis).atZone(zoneId)
         val deltaMillis = nowMillis - timestamp
         if (deltaMillis in 0 until 60_000) {
-            return "刚刚"
+            return currentAppText("刚刚", "Just now")
         }
         if (occurredAt.toLocalDate() == now.toLocalDate()) {
             return occurredAt.format(DateTimeFormatter.ofPattern("HH:mm"))
         }
         if (occurredAt.toLocalDate() == now.toLocalDate().minusDays(1)) {
-            return "昨天"
+            return currentAppText("昨天", "Yesterday")
         }
         return occurredAt.format(
-            if (occurredAt.year == now.year) DateTimeFormatter.ofPattern("M月d日")
+            if (occurredAt.year == now.year) {
+                DateTimeFormatter.ofPattern(currentAppText("M月d日", "MMM d"), Locale.US)
+            }
             else DateTimeFormatter.ofPattern("yyyy/M/d")
         )
     }
@@ -142,7 +149,7 @@ internal fun finalCallTimeLabel(
         .filter { it.isNotBlank() }
     val timeToken = tokens.firstOrNull { it.contains(":") }
     if (!timeToken.isNullOrBlank()) return timeToken
-    return if (index == 0) "刚刚" else "昨天"
+    return if (index == 0) currentAppText("刚刚", "Just now") else currentAppText("昨天", "Yesterday")
 }
 
 internal fun FinalTaskRecord.toFinalTaskDisplayItem(index: Int = 0): FinalTaskDisplayItem {
@@ -168,7 +175,7 @@ internal fun FinalTaskRecord.toFinalTaskDisplayItem(index: Int = 0): FinalTaskDi
 internal fun ConversationListItem.toFinalTaskDisplayItem(index: Int = 0): FinalTaskDisplayItem {
     val timestamp = updatedAt?.trim()?.takeIf { it.isNotBlank() }
         ?: createdAt?.trim()?.takeIf { it.isNotBlank() }
-        ?: "点击继续对话"
+        ?: currentAppText("点击继续对话", "Tap to continue")
     val safeTitle = title.orEmpty()
     return FinalTaskRecord(
         title = safeTitle.ifBlank { assistantSceneTitle(sceneType.orEmpty(), sessionId) },
@@ -225,7 +232,7 @@ internal fun AssistantHistoryItem.toFinalTaskRecord(): FinalTaskRecord {
         updatedAt?.trim()?.takeIf { it.isNotBlank() }
     ).distinct()
     val detailText = detailParts.joinToString(" · ").ifBlank {
-        "任务已同步，等待进一步处理"
+        currentAppText("任务已同步，等待进一步处理", "Task synced, waiting for next steps")
     }
     return FinalTaskRecord(
         title = titleText,
@@ -239,22 +246,22 @@ internal fun AssistantHistoryItem.toFinalTaskRecord(): FinalTaskRecord {
 }
 
 internal fun assistantSceneTitle(sceneType: String, taskId: String): String = when (sceneType.uppercase(Locale.ROOT)) {
-    "RESTAURANT_BOOKING" -> "订餐任务"
-    "HOTEL_BOOKING" -> "订酒店任务"
-    "FLIGHT_BOOKING" -> "订机票任务"
-    "AI_CALL" -> "AI 通话任务"
-    else -> "AI 任务 ${taskId.takeLast(6)}"
+    "RESTAURANT_BOOKING" -> currentAppText("订餐任务", "Restaurant Booking")
+    "HOTEL_BOOKING" -> currentAppText("订酒店任务", "Hotel Booking")
+    "FLIGHT_BOOKING" -> currentAppText("订机票任务", "Flight Booking")
+    "AI_CALL" -> currentAppText("AI 通话任务", "AI Call")
+    else -> currentAppText("AI 任务 ${taskId.takeLast(6)}", "AI Task ${taskId.takeLast(6)}")
 }
 
 internal fun TaskListItem.toFinalTaskRecord(): FinalTaskRecord {
-    val titleText = originText.ifBlank { "AI 任务 ${taskId.takeLast(6)}" }
+    val titleText = originText.ifBlank { currentAppText("AI 任务 ${taskId.takeLast(6)}", "AI Task ${taskId.takeLast(6)}") }
     val detailText = listOfNotNull(
         slot?.toFinalTaskSlotSummary()?.takeIf { it.isNotBlank() },
         finalResult?.takeIf { it.isNotBlank() },
         callResultText?.takeIf { it.isNotBlank() },
         createdAt.takeIf { it.isNotBlank() }
     ).joinToString(" · ").ifBlank {
-        "任务已提交，等待进一步处理"
+        currentAppText("任务已提交，等待进一步处理", "Task submitted, waiting for next steps")
     }
     return FinalTaskRecord(
         title = titleText,
@@ -269,7 +276,7 @@ internal fun TaskListItem.toFinalTaskRecord(): FinalTaskRecord {
 private fun ReservationSlot.toFinalTaskSlotSummary(): String {
     return listOfNotNull(
         reservationTime?.trim()?.takeIf { it.isNotBlank() },
-        partySize?.takeIf { it > 0 }?.let { "${it}位" },
+        partySize?.takeIf { it > 0 }?.let { currentAppText("${it}位", "$it people") },
         restaurantName?.trim()?.takeIf { it.isNotBlank() },
         locationIntent?.trim()?.takeIf { it.isNotBlank() },
         cuisine?.trim()?.takeIf { it.isNotBlank() }
@@ -346,4 +353,39 @@ internal fun taskBadgeCountFromPendingNotifications(
     pendingNotifications: List<FinalHomeNotificationItem>
 ): Int {
     return pendingNotifications.size
+}
+
+internal fun localizedFinalTaskText(raw: String): String {
+    var text = raw
+    mapOf(
+        "订餐厅" to "Restaurant Booking",
+        "订餐任务" to "Restaurant Booking",
+        "订酒店任务" to "Hotel Booking",
+        "订酒店" to "Hotel Booking",
+        "酒店任务" to "Hotel Booking",
+        "订机票任务" to "Flight Booking",
+        "订机票" to "Flight Booking",
+        "会议通知" to "Meeting Notification",
+        "会议邀请" to "Meeting Invitation",
+        "AI 通话任务" to "AI Call",
+        "AI 通话" to "AI Call",
+        "AI通话" to "AI Call",
+        "目标对象" to "Target",
+        "参会人" to "Attendees",
+        "酒店" to "Hotel",
+        "航班" to "Flight",
+        "任务已同步，等待进一步处理" to "Task synced, waiting for next steps",
+        "任务已提交，等待进一步处理" to "Task submitted, waiting for next steps",
+        "点击继续对话" to "Tap to continue",
+        "刚刚" to "Just now",
+        "昨天" to "Yesterday"
+    ).forEach { (chinese, english) ->
+        text = text.replace(chinese, currentAppText(chinese, english))
+    }
+    text = text
+        .replace(Regex("""(\d+)\s*位""")) { match ->
+            currentAppText(match.value, "${match.groupValues[1]} people")
+        }
+        .replace("：", currentAppText("：", ": "))
+    return text
 }

@@ -4,6 +4,7 @@ import android.os.SystemClock
 import com.vvtech.aiassistant.features.assistant.CallUiMode
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
 import com.vvtech.aiassistant.features.assistant.TakeoverAudioSocketClient
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -70,7 +71,7 @@ internal class TaskCallSessionTakeoverAudioController(
                     if (!latest.showAiCallPage || latest.currentCallId != safeCallId) {
                         return@launch
                     }
-                    deps.appendNote("正在准备人工接管音频...")
+                    deps.appendNote(currentAppText("正在准备人工接管音频...", "Preparing human takeover audio..."))
                     ensure(taskId, safeCallId)
                 }
             )
@@ -94,10 +95,15 @@ internal class TaskCallSessionTakeoverAudioController(
             TakeoverAudioSocketClient.Event.Connected -> {
                 deps.reconnectJobProvider()?.cancel()
                 deps.setProtectUntil(SystemClock.elapsedRealtime() + TakeoverProtectWindowMillis)
-                deps.appendNote("人工接管语音已接通，可以继续人工通话")
+                deps.appendNote(currentAppText(
+                    "人工接管语音已接通，可以继续人工通话",
+                    "Human takeover audio is connected. You can continue the call."
+                ))
                 deps.updateState {
                     it.copy(
-                        callPageData = it.callPageData.copy(status = "人工接管中")
+                        callPageData = it.callPageData.copy(
+                            status = currentAppText("人工接管中", "Human Takeover")
+                        )
                     )
                 }
             }
@@ -135,7 +141,7 @@ internal class TaskCallSessionTakeoverAudioController(
                     it.copy(
                         callPageData = it.callPageData.copy(
                             status = if (it.callUiMode == CallUiMode.Human) {
-                                "人工接管音频已断开"
+                                currentAppText("人工接管音频已断开", "Human takeover audio disconnected")
                             } else {
                                 it.callPageData.status
                             }
@@ -164,7 +170,7 @@ internal class TaskCallSessionTakeoverAudioController(
                 if (!latest.showAiCallPage || latest.callUiMode != CallUiMode.Human || latest.currentCallId != callId) {
                     return@launch
                 }
-                deps.appendNote("人工接管音频重连中...")
+                deps.appendNote(currentAppText("人工接管音频重连中...", "Reconnecting human takeover audio..."))
                 deps.setEarliestStart(SystemClock.elapsedRealtime() + delayMillis)
                 deps.setProtectUntil(SystemClock.elapsedRealtime() + TakeoverProtectWindowMillis)
                 ensure(latest.taskId, callId)
@@ -177,7 +183,7 @@ internal fun taskCallSessionTakeoverReconnectDelayMillis(
     message: String,
     defaultDelayMillis: Long
 ): Long {
-    return if (message.contains("麦克风", ignoreCase = false)) {
+    return if (message.contains("麦克风", ignoreCase = false) || message.contains("microphone", ignoreCase = true)) {
         defaultDelayMillis
     } else {
         FastTakeoverReconnectDelayMillis

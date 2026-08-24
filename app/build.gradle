@@ -175,6 +175,11 @@ def vvtechSigningConfigured = signingStoreFile != null &&
         signingKeyPassword
 
 def apkArchiveDir = layout.projectDirectory.dir("apks")
+def archiveApksEnabled = (
+        project.findProperty("archiveApks")
+                ?: localProperties.getProperty("archiveApks")
+                ?: "false"
+).toString().toBoolean()
 def apkArchiveTimestamp = providers.provider {
     new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date())
 }
@@ -324,34 +329,36 @@ android {
     }
 }
 
-android.applicationVariants.all { variant ->
-    def flavorName = variant.flavorName ?: "noflavor"
-    def buildTypeName = variant.buildType.name
-    def appName = variant.mergedFlavor.manifestPlaceholders.get("appLabel")
-            ?: android.defaultConfig.manifestPlaceholders.get("appLabel")
-            ?: "app"
-    def versionName = variant.versionName ?: android.defaultConfig.versionName ?: "0"
-    def versionCode = variant.versionCode ?: android.defaultConfig.versionCode ?: 0
-    def archiveFileName = "${sanitizeApkNamePart(appName)}_${sanitizeApkNamePart(versionName)}_${sanitizeApkNamePart(versionCode)}_${sanitizeApkNamePart(flavorName)}_${apkArchiveTimestamp.get()}.apk"
-    def apkOutputDirPath = flavorName == "noflavor"
-            ? "outputs/apk/${buildTypeName}"
-            : "outputs/apk/${flavorName}/${buildTypeName}"
+if (archiveApksEnabled) {
+    android.applicationVariants.all { variant ->
+        def flavorName = variant.flavorName ?: "noflavor"
+        def buildTypeName = variant.buildType.name
+        def appName = variant.mergedFlavor.manifestPlaceholders.get("appLabel")
+                ?: android.defaultConfig.manifestPlaceholders.get("appLabel")
+                ?: "app"
+        def versionName = variant.versionName ?: android.defaultConfig.versionName ?: "0"
+        def versionCode = variant.versionCode ?: android.defaultConfig.versionCode ?: 0
+        def archiveFileName = "${sanitizeApkNamePart(appName)}_${sanitizeApkNamePart(versionName)}_${sanitizeApkNamePart(versionCode)}_${sanitizeApkNamePart(flavorName)}_${apkArchiveTimestamp.get()}.apk"
+        def apkOutputDirPath = flavorName == "noflavor"
+                ? "outputs/apk/${buildTypeName}"
+                : "outputs/apk/${flavorName}/${buildTypeName}"
 
-    variant.outputs.all { output ->
-        output.outputFileName = archiveFileName
-    }
+        variant.outputs.all { output ->
+            output.outputFileName = archiveFileName
+        }
 
-    def archiveTaskName = "archive${variant.name.capitalize()}Apk"
-    def archiveTaskProvider = tasks.register(archiveTaskName, Copy) {
-        group = "build"
-        description = "Copy ${variant.name} APK to app/apks with a release-friendly name."
-        mustRunAfter variant.assembleProvider
-        from(layout.buildDirectory.file("${apkOutputDirPath}/${archiveFileName}"))
-        into(apkArchiveDir)
-    }
+        def archiveTaskName = "archive${variant.name.capitalize()}Apk"
+        def archiveTaskProvider = tasks.register(archiveTaskName, Copy) {
+            group = "build"
+            description = "Copy ${variant.name} APK to app/apks with a release-friendly name."
+            mustRunAfter variant.assembleProvider
+            from(layout.buildDirectory.file("${apkOutputDirPath}/${archiveFileName}"))
+            into(apkArchiveDir)
+        }
 
-    variant.assembleProvider.configure {
-        finalizedBy archiveTaskProvider
+        variant.assembleProvider.configure {
+            finalizedBy archiveTaskProvider
+        }
     }
 }
 
@@ -368,6 +375,7 @@ dependencies {
     implementation fileTree(dir: "private-libs", include: ["*.jar","*.aar"])
 
     implementation platform('androidx.compose:compose-bom:2023.06.01')
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-compose:2.6.1'

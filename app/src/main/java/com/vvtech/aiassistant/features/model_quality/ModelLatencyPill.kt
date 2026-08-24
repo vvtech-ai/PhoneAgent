@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.domain.modelquality.ModelLatencyReading
 import com.vvtech.aiassistant.domain.modelquality.ModelLatencyStatus
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class ModelLatencyPillPresentation(
     val backgroundArgb: Int,
@@ -35,11 +36,11 @@ internal fun modelLatencyPillPresentation(
         ModelLatencyStatus.UNKNOWN -> ModelLatencyPillPresentation(
             backgroundArgb = 0xFFD1D5DB.toInt(),
             text = "",
-            accessibilityLabel = "模型延迟暂无数据"
+            accessibilityLabel = currentAppText("模型延迟暂无数据", "Model latency unavailable")
         )
-        ModelLatencyStatus.GOOD -> reading.availablePresentation(0xFF34C759.toInt(), "良好")
-        ModelLatencyStatus.FAIR -> reading.availablePresentation(0xFFFFCC00.toInt(), "一般")
-        ModelLatencyStatus.HIGH -> reading.availablePresentation(0xFFFF9500.toInt(), "较高")
+        ModelLatencyStatus.GOOD -> reading.availablePresentation(0xFF34C759.toInt(), "良好", "good")
+        ModelLatencyStatus.FAIR -> reading.availablePresentation(0xFFFFCC00.toInt(), "一般", "fair")
+        ModelLatencyStatus.HIGH -> reading.availablePresentation(0xFFFF9500.toInt(), "较高", "high")
         ModelLatencyStatus.UNAVAILABLE -> unavailablePresentation
     }
 }
@@ -76,7 +77,8 @@ internal fun ModelLatencyPill(
 
 private fun ModelLatencyReading.availablePresentation(
     backgroundArgb: Int,
-    qualityLabel: String
+    qualityLabel: String,
+    englishQualityLabel: String
 ): ModelLatencyPillPresentation {
     val latency = requireNotNull(latencyMs) {
         "Available model latency status must include latencyMs"
@@ -84,7 +86,10 @@ private fun ModelLatencyReading.availablePresentation(
     return ModelLatencyPillPresentation(
         backgroundArgb = backgroundArgb,
         text = "${latency}ms",
-        accessibilityLabel = "模型延迟${qualityLabel}，${latency}毫秒"
+        accessibilityLabel = currentAppText(
+            "模型延迟${qualityLabel}，${latency}毫秒",
+            "Model latency is $englishQualityLabel, ${latency} milliseconds"
+        )
     )
 }
 
@@ -96,6 +101,6 @@ private val availableStatuses = setOf(
 
 private val unavailablePresentation = ModelLatencyPillPresentation(
     backgroundArgb = 0xFFFF3B30.toInt(),
-    text = "不可用",
-    accessibilityLabel = "模型不可用"
+    text = "Unavailable",
+    accessibilityLabel = currentAppText("模型不可用", "Model unavailable")
 )

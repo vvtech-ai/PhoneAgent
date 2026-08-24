@@ -4,6 +4,7 @@ import com.vvtech.aiassistant.core.model.CallSessionStatusResponse
 import com.vvtech.aiassistant.features.assistant.CallUiMode
 import com.vvtech.aiassistant.features.assistant.StatusStyle
 import com.vvtech.aiassistant.features.assistant.TranscriptLine
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class TaskCallSessionHistoryPlan(
     val taskId: String?,
@@ -27,13 +28,18 @@ internal fun taskCallSessionManualHangupHistoryPlan(
     responseStatusMessage: String,
     fallbackStatus: String
 ): TaskCallSessionHistoryPlan {
-    val historyStatus = if (currentCallUiMode == CallUiMode.Human) "人工接管" else "手动中止"
+    val manualAbort = currentCallUiMode != CallUiMode.Human
+    val historyStatus = if (manualAbort) {
+        currentAppText("手动中止", "Stopped Manually")
+    } else {
+        currentAppText("人工接管", "Human Takeover")
+    }
     return TaskCallSessionHistoryPlan(
         taskId = taskId,
         callId = callId,
         title = currentTitle.ifBlank { taskCallSessionSceneLabel(sceneType) },
         status = historyStatus,
-        style = if (historyStatus == "手动中止") StatusStyle.Failure else StatusStyle.Success,
+        style = if (manualAbort) StatusStyle.Failure else StatusStyle.Success,
         metaDetail = responseStatusMessage.ifBlank { fallbackStatus },
         finalState = true
     )
@@ -49,7 +55,7 @@ internal fun taskCallSessionActiveHistoryPlan(
             taskId = response.taskId,
             callId = response.callId,
             title = taskCallSessionHistoryTitle(response, currentTitle),
-            status = "人工接管",
+            status = currentAppText("人工接管", "Human Takeover"),
             style = StatusStyle.Success,
             metaDetail = buildTaskCallHistoryMetaDetail(
                 response = response,
@@ -65,7 +71,7 @@ internal fun taskCallSessionActiveHistoryPlan(
             taskId = response.taskId,
             callId = response.callId,
             title = taskCallSessionHistoryTitle(response, currentTitle),
-            status = "AI代打中",
+            status = currentAppText("AI代打中", "AI Calling"),
             style = StatusStyle.Success,
             metaDetail = buildTaskCallHistoryMetaDetail(
                 response = response,
@@ -118,10 +124,10 @@ private fun taskCallSessionHistoryTitle(
 
 private fun taskCallSessionSceneLabel(sceneType: String): String {
     return when (sceneType) {
-        "FOOD_ORDERING" -> "订餐任务"
-        "HOTEL_BOOKING" -> "订酒店"
-        "FLIGHT_BOOKING" -> "订机票"
-        "AI_CALL" -> "帮打电话"
-        else -> "AI 任务"
+        "FOOD_ORDERING" -> currentAppText("订餐任务", "Restaurant Booking")
+        "HOTEL_BOOKING" -> currentAppText("订酒店", "Hotel Booking")
+        "FLIGHT_BOOKING" -> currentAppText("订机票", "Flight Booking")
+        "AI_CALL" -> currentAppText("帮打电话", "AI Call")
+        else -> currentAppText("AI 任务", "AI Task")
     }
 }

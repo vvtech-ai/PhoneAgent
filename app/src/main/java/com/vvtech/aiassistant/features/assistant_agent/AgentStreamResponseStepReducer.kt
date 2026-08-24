@@ -10,6 +10,7 @@ import com.vvtech.aiassistant.features.assistant_tasks.TaskBatchCallFinalStepPat
 internal data class AgentStreamResponseStepInput(
     val response: AgentChatResponse,
     val displayText: String,
+    val displayThinking: String? = null,
     val batchPatch: TaskBatchCallFinalStepPatch? = null,
     val includeThinkingAndTools: Boolean = false
 )
@@ -48,7 +49,7 @@ internal object AgentStreamResponseStepReducer {
         val updated = step.copy(
             text = input.batchPatch?.text ?: mergedPayloadText(step.text, input.displayText),
             thinking = if (input.includeThinkingAndTools) {
-                response.thinking ?: step.thinking
+                input.displayThinking ?: response.thinking ?: step.thinking
             } else {
                 step.thinking
             },

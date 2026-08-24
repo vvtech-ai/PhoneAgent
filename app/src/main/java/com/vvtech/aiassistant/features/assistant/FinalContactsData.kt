@@ -1,5 +1,7 @@
 package com.vvtech.aiassistant.features.assistant
 
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
+
 internal data class DevicePhoneContact(
     val name: String,
     val phone: String,
@@ -12,7 +14,12 @@ internal fun mapDeviceContactsToFinalRecords(
     return contacts
         .asSequence()
         .mapNotNull { contact ->
-            val normalizedName = contact.name.trim().ifBlank { "未知联系人" }
+            val rawName = contact.name.trim()
+            val normalizedName = if (rawName.isBlank() || rawName == "未知联系人") {
+                currentAppText("未知联系人", "Unknown contact")
+            } else {
+                rawName
+            }
             val normalizedPhone = contact.phone.trim()
             val normalizedSystemDialPhone = contact.systemDialPhone.trim()
                 .ifBlank { normalizedPhone }
@@ -33,8 +40,15 @@ internal fun mapDeviceContactsToFinalRecords(
                 name = contact.name,
                 phone = contact.phone,
                 systemDialPhone = contact.systemDialPhone,
-                hint = "本机通讯录联系人"
+                hint = currentAppText("本机通讯录联系人", "Device contact")
             )
         }
         .toList()
 }
+
+internal fun localizedFinalContactHint(hint: String): String =
+    when (hint.trim()) {
+        "本机通讯录联系人",
+        "Device contact" -> currentAppText("本机通讯录联系人", "Device contact")
+        else -> hint
+    }

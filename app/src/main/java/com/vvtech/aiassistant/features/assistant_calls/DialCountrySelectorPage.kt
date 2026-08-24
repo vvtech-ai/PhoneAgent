@@ -36,10 +36,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -135,13 +137,13 @@ private fun DialCountrySelectorHeader(onBack: () -> Unit) {
         ) {
             Icon(
                 Icons.Default.ArrowBackIosNew,
-                contentDescription = "返回",
+                contentDescription = stringResource(R.string.common_back),
                 tint = Color(0xFF111318),
                 modifier = Modifier.size(19.dp)
             )
         }
         Text(
-            "选择国家或地区",
+            stringResource(R.string.dial_select_country),
             color = Color(0xFF111318),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
@@ -173,7 +175,11 @@ private fun DialCountrySearchField(query: String, onQueryChange: (String) -> Uni
             singleLine = true,
             decorationBox = { inner ->
                 if (query.isBlank()) {
-                    Text("搜索国家、地区或区号", color = Color(0xFF98A2B3), fontSize = 15.sp)
+                    Text(
+                        stringResource(R.string.dial_country_search_placeholder),
+                        color = Color(0xFF98A2B3),
+                        fontSize = 15.sp
+                    )
                 }
                 inner()
             }

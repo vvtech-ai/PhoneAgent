@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant_tasks
 
 import com.vvtech.aiassistant.core.model.BatchCallItemResultPayload
 import com.vvtech.aiassistant.core.model.BatchCallResultPayload
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal data class TaskBatchCallProgressInput(
     val batchId: String?,
@@ -47,7 +48,10 @@ internal object TaskBatchCallProgressPolicy {
         val finished = items.count { isTerminal(it.status) }
         return BatchCallResultPayload(
             status = "RUNNING",
-            headline = "批量外呼进行中，$finished/$total 路已有结果",
+            headline = currentAppText(
+                "批量外呼进行中，$finished/$total 路已有结果",
+                "Batch calls in progress. $finished/$total results received"
+            ),
             items = items,
             batchId = batchId,
         )
@@ -74,15 +78,15 @@ internal object TaskBatchCallProgressPolicy {
 
     fun headline(status: String): String {
         return when (status.trim().uppercase()) {
-            "SUCCESS" -> "任务完成"
-            "FAILED" -> "未完成"
-            "UNCLEAR" -> "任务完成"
-            "USER_CANCELLED", "USER_CANCELED", "CANCELLED", "CANCELED" -> "已取消"
-            "NEEDS_RECALL" -> "需重拨"
-            "RECALLING" -> "正在重拨"
-            "CALLING" -> "正在拨打"
-            "STARTED" -> "正在拨打"
-            else -> "任务完成"
+            "SUCCESS" -> currentAppText("任务完成", "Task Complete")
+            "FAILED" -> currentAppText("未完成", "Incomplete")
+            "UNCLEAR" -> currentAppText("任务完成", "Task Complete")
+            "USER_CANCELLED", "USER_CANCELED", "CANCELLED", "CANCELED" -> currentAppText("已取消", "Canceled")
+            "NEEDS_RECALL" -> currentAppText("需重拨", "Needs Redial")
+            "RECALLING" -> currentAppText("正在重拨", "Redialing")
+            "CALLING" -> currentAppText("正在拨打", "Calling")
+            "STARTED" -> currentAppText("正在拨打", "Calling")
+            else -> currentAppText("任务完成", "Task Complete")
         }
     }
 

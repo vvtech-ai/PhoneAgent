@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant
 
 import androidx.compose.runtime.Composable
 import com.vvtech.aiassistant.features.assistant_ui.AssistantBottomNavigationBar
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 
 @Composable
 internal fun FinalBottomTabBarCompat(
@@ -9,14 +10,16 @@ internal fun FinalBottomTabBarCompat(
     onSelect: (FinalMainTab) -> Unit,
     onDialClick: () -> Unit = {},
     hidden: Boolean = false,
-    taskBadgeCount: Int = 0
+    taskBadgeCount: Int = 0,
+    appLanguage: AppLanguage = AppLanguage.English
 ) {
     AssistantBottomNavigationBar(
         selected = selected,
         onSelect = onSelect,
         onDialClick = onDialClick,
         hidden = hidden,
-        taskBadgeCount = taskBadgeCount
+        taskBadgeCount = taskBadgeCount,
+        appLanguage = appLanguage
     )
 }
 
@@ -26,13 +29,15 @@ internal fun FinalBottomTabBar(
     onSelect: (FinalMainTab) -> Unit,
     onDialClick: () -> Unit = {},
     hidden: Boolean = false,
-    taskBadgeCount: Int = 0
+    taskBadgeCount: Int = 0,
+    appLanguage: AppLanguage = AppLanguage.English
 ) {
     AssistantBottomNavigationBar(
         selected = selected,
         onSelect = onSelect,
         onDialClick = onDialClick,
         hidden = hidden,
-        taskBadgeCount = taskBadgeCount
+        taskBadgeCount = taskBadgeCount,
+        appLanguage = appLanguage
     )
 }

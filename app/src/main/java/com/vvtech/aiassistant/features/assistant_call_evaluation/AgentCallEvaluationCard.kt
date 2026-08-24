@@ -29,6 +29,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 private val EvaluationBlue = Color(0xFF0A84FF)
 private val EvaluationText = Color(0xFF1F2937)
@@ -47,9 +48,9 @@ internal fun AgentCallEvaluationCard(
         elevation = 2.dp,
     ) {
         Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 11.dp)) {
-            EvaluationValueRow("使用模型", state.modelName)
+            EvaluationValueRow(currentAppText("使用模型", "Model"), state.modelName)
             EvaluationValueRow(
-                "平均时延",
+                currentAppText("平均时延", "Average Latency"),
                 state.latencyText,
                 modifier = Modifier.padding(top = 6.dp),
             )
@@ -64,7 +65,7 @@ internal fun AgentCallEvaluationCard(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = "评价",
+                    text = "Evaluation",
                     color = EvaluationLabel,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
@@ -75,14 +76,14 @@ internal fun AgentCallEvaluationCard(
                 ) {
                     RatingButton(
                         icon = Icons.Outlined.ThumbUp,
-                        description = "好评",
+                        description = currentAppText("好评", "Good"),
                         selected = state.rating == AgentCallRating.Good,
                         enabled = !state.saving,
                         onClick = { onRatingSelected(AgentCallRating.Good) },
                     )
                     RatingButton(
                         icon = Icons.Outlined.ThumbDown,
-                        description = "差评",
+                        description = currentAppText("差评", "Bad"),
                         selected = state.rating == AgentCallRating.Bad,
                         enabled = !state.saving,
                         onClick = { onRatingSelected(AgentCallRating.Bad) },

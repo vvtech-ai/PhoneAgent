@@ -25,6 +25,7 @@ import com.vvtech.aiassistant.features.assistant_singleflow.SingleFlowNativeRunt
 import com.vvtech.aiassistant.features.assistant_singleflow.SingleFlowNativeRuntimeEffects
 import com.vvtech.aiassistant.features.assistant_singleflow.SingleFlowNativeRuntimeEffectsArgs
 import com.vvtech.aiassistant.features.assistant_singleflow.rememberSingleFlowNativeStateHolder
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_pure_voice.ocr.rememberPureVoiceOcrBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -139,12 +140,18 @@ internal fun SingleFlowNativeDemoScreen(args: SingleFlowNativeDemoScreenArgs = S
 
         if (Regex("打开通话界面|进入通话界面|查看通话界面|通话中界面").containsMatchIn(normalized)) {
             openCallUi(slotRestaurant.ifBlank { restaurants.first().name })
-            aiReply("已为你打开 AI 通话界面。你可以查看状态、转写，并可手动关闭。")
+            aiReply(currentAppText(
+                "已为你打开 AI 通话界面。你可以查看状态、转写，并可手动关闭。",
+                "The AI call screen is open. You can view status and transcripts, or close it manually."
+            ))
             return
         }
         if (Regex("关闭通话界面|退出通话界面|返回对话").containsMatchIn(normalized)) {
             closeCallUi()
-            aiReply("已关闭通话界面，回到当前对话流。")
+            aiReply(currentAppText(
+                "已关闭通话界面，回到当前对话流。",
+                "The call screen is closed. You are back in the current conversation."
+            ))
             return
         }
 
@@ -154,7 +161,10 @@ internal fun SingleFlowNativeDemoScreen(args: SingleFlowNativeDemoScreenArgs = S
                 slotTime = timeParsed
                 slotParty = partyParsed
                 stage = 2
-                aiReply("收到。我先给你三个候选门店。可以回复餐厅名称或第几个。")
+                aiReply(currentAppText(
+                    "收到。我先给你三个候选门店。可以回复餐厅名称或第几个。",
+                    "Got it. I found three candidate locations. Reply with the restaurant name or number."
+                ))
                 addOptions(restaurants)
                 pending = SfPending.Restaurant
             }
@@ -162,23 +172,35 @@ internal fun SingleFlowNativeDemoScreen(args: SingleFlowNativeDemoScreenArgs = S
             SfPending.Restaurant -> {
                 val selected = sfParseRestaurantDecision(normalized, restaurants)
                 if (selected == null) {
-                    aiReply("我还没识别出你选了哪个门店，请回复“第一个/第二个/第三个”或直接说店名。")
+                    aiReply(currentAppText(
+                        "我还没识别出你选了哪个门店，请回复“第一个/第二个/第三个”或直接说店名。",
+                        "I did not catch which location you chose. Reply with first, second, third, or the restaurant name."
+                    ))
                     return
                 }
                 slotRestaurant = selected.name
-                aiReply("好的，已选 ${selected.name}。如果没有包间，我可以改订大厅吗？请直接回复“可以”或“不可以”。")
+                aiReply(currentAppText(
+                    "好的，已选 ${selected.name}。如果没有包间，我可以改订大厅吗？请直接回复“可以”或“不可以”。",
+                    "Okay, ${selected.name} selected. If no private room is available, may I book the main dining area instead? Reply yes or no."
+                ))
                 pending = SfPending.Fallback
             }
 
             SfPending.Fallback -> {
                 val fallback = sfParseFallback(normalized)
                 if (fallback.isBlank()) {
-                    aiReply("请直接回复“可以”或“不可以”，我再继续。")
+                    aiReply(currentAppText(
+                        "请直接回复“可以”或“不可以”，我再继续。",
+                        "Please reply yes or no, then I will continue."
+                    ))
                     return
                 }
                 slotFallback = fallback
-                addSummary("我将联系 $slotRestaurant，预订 $slotTime $slotParty，优先包间；处理方式：$slotFallback；留您的联系方式，尾号9999。")
-                addCta("点击或回复“就这样”确认执行")
+                addSummary(currentAppText(
+                    "我将联系 $slotRestaurant，预订 $slotTime $slotParty，优先包间；处理方式：$slotFallback；留您的联系方式，尾号9999。",
+                    "I will contact $slotRestaurant to book $slotTime for $slotParty, prioritize a private room, handle fallback as $slotFallback, and leave your phone number ending in 9999."
+                ))
+                addCta(currentAppText("点击或回复“就这样”确认执行", "Tap or reply \"confirm\" to start"))
                 pending = SfPending.ConfirmCall
             }
 
@@ -186,7 +208,10 @@ internal fun SingleFlowNativeDemoScreen(args: SingleFlowNativeDemoScreenArgs = S
                 if (Regex("就这样|开始|确认|执行|去打").containsMatchIn(normalized)) {
                     mockFlowController.runCallFlow()
                 } else {
-                    aiReply("你可以点击绿色气泡，或回复“就这样”开始执行。")
+                    aiReply(currentAppText(
+                        "你可以点击绿色气泡，或回复“就这样”开始执行。",
+                        "Tap the green bubble or reply \"confirm\" to start."
+                    ))
                 }
             }
 
@@ -196,9 +221,15 @@ internal fun SingleFlowNativeDemoScreen(args: SingleFlowNativeDemoScreenArgs = S
                     pending = SfPending.Task
                     slotRestaurant = ""
                     slotFallback = ""
-                    aiReply("好的，开始下一轮。请直接告诉我新的任务需求。")
+                    aiReply(currentAppText(
+                        "好的，开始下一轮。请直接告诉我新的任务需求。",
+                        "Okay, starting a new round. Tell me the next task."
+                    ))
                 } else {
-                    aiReply("任务已完成。若要新任务，请回复“新任务”或“继续跟进”。")
+                    aiReply(currentAppText(
+                        "任务已完成。若要新任务，请回复“新任务”或“继续跟进”。",
+                        "Task completed. To start another task, reply \"new task\" or \"follow up\"."
+                    ))
                 }
             }
         }
@@ -214,7 +245,10 @@ internal fun SingleFlowNativeDemoScreen(args: SingleFlowNativeDemoScreenArgs = S
     fun stopAndReset() {
         resetLocalDemoFlow()
         scope.launch {
-            aiReply("流程已终止。请直接告诉我你的新任务需求。")
+            aiReply(currentAppText(
+                "流程已终止。请直接告诉我你的新任务需求。",
+                "The flow has stopped. Tell me your new task."
+            ))
         }
     }
 
@@ -417,7 +451,9 @@ internal fun SingleFlowNativeDemoScreen(args: SingleFlowNativeDemoScreenArgs = S
             },
             onAgentOptionSelect = { index ->
                 onPauseTtsPlayback?.invoke()
-                scope.launch { handleUserInput("第${index + 1}个") }
+                scope.launch {
+                    handleUserInput(currentAppText("第${index + 1}个", "Option ${index + 1}"))
+                }
             },
             onRealSelectionOptionSelected = { option ->
                 addUserText(option.title)
@@ -469,8 +505,8 @@ internal fun SingleFlowNativeDemoScreen(args: SingleFlowNativeDemoScreenArgs = S
             onToggleMuted = { callMuted = !callMuted },
             onToggleSpeaker = { callSpeaker = !callSpeaker },
             onEndCall = {
-                callStatus = "已结束"
-                addCallTranscript("用户手动结束了本次通话。")
+                callStatus = currentAppText("已结束", "Ended")
+                addCallTranscript(currentAppText("用户手动结束了本次通话。", "User ended this call manually."))
                 closeCallUi()
                 if (callRunning) {
                     callRunning = false

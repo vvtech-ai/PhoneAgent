@@ -29,10 +29,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vvtech.aiassistant.R
 import com.vvtech.aiassistant.data.model.UserIdentityUpsertRequest
 import com.vvtech.aiassistant.data.model.WorkIdentityItem
 
@@ -89,20 +91,20 @@ internal fun IdentityInitOverlay(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "完善我的身份",
+                            text = stringResource(R.string.identity_init_title),
                             color = Color(0xFF111111),
                             fontSize = 19.sp,
                             fontWeight = FontWeight.ExtraBold
                         )
                         Text(
-                            text = "让AI在通话时，知道如何更好的介绍自己",
+                            text = stringResource(R.string.identity_init_subtitle),
                             modifier = Modifier.padding(top = 4.dp),
                             color = Color(0xFF111111),
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "Phone Agent 外呼时需要使用CHAKEN可信身份。\n内部测试阶段，可先手动填写身份信息体验流程。",
+                            text = stringResource(R.string.identity_init_trusted_notice),
                             modifier = Modifier.padding(top = 6.dp),
                             color = Color(0xFFE14D46),
                             fontSize = 12.sp,
@@ -124,9 +126,9 @@ internal fun IdentityInitOverlay(
 
                     MyIdentityFieldCardBoxed {
                         MyIdentityRequiredField(
-                            label = "姓名",
+                            label = stringResource(R.string.identity_name_label),
                             value = name,
-                            placeholder = "请输入真实姓名",
+                            placeholder = stringResource(R.string.identity_real_name_placeholder),
                             onValueChange = { name = it }
                         )
                     }
@@ -139,49 +141,49 @@ internal fun IdentityInitOverlay(
                     Spacer(Modifier.size(10.dp))
                     MyIdentityFieldCardBoxed {
                         MyIdentityRow(
-                            label = "常用号码",
+                            label = stringResource(R.string.identity_common_phone_label),
                             value = contactPhone,
-                            placeholder = "例如：18900000001",
+                            placeholder = stringResource(R.string.identity_phone_placeholder),
                             keyboardType = KeyboardType.Phone,
                             onValueChange = { contactPhone = it.filter(Char::isDigit).take(11) }
                         )
                     }
 
                     Spacer(Modifier.size(18.dp))
-                    MyIdentitySectionTitle("工作身份")
+                    MyIdentitySectionTitle(stringResource(R.string.identity_work_section))
                     MyIdentityFieldCardBoxed {
                         MyIdentityRequiredField(
-                            label = "公司",
+                            label = stringResource(R.string.identity_company_label),
                             value = company,
-                            placeholder = "例如：chaken智能科技",
+                            placeholder = stringResource(R.string.identity_company_placeholder),
                             onValueChange = { company = it }
                         )
                     }
                     Spacer(Modifier.size(10.dp))
                     MyIdentityFieldCardBoxed {
                         MyIdentityRow(
-                            label = "部门",
+                            label = stringResource(R.string.identity_department_label),
                             value = department,
-                            placeholder = "例如：产品平台部",
+                            placeholder = stringResource(R.string.identity_department_placeholder),
                             onValueChange = { department = it }
                         )
                     }
                     Spacer(Modifier.size(10.dp))
                     MyIdentityFieldCardBoxed {
                         MyIdentityRow(
-                            label = "职位",
+                            label = stringResource(R.string.identity_position_label),
                             value = position,
-                            placeholder = "例如：产品负责人",
+                            placeholder = stringResource(R.string.identity_position_placeholder),
                             onValueChange = { position = it }
                         )
                     }
 
                     Spacer(Modifier.size(18.dp))
-                    MyIdentitySectionTitle("补充描述")
+                    MyIdentitySectionTitle(stringResource(R.string.identity_description_section))
                     Spacer(Modifier.size(8.dp))
                     MyIdentityMultilineCard(
                         value = description,
-                        placeholder = "例如：我是chaken产品负责人，代表广州子公司出席，对外用王明",
+                        placeholder = stringResource(R.string.identity_description_placeholder),
                         onValueChange = { description = it.take(2000) }
                     )
 
@@ -195,13 +197,17 @@ internal fun IdentityInitOverlay(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     FinalActionButton(
-                        label = "暂不填写",
+                        label = stringResource(R.string.identity_skip),
                         tone = FinalButtonTone.Secondary,
                         modifier = Modifier.weight(1f),
                         onClick = onDismiss
                     )
                     FinalActionButton(
-                        label = if (saving) "保存中" else "保存继续",
+                        label = if (saving) {
+                            stringResource(R.string.identity_saving)
+                        } else {
+                            stringResource(R.string.identity_save_continue)
+                        },
                         tone = FinalButtonTone.Primary,
                         enabled = canSave,
                         modifier = Modifier.weight(1.6f),

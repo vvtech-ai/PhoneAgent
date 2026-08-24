@@ -4,6 +4,7 @@ import com.vvtech.aiassistant.core.model.AgentStreamEvent
 import com.vvtech.aiassistant.core.model.BatchCallResultPayload
 import com.vvtech.aiassistant.features.assistant.ClarificationStep
 import com.vvtech.aiassistant.features.assistant.Index9AssistantUiState
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_tasks.TaskBatchCallFinalStepPatch
 
 internal data class AgentStreamBatchCallRuntimeCallbacks(
@@ -52,7 +53,7 @@ internal class AgentStreamBatchCallRuntimeHandler(
                 apiTtsPlaying = false,
                 localTtsSpeaking = false,
                 error = null,
-                status = BATCH_CALL_ACTIVE_STATUS
+                status = batchCallActiveStatus()
             )
         }
     }
@@ -92,6 +93,11 @@ internal class AgentStreamBatchCallRuntimeHandler(
         const val REASON_BATCH_STARTED = "batch_call_stream_started"
         const val REASON_BATCH_ACTIVE = "batch_call_stream_active"
         const val REASON_BATCH_FINISHED = "batch_call_stream_finished"
-        const val BATCH_CALL_ACTIVE_STATUS = "正在执行多路外呼，完成后会汇总结果"
     }
+
+    private fun batchCallActiveStatus(): String =
+        currentAppText(
+            "正在执行多路外呼，完成后会汇总结果",
+            "Running batch calls. Results will be summarized when complete."
+        )
 }

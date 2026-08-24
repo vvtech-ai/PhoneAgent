@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.model.TaskDetailResponse
 import com.vvtech.aiassistant.repository.AppContainer
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -43,7 +44,12 @@ class TaskDetailViewModel : ViewModel() {
                     _uiState.update { it.copy(loading = false, detail = detail, error = null) }
                 }
                 .onFailure { throwable ->
-                    _uiState.update { it.copy(loading = false, error = throwable.message ?: "任务详情加载失败") }
+                    _uiState.update {
+                        it.copy(
+                            loading = false,
+                            error = throwable.message ?: currentAppText("任务详情加载失败", "Failed to load task details")
+                        )
+                    }
                 }
         }
     }

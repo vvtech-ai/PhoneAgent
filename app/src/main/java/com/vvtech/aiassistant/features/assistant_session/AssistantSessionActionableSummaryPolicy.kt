@@ -6,6 +6,8 @@ import com.vvtech.aiassistant.features.assistant.SummaryData
 import com.vvtech.aiassistant.features.assistant.TranscriptLine
 import com.vvtech.aiassistant.features.assistant.TranscriptRole
 import com.vvtech.aiassistant.features.assistant.VoiceLanguage
+import com.vvtech.aiassistant.features.assistant.sanitizeUserFacingNetworkText
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal object AssistantSessionActionableSummaryPolicy {
     data class BuildContext(
@@ -26,19 +28,27 @@ internal object AssistantSessionActionableSummaryPolicy {
         val card = session.messages.lastOrNull { it.callConfirmCard != null }?.callConfirmCard
             ?: return null
         val primary = card.actions.firstOrNull { it.kind == "primary" } ?: card.actions.firstOrNull()
-        val localizeBookingScene = context.language != VoiceLanguage.Chinese &&
+        val localizeNonChinese = context.language != VoiceLanguage.Chinese
+        val localizeBookingScene = localizeNonChinese &&
             session.session.sceneType in bookingSceneTypes
+        val taskTitle = sanitizeActionableSummaryText(
+            session.session.title.ifBlank { sceneLabel(session.session.sceneType) },
+            context.language
+        )
+        val targetName = sanitizeActionableSummaryText(card.targetName, context.language)
+        val purpose = sanitizeActionableSummaryText(card.purpose, context.language)
+        val cardSummary = sanitizeActionableSummaryText(card.summary, context.language)
         val summary = SummaryData(
-            task = session.session.title.ifBlank { sceneLabel(session.session.sceneType) },
-            targetLabel = if (localizeBookingScene) targetLabel(context.language) else "对象",
-            target = card.targetName.ifBlank {
-                if (localizeBookingScene) pendingTarget(context.language) else "待联系对象"
+            task = taskTitle,
+            targetLabel = if (localizeNonChinese) targetLabel(context.language) else "对象",
+            target = targetName.ifBlank {
+                if (localizeNonChinese) pendingTarget(context.language) else "待联系对象"
             },
-            timeLabel = if (localizeBookingScene) phoneLabel(context.language) else "电话",
+            timeLabel = if (localizeNonChinese) phoneLabel(context.language) else "电话",
             time = card.phone?.takeIf { it.isNotBlank() }
-                ?: if (localizeBookingScene) pendingValue(context.language) else "待确认",
-            extraLabel = if (localizeBookingScene) detailsLabel(context.language) else "重点",
-            extra = card.purpose.ifBlank { card.summary }
+                ?: if (localizeNonChinese) pendingValue(context.language) else "待确认",
+            extraLabel = if (localizeNonChinese) detailsLabel(context.language) else "重点",
+            extra = purpose.ifBlank { cardSummary }
         )
         return AssistantSessionActionableSummary(
             summary = AssistantSessionDetailSupplementPolicy.decorateSummaryWithSupplement(
@@ -51,23 +61,24 @@ internal object AssistantSessionActionableSummaryPolicy {
                 contactLabel = context.contactLabel,
                 detailLabel = context.detailLabel
             ),
-            confirmLabel = primary?.label ?: context.defaultConfirmLabel,
+            confirmLabel = sanitizeActionableSummaryText(primary?.label ?: context.defaultConfirmLabel, context.language),
             primaryAction = primary,
             callPageSeed = CallPageData(
-                name = card.targetName.ifBlank { session.session.title },
-                sub = card.phone?.takeIf { it.isNotBlank() } ?: sceneLabel(session.session.sceneType),
-                status = if (localizeBookingScene) readyToCallStatus(context.language) else "准备发起电话",
+                name = targetName.ifBlank { taskTitle },
+                sub = card.phone?.takeIf { it.isNotBlank() }
+                    ?: sanitizeActionableSummaryText(sceneLabel(session.session.sceneType), context.language),
+                status = if (localizeNonChinese) readyToCallStatus(context.language) else "准备发起电话",
                 transcript = buildList {
-                    if (card.purpose.isNotBlank()) {
+                    if (purpose.isNotBlank()) {
                         add(
                             TranscriptLine(
                                 TranscriptRole.Note,
-                                if (localizeBookingScene) callFocus(context.language, card.purpose)
+                                if (localizeNonChinese) callFocus(context.language, purpose)
                                 else "通话重点：${card.purpose}"
                             )
                         )
                     }
-                    add(TranscriptLine(TranscriptRole.Assistant, card.summary))
+                    add(TranscriptLine(TranscriptRole.Assistant, cardSummary))
                 }
             )
         )
@@ -75,11 +86,11 @@ internal object AssistantSessionActionableSummaryPolicy {
 
     private fun sceneLabel(sceneType: String): String {
         return when (sceneType) {
-            "FOOD_ORDERING" -> "订餐任务"
-            "HOTEL_BOOKING" -> "订酒店"
-            "FLIGHT_BOOKING" -> "订机票"
-            "AI_CALL" -> "帮打电话"
-            else -> "AI 任务"
+            "FOOD_ORDERING" -> currentAppText("订餐任务", "Restaurant Booking")
+            "HOTEL_BOOKING" -> currentAppText("订酒店", "Hotel Booking")
+            "FLIGHT_BOOKING" -> currentAppText("订机票", "Flight Booking")
+            "AI_CALL" -> currentAppText("帮打电话", "AI Call")
+            else -> currentAppText("AI 任务", "AI Task")
         }
     }
 
@@ -123,6 +134,14 @@ internal object AssistantSessionActionableSummaryPolicy {
         VoiceLanguage.English -> "Call focus: $purpose"
         VoiceLanguage.Japanese -> "通話の要点：$purpose"
         VoiceLanguage.Chinese -> "通话重点：$purpose"
+    }
+
+    private fun sanitizeActionableSummaryText(value: String, language: VoiceLanguage): String {
+        return if (language == VoiceLanguage.English) {
+            sanitizeUserFacingNetworkText(value, language)
+        } else {
+            value
+        }
     }
 
     private val bookingSceneTypes = setOf("FOOD_ORDERING", "HOTEL_BOOKING")

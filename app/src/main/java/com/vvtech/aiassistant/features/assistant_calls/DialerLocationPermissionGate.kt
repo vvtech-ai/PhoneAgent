@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 import com.vvtech.aiassistant.features.assistant_ui.AssistantConfirmationDialog
 import com.vvtech.aiassistant.features.translation_call.state.TranslationRegionStateHolder
 import kotlinx.coroutines.launch
@@ -206,14 +207,20 @@ internal fun DialerLocationPermissionDialogHost(
     val kind = state.dialogKind ?: return
     val blocked = kind == DialerLocationDialogKind.BLOCKED
     AssistantConfirmationDialog(
-        title = if (blocked) "需要位置权限" else "开启位置权限",
+        title = if (blocked) currentAppText("需要位置权限", "Location Access Required") else currentAppText("开启位置权限", "Allow Location Access"),
         message = if (blocked) {
-            "位置权限已被关闭。请前往系统设置开启；未开启时仅可使用普通电话。"
+            currentAppText(
+                "位置权限已被关闭。请前往系统设置开启；未开启时仅可使用普通电话。",
+                "Location access is disabled. Enable it in system settings to use translated calls. Regular calls remain available."
+            )
         } else {
-            "开启位置权限，以确认所在地区适用的实时翻译模型和通话线路，并提供更稳定的通话服务。不开启时仅可使用普通通话。"
+            currentAppText(
+                "开启位置权限，以确认所在地区适用的实时翻译模型和通话线路，并提供更稳定的通话服务。不开启时仅可使用普通通话。",
+                "Enable location permission to select the proper realtime translation model and call route for your region. Without it, only regular calls are available."
+            )
         },
-        dismissLabel = "暂不开启",
-        confirmLabel = if (blocked) "前往系统设置" else "开启位置权限",
+        dismissLabel = currentAppText("暂不开启", "Not Now"),
+        confirmLabel = if (blocked) currentAppText("前往系统设置", "Open System Settings") else currentAppText("开启位置权限", "Allow Location Access"),
         onDismiss = state.onCancel,
         onConfirm = state.onConfirm,
         dismissButtonModifier = Modifier.testTag("interaction:dial-location-later"),

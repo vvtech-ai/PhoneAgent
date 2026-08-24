@@ -2,6 +2,7 @@ package com.vvtech.aiassistant.features.assistant_shell
 
 import com.vvtech.aiassistant.core.model.SelectedContactTaskContext
 import com.vvtech.aiassistant.features.assistant.*
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 import com.vvtech.aiassistant.model.ConversationListItem
 
 internal data class AssistantRootPageHostMainArgs(
@@ -45,6 +46,7 @@ internal data class AssistantRootPageHostMainActionDeps(
 internal data class AssistantRootPageHostMainValueDeps(
     val currentPage: FinalPage,
     val voiceLanguage: VoiceLanguage,
+    val appLanguage: AppLanguage,
     val selectedRestaurant: FinalOption?,
     val activeAccountId: String,
     val pureVoiceMode: Boolean,

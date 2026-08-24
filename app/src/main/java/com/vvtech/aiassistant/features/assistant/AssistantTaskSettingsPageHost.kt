@@ -128,6 +128,8 @@ internal fun AssistantTaskSettingsPageHost(
                                             onSelectedMethodReset()
                                             openAssistantContactMethods(settingsNavigationCallbacks)
                                         },
+                                        appLanguage = appLanguage,
+                                        onAppLanguageChange = onAppLanguageChange,
                                         onOpenMyIdentity = {
                                             onUserIdentityErrorChange(null)
                                             onRefreshUserIdentity()
@@ -183,6 +185,7 @@ internal fun AssistantTaskSettingsPageHost(
                                         loading = realtimeProviderLoading,
                                         switching = realtimeProviderSwitching,
                                         error = realtimeProviderError,
+                                        appLanguage = appLanguage,
                                         onBack = { returnToAssistantSettings(settingsNavigationCallbacks) },
                                         onRefresh = { onRefreshRealtimeProvider(true) },
                                         onSelectProvider = onSwitchRealtimeCallProvider,
@@ -216,7 +219,8 @@ internal fun AssistantTaskSettingsPageHost(
                                             onStartClone = {
                                                 onOpenVoiceCloneFlow(true)
                                             }
-                                        )
+                                        ),
+                                        appLanguage = appLanguage
                                     )
 
                                     FinalPage.SipAccountSettings -> RegionAwareSipAccountSettingsHost(

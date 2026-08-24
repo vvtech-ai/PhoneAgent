@@ -9,6 +9,7 @@ import com.vvtech.aiassistant.core.model.OptionsPayload
 import com.vvtech.aiassistant.domain.conversation.ConversationLedgerEvent
 import com.vvtech.aiassistant.domain.conversation.ConversationLedgerEventType
 import com.vvtech.aiassistant.domain.conversation.StableConversationLedgerEventType
+import com.vvtech.aiassistant.features.assistant_i18n.currentAppText
 
 internal object ShowOptionsTimelineProjection {
     const val DISPLAY_PAYLOAD_VERSION = 1
@@ -21,7 +22,7 @@ internal object ShowOptionsTimelineProjection {
         }
         val arguments = payload.objectField("arguments") ?: return null
         val options = OptionsPayload(
-            title = arguments.text("title").ifBlank { "请选择" },
+            title = arguments.text("title").ifBlank { currentAppText("请选择", "Please Select") },
             items = arguments.optionsArray()
                 ?.mapIndexedNotNull(::optionItem)
                 .orEmpty(),
@@ -105,7 +106,7 @@ internal object ShowOptionsTimelineProjection {
 
 internal object ShowOptionsDisplayTextFormatter {
     fun format(options: OptionsPayload): String = buildString {
-        appendLine(options.title.ifBlank { "请选择" })
+        appendLine(localizedShowOptionsTitle(options.title).ifBlank { currentAppText("请选择", "Please Select") })
         options.items.forEachIndexed { index, item ->
             append("${index + 1}. ${item.label}")
             item.displayDetailText().takeIf(String::isNotBlank)?.let { append(" ($it)") }
@@ -126,4 +127,13 @@ internal object ShowOptionsDisplayTextFormatter {
         } else {
             "${distanceMeters}m"
         }
+
+    internal fun localizedShowOptionsTitle(raw: String): String {
+        val title = raw.trim()
+        return when (title) {
+            "搜到的结果", "找到的结果" -> currentAppText(title, "Search Results")
+            "请选择" -> currentAppText(title, "Please Select")
+            else -> title
+        }
+    }
 }

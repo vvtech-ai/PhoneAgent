@@ -23,6 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vvtech.aiassistant.features.assistant.FinalBackTitleBar
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
+import com.vvtech.aiassistant.features.assistant_i18n.appText
 
 internal data class AssistantSipAccountSettingsState(
     val selectedDomesticAccountId: String,
@@ -38,38 +40,47 @@ internal data class AssistantSipAccountSettingsCallbacks(
 @Composable
 internal fun AssistantSipAccountSettingsPage(
     state: AssistantSipAccountSettingsState,
-    callbacks: AssistantSipAccountSettingsCallbacks
+    callbacks: AssistantSipAccountSettingsCallbacks,
+    appLanguage: AppLanguage = AppLanguage.SimplifiedChinese
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalBackTitleBar(title = "SIP账号设置", onBack = callbacks.onBack)
+        FinalBackTitleBar(title = "SIP账号设置".appText(appLanguage, "SIP Account Settings"), onBack = callbacks.onBack)
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(start = 14.dp, end = 14.dp, bottom = 24.dp)
         ) {
             item {
                 SipAccountSectionTitle(
-                    title = "国内账号",
-                    description = "中国大陆号码使用所选账号呼出"
+                    title = "国内账号".appText(appLanguage, "Domestic Account"),
+                    description = "中国大陆号码使用所选账号呼出".appText(
+                        appLanguage,
+                        "Mainland China numbers use the selected account"
+                    )
                 )
             }
             items(AssistantDomesticSipAccountOptions, key = { "domestic-${it.id}" }) { option ->
                 SipAccountOptionRow(
                     option = option,
                     selected = option.id == state.selectedDomesticAccountId,
-                    onSelect = callbacks.onSelectDomesticAccount
+                    onSelect = callbacks.onSelectDomesticAccount,
+                    appLanguage = appLanguage
                 )
             }
             item {
                 SipAccountSectionTitle(
-                    title = "国际账号",
-                    description = "国际 SIP 线路使用所选账号呼出"
+                    title = "国际账号".appText(appLanguage, "International Account"),
+                    description = "国际 SIP 线路使用所选账号呼出".appText(
+                        appLanguage,
+                        "International SIP lines use the selected account"
+                    )
                 )
             }
             items(AssistantInternationalSipAccountOptions, key = { "international-${it.id}" }) { option ->
                 SipAccountOptionRow(
                     option = option,
                     selected = option.id == state.selectedInternationalAccountId,
-                    onSelect = callbacks.onSelectInternationalAccount
+                    onSelect = callbacks.onSelectInternationalAccount,
+                    appLanguage = appLanguage
                 )
             }
         }
@@ -98,7 +109,8 @@ private fun SipAccountSectionTitle(title: String, description: String) {
 private fun SipAccountOptionRow(
     option: AssistantSipAccountOption,
     selected: Boolean,
-    onSelect: (String) -> Unit
+    onSelect: (String) -> Unit,
+    appLanguage: AppLanguage
 ) {
     Surface(
         modifier = Modifier
@@ -120,7 +132,7 @@ private fun SipAccountOptionRow(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = option.label,
+                text = option.label(appLanguage),
                 modifier = Modifier.weight(1f),
                 color = Color(0xFF111111),
                 fontSize = 16.sp,

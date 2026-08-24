@@ -1,5 +1,6 @@
 package com.vvtech.aiassistant.features.assistant_settings
 
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
 import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -59,6 +60,44 @@ class AssistantRealtimeCallCloneVoicePresentationTest {
                 status = "EXPIRED",
                 hasClone = true,
                 lastError = "服务端提示重新录制"
+            )
+        )
+    }
+
+    @Test
+    fun mapsClonePresentationCopyToEnglishWhenAppLanguageIsEnglish() {
+        assertEquals(
+            RealtimeCallCloneVoicePresentation(statusText = "Not Cloned", actionText = "Clone Voice"),
+            realtimeCallCloneVoicePresentation(
+                status = null,
+                selected = false,
+                appLanguage = AppLanguage.English
+            )
+        )
+        assertEquals(
+            RealtimeCallCloneVoicePresentation(statusText = "Current", actionText = "Record Again"),
+            realtimeCallCloneVoicePresentation(
+                status = "READY",
+                selected = true,
+                appLanguage = AppLanguage.English
+            )
+        )
+        assertEquals(
+            "No cloned voice is available for this model yet. Complete voice cloning to use it.",
+            realtimeCallCloneVoiceDetail(
+                status = null,
+                hasClone = false,
+                lastError = null,
+                appLanguage = AppLanguage.English
+            )
+        )
+        assertEquals(
+            "This model has a cloned voice ready to use.",
+            realtimeCallCloneVoiceDetail(
+                status = "READY",
+                hasClone = true,
+                lastError = null,
+                appLanguage = AppLanguage.English
             )
         )
     }

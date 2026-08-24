@@ -31,6 +31,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.vvtech.aiassistant.R
+import com.vvtech.aiassistant.features.assistant_i18n.AppLanguage
+import com.vvtech.aiassistant.features.assistant_i18n.appText
 import com.vvtech.aiassistant.model.RealtimeCallProviderResponse
 @Composable
 internal fun FinalOutboundNumberPageV3(
@@ -47,16 +51,16 @@ internal fun FinalOutboundNumberPageV3(
 ) {
     val hasSavedNumber = currentNumber.isNotBlank()
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalBackTitleBar(title = "固定外呼号码", onBack = onBack)
+        FinalBackTitleBar(title = stringResource(R.string.outbound_number_title), onBack = onBack)
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(start = 14.dp, end = 14.dp, bottom = 18.dp)
         ) {
             item {
                 FinalInputFieldV3(
-                    label = "手机号码",
+                    label = stringResource(R.string.outbound_number_phone_label),
                     value = value,
-                    placeholder = "例如：13800138000",
+                    placeholder = stringResource(R.string.outbound_number_phone_placeholder),
                     keyboardType = KeyboardType.Phone,
                     onValueChange = onValueChange
                 )
@@ -64,7 +68,7 @@ internal fun FinalOutboundNumberPageV3(
             if (loading) {
                 item {
                     Text(
-                        text = "正在读取当前固定外呼号码...",
+                        text = stringResource(R.string.outbound_number_loading),
                         modifier = Modifier.padding(top = 10.dp),
                         color = Color(0xFF6E6E73),
                         fontSize = 13.sp
@@ -83,7 +87,11 @@ internal fun FinalOutboundNumberPageV3(
             }
             item {
                 FinalActionButton(
-                    label = if (saving) "保存中..." else "保存",
+                    label = if (saving) {
+                        stringResource(R.string.outbound_number_saving)
+                    } else {
+                        stringResource(R.string.identity_save)
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 18.dp),
@@ -94,7 +102,11 @@ internal fun FinalOutboundNumberPageV3(
             if (hasSavedNumber) {
                 item {
                     FinalActionButton(
-                        label = if (deleting) "删除中..." else "删除固定外呼号码",
+                        label = if (deleting) {
+                            stringResource(R.string.outbound_number_delete_loading)
+                        } else {
+                            stringResource(R.string.outbound_number_delete_action)
+                        },
                         tone = FinalButtonTone.Danger,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -114,6 +126,7 @@ internal fun FinalRealtimeProviderPageV3(
     loading: Boolean,
     switching: Boolean,
     error: String?,
+    appLanguage: AppLanguage = AppLanguage.SimplifiedChinese,
     onBack: () -> Unit,
     onRefresh: () -> Unit,
     onSelectProvider: (String) -> Unit,
@@ -129,7 +142,7 @@ internal fun FinalRealtimeProviderPageV3(
         }
     }
     Column(modifier = Modifier.fillMaxSize()) {
-        FinalBackTitleBar(title = "语音大模型", onBack = onBack)
+        FinalBackTitleBar(title = stringResource(R.string.call_models_title), onBack = onBack)
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(start = 14.dp, end = 14.dp, bottom = 16.dp)
@@ -137,7 +150,7 @@ internal fun FinalRealtimeProviderPageV3(
             if (loading && providerResponse == null) {
                 item {
                     Text(
-                        text = "正在读取通话模型状态...",
+                        text = stringResource(R.string.call_models_loading_status),
                         modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
                         color = Color(0xFF6E6E73),
                         fontSize = 13.sp
@@ -149,7 +162,7 @@ internal fun FinalRealtimeProviderPageV3(
                     Column(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp)) {
                         Text(text = error, color = Color(0xFFE14D46), fontSize = 13.sp)
                         FinalActionButton(
-                            label = "重试",
+                            label = stringResource(R.string.settings_action_retry),
                             tone = FinalButtonTone.Secondary,
                             enabled = !loading && !switching,
                             modifier = Modifier.padding(top = 10.dp),
@@ -180,7 +193,7 @@ internal fun FinalRealtimeProviderPageV3(
             }
             item {
                 Text(
-                    text = "切换模型后将在下一次通话时生效",
+                    text = stringResource(R.string.call_models_next_call_note),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 8.dp, bottom = 12.dp),
@@ -227,7 +240,7 @@ private fun ProviderModelCard(
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
-                        model.subtitle,
+                        localizedProviderModelSubtitle(model),
                         modifier = Modifier.padding(top = 4.dp),
                         color = if (model.enabled) Color(0xFF667085) else Color(0xFFAEAEB2),
                         fontSize = 12.sp,
@@ -252,7 +265,7 @@ private fun ProviderModelCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "音色与声音克隆",
+                        text = stringResource(R.string.call_models_voice_clone_entry),
                         modifier = Modifier.weight(1f),
                         color = Color(0xFF344054),
                         fontSize = 14.sp,
@@ -263,6 +276,14 @@ private fun ProviderModelCard(
             }
         }
     }
+}
+
+@Composable
+private fun localizedProviderModelSubtitle(model: V88VoiceModelOption): String = when (model.id) {
+    "QWEN_OMNI_PLUS" -> stringResource(R.string.call_model_qwen_description)
+    "DOUBAO" -> stringResource(R.string.call_model_seeduplex_description)
+    "GPT" -> stringResource(R.string.call_model_gpt_description)
+    else -> model.subtitle
 }
 
 @Composable
@@ -295,17 +316,24 @@ private fun ProviderModelRadio(selected: Boolean, enabled: Boolean) {
 internal fun realtimeProviderSettingsSubtitle(
     summary: String,
     loading: Boolean,
-    error: String?
+    error: String?,
+    appLanguage: AppLanguage = AppLanguage.SimplifiedChinese
 ): String {
     if (!error.isNullOrBlank()) {
         return error
     }
     if (loading && summary.isBlank()) {
-        return "正在读取当前通话语音模型状态"
+        return "正在读取当前通话语音模型状态".appText(appLanguage, "Loading current call voice model")
     }
     return if (summary.isBlank()) {
-        "切换通话时使用的实时语音模型"
+        "切换通话时使用的实时语音模型".appText(
+            appLanguage,
+            "Choose the realtime voice model used for calls"
+        )
     } else {
-        "当前使用 $summary，切换后新的通话会使用这个模型"
+        "当前使用 $summary，切换后新的通话会使用这个模型".appText(
+            appLanguage,
+            "Currently using $summary. New calls will use the selected model."
+        )
     }
 }
