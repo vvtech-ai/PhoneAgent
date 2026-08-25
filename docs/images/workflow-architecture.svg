@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="810" viewBox="0 0 1440 810" role="img" aria-labelledby="title desc">
+  <title id="title">PhoneAgent Workflow Architecture</title>
+  <desc id="desc">A user submits a phone task through the client. The Agent orchestrates execution, voice models handle real-time speech interaction, the SIP network connects the recipient, and results return to the client.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d1117"/><stop offset="1" stop-color="#111827"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#58a6ff"/></marker>
+    <style>
+      .title{font:700 42px Inter,"Microsoft YaHei",sans-serif;fill:#f0f6fc}.sub{font:400 19px Inter,"Microsoft YaHei",sans-serif;fill:#8b949e}.card{fill:#161b22;stroke:#30363d;stroke-width:2}.ct{font:650 22px Inter,"Microsoft YaHei",sans-serif;fill:#f0f6fc}.body{font:400 16px Inter,"Microsoft YaHei",sans-serif;fill:#b1bac4}.label{font:600 14px Inter,"Microsoft YaHei",sans-serif;fill:#58a6ff}.line{fill:none;stroke:#58a6ff;stroke-width:3;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1440" height="810" rx="28" fill="url(#bg)"/>
+  <circle cx="1310" cy="80" r="170" fill="#1f6feb" opacity=".08"/>
+  <text x="72" y="82" class="title">PhoneAgent Workflow Architecture</text>
+  <text x="72" y="118" class="sub">From a natural-language task to a real call and a structured task receipt</text>
+
+  <g transform="translate(64 238)">
+    <rect class="card" width="190" height="230" rx="18"/><circle cx="95" cy="55" r="26" fill="#1f6feb" opacity=".2"/><path d="M95 39v32M83 55h24" stroke="#58a6ff" stroke-width="4" stroke-linecap="round"/>
+    <text x="95" y="110" class="ct" text-anchor="middle">User Task</text><text x="95" y="147" class="body" text-anchor="middle">Describe the goal</text><text x="95" y="177" class="body" text-anchor="middle">Confirm key details</text>
+  </g>
+  <path class="line" d="M264 353H318"/>
+  <g transform="translate(328 238)">
+    <rect class="card" width="220" height="230" rx="18"/><rect x="87" y="27" width="46" height="62" rx="9" fill="none" stroke="#58a6ff" stroke-width="4"/><circle cx="110" cy="79" r="3" fill="#58a6ff"/>
+    <text x="110" y="120" class="ct" text-anchor="middle">PhoneAgent</text><text x="110" y="153" class="body" text-anchor="middle">Task creation and confirmation</text><text x="110" y="181" class="body" text-anchor="middle">Status and task receipt</text>
+  </g>
+  <path class="line" d="M558 353H612"/>
+  <g transform="translate(622 210)">
+    <rect width="256" height="286" rx="20" fill="#161b22" stroke="#3fb950" stroke-width="2"/><circle cx="128" cy="54" r="28" fill="#238636" opacity=".25"/><path d="M112 55h32M117 45l-8 10 8 10M139 45l8 10-8 10" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="128" y="107" class="ct" text-anchor="middle">Agent Task Layer</text><text x="128" y="146" class="body" text-anchor="middle">Understand the call goal</text><text x="128" y="176" class="body" text-anchor="middle">Collect required details</text><text x="128" y="206" class="body" text-anchor="middle">Orchestrate flows and branches</text><text x="128" y="236" class="body" text-anchor="middle">Compile task results</text>
+  </g>
+  <path class="line" d="M888 353H942"/>
+  <g transform="translate(952 238)">
+    <rect class="card" width="220" height="230" rx="18"/><g transform="translate(74 41)" stroke="#a371f7" stroke-width="5" stroke-linecap="round"><path d="M0 28v14M14 17v36M28 7v56M42 20v30M56 29v12"/></g>
+    <text x="110" y="120" class="ct" text-anchor="middle">Voice Model</text><text x="110" y="153" class="body" text-anchor="middle">Understand and generate speech</text><text x="110" y="181" class="body" text-anchor="middle">Voice interaction</text>
+  </g>
+  <path class="line" d="M1182 353H1236"/>
+  <g transform="translate(1246 238)">
+    <rect class="card" width="130" height="230" rx="18"/><path d="M44 50c28-25 63 10 38 34l-17 17-27-27 17-17" fill="none" stroke="#d29922" stroke-width="4"/><text x="65" y="130" class="ct" text-anchor="middle">SIP</text><text x="65" y="159" class="body" text-anchor="middle">Dialing and transport</text><text x="65" y="184" class="body" text-anchor="middle">Connect the recipient</text>
+  </g>
+
+  <path d="M1312 485v100c0 42-34 76-76 76H438c-61 0-110-49-110-110v-52" fill="none" stroke="#3fb950" stroke-width="3" stroke-dasharray="8 9" marker-end="url(#arrow)"/>
+  <rect x="655" y="621" width="346" height="54" rx="27" fill="#12261b" stroke="#238636"/><text x="828" y="655" text-anchor="middle" font-family="Inter,Microsoft YaHei,sans-serif" font-size="17" font-weight="600" fill="#3fb950">Status and results return to the client</text>
+  <text x="720" y="752" text-anchor="middle" class="sub">The Agent decides what to complete · The voice model decides how to understand and speak · The SIP network makes the call happen</text>
+</svg>
+
+

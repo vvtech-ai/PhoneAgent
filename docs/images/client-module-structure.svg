@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="810" viewBox="0 0 1440 810" role="img" aria-labelledby="title desc">
+  <title id="title">PhoneAgent Client Module Structure</title>
+  <desc id="desc">The open-source PhoneAgent client includes task entry, confirmation, model selection, execution status, and task receipts. It connects to hosted or compatible services through service contracts.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d1117"/><stop offset="1" stop-color="#111827"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#58a6ff"/></marker>
+    <style>.title{font:700 42px Inter,"Microsoft YaHei",sans-serif;fill:#f0f6fc}.sub{font:400 19px Inter,"Microsoft YaHei",sans-serif;fill:#8b949e}.h{font:650 22px Inter,"Microsoft YaHei",sans-serif;fill:#f0f6fc}.b{font:400 16px Inter,"Microsoft YaHei",sans-serif;fill:#b1bac4}.tag{font:600 14px Inter,"Microsoft YaHei",sans-serif;fill:#58a6ff}.card{fill:#161b22;stroke:#30363d;stroke-width:2}.line{fill:none;stroke:#58a6ff;stroke-width:3;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1440" height="810" rx="28" fill="url(#bg)"/>
+  <circle cx="1320" cy="70" r="180" fill="#1f6feb" opacity=".07"/>
+  <text x="72" y="82" class="title">PhoneAgent Client Module Structure</text>
+  <text x="72" y="118" class="sub">The client handles user interaction and status display; connected services coordinate phone-task execution</text>
+  <rect x="64" y="162" width="1312" height="374" rx="24" fill="#111d2e" stroke="#1f6feb" stroke-width="2"/>
+  <rect x="88" y="186" width="116" height="30" rx="15" fill="#1f6feb"/><text x="146" y="207" text-anchor="middle" font-family="Inter,Microsoft YaHei,sans-serif" font-size="14" font-weight="700" fill="#fff">Open-source client</text>
+
+  <g transform="translate(92 262)"><rect class="card" width="210" height="190" rx="18"/><circle cx="105" cy="48" r="24" fill="#1f6feb" opacity=".22"/><path d="M105 35v26M92 48h26" stroke="#58a6ff" stroke-width="4" stroke-linecap="round"/><text x="105" y="104" class="h" text-anchor="middle">Task entry</text><text x="105" y="136" class="b" text-anchor="middle">Use voice or text</text><text x="105" y="162" class="b" text-anchor="middle">to describe the call</text></g>
+  <path class="line" d="M312 357h46"/>
+  <g transform="translate(368 262)"><rect class="card" width="210" height="190" rx="18"/><circle cx="105" cy="48" r="24" fill="#238636" opacity=".25"/><path d="m93 48 8 8 17-19" fill="none" stroke="#3fb950" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><text x="105" y="104" class="h" text-anchor="middle">Task confirmation</text><text x="105" y="136" class="b" text-anchor="middle">Review recipient and</text><text x="105" y="162" class="b" text-anchor="middle">execution scope</text></g>
+  <path class="line" d="M588 357h46"/>
+  <g transform="translate(644 262)"><rect class="card" width="210" height="190" rx="18"/><circle cx="105" cy="48" r="24" fill="#8957e5" opacity=".25"/><path d="M91 43h28M91 55h28M100 38v10M112 50v10" stroke="#a371f7" stroke-width="3" stroke-linecap="round"/><text x="105" y="104" class="h" text-anchor="middle">Model selection</text><text x="105" y="136" class="b" text-anchor="middle">Switch among available</text><text x="105" y="162" class="b" text-anchor="middle">voice models</text></g>
+  <path class="line" d="M864 357h46"/>
+  <g transform="translate(920 262)"><rect class="card" width="210" height="190" rx="18"/><circle cx="105" cy="48" r="24" fill="#1f6feb" opacity=".22"/><path d="M92 56V44l9 6 10-14 7 6" fill="none" stroke="#58a6ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="105" y="104" class="h" text-anchor="middle">Execution status</text><text x="105" y="136" class="b" text-anchor="middle">Show task stages</text><text x="105" y="162" class="b" text-anchor="middle">and call progress</text></g>
+  <path class="line" d="M1140 357h46"/>
+  <g transform="translate(1196 262)"><rect class="card" width="148" height="190" rx="18"/><circle cx="74" cy="48" r="24" fill="#238636" opacity=".25"/><path d="M63 37h22v27H63zM68 44h12M68 51h12M68 58h8" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round"/><text x="74" y="104" class="h" text-anchor="middle">Task receipt</text><text x="74" y="136" class="b" text-anchor="middle">Return results</text><text x="74" y="162" class="b" text-anchor="middle">for review</text></g>
+
+  <path d="M720 538v54" class="line"/>
+  <rect x="256" y="602" width="928" height="116" rx="22" fill="#12261b" stroke="#238636" stroke-width="2"/>
+  <text x="720" y="642" class="tag" text-anchor="middle" fill="#3fb950">Service connection boundary</text>
+  <text x="720" y="677" class="h" text-anchor="middle">Authentication · Task · Call · Event · Result contracts</text>
+  <text x="720" y="704" class="b" text-anchor="middle">Connects to the PhoneAgent hosted service by default; compatible services can be implemented independently</text>
+  <text x="720" y="770" class="sub" text-anchor="middle">Models, SIP network, and server credentials are not included in the open-source client</text>
+</svg>
+

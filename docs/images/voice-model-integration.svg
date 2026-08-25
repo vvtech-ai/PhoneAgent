@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="810" viewBox="0 0 1440 810" role="img" aria-labelledby="title desc">
+  <title id="title">Two Voice Model Integration Paths</title><desc id="desc">PhoneAgent keeps the Agent task layer stable while switching between cascaded and end-to-end real-time voice models as needed.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d1117"/><stop offset="1" stop-color="#111827"/></linearGradient>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#58a6ff"/></marker>
+    <style>.title{font:700 42px Inter,"Microsoft YaHei",sans-serif;fill:#f0f6fc}.sub{font:400 19px Inter,"Microsoft YaHei",sans-serif;fill:#8b949e}.h{font:650 24px Inter,"Microsoft YaHei",sans-serif;fill:#f0f6fc}.b{font:400 17px Inter,"Microsoft YaHei",sans-serif;fill:#b1bac4}.tag{font:600 14px Inter,"Microsoft YaHei",sans-serif;fill:#58a6ff}.card{fill:#161b22;stroke:#30363d;stroke-width:2}.line{stroke:#58a6ff;stroke-width:3;fill:none;marker-end:url(#a)}</style>
+  </defs>
+  <rect width="1440" height="810" rx="28" fill="url(#bg)"/>
+  <text x="72" y="82" class="title">Two Voice Model Integration Paths</text><text x="72" y="118" class="sub">The Agent is decoupled from specific models, so task logic remains stable while model strengths can vary</text>
+  <rect x="438" y="154" width="564" height="116" rx="18" fill="#12261b" stroke="#238636" stroke-width="2"/><text x="720" y="190" class="tag" text-anchor="middle" fill="#3fb950">Stable task hub</text><text x="720" y="222" class="h" text-anchor="middle">Agent Task Layer</text><text x="720" y="250" class="b" text-anchor="middle">Goal understanding · Detail collection · Flow · Results</text>
+  <path class="line" d="M650 274C560 322 430 329 364 372"/><path class="line" d="M790 274C880 322 1010 329 1076 372"/>
+
+  <g transform="translate(78 354)"><rect class="card" width="600" height="334" rx="22"/><rect x="28" y="26" width="102" height="30" rx="15" fill="#1f6feb" opacity=".22"/><text x="79" y="47" class="tag" text-anchor="middle">Path A</text><text x="32" y="98" class="h">Cascaded voice pipeline</text><text x="32" y="130" class="b">Components can be selected and combined independently</text>
+    <g transform="translate(34 171)"><rect width="135" height="88" rx="14" fill="#0d1117" stroke="#58a6ff"/><text x="67.5" y="40" class="h" text-anchor="middle">ASR</text><text x="67.5" y="67" class="b" text-anchor="middle">Speech recognition</text><path class="line" d="M147 44h45"/><rect x="204" width="135" height="88" rx="14" fill="#0d1117" stroke="#58a6ff"/><text x="271.5" y="40" class="h" text-anchor="middle">LLM</text><text x="271.5" y="67" class="b" text-anchor="middle">Language understanding</text><path class="line" d="M351 44h45"/><rect x="408" width="135" height="88" rx="14" fill="#0d1117" stroke="#58a6ff"/><text x="475.5" y="40" class="h" text-anchor="middle">TTS</text><text x="475.5" y="67" class="b" text-anchor="middle">Speech synthesis</text></g>
+    <text x="32" y="302" class="b">Best for: independently selecting recognition, reasoning, and synthesis</text></g>
+
+  <g transform="translate(762 354)"><rect class="card" width="600" height="334" rx="22"/><rect x="28" y="26" width="102" height="30" rx="15" fill="#8957e5" opacity=".25"/><text x="79" y="47" font-family="Inter,Microsoft YaHei,sans-serif" font-size="14" font-weight="600" fill="#d2a8ff" text-anchor="middle">Path B</text><text x="32" y="98" class="h">End-to-end real-time voice</text><text x="32" y="130" class="b">Speech flows directly in and out, reducing intermediate steps</text>
+    <rect x="80" y="171" width="440" height="88" rx="44" fill="#191326" stroke="#a371f7" stroke-width="2"/><g transform="translate(157 193)" stroke="#a371f7" stroke-width="5" stroke-linecap="round"><path d="M0 15v14M15 7v30M30 0v44M45 10v24M60 15v14"/></g><text x="360" y="207" class="h" text-anchor="middle">Realtime Voice</text><text x="360" y="235" class="b" text-anchor="middle">Real-time understanding and voice delivery</text>
+    <text x="32" y="302" class="b">Best for: responsiveness, interruption, and continuous conversation</text></g>
+  <rect x="386" y="724" width="668" height="48" rx="24" fill="#161b22" stroke="#30363d"/><text x="720" y="754" class="b" text-anchor="middle">Results depend on the selected model, service configuration, and network.</text>
+</svg>
+
+
