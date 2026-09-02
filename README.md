@@ -10,6 +10,11 @@ Describe a reservation, notification, coordination task, or cross-language call 
 
 ![PhoneAgent home screen](docs/images/home.png)
 
+## Demo Videos
+
+- [English Demo](https://github.com/vvtech-ai/PhoneAgent/releases/download/v1.0.36/phone.agent-English.mp4)
+- [Chinese Demo](https://github.com/vvtech-ai/PhoneAgent/releases/download/v1.0.36/phone.agent-Chinese.mp4)
+
 ## Complete a Phone Task with AI
 
 ```text
