@@ -12,8 +12,9 @@ Describe an appointment, notification, coordination task, or cross-language conv
 
 ## Demo videos
 
-- [English demo](https://github.com/vvtech-ai/PhoneAgent/releases/download/v1.0.36/phone.agent-English.mp4)
-- [Chinese demo](https://github.com/vvtech-ai/PhoneAgent/releases/download/v1.0.36/phone.agent-Chinese.mp4)
+| English demo | Chinese demo |
+| --- | --- |
+| [![PhoneAgent English demo](https://img.youtube.com/vi/SW8TnMj3NMo/hqdefault.jpg)](https://youtu.be/SW8TnMj3NMo) | [![PhoneAgent Chinese demo](https://img.youtube.com/vi/zNUfj-RcObU/hqdefault.jpg)](https://youtu.be/zNUfj-RcObU) |
 
 ## Complete a phone task with AI
 
