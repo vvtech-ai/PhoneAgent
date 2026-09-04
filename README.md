@@ -12,8 +12,9 @@ Describe an appointment, notification, coordination task, or cross-language conv
 
 ## Demo videos
 
-- <a href="https://youtu.be/SW8TnMj3NMo" target="_blank" rel="noopener noreferrer">English demo video</a>
-- <a href="https://youtu.be/zNUfj-RcObU" target="_blank" rel="noopener noreferrer">Chinese demo video</a>
+| English demo | Chinese demo |
+| --- | --- |
+| [![PhoneAgent English demo](docs/images/demo-english.png)](https://youtu.be/SW8TnMj3NMo) | [![PhoneAgent Chinese demo](docs/images/demo-chinese.png)](https://youtu.be/zNUfj-RcObU) |
 
 ## Complete a phone task with AI
 
