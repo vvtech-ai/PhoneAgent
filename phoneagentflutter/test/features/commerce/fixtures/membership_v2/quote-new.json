@@ -1,0 +1,21 @@
+{
+  "purchaseType": "NEW",
+  "conversionSeconds": 0,
+  "membershipPreview": {
+    "ruleVersion": "PAUSE_QUEUE_V1",
+    "purchaseType": "NEW",
+    "targetLevel": "BASIC",
+    "targetMonths": 1,
+    "immediateGrantPoints": 4500,
+    "firstGrantPoints": 4500,
+    "basePointsPerPeriod": 4000,
+    "bonusPointsPerPeriod": 500,
+    "totalPeriods": 1,
+    "activationTiming": "IMMEDIATE",
+    "estimatedStartsAt": "2026-10-14T10:00:00+08:00",
+    "estimatedExpiresAt": "2026-11-14T10:00:00+08:00",
+    "pausedEntitlement": null,
+    "precedingEntitlements": [],
+    "membershipVersion": "18"
+  }
+}

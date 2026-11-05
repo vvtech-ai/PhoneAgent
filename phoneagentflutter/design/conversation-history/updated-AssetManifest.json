@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:08:39.080Z",
+  "source": "html",
+  "assets": [
+    {
+      "assetId": "conversation_0",
+      "sourceNodeId": "pureVoicePage.4.2.0.0.1",
+      "name": "conversation_0",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "pureVoicePage.4.2.0.0.1"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "pureVoicePage.4.2.0.0.1",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/conversation/conversation_0.svg",
+      "targetPath": "assets/images/conversation/conversation_0.svg",
+      "hash": "b01ba3b551d43352d18d0d66d9ea392f31d471d457af14ce61b8808e54afd557"
+    },
+    {
+      "assetId": "conversation_1",
+      "sourceNodeId": "pureVoicePage.4.2.1.0",
+      "name": "conversation_1",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "pureVoicePage.4.2.1.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "pureVoicePage.4.2.1.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/conversation/conversation_1.svg",
+      "targetPath": "assets/images/conversation/conversation_1.svg",
+      "hash": "cf6842094f294f9a3eca32b66b37ade86312f98aae8836490222c3b55e98cc52"
+    },
+    {
+      "assetId": "conversation_2",
+      "sourceNodeId": "pureVoicePage.4.2.2.0.0",
+      "name": "conversation_2",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "pureVoicePage.4.2.2.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "pureVoicePage.4.2.2.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/conversation/conversation_2.svg",
+      "targetPath": "assets/images/conversation/conversation_2.svg",
+      "hash": "e3f6b1859051220780c16d3942f9bf7faea26121fe08bc511422d1789c7040f0"
+    },
+    {
+      "assetId": "conversation_3",
+      "sourceNodeId": "pureVoicePage.4.2.2.1.0",
+      "name": "conversation_3",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "pureVoicePage.4.2.2.1.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "pureVoicePage.4.2.2.1.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/conversation/conversation_3.svg",
+      "targetPath": "assets/images/conversation/conversation_3.svg",
+      "hash": "23c145f3965911473aac01bd1acaec95d87710eef068275a1972e14c4db8f403"
+    },
+    {
+      "assetId": "conversation_4",
+      "sourceNodeId": "pureVoicePage.4.2.3.0",
+      "name": "conversation_4",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "pureVoicePage.4.2.3.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "pureVoicePage.4.2.3.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/conversation/conversation_4.svg",
+      "targetPath": "assets/images/conversation/conversation_4.svg",
+      "hash": "fa116a9c6978fbdee1620a85449e4568934f17743e8f9f137cbbbd9a733acd87"
+    },
+    {
+      "assetId": "conversation_5",
+      "sourceNodeId": "pureVoicePage.4.2.4.1.0",
+      "name": "conversation_5",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "pureVoicePage.4.2.4.1.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "pureVoicePage.4.2.4.1.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/conversation/conversation_5.svg",
+      "targetPath": "assets/images/conversation/conversation_5.svg",
+      "hash": "e39587972c026a76a4bdba23cdcdb780aee6f78766360b79a17446252c54546b"
+    },
+    {
+      "assetId": "conversation_6",
+      "sourceNodeId": "pureVoicePage.5.1.2.0.0",
+      "name": "conversation_6",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "pureVoicePage.5.1.2.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "pureVoicePage.5.1.2.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/conversation/conversation_6.svg",
+      "targetPath": "assets/images/conversation/conversation_6.svg",
+      "hash": "8d645de820aae275996d2806732f3e26ccea5da18457f62eefe9a575ea7808ac"
+    }
+  ]
+}

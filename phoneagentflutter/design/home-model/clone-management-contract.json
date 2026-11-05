@@ -1,0 +1,13 @@
+{
+  "schemaVersion":"1.0", "generatedAt":"2026-09-17", "id":"clone-management",
+  "targetConfig":"TargetAppConfig.json",
+  "source":"4c781e3:AssistantRealtimeCallCloneVoiceSection/VoiceClonePromptPolicy; existing cloneVoiceGroup component",
+  "implementation":"shared CallModelsPage/CallVoicesPage/CloneVoiceCard; isolated two-model fixture",
+  "components":[{"id":"delete-current-clone", "sourceNodeId":"AssistantRealtimeCallCloneVoiceSection.onDeleteClone", "role":"button", "layoutSpec":{"parent":"cloneVoiceGroup","padding":16}, "styleSpec":{"tokens":"ShellTokens"}, "assetRefs":[], "fidelityRisk":"text action reused for static-first; native delete icon deferred"}],
+  "states":["models","currentClone","deleteDialog","deleting","systemVoice","deleteUncertain","syncing"],
+  "interactions":[["select-model","submit","models"],["model-voices","navigate","currentClone"],["delete","showDialog","deleteDialog"],["cancel-delete","dismissDialog","currentClone"],["confirm-delete","submit","deleting"],["refresh","submit","syncing"],["back","back","models"]],
+  "gates":["supportsCloneVoice", "currentReady", "not candidateReady", "not busy", "not stale", "same model at confirmation"],
+  "runtime":{"events":"semantic controls", "modal":"AlertDialog; cancel/back/outside restores base", "layout":"SafeArea and scroll", "previewBackground":false},
+  "visualStatus":"static component reuse; pending unified calibration",
+  "notIncluded":["identity-entry create-model picker", "real device/media", "saved-recording reuse"]
+}

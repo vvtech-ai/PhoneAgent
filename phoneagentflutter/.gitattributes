@@ -1,0 +1,9 @@
+# Vendor SDK payloads must preserve exact source bytes across Windows and macOS.
+android/app/libs/identity/** -text
+ios/IdentityCaptureSDK/Vendor/** -text
+android/app/libs/trusted_caller/** -text
+ios/TrustedCallerSDK/Vendor/** -text
+ios/TrustedCallerSDK/Resources/** -text
+
+# Preserve the frozen membership contract SHA-256 bytes on every platform.
+/test/features/commerce/fixtures/membership_v2/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

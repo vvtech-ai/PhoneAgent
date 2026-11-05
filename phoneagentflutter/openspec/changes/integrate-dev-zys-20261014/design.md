@@ -1,0 +1,6 @@
+# 集成设计
+在当前干净codex/dev上no-ff三方合并codex/dev_zys，合并提交保留99daa3e0与7c0bd25a两个父版本。文档追加冲突保留双方；源文件冲突逐项核对，不以单侧整体覆盖。合并后逐文件检查只由一侧修改的blob完整保留。
+这是公共请求、跨模块状态与双端平台变更的集成里程碑，执行一次全量flutter test、flutter analyze、OpenSpec及双端Debug编译。失败与复验分别记录；设备/真实服务未验不宣称通过。
+Git远端按AGENTS固定要求核对origin，再非强制推送codex/dev；推送前检查远端未新增提交，禁止force。其他工作树不动。
+
+Mac全量发现dev既有RecordingFileFixture返回/var临时目录原路径，而产品正确生成/private/var规范路径，夹具词法包含检查提前失败。仅夹具directory返回已验证的规范Directory，保留所有owned/canonical/链接清理保护，不改产品删除逻辑，不增加权限或跳过。按全部2个直接调用测试文件（8项）复验，不重复全量。

@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T07:36:50.008Z",
+  "targetPlatform": "flutter",
+  "packageName": "com.vvtech.aiassistant.dev",
+  "architectureChecks": {
+    "genericJsonRenderer": false,
+    "fullPagePreviewBackground": false
+  },
+  "visualFidelityChecks": [
+    {
+      "checkId": "home-model-readability",
+      "routeId": "homePage",
+      "region": "header / grid / navigation",
+      "status": "pass",
+      "evidence": [
+        ".local/home-model-validation/home.png",
+        ".local/home-model-validation/models-sheet.png",
+        ".local/home-model-validation/models-page.png",
+        ".local/home-model-validation/voices-page.png"
+      ],
+      "reason": "Device screenshots inspected; native assets and controls, no overflow. Not a pixel-identical or full-app acceptance claim."
+    }
+  ],
+  "templateRisk": {
+    "riskLevel": "low",
+    "reason": "原始资源+独立真实控件",
+    "evidence": [
+      "component-tree.json"
+    ]
+  },
+  "blockers": [
+    "Visual acceptance remains pending: voiceIdentity design preview is obscured by initialization overlay and cannot establish design fidelity. 2026-09-17 user approved static-first interaction implementation; clone-card UI is no longer blocked, but recording and full voice-page acceptance remain incomplete."
+  ],
+  "majorIssues": [
+    "完整初版尚未完成；下游业务入口继续迁移"
+  ],
+  "minorIssues": [
+    "平台字体允许差异；未声明逐像素一致",
+    "公开首页在线通过，真实账号模型/音色未完成在线验收"
+  ],
+  "score": 0,
+  "shouldSelfFix": false,
+  "stopReason": "scoped-milestone-verified; continue next feature; score not assigned to incomplete app",
+  "screenshots": [
+    {
+      "id": "home",
+      "path": ".local/home-model-validation/home.png",
+      "sha256": "b2b23db9a7a262ca810778eba22f78ba597ffe1d0ceab270eab83fb0fbea8ecc"
+    },
+    {
+      "id": "models-sheet",
+      "path": ".local/home-model-validation/models-sheet.png",
+      "sha256": "ca6a51440be82896a378e99ffbe09150315e389f136e2a2a7022944453182781"
+    },
+    {
+      "id": "models-page",
+      "path": ".local/home-model-validation/models-page.png",
+      "sha256": "3e6de5c538e4dffb7973eb2cd4f79de27c101aabaf9cd8c4c2be44653acf6dcb"
+    },
+    {
+      "id": "voices-page",
+      "path": ".local/home-model-validation/voices-page.png",
+      "sha256": "077fb6080b0f6842578c8ae2143cc438548433e53b1f397824d0bdafef37a6fa"
+    }
+  ],
+  "buildResults": [
+    {
+      "command": "flutter analyze",
+      "status": "pass"
+    },
+    {
+      "command": "flutter test",
+      "status": "pass",
+      "tests": 90
+    },
+    {
+      "command": "flutter build apk --debug (configured test environment)",
+      "status": "pass"
+    }
+  ],
+  "interactionResults": [
+    {
+      "status": "pass",
+      "evidence": ".local/home-model-validation/result.json",
+      "routes": [
+        "home",
+        "model-sheet",
+        "models",
+        "voices",
+        "contacts-pending",
+        "tasks-pending",
+        "settings"
+      ],
+      "network": "offline synthetic only",
+      "writes": 2,
+      "sloganSelections": 1
+    }
+  ]
+}

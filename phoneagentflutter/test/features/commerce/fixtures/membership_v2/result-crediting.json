@@ -1,0 +1,8 @@
+{
+  "paymentState": "SUCCEEDED",
+  "fulfillmentState": "PROCESSING",
+  "appState": "CREDITING",
+  "effectiveAt": null,
+  "expiresAt": null,
+  "membershipFulfillment": null
+}

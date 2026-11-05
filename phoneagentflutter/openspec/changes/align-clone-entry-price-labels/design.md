@@ -1,0 +1,5 @@
+## 设计
+cloneCatalogProvider按loginEpoch读取既有CloneCreationPort.models，cloneReadinessProvider与modelPriceProvider派生同一目录。modelPriceProvider仅在当前异步结果成功时按公开模型ID精确归一匹配，loading/error优先于旧缓存。克隆完成/身份删除失效目录源，派生值一起更新；autoDispose保证页面重进重新读取。
+音色页现有CloneVoiceSnapshot新增nullable pricePoints，由ApiCloneVoiceRepository.load现有响应解析，无新请求。卡片以相同modelId且不在加载/错误状态时展示价格；非法/缺失/非正不影响既有音色业务，仅显示—。
+ClonePointsButton只接受nullable int价格，不访问Provider或网络。显示—时仍保持既有可点击性；准入和收费由前轮已实现的模型选择报价规则负责。页面保留布局/字号/点击守卫，无障碍标签与视觉一致。
+每源码微批最多3文件，手写500行上限；测试/format独立。定向call_models/voice_clone/identity和直接Shell连续流程，analyze、OpenSpec、diff；没有平台变化不构建安装，不实际认证/收费。

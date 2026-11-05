@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T07:27:08.579Z",
+  "targetPlatform": "flutter",
+  "states": [
+    {
+      "routeId": "homePage",
+      "sourceNodeId": "homePage",
+      "name": "homePage",
+      "module": "home-model",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "voiceModelPage",
+      "sourceNodeId": "voiceModelPage",
+      "name": "voiceModelPage",
+      "module": "home-model",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "voiceIdentityPage",
+      "sourceNodeId": "voiceIdentityPage",
+      "name": "voiceIdentityPage",
+      "module": "home-model",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "edgeId": "homeVoiceModelChip",
+      "sourceRouteId": "homePage",
+      "targetRouteId": "model-sheet",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "quickRow",
+      "sourceRouteId": "homePage",
+      "targetRouteId": "skill-entry",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "floatingNav",
+      "sourceRouteId": "homePage",
+      "targetRouteId": "tab-switch",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "assistantFab",
+      "sourceRouteId": "homePage",
+      "targetRouteId": "dialer",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "backFromVoiceModel",
+      "sourceRouteId": "voiceModelPage",
+      "targetRouteId": "back",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "provider-option",
+      "sourceRouteId": "voiceModelPage",
+      "targetRouteId": "select-provider",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "voice-setting",
+      "sourceRouteId": "voiceModelPage",
+      "targetRouteId": "voiceIdentityPage",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "backFromVoiceIdentity",
+      "sourceRouteId": "voiceIdentityPage",
+      "targetRouteId": "back",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "callVoiceList",
+      "sourceRouteId": "voiceIdentityPage",
+      "targetRouteId": "select-voice",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    }
+  ],
+  "coverage": {
+    "totalScreens": 3,
+    "classifiedScreens": 3,
+    "stateGraphCoverageRatio": 1
+  }
+}

@@ -1,0 +1,404 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T07:27:08.579Z",
+  "targetPlatform": "flutter",
+  "packageName": "com.vvtech.aiassistant.dev",
+  "deviceSerial": "emulator-5554",
+  "routes": [
+    {
+      "routeId": "homePage",
+      "sourceNodeId": "homePage",
+      "name": "homePage",
+      "module": "home-model",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "voiceModelPage",
+      "sourceNodeId": "voiceModelPage",
+      "name": "voiceModelPage",
+      "module": "home-model",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "voiceIdentityPage",
+      "sourceNodeId": "voiceIdentityPage",
+      "name": "voiceIdentityPage",
+      "module": "home-model",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "id": "homeVoiceModelChip",
+      "controlId": "homeVoiceModelChip",
+      "pageId": "homePage",
+      "sourceRouteId": "homePage",
+      "sourceNodeId": "homeVoiceModelChip",
+      "nodeId": "homeVoiceModelChip",
+      "action": "model-sheet",
+      "label": "model-sheet",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 94.40625,
+        "y": 320.9375,
+        "width": 201.1875,
+        "height": 34
+      },
+      "interactionId": "homeVoiceModelChip",
+      "triggerNodeId": "homeVoiceModelChip",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "homeVoiceModelChip",
+      "source": "manual",
+      "targetRouteId": "model-sheet",
+      "hitArea": {
+        "x": 94.40625,
+        "y": 320.9375,
+        "width": 201.1875,
+        "height": 34
+      },
+      "expectedResult": {
+        "behavior": "model-sheet"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "quickRow",
+      "controlId": "quickRow",
+      "pageId": "homePage",
+      "sourceRouteId": "homePage",
+      "sourceNodeId": "quickRow",
+      "nodeId": "quickRow",
+      "action": "skill-entry",
+      "label": "skill-entry",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 30,
+        "y": 368.9375,
+        "width": 330,
+        "height": 656.984375
+      },
+      "interactionId": "quickRow",
+      "triggerNodeId": "quickRow",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "quickRow",
+      "source": "manual",
+      "targetRouteId": "skill-entry",
+      "hitArea": {
+        "x": 30,
+        "y": 368.9375,
+        "width": 330,
+        "height": 656.984375
+      },
+      "expectedResult": {
+        "behavior": "skill-entry"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "floatingNav",
+      "controlId": "floatingNav",
+      "pageId": "homePage",
+      "sourceRouteId": "homePage",
+      "sourceNodeId": "floatingNav",
+      "nodeId": "floatingNav",
+      "action": "tab-switch",
+      "label": "tab-switch",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 28,
+        "y": 705,
+        "width": 334,
+        "height": 80
+      },
+      "interactionId": "floatingNav",
+      "triggerNodeId": "floatingNav",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "floatingNav",
+      "source": "manual",
+      "targetRouteId": "tab-switch",
+      "hitArea": {
+        "x": 28,
+        "y": 705,
+        "width": 334,
+        "height": 80
+      },
+      "expectedResult": {
+        "behavior": "tab-switch"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "assistantFab",
+      "controlId": "assistantFab",
+      "pageId": "homePage",
+      "sourceRouteId": "homePage",
+      "sourceNodeId": "assistantFab",
+      "nodeId": "assistantFab",
+      "action": "dialer",
+      "label": "dialer",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 165,
+        "y": 696,
+        "width": 60,
+        "height": 60
+      },
+      "interactionId": "assistantFab",
+      "triggerNodeId": "assistantFab",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "assistantFab",
+      "source": "manual",
+      "targetRouteId": "dialer",
+      "hitArea": {
+        "x": 165,
+        "y": 696,
+        "width": 60,
+        "height": 60
+      },
+      "expectedResult": {
+        "behavior": "dialer"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "backFromVoiceModel",
+      "controlId": "backFromVoiceModel",
+      "pageId": "voiceModelPage",
+      "sourceRouteId": "voiceModelPage",
+      "sourceNodeId": "backFromVoiceModel",
+      "nodeId": "backFromVoiceModel",
+      "action": "back",
+      "label": "back",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 18,
+        "y": 0,
+        "width": 44,
+        "height": 44
+      },
+      "interactionId": "backFromVoiceModel",
+      "triggerNodeId": "backFromVoiceModel",
+      "eventType": "click",
+      "actionType": "back",
+      "testTag": "backFromVoiceModel",
+      "source": "manual",
+      "targetRouteId": "back",
+      "hitArea": {
+        "x": 18,
+        "y": 0,
+        "width": 44,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "back"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "provider-option",
+      "controlId": "provider-option",
+      "pageId": "voiceModelPage",
+      "sourceRouteId": "voiceModelPage",
+      "sourceNodeId": "provider-option",
+      "nodeId": "provider-option",
+      "action": "select-provider",
+      "label": "select-provider",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "interactionId": "provider-option",
+      "triggerNodeId": "provider-option",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "provider-option",
+      "source": "manual",
+      "targetRouteId": "select-provider",
+      "hitArea": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "expectedResult": {
+        "behavior": "select-provider"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "voice-setting",
+      "controlId": "voice-setting",
+      "pageId": "voiceModelPage",
+      "sourceRouteId": "voiceModelPage",
+      "sourceNodeId": "voice-setting",
+      "nodeId": "voice-setting",
+      "action": "voiceIdentityPage",
+      "label": "voiceIdentityPage",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "interactionId": "voice-setting",
+      "triggerNodeId": "voice-setting",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "voice-setting",
+      "source": "manual",
+      "targetRouteId": "voiceIdentityPage",
+      "hitArea": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "expectedResult": {
+        "behavior": "voiceIdentityPage"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "backFromVoiceIdentity",
+      "controlId": "backFromVoiceIdentity",
+      "pageId": "voiceIdentityPage",
+      "sourceRouteId": "voiceIdentityPage",
+      "sourceNodeId": "backFromVoiceIdentity",
+      "nodeId": "backFromVoiceIdentity",
+      "action": "back",
+      "label": "back",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 18,
+        "y": 0,
+        "width": 44,
+        "height": 44
+      },
+      "interactionId": "backFromVoiceIdentity",
+      "triggerNodeId": "backFromVoiceIdentity",
+      "eventType": "click",
+      "actionType": "back",
+      "testTag": "backFromVoiceIdentity",
+      "source": "manual",
+      "targetRouteId": "back",
+      "hitArea": {
+        "x": 18,
+        "y": 0,
+        "width": 44,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "back"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "callVoiceList",
+      "controlId": "callVoiceList",
+      "pageId": "voiceIdentityPage",
+      "sourceRouteId": "voiceIdentityPage",
+      "sourceNodeId": "callVoiceList",
+      "nodeId": "callVoiceList",
+      "action": "select-voice",
+      "label": "select-voice",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 45,
+        "y": 289.578125,
+        "width": 300,
+        "height": 186
+      },
+      "interactionId": "callVoiceList",
+      "triggerNodeId": "callVoiceList",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "callVoiceList",
+      "source": "manual",
+      "targetRouteId": "select-voice",
+      "hitArea": {
+        "x": 45,
+        "y": 289.578125,
+        "width": 300,
+        "height": 186
+      },
+      "expectedResult": {
+        "behavior": "select-voice"
+      },
+      "runtimeBinding": "typed controller callback"
+    }
+  ],
+  "routeSetupStrategy": "graph-walk",
+  "visualChecks": [
+    "hero",
+    "nav",
+    "cards",
+    "models",
+    "voices"
+  ],
+  "thresholds": {
+    "routeCoverageThreshold": 1,
+    "maxBlankEdgeRatio": 0.1
+  }
+}

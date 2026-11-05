@@ -1,0 +1,14 @@
+## ADDED Requirements
+### Requirement: Android翻译通话必须连续有界播放
+系统 MUST 允许翻译音频连续入队，且整段提示音实际播放完成后才解除输入抑制，不得以逐帧实际播放等待阻塞缓冲积累。
+#### Scenario: 播放提示音
+- **WHEN** 翻译通话逐帧提交提示音
+- **THEN** 帧按顺序有界入队，段尾等待真实排空
+#### Scenario: 取消或故障
+- **WHEN** 停止、焦点丢失或播放停滞
+- **THEN** 待处理完成回调被释放且后续提交失败，并记录固定原因
+### Requirement: 保留共用播放器契约
+普通PcmOutput.play MUST 保持实际播放完成语义，iOS现有播放行为保持。
+#### Scenario: 普通语音播放
+- **WHEN** 非Android翻译队列调用play
+- **THEN** 完成回调仍表示实际播放完成

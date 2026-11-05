@@ -1,0 +1,2 @@
+# Android 翻译连续播放
+修复接通后提示音无声及5秒后output_interrupted挂断：翻译音频连续有界入队，整段提示音单独等待播放完成。保留共用PcmOutput.play既有语义与iOS行为，签名覆盖安装USB测试手机。

@@ -1,0 +1,547 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:51:47.944Z",
+  "targetPlatform": "flutter",
+  "packageName": "com.vvtech.aiassistant.dev",
+  "deviceSerial": "emulator-5554",
+  "routes": [
+    {
+      "routeId": "identity-empty",
+      "sourceNodeId": "identity-empty",
+      "name": "identity-empty",
+      "module": "identity",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "identity-filled",
+      "sourceNodeId": "identity-filled",
+      "name": "identity-filled",
+      "module": "identity",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "identity-verified",
+      "sourceNodeId": "identity-verified",
+      "name": "identity-verified",
+      "module": "identity",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "identity-edit",
+      "sourceNodeId": "identity-edit",
+      "name": "identity-edit",
+      "module": "identity",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "identity-delete",
+      "sourceNodeId": "identity-delete",
+      "name": "identity-delete",
+      "module": "identity",
+      "kind": "dialog",
+      "baseRouteId": "identity-verified",
+      "overlayKind": "dialog",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "id": "v63IdentityBack",
+      "controlId": "v63IdentityBack",
+      "pageId": "identity-empty",
+      "sourceRouteId": "identity-empty",
+      "sourceNodeId": "v63IdentityBack",
+      "nodeId": "v63IdentityBack",
+      "action": "back",
+      "label": "back",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 18,
+        "y": 0,
+        "width": 44,
+        "height": 44
+      },
+      "interactionId": "v63IdentityBack",
+      "triggerNodeId": "v63IdentityBack",
+      "eventType": "click",
+      "actionType": "back",
+      "testTag": "v63IdentityBack",
+      "source": "manual",
+      "targetRouteId": "back",
+      "hitArea": {
+        "x": 18,
+        "y": 0,
+        "width": 44,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "back"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "v63AddIdentity",
+      "controlId": "v63AddIdentity",
+      "pageId": "identity-empty",
+      "sourceRouteId": "identity-empty",
+      "sourceNodeId": "v63AddIdentity",
+      "nodeId": "v63AddIdentity",
+      "action": "identity-edit",
+      "label": "identity-edit",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 61,
+        "y": 179.390625,
+        "width": 268,
+        "height": 44
+      },
+      "interactionId": "v63AddIdentity",
+      "triggerNodeId": "v63AddIdentity",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "v63AddIdentity",
+      "source": "manual",
+      "targetRouteId": "identity-edit",
+      "hitArea": {
+        "x": 61,
+        "y": 179.390625,
+        "width": 268,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "identity-edit"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "v63EditIdentity",
+      "controlId": "v63EditIdentity",
+      "pageId": "identity-filled",
+      "sourceRouteId": "identity-filled",
+      "sourceNodeId": "v63EditIdentity",
+      "nodeId": "v63EditIdentity",
+      "action": "identity-edit",
+      "label": "identity-edit",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 55,
+        "y": 294,
+        "width": 48,
+        "height": 44
+      },
+      "interactionId": "v63EditIdentity",
+      "triggerNodeId": "v63EditIdentity",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "v63EditIdentity",
+      "source": "manual",
+      "targetRouteId": "identity-edit",
+      "hitArea": {
+        "x": 55,
+        "y": 294,
+        "width": 48,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "identity-edit"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "v63DeleteIdentity",
+      "controlId": "v63DeleteIdentity",
+      "pageId": "identity-filled",
+      "sourceRouteId": "identity-filled",
+      "sourceNodeId": "v63DeleteIdentity",
+      "nodeId": "v63DeleteIdentity",
+      "action": "identity-delete",
+      "label": "identity-delete",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 291,
+        "y": 79,
+        "width": 44,
+        "height": 44
+      },
+      "interactionId": "v63DeleteIdentity",
+      "triggerNodeId": "v63DeleteIdentity",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "v63DeleteIdentity",
+      "source": "manual",
+      "targetRouteId": "identity-delete",
+      "hitArea": {
+        "x": 291,
+        "y": 79,
+        "width": 44,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "identity-delete"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "v63VerifyIdentity",
+      "controlId": "v63VerifyIdentity",
+      "pageId": "identity-filled",
+      "sourceRouteId": "identity-filled",
+      "sourceNodeId": "v63VerifyIdentity",
+      "nodeId": "v63VerifyIdentity",
+      "action": "model-settings",
+      "label": "model-settings",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 113,
+        "y": 294,
+        "width": 222,
+        "height": 44
+      },
+      "interactionId": "v63VerifyIdentity",
+      "triggerNodeId": "v63VerifyIdentity",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "v63VerifyIdentity",
+      "source": "manual",
+      "targetRouteId": "model-settings",
+      "hitArea": {
+        "x": 113,
+        "y": 294,
+        "width": 222,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "model-settings"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "v63IdentityName",
+      "controlId": "v63IdentityName",
+      "pageId": "identity-edit",
+      "sourceRouteId": "identity-edit",
+      "sourceNodeId": "v63IdentityName",
+      "nodeId": "v63IdentityName",
+      "action": "edit-name",
+      "label": "edit-name",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 55,
+        "y": 105,
+        "width": 280,
+        "height": 48
+      },
+      "interactionId": "v63IdentityName",
+      "triggerNodeId": "v63IdentityName",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "v63IdentityName",
+      "source": "manual",
+      "targetRouteId": "edit-name",
+      "hitArea": {
+        "x": 55,
+        "y": 105,
+        "width": 280,
+        "height": 48
+      },
+      "expectedResult": {
+        "behavior": "edit-name"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "v63IdentityMobile",
+      "controlId": "v63IdentityMobile",
+      "pageId": "identity-edit",
+      "sourceRouteId": "identity-edit",
+      "sourceNodeId": "v63IdentityMobile",
+      "nodeId": "v63IdentityMobile",
+      "action": "edit-phone",
+      "label": "edit-phone",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 55,
+        "y": 219,
+        "width": 280,
+        "height": 48
+      },
+      "interactionId": "v63IdentityMobile",
+      "triggerNodeId": "v63IdentityMobile",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "v63IdentityMobile",
+      "source": "manual",
+      "targetRouteId": "edit-phone",
+      "hitArea": {
+        "x": 55,
+        "y": 219,
+        "width": 280,
+        "height": 48
+      },
+      "expectedResult": {
+        "behavior": "edit-phone"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "myIdentityPage.1.0.0.2.1",
+      "controlId": "myIdentityPage.1.0.0.2.1",
+      "pageId": "identity-edit",
+      "sourceRouteId": "identity-edit",
+      "sourceNodeId": "myIdentityPage.1.0.0.2.1",
+      "nodeId": "myIdentityPage.1.0.0.2.1",
+      "action": "gender",
+      "label": "gender",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 55,
+        "y": 326,
+        "width": 280,
+        "height": 44
+      },
+      "interactionId": "myIdentityPage.1.0.0.2.1",
+      "triggerNodeId": "myIdentityPage.1.0.0.2.1",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "myIdentityPage.1.0.0.2.1",
+      "source": "manual",
+      "targetRouteId": "gender",
+      "hitArea": {
+        "x": 55,
+        "y": 326,
+        "width": 280,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "gender"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "myIdentityPage.1.0.0.3.1",
+      "controlId": "myIdentityPage.1.0.0.3.1",
+      "pageId": "identity-edit",
+      "sourceRouteId": "identity-edit",
+      "sourceNodeId": "myIdentityPage.1.0.0.3.1",
+      "nodeId": "myIdentityPage.1.0.0.3.1",
+      "action": "save",
+      "label": "save",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 200,
+        "y": 403,
+        "width": 135,
+        "height": 44
+      },
+      "interactionId": "myIdentityPage.1.0.0.3.1",
+      "triggerNodeId": "myIdentityPage.1.0.0.3.1",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "myIdentityPage.1.0.0.3.1",
+      "source": "manual",
+      "targetRouteId": "save",
+      "hitArea": {
+        "x": 200,
+        "y": 403,
+        "width": 135,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "save"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "v63IdentityCancel",
+      "controlId": "v63IdentityCancel",
+      "pageId": "identity-edit",
+      "sourceRouteId": "identity-edit",
+      "sourceNodeId": "v63IdentityCancel",
+      "nodeId": "v63IdentityCancel",
+      "action": "cancel-edit",
+      "label": "cancel-edit",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 55,
+        "y": 403,
+        "width": 135,
+        "height": 44
+      },
+      "interactionId": "v63IdentityCancel",
+      "triggerNodeId": "v63IdentityCancel",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "v63IdentityCancel",
+      "source": "manual",
+      "targetRouteId": "cancel-edit",
+      "hitArea": {
+        "x": 55,
+        "y": 403,
+        "width": 135,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "cancel-edit"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "v63Cancel",
+      "controlId": "v63Cancel",
+      "pageId": "identity-delete",
+      "sourceRouteId": "identity-delete",
+      "sourceNodeId": "v63Cancel",
+      "nodeId": "v63Cancel",
+      "action": "dismiss",
+      "label": "dismiss",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 38,
+        "y": 453.09375,
+        "width": 152,
+        "height": 44
+      },
+      "interactionId": "v63Cancel",
+      "triggerNodeId": "v63Cancel",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "v63Cancel",
+      "source": "manual",
+      "targetRouteId": "dismiss",
+      "hitArea": {
+        "x": 38,
+        "y": 453.09375,
+        "width": 152,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "dismiss"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "v63Confirm",
+      "controlId": "v63Confirm",
+      "pageId": "identity-delete",
+      "sourceRouteId": "identity-delete",
+      "sourceNodeId": "v63Confirm",
+      "nodeId": "v63Confirm",
+      "action": "delete",
+      "label": "delete",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 200,
+        "y": 453.09375,
+        "width": 152,
+        "height": 44
+      },
+      "interactionId": "v63Confirm",
+      "triggerNodeId": "v63Confirm",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "v63Confirm",
+      "source": "manual",
+      "targetRouteId": "delete",
+      "hitArea": {
+        "x": 200,
+        "y": 453.09375,
+        "width": 152,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "delete"
+      },
+      "runtimeBinding": "typed controller callback"
+    }
+  ],
+  "routeSetupStrategy": "graph-walk",
+  "visualChecks": [
+    "empty",
+    "filled",
+    "verified",
+    "edit",
+    "delete-dialog",
+    "keyboard-small-screen"
+  ],
+  "thresholds": {
+    "routeCoverageThreshold": 1,
+    "maxBlankEdgeRatio": 0.1
+  }
+}

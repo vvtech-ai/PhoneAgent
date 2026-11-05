@@ -1,0 +1,76 @@
+import java.security.KeyStore
+import java.security.MessageDigest
+
+// Explicit registered test policy; the production release gate stays in app.
+def requestedEnvironment = System.getenv('PHONEAGENT_ANDROID_ENV') ?: 'dev'
+if (!(requestedEnvironment in ['dev', 'test', 'pro'])) {
+    throw new GradleException('PHONEAGENT_ANDROID_ENV 仅允许 dev/test/pro。')
+}
+if (requestedEnvironment == 'test') {
+    def privateRoot = rootProject.file('../.local/android').canonicalFile
+    if (!privateRoot.toPath().startsWith(rootProject.projectDir.parentFile.canonicalFile.toPath())) {
+        throw new GradleException('工程私有目录不允许链接到工程之外。')
+    }
+    def propertiesPath = System.getenv('PHONEAGENT_TEST_SIGNING_PROPERTIES') ?: new File(privateRoot, 'signing/signing.properties').path
+    if (!propertiesPath || !new File(propertiesPath).isFile()) {
+        throw new GradleException('test 构建缺少工程内签名属性文件。')
+    }
+    def propertiesFile = new File(propertiesPath).canonicalFile
+    if (!propertiesFile.toPath().startsWith(privateRoot.toPath())) {
+        throw new GradleException('test 签名属性必须位于工程 .local/android 内。')
+    }
+    def signingProperties = new Properties()
+    propertiesFile.withInputStream { signingProperties.load(it) }
+    def required = ['signingStoreFile', 'signingKeyAlias', 'signingStorePassword', 'signingKeyPassword']
+    if (required.any { !signingProperties.getProperty(it)?.trim() }) {
+        throw new GradleException('test 构建签名属性不完整，不允许回退到 debug 签名。')
+    }
+    def storeFile = new File(signingProperties.getProperty('signingStoreFile'))
+    if (!storeFile.isAbsolute()) {
+        storeFile = new File(propertiesFile.parentFile, storeFile.path)
+    }
+    storeFile = storeFile.canonicalFile
+    if (!storeFile.toPath().startsWith(privateRoot.toPath())) {
+        throw new GradleException('test keystore 必须位于工程 .local/android 内。')
+    }
+    if (!storeFile.isFile()) {
+        throw new GradleException('test 构建签名文件不存在。')
+    }
+    def keyAlias = signingProperties.getProperty('signingKeyAlias')
+    try {
+        def store = KeyStore.getInstance(storeFile, signingProperties.getProperty('signingStorePassword').toCharArray())
+        def certificate = store.getCertificate(keyAlias)
+        def privateKey = store.getKey(keyAlias, signingProperties.getProperty('signingKeyPassword').toCharArray())
+        def fingerprint = certificate == null ? '' : MessageDigest.getInstance('MD5').digest(certificate.encoded).encodeHex().toString()
+        if (fingerprint != 'ebd4c931de412bf5d9c3716815389097' || privateKey == null || !store.isKeyEntry(keyAlias)) {
+            throw new IllegalArgumentException('Unregistered test signing certificate')
+        }
+    } catch (Exception ignored) {
+        throw new GradleException('test 构建签名无法读取，或证书与已登记 MD5 不匹配。')
+    }
+    def testSigning = android.signingConfigs.create('registeredPhoneAgentTest') {
+        it.storeFile = storeFile
+        it.storePassword = signingProperties.getProperty('signingStorePassword')
+        it.keyAlias = keyAlias
+        it.keyPassword = signingProperties.getProperty('signingKeyPassword')
+    }
+    android.buildTypes.getByName('debug') {
+        signingConfig = testSigning
+        ndk.abiFilters.clear()
+        ndk.abiFilters.add('arm64-v8a')
+    }
+    android.buildTypes.getByName('release') {
+        signingConfig = testSigning
+        // Vendor SDKs use reflection and packed ELF; keep the established code.
+        minifyEnabled = false
+        shrinkResources = false
+        ndk.abiFilters.clear()
+        ndk.abiFilters.add('arm64-v8a')
+    }
+    androidComponents.onVariants(androidComponents.selector().all()) { variant ->
+        if (!(variant.buildType in ['debug', 'release'])) { return }
+        variant.applicationId.set('com.vvtech.aiassistant.test')
+        variant.manifestPlaceholders.put('inviteHost', 'chakenai-test.vvtech.tech')
+        variant.manifestPlaceholders.put('inviteScheme', 'phoneagent-test')
+    }
+}

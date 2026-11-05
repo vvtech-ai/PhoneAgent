@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0",
+  "sourceTreeRef": "DesignTree.json",
+  "componentTreeRef": "component-tree.json",
+  "normalization": {
+    "layout": "responsive bottom sheet, max content width430, vertical scroll, safe area from platform",
+    "tokens": "lib/core/design/attachment_tokens.dart",
+    "systemUi": "excluded from design rendering",
+    "behaviorPriority": "approved v65 over differing or missing HTML nodes",
+    "naming": {"#pvAttachmentSheet": "AttachmentMenu", ".pv-sheet-item": "attachment action row", "document-parser-state": "DocumentImportSheet"}
+  },
+  "risks": [
+    {"id": "V01", "status": "deferred", "detail": "HTML margin12, handle and backdrop not pixel calibrated"},
+    {"id": "V02", "status": "deferred", "detail": "document progress sheet reuses components; original v65 inline parsing card not restored"},
+    {"id": "V03", "status": "deferred", "detail": "document ledger message remains safe generic label; dedicated file card pending"},
+    {"id": "I01", "status": "pending-native-validation", "detail": "system picker details vary by platform and OS provider"}
+  ]
+}

@@ -1,0 +1,21 @@
+# 原生翻译归档流程对齐验证
+
+## 基线与实现
+Flutter e823d79b/codex/dev_zys干净起点，参考aiassistant_app8f23592，未修改参考仓库或后端。原生handleTerminal先整理录音，再500ms收尾；归档coordinator持久化服务端callId/RECORDING_PENDING后才上传，应用初始化恢复。
+
+Flutter现改为录音pending只等待，整理完成后启动一次排空并自动归档；旧已seal的pending完成后自动续接。生产网关createRecord与uploadRecording分离，控制器保存serverCallId及recordingUpload/completed checkpoint；上传失败重启只补上传，完成后本地删除失败只补本地提交。附件清理仍仅在远端完成且pending删除持久化之后执行，失败保留附件。
+
+沿现有v1存储key/schema读取旧无serverCallId日志，新增阶段/回执可持久恢复；旧日志首次无回执时仍以原clientCallId幂等PUT取得回执。进程崩溃在服务器确认与本地checkpoint之间仍可能重发同一幂等PUT，不承诺网络exactly-once。向前读取兼容已测，不宣称旧客户端回退后可读新增阶段。
+
+正式拨号页移除额外ArchiveStatusView，无其他布局/控件样式变更；原演练诊断入口保留。错误按archiveCreate/archiveStorage/recordingRecovery/recordingUpload固定阶段诊断，不输出用户数据/错误正文。Shell已有账号owner初始化recover，未增加循环重试或生命周期重拨。
+
+## 自动验证
+- 首轮既有归档/数据/恢复/清理/通话控制器26项通过。
+- 含新增慢录音、分阶段生产网关及Shell演练41项通过。
+- 最终定向63项全部通过（9秒）：native_translation_archive_parity/gateway/notice，translation_archive_recording_recovery/cleanup/data/controller，domestic_recording_recovery/finalizer/upload，domestic_translation_session_controller，translation_dial_flow_pages，legacy_translation_archive_store，translation_recording_diagnostics。集合重叠不累加，非全仓回归。
+- 新增540ms/775ms/1500ms等待测试不报失败、完成后自动归档；旧ready+pending续接；上传失败重启无重复PUT；checkpoint保存失败不先上传；本地删除失败恢复无重复网络步骤；无录音容错；注销中止；Android/iOS正式拨号页无额外提示。
+- 首次扩大61通过2失败仅新增页面测试的合成位置450ms定时器未排空，补fixture时钟/owner释放后63项通过；产品无对应改动。
+- 最终analyze无问题，OpenSpec及diff见tasks末尾；手写源码均<500行，无新增例外。
+
+## 待验与边界
+无真实认证/模型服务/外呼/收费，无打包安装；截图设备及真实慢录音效果、实际服务失败恢复、生产升级另行验收。未切分支/提交推送，不归档。

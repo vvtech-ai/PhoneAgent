@@ -1,0 +1,5 @@
+# OCR静态标准化
+
+输入版本及节点见SourceSnapshot/NormalizedDesignTree，v65覆盖旧HTML确认编辑弹窗。选择时锚点和createdOrdinal保留；Flutter UI插槽按消息边界渲染，未来正式ledger接线必须核对v65 displayStepCount映射，不能直接宣称历史等价。
+
+系统状态栏/导航栏/键盘均排除，SafeArea与现有自适应ConversationPage铺满可用区域；没有固定设计高度。CSS卡片参数和只读内容树已供组件消费。允许按用户批准进入交互实现；视觉校准与真实平台识别未完成。

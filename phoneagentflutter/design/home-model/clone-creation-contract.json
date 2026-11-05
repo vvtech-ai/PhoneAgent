@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0", "generatedAt": "2026-09-17", "id": "clone-creation-entry",
+  "source": "v65 4c781e3 VoiceCloneModelPickerSheet/FlowCoordinator/PromptPolicy/EntryPointsGate; existing ShellTokens",
+  "policy": "user-approved static CSS/components first; final visual calibration pending",
+  "layout": {"maxWidth":420,"topRadius":20,"paddingHorizontal":20,"paddingVertical":24,"gap":14,"rowPadding":[16,14],"rowRadius":14},
+  "routes": ["preview-scenarios", "creation-entry", "model-picker-sheet", "rerecord-dialog", "enrollment", "candidate", "confirmation"],
+  "controls": {"open":"showModalBottomSheet","model":"select with availability and state gates","close":"dismiss to base route","rerecordCancel":"preserve picker","rerecordConfirm":"300 admission then full authentication","candidateRetry":"explicit isolated retry","back":"pop current overlay/route"},
+  "states": ["loading","load-error","empty","unavailable","uncloned","current-ready","candidate-ready","candidate-processing","candidate-failed","admission-denied","recording-ready","recording-invalid","identity-expired"],
+  "resources": "existing semantic platform close/back controls and ShellTokens; no business image introduced, no preview backgrounds",
+  "validation": ["320/390/430 portrait","cancel then choose another row","reuse hides save option","full auth after invalid recording","single-flight and disposal"],
+  "production": {"route":"CloneCreationRoute", "directory":"ApiCloneCreationPort", "controller":"CloneFlowController", "entryPoints":["identity voice clone", "call voices create clone"], "recovery":"read-only per operation; recording save independent"},
+  "limits": ["real identity, billing, storage and audio require device acceptance", "global media resource coordination remains separate", "no claim of visual or device acceptance"]
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-17",
+  "id": "dial-recent-interactions",
+  "source": "4c781e3:AssistantDialHistoryList/DialRecentCallPolicy/AssistantDialerStateHolder",
+  "parentDesign": "0cd58de9:memory/index.html engine-dial + css/engine-dial.css",
+  "components": [
+    {"id":"dial-recent-list","visualNodeRefs":["DialHistoryList"],"layoutSpec":{"paddingBottom":12,"emptyPaddingVertical":28,"heightPolicy":"max180, scroll; source weighted viewport deferred"},"styleSpec":{"emptySize":14,"emptyColor":"#8E8E93"},"assetRefs":[],"fidelityRisk":"static-first; exact viewport allocation pending calibration"},
+    {"id":"dial-recent-row","visualNodeRefs":["DialRecentCallRow","DialHistoryNumberAndTimeRow","DialHistoryTypeTag"],"layoutSpec":{"paddingVertical":8,"subtitleGap":3,"timeGap":8,"badgeGap":7,"badgePadding":[7,2]},"styleSpec":{"nameSize":14,"nameWeight":600,"nameColor":"#111318","numberSize":12,"numberColor":"#8E8E93","timeSize":11,"timeColor":"#94A3B8","badgeSize":10,"badgeColor":"#6C55ED","badgeBackground":"#146C55ED","badgeRadius":50},"assetRefs":[],"fidelityRisk":"font and row density pending calibration"}
+  ],
+  "states":["loading","empty","records","partial-source-error","denied","not-connected","input-suggestions"],
+  "routes":["dialer","translation-dialer"],
+  "controls":[
+    {"id":"dial-recent-row","priority":"high","runtimeBinding":"InkWell.onTap","effect":"fill only; unknown number disabled"},
+    {"id":"dial-call","priority":"high","runtimeBinding":"existing InkWell.onTap","effect":"empty input plus records fills first record only"},
+    {"id":"dial-recent-retry","priority":"high","runtimeBinding":"TextButton.onPressed","effect":"reload both sources silently; no permission prompt"}
+  ],
+  "preview":"explicit dialer MOCK overrides both sources and translation preferences/system dialer; real account untouched",
+  "assets":[],
+  "assetReason":"text rows and badge; existing dialer SVG controls unchanged",
+  "systemInsets":"existing SafeArea; no rendered system bars",
+  "runtimeFillPolicy":"fillAvailableViewport",
+  "visualVerification":"deferred by user; no runtime design measurement claimed"
+}

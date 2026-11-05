@@ -1,0 +1,5 @@
+- [x] 核对当前 home、导航及旧 v66 开场逐字来源。
+- [x] RED：冷启动普通开场、缓存慢网络、失败保留缓存、slogan 不阻塞；缺开场 mapper 与账号 provider RED。
+- [x] 最小修复与 GREEN，保留签名、ETag、304、版本和真实准入回归。
+- [x] 新增 12 条回放与原 repository 共 19/19；真实 VoiceHost 冻结、两段账号/旧响应证据、静态与 OpenSpec 校验通过。完整集成由父级冻结后执行。
+- [ ] Android / iOS 真机与真实后端证据；未执行不归档。

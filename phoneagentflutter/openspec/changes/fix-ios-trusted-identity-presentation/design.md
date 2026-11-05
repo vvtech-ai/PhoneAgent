@@ -1,0 +1,6 @@
+## 方案
+主引擎仍为账号和来电身份状态唯一来源。展示协调器通过Riverpod真实事件订阅串行发送当前身份快照，不依赖Widget构建或主Flutter视图处于resumed（UIKit全屏覆盖会暂停该视图）；实际前后台由UIApplication判断，激活通知触发重试；无SDK页面时沿用原Flutter Navigator。SDK导航存在时，由其present独立FlutterViewController，专用Dart入口仅启动展示应用，不运行主应用、不注册SDK插件。复用TrustedIdentityCredentialsPage及原主题。
+## 生命周期
+原生展示请求检查当前账号/代次；SDK过渡或后台时延迟。独立引擎通过ready握手接收最新快照，首帧和原生present完成后才报告展示成功。关闭携带presentationId，旧页面回调不得关闭新事件。null/换账号/SDK释放时清除详情、销毁引擎；不完成SDK openSettings请求、不改SDK导航栈。
+## 边界与验证
+按每批最多3个手写代码文件实施；新职责独立文件且小于500行。原生引擎/容器由展示surface拥有，Flutter业务与平台操作通过端口隔离。验证序列化、旧回调、更新/清空竞态、后台恢复、SDK原页保留。执行定向Flutter测试、analyze、OpenSpec和iOS编译；UIKit实际显示和SDK状态保留待真机，不以单测冒充验收。

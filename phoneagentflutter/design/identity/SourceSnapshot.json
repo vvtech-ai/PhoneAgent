@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:51:42.825Z",
+  "sourceType": "html",
+  "sourceId": "phoneagent-identity",
+  "sourceUrl": "memory/index.html",
+  "sourceVersion": "0cd58de9bb578845517aeb54bef8ab6970392b81",
+  "nodeIds": [
+    "identity-empty",
+    "identity-filled",
+    "identity-verified",
+    "identity-edit",
+    "identity-delete"
+  ],
+  "warnings": [],
+  "rawMetadata": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "externalNetwork": "blocked",
+    "htmlSha256": "e0f8bdfd4595995a21eb32b2baceed58415a8177960e760b9fe5e34cc704a939",
+    "excluded": [
+      "prototype status bar",
+      "old inline composer",
+      "future custom models",
+      "recharge"
+    ]
+  }
+}

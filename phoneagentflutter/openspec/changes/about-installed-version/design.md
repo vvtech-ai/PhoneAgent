@@ -1,0 +1,10 @@
+## Decisions
+
+1. 正式AboutMetadataSourceProvider保留InstalledAppChannel，已注册Android AppInfoChannel取versionName、iOS取CFBundleShortVersionString；Flutter配置经构建写入当前包。无需重复新建插件。
+2. AboutRoute仅非空版本拼接V，loading/error返回空字符串，移除onRetryVersion参数和动作；AboutPage非空才创建版本Text及其8点上间距。
+3. ShellPreviewPage不再注入PreviewStartupSource到About，删除readInstalledMetadata选项与工具调用。UI_READ_INSTALLED_METADATA旧编译参数不再控制版本来源；iOS独立纯组件host不注册app_info时按失败留空，不读普通业务App。OTA预览端口保持合成，避免真实检查。
+4. 源码3文件微批（Page/Route/Shell工具），入口/文档与测试独立微批，默认500行规则。未运行设备不声称安装版本实机验收完成。
+
+## Validation
+
+OpenSpec、固定Flutter analyze与关于、InstalledAppChannel、更新与Shell直接调用方定向测试；双平台默认Provider通过合成native channel返回不同版本，空/异常/等待无占位无重试，移除MOCK版本覆盖。无平台修改不重打双端包，不真实网络/下载安装。

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:34:53.550Z",
+  "targetPlatform": "flutter",
+  "packageName": "com.vvtech.aiassistant.dev",
+  "architectureChecks": {
+    "genericJsonRenderer": false,
+    "fullPagePreviewBackground": false
+  },
+  "visualFidelityChecks": [
+    {
+      "checkId": "translation-history-bubbles",
+      "routeId": "v64HistoryDetail",
+      "region": "header/bilingual bubbles",
+      "status": "pass",
+      "evidence": [
+        ".local/conversation-validation/translation-history.png"
+      ],
+      "reason": "Screenshot inspected: fixed-design colors, bubble alignment, original/translated order. No full-app or pixel-identical claim."
+    }
+  ],
+  "templateRisk": {
+    "riskLevel": "low",
+    "reason": "原始资源+独立真实控件",
+    "evidence": [
+      "component-tree.json"
+    ]
+  },
+  "blockers": [],
+  "majorIssues": [
+    "录音播放/下载保存仍按用户要求后置；统一页完整回执另批处理"
+  ],
+  "minorIssues": [
+    "iOS与真实账号未在线验收"
+  ],
+  "score": 0,
+  "shouldSelfFix": false,
+  "stopReason": "read-only-history-scope-verified; proceed to settings; full-app score not assigned",
+  "runtimeEvidence": {
+    "routes": [
+      "tasks",
+      "unified-voice",
+      "unified-text",
+      "translation-history"
+    ],
+    "cases": [
+      "closed-restore",
+      "toggle",
+      "send",
+      "ordinal",
+      "stream",
+      "explicit-close",
+      "system-back",
+      "translation-retry",
+      "non-final-subtitle",
+      "translation-close",
+      "ordinary-new-unified"
+    ],
+    "commands": 2,
+    "network": "none; synthetic repositories only",
+    "capture": {
+      "path": ".local/conversation-validation/translation-history.png",
+      "sha256": "c9159df0deaa32cf884d5dc23e3c344a7828be245388005ccaacd42b1e05a813"
+    }
+  }
+}

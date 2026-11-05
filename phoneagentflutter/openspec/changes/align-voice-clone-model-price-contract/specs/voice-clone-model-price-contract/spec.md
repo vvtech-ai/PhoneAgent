@@ -1,0 +1,16 @@
+## ADDED Requirements
+### Requirement: 所选模型必须绑定认证初始化
+Flutter MUST 将用户选择的公开modelId发送到verification/init，并保持与本次后续候选生成模型一致，不混用内部模型ID。
+#### Scenario: 数字模型或重新认证
+- **WHEN** 用户选择模型并发起认证
+- **THEN** 初始化携带同一公开modelId；旧账号或旧流程不能覆盖新流程
+### Requirement: 克隆创建必须绑定用户确认的价格
+Flutter MUST 从模型pricePoints展示和校验余额；缺失/非正价格MUST阻止新建。认证生成和录音生成MUST携带相同确认报价的X-Expected-Clone-Price-Points，认证生成使用attemptId幂等键。
+#### Scenario: 价格变化或请求重试
+- **WHEN** 服务端拒绝旧报价或401刷新
+- **THEN** 价格变化提示返回刷新并重新确认，不自动收费重提；401最多按原机制重试并保留报价和幂等键
+### Requirement: 既有候选与可选保存保持独立
+Flutter MUST 保持既有候选查询/试听/确认可用，不以缺失新建价格阻止已生成声音的确认；录音保存失败不得回滚已确认声音。
+#### Scenario: 缺价格或保存失败
+- **WHEN** 用户查看已生成候选或可选录音保存失败
+- **THEN** 既有声音流程保持可用，新建/重新录制仍要求有效报价

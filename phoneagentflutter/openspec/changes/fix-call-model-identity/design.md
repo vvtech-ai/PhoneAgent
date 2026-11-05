@@ -1,0 +1,9 @@
+# 设计
+
+目录独立保留modelId、provider、displayName、supportsVoiceClone及cloneModelId。展示从目录名称获取；模型切换及新版公开克隆接口保持modelId。supportsVoiceClone权威控制能力；cloneModelId为内部映射元数据，不替代公开请求ID。旧目录无能力字段时保留旧枚举白名单，未知数字模型不凭名称猜测能力。
+
+证据：aiassistant_app原生AppModels.kt包含能力字段，AssistantTaskSettingsPageHost.kt使用activeModelId读取克隆。安卓运行态通话modelId4、cloneModelId13，克隆API只读目录返回modelId4及6，明确区分内部与公开ID。首轮13请求失败且未写入，临时字段结构诊断已移除。
+
+状态代际与账号隔离保持。克隆读取、选择、创建、试听、删除与回执比较支持服务端数字公开ID；模型能力决定普通页面入口，克隆目录决定创建列表。数字ID验证仅作为接口语法校验，不代替服务端能力声明。不同模型的当前或候选资产仍严格校验，不按名称关联。
+
+测试覆盖modelId4/cloneModelId13不相等、旧枚举、能力false、未知数字模型及异步模型切换。设备只做读取与页面检查，不创建/删除/收费。

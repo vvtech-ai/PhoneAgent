@@ -1,0 +1,10 @@
+// Public invitation entry points. PHONEAGENT_IOS_ENV is checked against APP_ENV.
+PHONEAGENT_INVITE_DOMAIN_prod = ioslink.chaken.ai
+PHONEAGENT_INVITE_DOMAIN_test = phoneagent-ioslink.vvtech.tech
+PHONEAGENT_INVITE_DOMAIN_dev = phoneagent-ioslink.vvtech.tech
+PHONEAGENT_INVITE_WEB_prod = www.chaken.ai
+PHONEAGENT_INVITE_WEB_test = chakenai-test.vvtech.tech
+PHONEAGENT_INVITE_WEB_dev = chakenai-dev.vvtech.tech
+PHONEAGENT_INVITE_SCHEME_prod = phoneagent
+PHONEAGENT_INVITE_SCHEME_test = phoneagent-test
+PHONEAGENT_INVITE_SCHEME_dev = phoneagent-test

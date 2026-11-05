@@ -1,0 +1,2 @@
+# 双端本机连续播放
+用户确认修复开场提示音和句尾断续。diagnostics-4/5显示上行voiceUnderflows=0，不能据此认定本机播放正常；当前iOS逐块等待dataPlayedBack与提示音20ms供给有空隙。本变更扩展双端翻译专用入队/排空，普通play语义保持，双端构建安装。

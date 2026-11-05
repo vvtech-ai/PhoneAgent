@@ -1,0 +1,56 @@
+{
+  "purchaseType": "LOWER_QUEUED",
+  "conversionSeconds": 0,
+  "membershipPreview": {
+    "ruleVersion": "PAUSE_QUEUE_V1",
+    "purchaseType": "LOWER_QUEUED",
+    "targetLevel": "BASIC",
+    "targetMonths": 1,
+    "immediateGrantPoints": 0,
+    "firstGrantPoints": 4500,
+    "basePointsPerPeriod": 4000,
+    "bonusPointsPerPeriod": 500,
+    "totalPeriods": 1,
+    "activationTiming": "AFTER_QUEUE",
+    "estimatedStartsAt": null,
+    "estimatedExpiresAt": null,
+    "pausedEntitlement": null,
+    "precedingEntitlements": [
+      {
+        "entitlementId": "203",
+        "sourceOrderNo": "EXAMPLE-203",
+        "level": "PREMIUM",
+        "months": 1,
+        "state": "ACTIVE",
+        "position": 1,
+        "firstActivatedAt": "2026-10-04T10:00:00+08:00",
+        "currentExpiresAt": "2026-11-04T10:00:00+08:00",
+        "estimatedStartsAt": null,
+        "estimatedExpiresAt": null,
+        "remainingSeconds": 1814400,
+        "firstGrantPoints": 16000,
+        "totalPeriods": 1,
+        "grantedPeriods": 1,
+        "nextGrantAt": null
+      },
+      {
+        "entitlementId": "202",
+        "sourceOrderNo": "EXAMPLE-202",
+        "level": "PLUS",
+        "months": 1,
+        "state": "PAUSED",
+        "position": 2,
+        "firstActivatedAt": "2026-10-04T10:00:00+08:00",
+        "currentExpiresAt": null,
+        "estimatedStartsAt": null,
+        "estimatedExpiresAt": null,
+        "remainingSeconds": 1814400,
+        "firstGrantPoints": 8000,
+        "totalPeriods": 1,
+        "grantedPeriods": 1,
+        "nextGrantAt": null
+      }
+    ],
+    "membershipVersion": "18"
+  }
+}

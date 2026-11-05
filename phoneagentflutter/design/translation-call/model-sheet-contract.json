@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0", "generatedAt": "2026-09-17", "id": "translation-model-sheet",
+  "sources": ["v65 4c781e3 AssistantTranslationModelSheet", "TranslationModelEndpointProbe", "existing translation-call TargetAppConfig/component-tree", "user-approved static component implementation"],
+  "components": [
+    {"id":"model-sheet", "layoutSpec":{"maxWidth":420,"padding":[24,20,32,20],"scroll":true},"styleSpec":{"topRadius":20,"background":"#FFFFFF","scrim":"#73000000"},"visualNodeRefs":["AssistantTranslationModelSheet.Surface"],"assetRefs":["existing dial_close.svg"],"fidelityRisk":"medium"},
+    {"id":"model-row", "layoutSpec":{"padding":[14,16],"gap":10},"styleSpec":{"radius":14,"borderWidth":1.5,"accent":"#0A84FF","selected":"#F8F7FF","titleSize":15,"detailSize":12},"visualNodeRefs":["TranslationModelOptionRow"],"assetRefs":[],"fidelityRisk":"medium"}
+  ],
+  "routes":["translation-dialer","translation-model-sheet"],
+  "states":["loading","sampled","unavailable","refreshing","closed"],
+  "controls":[
+    {"id":"model-open","action":"showOverlay","binding":"TextButton.onPressed","expected":"sheet over retained dialer"},
+    {"id":"model-OPENAI","action":"select and dismiss","binding":"RadioListTile.onChanged"},
+    {"id":"model-GEMINI","action":"select and dismiss","binding":"RadioListTile.onChanged"},
+    {"id":"model-refresh","action":"refresh single-flight","binding":"TextButton.onPressed"},
+    {"id":"model-close","action":"dismissOverlay","binding":"IconButton.onPressed"},
+    {"id":"model-backdrop-back","action":"dismissOverlay","binding":"Navigator modal barrier/back"}
+  ],
+  "excludedSystemNodes":["statusBar","homeIndicator","systemKeyboard"],
+  "runtimeViewportPolicy":"SafeArea; scroll to available height; no fixed canvas",
+  "notes":["No runtime bounds or visual score claimed", "Text refresh reuses existing control; icon calibration deferred", "Only overseas scope; initialization/geographic gating unchanged", "No billing multiplier fabricated when not connected", "No image download or runtime JSON renderer"]
+}

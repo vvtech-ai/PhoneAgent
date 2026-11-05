@@ -1,0 +1,3 @@
+# Design
+当前Dart DeviceTranslationPcmBridge._release先output.stop再capture.stop；共享引擎仍有capture owner。PcmOutputChannel.release仅非duplex调用engine.stop，duplex直接detach，设备ips定位此调用。统一在player.stop后停止engine再disconnectNodeOutput/detach；attached=false使后续可重试不重复拆除，released=true保持幂等。仅输出格式切换时下一次PcmOutputChannel.start保留input tap并重新start引擎；最终挂断capture.stop继续移除tap/释放session。未声称可运行图永远不可变，Apple文档允许有限运行图变动，本修复针对实际RemoveNode异常。
+源码微批1文件，测试工具独立；Swift测试提取实际release函数并注入严格图不变量替身，覆盖共享/独立、正在播放、有pending、重复调用、session关闭失败重试。替身不能替代设备AVFAudio验证。flutter定向bridge/media/coordinator和analyze，iOS签名Profile构建/保留数据安装；用户端实际接通挂断未验前不归档。

@@ -1,0 +1,11 @@
+## 参考证据及方案
+Android 0f8879e4：Application initializeChakenIncallSdk仅SDK.init；AssistantAuthRuntimeController.openTrustedCalleeAuthorization首次SDK.openIncallUi，后续SettingActivity并fallback；SDK原组件通过AAR manifest合并，无PackageManager接管。SDK SettingActivity.updateUI读取READ_PHONE_STATE、canDrawOverlays、CALL_SCREENING roleHeld和core_function_on。禁用Flutter筛选组件可能撤销角色，不能仅凭PreciseCallReceiver判断开关。新实现不在启动/账户变更/Activity恢复时修改任何SDK组件或开关。
+Flutter原guarded adapter从manifest移除，原SDK筛选服务恢复，系统角色由SDK权限UI选择；退出和换账户保留SIM journal清理/owner surface关闭，不自创全局权限撤销。角色服务默认名恢复后的现有设备是否需重新选择，由SDK系统UI处理，不能静默代替用户。
+iOS bb9ff349 AITrustedCalleeIntroductionViewController：全屏UINavigationController，说明safeTop+28/34标题、60%×28徽章、17正文、image约束、safeBottom-20/56按钮；轮播2秒/0.25淡入，开始push KXSetViewController，SDK退出整体dismiss。原生说明使用相同资源并替换身份引用为surface检查回调，不增加Flutter中间route。取消刷新独立。
+## 崩溃证据边界
+当前连接手机crash buffer与exit-info无可用记录，用户JSON只有5次未结束open，可能手动终止，不当堆栈。NativeCrashRecorder在Flutter bind前记录unassigned，但read(scope)只导入账号文件导致启动摘要缺失。新增匿名启动摘要读/ack，不改变其他账号隔离；摘要只UUID/时间/mainThread/固定kind，明确不包含异常message/stack。原生信号崩溃仍需系统trace。
+## 验证
+Android JVM/manifest与产物依赖，可信/诊断/设置定向，analyze/OpenSpec，两端构建。设备未安装/开启真实权限，不把源码和测试当运行一致；业务真实账户/电话保持待验。
+
+## 旧Flutter持久覆盖修复
+旧宿主曾把PreciseCallReceiver显式DISABLED写入PackageManager，更新manifest不能清除持久覆盖。参考SDK AAR及runtime未发现setComponentEnabledSetting写入。仅首次升级把该旧DISABLED重置DEFAULT，不设ENABLED、不写core_function_on、不反复覆盖选择。旧Flutter筛选服务移出manifest，失去的系统角色只能由SDK权限页重新申请，不能静默替用户授权。

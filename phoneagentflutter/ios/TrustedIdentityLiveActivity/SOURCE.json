@@ -1,0 +1,72 @@
+{
+  "referenceCommit": "bb9ff34966f40a3c2794a9a8b8e935669a9faa12",
+  "viewSource": "iOS/PhoneAgent/KXLiveActivityExtension/KXTrustedIdentityLiveActivity.swift",
+  "viewSourceSha256": "0c5191c109357e8199006614b710e87a0699c670bed1f1bc68c8bb27ce270190",
+  "assets": [
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_company_icon.imageset/Contents.json",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_company_icon.imageset/Contents.json",
+      "sha256": "c751a9f6bccb4f881ba082a0523b329bf2ebba649c22f0265331ccd8cc138d80"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_company_icon.imageset/icon／14／可信-白色.png",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_company_icon.imageset/icon／14／可信-白色.png",
+      "sha256": "2bc71101342e662f55ef19cbd7743140ce84aaa0ff21dc57a36d56f7be9eb2a7"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_company_icon.imageset/icon／14／可信-白色@2x 1.png",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_company_icon.imageset/icon／14／可信-白色@2x 1.png",
+      "sha256": "d523fb8deae7787719e84ab37a31a6e0d224f28c0070b67fb7b5cac310fe9b10"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_company_icon.imageset/icon／14／可信-白色@3x.png",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_company_icon.imageset/icon／14／可信-白色@3x.png",
+      "sha256": "1ef187ec53556de91bf9bd562fd009bec7be290f014b80d4acc49db01732212f"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_company_no_icon.imageset/Contents.json",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_company_no_icon.imageset/Contents.json",
+      "sha256": "88694be100aa8fbb42c3a99f5e972178a0798cfaeca0a7b3e1008cb6a9c93e55"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_company_no_icon.imageset/icon_dunpai.png",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_company_no_icon.imageset/icon_dunpai.png",
+      "sha256": "e9fece31224975a82c017358e9393307b5315ed500c5cb727d75a0238de9f4a5"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_company_no_icon.imageset/icon_dunpai@2x.png",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_company_no_icon.imageset/icon_dunpai@2x.png",
+      "sha256": "f2a7559fe8b0716519a8c468300c802dab405bdffe560c88fdf7d54ea07113a5"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_company_no_icon.imageset/icon_dunpai@3x.png",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_company_no_icon.imageset/icon_dunpai@3x.png",
+      "sha256": "162dde89ead90669dd6a3539be7d1556db19c744fbc1ea0cd52879714f21b73b"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_noauthen_icon.imageset/Contents.json",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_noauthen_icon.imageset/Contents.json",
+      "sha256": "88694be100aa8fbb42c3a99f5e972178a0798cfaeca0a7b3e1008cb6a9c93e55"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_noauthen_icon.imageset/icon_dunpai.png",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_noauthen_icon.imageset/icon_dunpai.png",
+      "sha256": "a5936d13c538f80aba9d9dc66baa4dbeb18648e7ab3c98535234cd4cda88ca09"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_noauthen_icon.imageset/icon_dunpai@2x.png",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_noauthen_icon.imageset/icon_dunpai@2x.png",
+      "sha256": "ac4b9ab6f41aea81c36512b2a78f680a3dd07887fa538f75fae92d57fcb0a91b"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/head_noauthen_icon.imageset/icon_dunpai@3x.png",
+      "source": "iOS/PhoneAgent/KXLiveActivityExtension/Assets.xcassets/head_noauthen_icon.imageset/icon_dunpai@3x.png",
+      "sha256": "c07abd253644d131760a403ed130617825c1002ccd2bf2fa85e7af491861273b"
+    },
+    {
+      "path": "ios/TrustedIdentityLiveActivity/Assets.xcassets/trusted_identity_avatar_default.imageset/default.png",
+      "source": "assets/images/trusted_identity/identity_card_avatar_default.png",
+      "sha256": "1c648986048a3884977ad16fec7f38cc862b150f26dbbaea0f281882a2120405"
+    }
+  ]
+}

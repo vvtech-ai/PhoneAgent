@@ -1,0 +1,35 @@
+// Explicit init script only. Never included in the Flutter or native release build.
+if (gradle.startParameter.taskNames != [':app:assembleDevDebug']) {
+    throw new GradleException('Reference harness only supports :app:assembleDevDebug')
+}
+// Gradle compiles init scripts into its cache, so the caller supplies this source path.
+final sourceRoot = System.getProperty('phoneagent.uiReferenceSource')
+if (!sourceRoot) throw new GradleException('Missing isolated reference source path')
+gradle.beforeProject { p ->
+    if (p.path == ':app') {
+        p.plugins.withId('com.android.application') {
+            // Snapshot only top-level Compose fixtures. Recursive srcDir would
+            // also compile the sibling FlutterActivity without its engine.
+            final hostRoot = new File(sourceRoot, '../../.local/ui-reference/native-kotlin-host')
+            p.sync {
+                from(sourceRoot) { include '*.kt' }
+                into hostRoot
+            }
+            p.android.sourceSets.debug.java.srcDir(hostRoot)
+            final derived = System.getProperty('phoneagent.uiReferenceDerivedSource')
+            if (derived) p.android.sourceSets.debug.java.srcDir(derived)
+            p.android.sourceSets.debug.manifest.srcFile(new File(sourceRoot, 'AndroidManifest.xml'))
+            p.extensions.getByName('androidComponents').finalizeDsl { android ->
+                def flavor = android.productFlavors.findByName('dev')
+                flavor.applicationId = 'com.vvtech.aiassistant.ui.reference'
+                flavor.applicationIdSuffix = ''
+                android.buildTypes.debug.signingConfig = android.signingConfigs.debug
+                ([android.defaultConfig] + android.productFlavors.toList() + android.buildTypes.toList()).each { config ->
+                    config.buildConfigFields.values().toList().each { field ->
+                        if (field.type == 'String') config.buildConfigField('String', field.name, '""')
+                    }
+                }
+            }
+        }
+    }
+}

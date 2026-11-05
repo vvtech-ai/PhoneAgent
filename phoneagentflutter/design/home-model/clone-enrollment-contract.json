@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-17",
+  "id": "clone-enrollment",
+  "targetConfig": "TargetAppConfig.json",
+  "source": {"html": "0cd58de9:memory/index.html#voiceClonePage", "behavior": "4c781e3:VoiceCloneEnrollmentUi,VoiceCloneConsentStep,VoiceCloneResultPage,VoiceClonePromptPolicy", "ios": "ddb996a:AIVoiceCloneEnrollmentRepository.m"},
+  "policy": "approved-static-first; visual-calibration-pending",
+  "components": [
+    {"id":"clone-consent", "sourceNodeId":"vcStep1", "layoutSpec":{"padding":20,"gap":20}, "styleSpec":{"cardRadius":24,"tokens":"ShellTokens"}, "assetRefs":[]},
+    {"id":"clone-identity", "sourceNodeId":"vcStep2", "layoutSpec":{"padding":20,"gap":14}, "styleSpec":{"fieldRadius":12,"tokens":"ShellTokens"}, "assetRefs":[]},
+    {"id":"clone-verification", "sourceNodeId":"VoiceCloneVerifyingStep", "layoutSpec":{"padding":20,"gap":18}, "styleSpec":{"tokens":"ShellTokens"}, "assetRefs":[]},
+    {"id":"clone-result", "sourceNodeId":"VoiceCloneResultPage", "layoutSpec":{"padding":24,"cardPadding":16,"gap":12}, "styleSpec":{"radius":18,"previewHeight":56,"buttonHeight":46}, "assetRefs":[]}
+  ],
+  "states":["consent","identity","replacementDialog","collecting","checking","generating","candidate","confirming","confirmed","error","exitDialog","rerecordDialog"],
+  "interactions":[
+    ["clone-preview-entry","navigate","consent"], ["agreement","toggleState","consent"], ["continue","submit","identity"],
+    ["identity-fields","updateInput","identity"], ["verify","submit","replacementDialog|collecting"],
+    ["replacement-cancel","dismissDialog","identity"], ["replacement-confirm","submit","collecting"],
+    ["verify-retry","submit","collecting"], ["candidate-preview","toggleState","candidate"], ["save-recording","toggleState","candidate"],
+    ["confirm","submit","confirmed"], ["rerecord","showDialog","rerecordDialog"], ["rerecord-cancel","dismissDialog","candidate"],
+    ["rerecord-confirm","submit","consent"], ["back","back","exitDialog|previousRoute"], ["exit-cancel","dismissDialog","candidate"], ["exit-confirm","back","previousRoute"]
+  ],
+  "runtime": {"navigation":"Navigator push/pop and modal dialogs", "events":"semantic buttons/checkboxes/textfields", "systemInsets":"SafeArea", "fillPolicy":"fillAvailableViewport", "previewImageUse":"none"},
+  "excluded":["HTML old separate camera/recording steps", "fake system bars", "real SDK camera preview in MOCK"],
+  "productionAssembly": {
+    "route":"CloneCreationRoute -> CloneFlowPage",
+    "controller":"CloneFlowController composes verification/candidate/completion controllers",
+    "entries":["identity voice clone", "call voices create clone"],
+    "recovery":["verification GET only", "candidate GET only", "confirmation activation GET only", "recording save retry only"],
+    "mock":"six isolated PreviewCloneFlow scenarios share production controller and widgets; no real account/SDK/audio/fees",
+    "platform":"Web authentication explicitly unavailable; Android/iOS SDK thin ports; bounded authenticated WAV bytes to audioplayers 6.4.0"
+  },
+  "remaining":["real identity/fees/storage/playback device acceptance", "global audio ownership assembly", "platform installation verification", "pixel calibration"]
+}

@@ -1,0 +1,387 @@
+{
+  "baselineCommit": "5132667bfa20241a3e9a3086df2973662b7b98e7",
+  "fullRunCompleted": false,
+  "baselineRunCompleted": false,
+  "currentVisibleCounts": {
+    "success": 6754,
+    "skipped": 2,
+    "failure": 9,
+    "error": 81
+  },
+  "reproducedFailureCount": 83,
+  "differenceFailures": [
+    {
+      "file": "test/features/translation/paced_sip_rtp_transport_test.dart",
+      "test": "worker keeps SDP port, paces during owner pause and releases port after close"
+    },
+    {
+      "file": "test/features/translation/udp_sip_wire_test.dart",
+      "test": "wrong source and malformed packets cannot complete signaling wait"
+    },
+    {
+      "file": "test/shell_log_report_workbench_test.dart",
+      "test": "normal provider keeps ZIP and requires signed-in account"
+    }
+  ],
+  "uncomparedFailures": [
+    {
+      "file": "test/session_nested_routes_test.dart",
+      "test": "identity rejection clears contact navigation"
+    },
+    {
+      "file": "test/session_nested_routes_test.dart",
+      "test": "identity rejection clears settings navigation"
+    },
+    {
+      "file": "test/session_route_lifecycle_test.dart",
+      "test": "active conversation released on signout"
+    },
+    {
+      "file": "test/shell_contact_tools_workbench_test.dart",
+      "test": "contact tool continuation and candidate restore 320.0"
+    }
+  ],
+  "currentPendingAtStop": [
+    "active conversation released on rejection",
+    "contact tool continuation and candidate restore 430.0"
+  ],
+  "baselinePendingAtStop": [
+    "identity rejection clears settings navigation",
+    "active conversation released on signout",
+    "contact tool continuation and candidate restore 320.0"
+  ],
+  "reproducedFailures": [
+    {
+      "file": "test/features/calls/continuous_task_orchestration_test.dart",
+      "test": "CONFIRM-01 HISTORY-01: 1 calls retain prompts, identities and narration"
+    },
+    {
+      "file": "test/features/calls/continuous_task_orchestration_test.dart",
+      "test": "CONFIRM-01 HISTORY-01: 2 calls retain prompts, identities and narration"
+    },
+    {
+      "file": "test/features/calls/continuous_task_orchestration_test.dart",
+      "test": "ENTRY-06 VOICE-01: tool-only history never invents a spoken prompt"
+    },
+    {
+      "file": "test/features/conversation/batch_receipt_media_parity_test.dart",
+      "test": "TargetPlatform.android nested=false exposes native batch media and settlements"
+    },
+    {
+      "file": "test/features/conversation/batch_receipt_media_parity_test.dart",
+      "test": "TargetPlatform.android nested=true exposes native batch media and settlements"
+    },
+    {
+      "file": "test/features/conversation/batch_receipt_media_parity_test.dart",
+      "test": "TargetPlatform.iOS nested=false exposes native batch media and settlements"
+    },
+    {
+      "file": "test/features/conversation/batch_receipt_media_parity_test.dart",
+      "test": "TargetPlatform.iOS nested=true exposes native batch media and settlements"
+    },
+    {
+      "file": "test/features/conversation/call_receipt_widget_test.dart",
+      "test": "readable fallback includes returned fields, rates and recognized dialogue only"
+    },
+    {
+      "file": "test/features/conversation/call_receipt_widget_test.dart",
+      "test": "receipt is accessible in existing message layout without dial buttons"
+    },
+    {
+      "file": "test/features/conversation/conversation_receipt_revision_test.dart",
+      "test": "TargetPlatform.android same message visible updates return to tail"
+    },
+    {
+      "file": "test/features/conversation/conversation_receipt_revision_test.dart",
+      "test": "TargetPlatform.iOS same message visible updates return to tail"
+    },
+    {
+      "file": "test/features/conversation/conversation_receipt_revision_test.dart",
+      "test": "batch visible values change while hidden fields preserve history"
+    },
+    {
+      "file": "test/features/conversation/conversation_receipt_revision_test.dart",
+      "test": "running summary and empty billing have no displayed change"
+    },
+    {
+      "file": "test/features/conversation/conversation_single_receipt_revision_test.dart",
+      "test": "TargetPlatform.android same message single update returns to tail"
+    },
+    {
+      "file": "test/features/conversation/conversation_single_receipt_revision_test.dart",
+      "test": "TargetPlatform.iOS same message single update returns to tail"
+    },
+    {
+      "file": "test/features/conversation/conversation_single_receipt_revision_test.dart",
+      "test": "visible single values and semantic status affect revision"
+    },
+    {
+      "file": "test/features/conversation/detached_batch_streams_test.dart",
+      "test": "detached stream drains without UI or tool callbacks until done"
+    },
+    {
+      "file": "test/features/conversation/native_conversation_tail_test.dart",
+      "test": "TargetPlatform.android new content and keyboard follow tail at 1.0"
+    },
+    {
+      "file": "test/features/conversation/native_conversation_tail_test.dart",
+      "test": "TargetPlatform.android new content and keyboard follow tail at 2.0"
+    },
+    {
+      "file": "test/features/conversation/native_conversation_tail_test.dart",
+      "test": "TargetPlatform.iOS new content and keyboard follow tail at 1.0"
+    },
+    {
+      "file": "test/features/conversation/native_conversation_tail_test.dart",
+      "test": "TargetPlatform.iOS new content and keyboard follow tail at 2.0"
+    },
+    {
+      "file": "test/features/conversation/native_structured_task_result_test.dart",
+      "test": "TargetPlatform.android structured receipt preserves task title and attachments"
+    },
+    {
+      "file": "test/features/conversation/native_structured_task_result_test.dart",
+      "test": "TargetPlatform.iOS structured receipt preserves task title and attachments"
+    },
+    {
+      "file": "test/features/conversation/native_task_result_ui_parity_test.dart",
+      "test": "TargetPlatform.android booking failure shows original reason and billing"
+    },
+    {
+      "file": "test/features/conversation/native_task_result_ui_parity_test.dart",
+      "test": "TargetPlatform.iOS booking failure shows original reason and billing"
+    },
+    {
+      "file": "test/features/conversation/restored_batch_confirmation_focus_test.dart",
+      "test": "TargetPlatform.android live long pending card aligns its top without sending"
+    },
+    {
+      "file": "test/features/conversation/restored_batch_confirmation_focus_test.dart",
+      "test": "TargetPlatform.android restored long pending card aligns its top without sending"
+    },
+    {
+      "file": "test/features/conversation/restored_batch_confirmation_focus_test.dart",
+      "test": "TargetPlatform.iOS live long pending card aligns its top without sending"
+    },
+    {
+      "file": "test/features/conversation/restored_batch_confirmation_focus_test.dart",
+      "test": "TargetPlatform.iOS restored long pending card aligns its top without sending"
+    },
+    {
+      "file": "test/features/settings/voice_transport_preview_test.dart",
+      "test": "gateway interaction without native media at 320.0"
+    },
+    {
+      "file": "test/features/settings/voice_transport_preview_test.dart",
+      "test": "gateway interaction without native media at 390.0"
+    },
+    {
+      "file": "test/features/settings/voice_transport_preview_test.dart",
+      "test": "gateway interaction without native media at 430.0"
+    },
+    {
+      "file": "test/features/translation/cross_border_translation_dial_test.dart",
+      "test": "TargetPlatform.android dial cross-border cancel then continue once"
+    },
+    {
+      "file": "test/features/translation/cross_border_translation_dial_test.dart",
+      "test": "TargetPlatform.android presets cross-border cancel then continue once"
+    },
+    {
+      "file": "test/features/translation/cross_border_translation_dial_test.dart",
+      "test": "TargetPlatform.iOS dial cross-border cancel then continue once"
+    },
+    {
+      "file": "test/features/translation/cross_border_translation_dial_test.dart",
+      "test": "TargetPlatform.iOS presets cross-border cancel then continue once"
+    },
+    {
+      "file": "test/features/translation/domestic_model_quality_test.dart",
+      "test": "domestic refresh drives all pill states TargetPlatform.android"
+    },
+    {
+      "file": "test/features/translation/domestic_model_quality_test.dart",
+      "test": "domestic refresh drives all pill states TargetPlatform.iOS"
+    },
+    {
+      "file": "test/features/translation/domestic_model_quality_test.dart",
+      "test": "no domestic requests for CN/false/true"
+    },
+    {
+      "file": "test/features/translation/domestic_model_sheet_test.dart",
+      "test": "directory choice persists without account setting TargetPlatform.android/1.0"
+    },
+    {
+      "file": "test/features/translation/domestic_model_sheet_test.dart",
+      "test": "directory choice persists without account setting TargetPlatform.android/2.0"
+    },
+    {
+      "file": "test/features/translation/domestic_model_sheet_test.dart",
+      "test": "directory choice persists without account setting TargetPlatform.iOS/1.0"
+    },
+    {
+      "file": "test/features/translation/domestic_model_sheet_test.dart",
+      "test": "directory choice persists without account setting TargetPlatform.iOS/2.0"
+    },
+    {
+      "file": "test/features/translation/domestic_model_sheet_test.dart",
+      "test": "directory failure is explicit and summary retry recovers"
+    },
+    {
+      "file": "test/features/translation/domestic_model_sheet_test.dart",
+      "test": "same protocol models have independent selectable IDs"
+    },
+    {
+      "file": "test/features/translation/native_translation_model_panel_test.dart",
+      "test": "four native options TargetPlatform.android/1.0/Size(320.0, 480.0)"
+    },
+    {
+      "file": "test/features/translation/native_translation_model_panel_test.dart",
+      "test": "four native options TargetPlatform.android/1.0/Size(390.0, 844.0)"
+    },
+    {
+      "file": "test/features/translation/native_translation_model_panel_test.dart",
+      "test": "four native options TargetPlatform.android/2.0/Size(320.0, 480.0)"
+    },
+    {
+      "file": "test/features/translation/native_translation_model_panel_test.dart",
+      "test": "four native options TargetPlatform.android/2.0/Size(390.0, 844.0)"
+    },
+    {
+      "file": "test/features/translation/native_translation_model_panel_test.dart",
+      "test": "four native options TargetPlatform.iOS/1.0/Size(320.0, 480.0)"
+    },
+    {
+      "file": "test/features/translation/native_translation_model_panel_test.dart",
+      "test": "four native options TargetPlatform.iOS/1.0/Size(390.0, 844.0)"
+    },
+    {
+      "file": "test/features/translation/native_translation_model_panel_test.dart",
+      "test": "four native options TargetPlatform.iOS/2.0/Size(320.0, 480.0)"
+    },
+    {
+      "file": "test/features/translation/native_translation_model_panel_test.dart",
+      "test": "four native options TargetPlatform.iOS/2.0/Size(390.0, 844.0)"
+    },
+    {
+      "file": "test/features/translation/translation_access_pages_test.dart",
+      "test": "CN international prefix uses domestic model sheet and never starts an overseas call"
+    },
+    {
+      "file": "test/features/translation/translation_access_pages_test.dart",
+      "test": "developer country simulation reaches dialer without changing trusted CN"
+    },
+    {
+      "file": "test/features/translation/translation_diagnostics_binding_test.dart",
+      "test": "new components and stages survive Journal reload and ZIP; session and extra fields sanitized"
+    },
+    {
+      "file": "test/features/translation/translation_pages_test.dart",
+      "test": "empty number opens presets then rejects without any call"
+    },
+    {
+      "file": "test/features/translation/translation_pages_test.dart",
+      "test": "formal translation action respects offline without system fallback"
+    },
+    {
+      "file": "test/features/translation/translation_pages_test.dart",
+      "test": "leaving during async preparation disposes late controller without start"
+    },
+    {
+      "file": "test/features/translation_history/local_translation_recording_test.dart",
+      "test": "history joins ongoing encode even when SDK duration differs"
+    },
+    {
+      "file": "test/settings_account_shell_test.dart",
+      "test": "settings account native flow returns to login TargetPlatform.android (variant: TargetPlatform.android)"
+    },
+    {
+      "file": "test/settings_account_shell_test.dart",
+      "test": "settings account native flow returns to login TargetPlatform.iOS (variant: TargetPlatform.iOS)"
+    },
+    {
+      "file": "test/shell_attachment_workbench_test.dart",
+      "test": "formal attachments, history and session isolation 320.0"
+    },
+    {
+      "file": "test/shell_attachment_workbench_test.dart",
+      "test": "formal attachments, history and session isolation 430.0"
+    },
+    {
+      "file": "test/shell_contacts_workbench_test.dart",
+      "test": "contact detail to formal task and restored conversation 320.0"
+    },
+    {
+      "file": "test/shell_contacts_workbench_test.dart",
+      "test": "contact detail to formal task and restored conversation 430.0"
+    },
+    {
+      "file": "test/shell_developer_workbench_test.dart",
+      "test": "formal developer flow is isolated and continuous 320.0"
+    },
+    {
+      "file": "test/shell_developer_workbench_test.dart",
+      "test": "formal developer flow is isolated and continuous 430.0"
+    },
+    {
+      "file": "test/shell_log_report_workbench_test.dart",
+      "test": "settings log flow retries only failed operation 320.0"
+    },
+    {
+      "file": "test/shell_log_report_workbench_test.dart",
+      "test": "settings log flow retries only failed operation 430.0"
+    },
+    {
+      "file": "test/shell_permission_workbench_test.dart",
+      "test": "permission result, restore and login isolation 320.0"
+    },
+    {
+      "file": "test/shell_permission_workbench_test.dart",
+      "test": "permission result, restore and login isolation 430.0"
+    },
+    {
+      "file": "test/shell_receipt_workbench_test.dart",
+      "test": "receipt audio and per-target feedback through formal routes 320.0"
+    },
+    {
+      "file": "test/shell_receipt_workbench_test.dart",
+      "test": "receipt audio and per-target feedback through formal routes 430.0"
+    },
+    {
+      "file": "test/shell_translation_workbench_test.dart",
+      "test": "shell translation confirmation call records and reset 320.0"
+    },
+    {
+      "file": "test/shell_translation_workbench_test.dart",
+      "test": "shell translation confirmation call records and reset 390.0"
+    },
+    {
+      "file": "test/shell_translation_workbench_test.dart",
+      "test": "shell translation confirmation call records and reset 430.0"
+    },
+    {
+      "file": "test/shell_unified_dialer_test.dart",
+      "test": "formal entries use one dialer and preserve draft and unlock (variant: TargetPlatform.android)"
+    },
+    {
+      "file": "test/shell_unified_dialer_test.dart",
+      "test": "formal entries use one dialer and preserve draft and unlock (variant: TargetPlatform.iOS)"
+    },
+    {
+      "file": "test/shell_workbench_test.dart",
+      "test": "shared shell continuous flow and reset at 320.0"
+    },
+    {
+      "file": "test/shell_workbench_test.dart",
+      "test": "shared shell continuous flow and reset at 430.0"
+    },
+    {
+      "file": "test/ui_consistency_stage_test.dart",
+      "test": "formal first flow preserves drafts and returns (variant: TargetPlatform.android)"
+    },
+    {
+      "file": "test/ui_consistency_stage_test.dart",
+      "test": "formal first flow preserves drafts and returns (variant: TargetPlatform.iOS)"
+    }
+  ]
+}

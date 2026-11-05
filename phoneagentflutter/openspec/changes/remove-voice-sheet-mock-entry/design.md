@@ -1,0 +1,8 @@
+## Context
+migrationPreviewsEnabled=kDebugMode且ENABLE_MIGRATION_PREVIEWS默认true。正常CallVoicesPage使用此开关生成按钮，开关不能证明该页面处于演练宿主。独立tool/previews/workbench_catalog.dart已有ClonePreviewScenariosPage入口。
+
+## Decisions
+仅删除CallVoicesPage中的演练区块与两个无用import，不改变全局演练策略或独立工作台。真实onCreateClone和CloneVoiceCard完整保留，已就绪音色不添加替代按钮。改动小于500行，业务微批不超过3文件。
+
+## Validation
+双平台默认/显式ENABLE_MIGRATION_PREVIEWS=true测试正常音色页无MOCK或演练文案，空态真实创建仍回调一次；已有克隆选择/删除/试听/返回及Shell定向，flutter analyze、OpenSpec。未改平台/依赖，不重复构建安装普通包；用户当前真机旧包需要包含新提交的新包方可观察修复，不操作既有登录数据。未验收不归档。

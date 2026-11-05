@@ -1,0 +1,9 @@
+# 环境指示器接线修复验证
+
+起点HEAD0c7f77e2/codex/dev_zys，保留前轮align-translation-call-behavior未提交修改，参考aiassistant_app8f23592。截图已接通、有双向字幕、三指示器全灰。定位国内coordinator没有环境回调，controller从未写environment，页面一直使用初始pending；不是颜色/布局缺陷。
+
+修改3个既有源码并增加1个domain文件：本地环境owner管理现有OS网络read/watch、单调版本、最新事件优先及退出取消；双模型确认后模型可用，SIPdialing/connected确认后SIP可用，网络未知可由协议握手证明可达，但OS明确离线不覆盖。模型/信令各自失败独立标识；不将积分、录音错误伪装成网络故障。显式typed onEnvironment接入controller，工厂注入既有DeviceNetworkAvailability，无新增平台/插件/依赖/权限。
+
+本轮定向52项通过：domestic_translation_environment、domestic_sip_call_coordinator、domestic_translation_session_controller、domestic_translation_session_factory、native_translation_environment_indicator、translation_call_environment、translation_session_controller。覆盖模型双确认、SIP启动失败、配置失败、网络变化/旧读数竞态、终止/注销拒绝旧结果、字幕不可用门禁及Android/iOS组件几何。所有测试使用合成端口，没有实际认证/外呼或模型服务请求。
+
+最终flutter analyze无问题；OpenSpec及diff检查见tasks末尾。仅增加环境状态数据，未修改TranslationEnvironmentIndicator或通话页面样式。未跑全仓回归，不将共享测试称为双端设备验收。未打包/安装，截图原设备效果与实际服务待验，不提交推送/归档。

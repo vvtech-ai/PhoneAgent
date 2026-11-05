@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T07:27:02.825Z",
+  "sourceType": "html",
+  "sourceId": "phoneagent-home-model",
+  "sourceUrl": "memory/index.html",
+  "sourceVersion": "0cd58de9bb578845517aeb54bef8ab6970392b81",
+  "nodeIds": [
+    "homePage",
+    "voiceModelPage",
+    "voiceIdentityPage"
+  ],
+  "warnings": [
+    "2026-09-16 recheck: .local/design-home/previews/voiceIdentity.png shows the initialization identity overlay, not voiceIdentityPage. It cannot serve as that page's visual reference. Cached DOM is retained as partial evidence.",
+    "2026-09-17: User explicitly approved static HTML/CSS and existing components first, with visual calibration later. New clone selection card is implemented provisionally; the mismatched screenshot remains excluded from visual acceptance."
+  ],
+  "rawMetadata": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "externalNetwork": "blocked",
+    "htmlSha256": "e0f8bdfd4595995a21eb32b2baceed58415a8177960e760b9fe5e34cc704a939",
+    "excluded": [
+      "prototype status bar",
+      "old inline composer",
+      "future custom models",
+      "recharge"
+    ]
+  }
+}

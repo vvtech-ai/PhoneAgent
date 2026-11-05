@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T04:47:53.865Z",
+  "targetPlatform": "flutter",
+  "controls": [
+    {
+      "id": "loginPhone",
+      "controlId": "loginPhone",
+      "pageId": "loginPage",
+      "sourceRouteId": "loginPage",
+      "nodeId": "loginPhone",
+      "sourceNodeId": "loginPhone",
+      "label": "输入手机号",
+      "role": "input",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "v65 current behavior",
+      "controlBoundsSource": "component-node",
+      "action": "input",
+      "bounds": {
+        "x": 86.921875,
+        "y": 438.984375,
+        "width": 260.078125,
+        "height": 20
+      }
+    },
+    {
+      "id": "loginCode",
+      "controlId": "loginCode",
+      "pageId": "loginPage",
+      "sourceRouteId": "loginPage",
+      "nodeId": "loginCode",
+      "sourceNodeId": "loginCode",
+      "label": "输入4–8位验证码",
+      "role": "input",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "v65 current behavior",
+      "controlBoundsSource": "component-node",
+      "action": "input",
+      "bounds": {
+        "x": 43,
+        "y": 508.984375,
+        "width": 182,
+        "height": 20
+      }
+    },
+    {
+      "id": "loginGetCode",
+      "controlId": "loginGetCode",
+      "pageId": "loginPage",
+      "sourceRouteId": "loginPage",
+      "nodeId": "loginGetCode",
+      "sourceNodeId": "loginGetCode",
+      "label": "发送验证码",
+      "role": "formSubmit",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "v65 current behavior",
+      "controlBoundsSource": "component-node",
+      "action": "submit",
+      "bounds": {
+        "x": 225,
+        "y": 490.984375,
+        "width": 122,
+        "height": 56
+      }
+    },
+    {
+      "id": "loginBtn",
+      "controlId": "loginBtn",
+      "pageId": "loginPage",
+      "sourceRouteId": "loginPage",
+      "nodeId": "loginBtn",
+      "sourceNodeId": "loginBtn",
+      "label": "登录；仅服务结果要求时进入邀请码",
+      "role": "formSubmit",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "v65 current behavior",
+      "controlBoundsSource": "component-node",
+      "action": "submit",
+      "bounds": {
+        "x": 42,
+        "y": 567.984375,
+        "width": 306,
+        "height": 49
+      }
+    },
+    {
+      "id": "activationCodeInput",
+      "controlId": "activationCodeInput",
+      "pageId": "activationPage",
+      "sourceRouteId": "activationPage",
+      "nodeId": "activationCodeInput",
+      "sourceNodeId": "activationCodeInput",
+      "label": "输入邀请码",
+      "role": "input",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "v65 current behavior",
+      "controlBoundsSource": "component-node",
+      "action": "input",
+      "bounds": {
+        "x": 43,
+        "y": 473.984375,
+        "width": 304,
+        "height": 20
+      }
+    },
+    {
+      "id": "activationBtn",
+      "controlId": "activationBtn",
+      "pageId": "activationPage",
+      "sourceRouteId": "activationPage",
+      "nodeId": "activationBtn",
+      "sourceNodeId": "activationBtn",
+      "label": "提交邀请码及challenge",
+      "role": "formSubmit",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "v65 current behavior",
+      "controlBoundsSource": "component-node",
+      "action": "submit",
+      "bounds": {
+        "x": 42,
+        "y": 532.984375,
+        "width": 306,
+        "height": 49
+      }
+    },
+    {
+      "id": "backLogin",
+      "controlId": "backLogin",
+      "pageId": "activationPage",
+      "sourceRouteId": "activationPage",
+      "nodeId": "backLogin",
+      "sourceNodeId": "V88AuthPages.onBackLogin",
+      "label": "返回登录；来自v65 onBackLogin",
+      "role": "back",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "v65 current behavior",
+      "controlBoundsSource": "manual-review-required",
+      "action": "back",
+      "bounds": {
+        "x": 151,
+        "y": 570,
+        "width": 88,
+        "height": 48
+      }
+    }
+  ],
+  "coverage": {
+    "totalControls": 7,
+    "mappedControls": 7
+  }
+}

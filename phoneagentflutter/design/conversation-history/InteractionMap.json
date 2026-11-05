@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:13:15.205Z",
+  "targetPlatform": "flutter",
+  "interactions": [
+    {
+      "id": "tasksPage.1.0.3",
+      "controlId": "tasksPage.1.0.3",
+      "pageId": "tasksPage",
+      "sourceRouteId": "tasksPage",
+      "sourceNodeId": "tasksPage.1.0.3",
+      "nodeId": "tasksPage.1.0.3",
+      "action": "pureVoicePage",
+      "label": "pureVoicePage",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 28,
+        "y": 312.921875,
+        "width": 334,
+        "height": 79.84375
+      },
+      "interactionId": "tasksPage.1.0.3",
+      "triggerNodeId": "tasksPage.1.0.3",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "tasksPage.1.0.3",
+      "source": "manual",
+      "targetRouteId": "pureVoicePage",
+      "hitArea": {
+        "x": 28,
+        "y": 312.921875,
+        "width": 334,
+        "height": 79.84375
+      },
+      "expectedResult": {
+        "behavior": "pureVoicePage"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "pvCloseBtn",
+      "controlId": "pvCloseBtn",
+      "pageId": "pureVoicePage",
+      "sourceRouteId": "pureVoicePage",
+      "sourceNodeId": "pvCloseBtn",
+      "nodeId": "pvCloseBtn",
+      "action": "back",
+      "label": "back",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 324,
+        "y": 4,
+        "width": 44,
+        "height": 44
+      },
+      "interactionId": "pvCloseBtn",
+      "triggerNodeId": "pvCloseBtn",
+      "eventType": "click",
+      "actionType": "back",
+      "testTag": "pvCloseBtn",
+      "source": "manual",
+      "targetRouteId": "back",
+      "hitArea": {
+        "x": 324,
+        "y": 4,
+        "width": 44,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "back"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "pvTextToggleBtn",
+      "controlId": "pvTextToggleBtn",
+      "pageId": "pureVoicePage",
+      "sourceRouteId": "pureVoicePage",
+      "sourceNodeId": "pvTextToggleBtn",
+      "nodeId": "pvTextToggleBtn",
+      "action": "toggle-input",
+      "label": "toggle-input",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 332,
+        "y": 725,
+        "width": 40,
+        "height": 40
+      },
+      "interactionId": "pvTextToggleBtn",
+      "triggerNodeId": "pvTextToggleBtn",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "pvTextToggleBtn",
+      "source": "manual",
+      "targetRouteId": "toggle-input",
+      "hitArea": {
+        "x": 332,
+        "y": 725,
+        "width": 40,
+        "height": 40
+      },
+      "expectedResult": {
+        "behavior": "toggle-input"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "pvTextSendBtn",
+      "controlId": "pvTextSendBtn",
+      "pageId": "pureVoicePage",
+      "sourceRouteId": "pureVoicePage",
+      "sourceNodeId": "pvTextSendBtn",
+      "nodeId": "pvTextSendBtn",
+      "action": "send-text",
+      "label": "send-text",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 332.3600158691406,
+        "y": 725.6799926757812,
+        "width": 36.79998779296875,
+        "height": 36.79998779296875
+      },
+      "interactionId": "pvTextSendBtn",
+      "triggerNodeId": "pvTextSendBtn",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "pvTextSendBtn",
+      "source": "manual",
+      "targetRouteId": "send-text",
+      "hitArea": {
+        "x": 332.3600158691406,
+        "y": 725.6799926757812,
+        "width": 36.79998779296875,
+        "height": 36.79998779296875
+      },
+      "expectedResult": {
+        "behavior": "send-text"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "taskVoiceModelChip",
+      "controlId": "taskVoiceModelChip",
+      "pageId": "pureVoicePage",
+      "sourceRouteId": "pureVoicePage",
+      "sourceNodeId": "taskVoiceModelChip",
+      "nodeId": "taskVoiceModelChip",
+      "action": "model-sheet",
+      "label": "model-sheet",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 18,
+        "y": 685,
+        "width": 137.1875,
+        "height": 28
+      },
+      "interactionId": "taskVoiceModelChip",
+      "triggerNodeId": "taskVoiceModelChip",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "taskVoiceModelChip",
+      "source": "manual",
+      "targetRouteId": "model-sheet",
+      "hitArea": {
+        "x": 18,
+        "y": 685,
+        "width": 137.1875,
+        "height": 28
+      },
+      "expectedResult": {
+        "behavior": "model-sheet"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "pvControlBtn",
+      "controlId": "pvControlBtn",
+      "pageId": "pureVoicePage",
+      "sourceRouteId": "pureVoicePage",
+      "sourceNodeId": "pvControlBtn",
+      "nodeId": "pvControlBtn",
+      "action": "voice-not-implemented",
+      "label": "voice-not-implemented",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 167,
+        "y": 717,
+        "width": 56,
+        "height": 56
+      },
+      "interactionId": "pvControlBtn",
+      "triggerNodeId": "pvControlBtn",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "pvControlBtn",
+      "source": "manual",
+      "targetRouteId": "voice-not-implemented",
+      "hitArea": {
+        "x": 167,
+        "y": 717,
+        "width": 56,
+        "height": 56
+      },
+      "expectedResult": {
+        "behavior": "voice-not-implemented"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "pvPlusBtn",
+      "controlId": "pvPlusBtn",
+      "pageId": "pureVoicePage",
+      "sourceRouteId": "pureVoicePage",
+      "sourceNodeId": "pvPlusBtn",
+      "nodeId": "pvPlusBtn",
+      "action": "attachment-not-implemented",
+      "label": "attachment-not-implemented",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 18,
+        "y": 725,
+        "width": 40,
+        "height": 40
+      },
+      "interactionId": "pvPlusBtn",
+      "triggerNodeId": "pvPlusBtn",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "pvPlusBtn",
+      "source": "manual",
+      "targetRouteId": "attachment-not-implemented",
+      "hitArea": {
+        "x": 18,
+        "y": 725,
+        "width": 40,
+        "height": 40
+      },
+      "expectedResult": {
+        "behavior": "attachment-not-implemented"
+      },
+      "runtimeBinding": "typed controller callback"
+    }
+  ]
+}

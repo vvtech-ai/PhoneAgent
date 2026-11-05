@@ -1,0 +1,4 @@
+## 设计
+aiassistant_app createSession捕获IOException（含BackendTranslationHttpException）后以空mediaTransports调用createSessionOnce。Dart用私有请求失败类型区分HTTP/网络与成功响应解析失败；仅首次_post捕获，第二次异常上抛，不循环。复用原body副本仅移除capabilities，保留号码语言模型原声设置及headers；已取得成功响应的已知会话解析失败仍走hangup。原生网络失败也会尝试第二次创建，本次按用户明确对齐要求采用此语义，不自动发起merchant-call、不真实复现。
+## 验证
+backend/legacy/coordinator/runtime/UI调用方定向、analyze、OpenSpec；不安装或实际外呼。源码1文件微批，测试2文件独立微批，文档独立；小于500行。

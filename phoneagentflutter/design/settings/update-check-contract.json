@@ -1,0 +1,22 @@
+{
+  "schemaVersion":"1.0", "generatedAt":"2026-09-17", "id":"update-check",
+  "source":"v65 FinalOtaUpdateDialog + existing Settings/ServicePreviewPage + approved static-first components",
+  "targetConfig":"TargetAppConfig.json",
+  "components":[
+    {"id":"update-page","layoutSpec":{"safeArea":true,"padding":22,"scroll":true},"styleSpec":{"reuse":"ShellTokens"},"assetRefs":[],"visualNodeRefs":["ServicePreviewPage"],"fidelityRisk":"medium"},
+    {"id":"update-details","layoutSpec":{"padding":18},"styleSpec":{"radius":24,"reuse":"ShellTokens.cardDecoration/cardTitle"},"assetRefs":[],"visualNodeRefs":["FinalOtaUpdateDialog content"],"fidelityRisk":"medium"}
+  ],
+  "routes":["settings","update-check","update-install-preview"],
+  "states":["idle","checking","latest","available","force-flag","failed"],
+  "controls":[
+    {"id":"settings-update","action":"push Android production or Web debug mock"},
+    {"id":"update-check","action":"read actual identity then query; single-flight"},
+    {"id":"update-retry","action":"repeat explicit check after failure"},
+    {"id":"update-back","action":"pop; ignore late result"},
+    {"id":"preview-scenario","action":"change synthetic next response only"},
+    {"id":"preview-install","action":"push existing isolated download/install preview; pop restores check page"}
+  ],
+  "excludedSystemNodes":["statusBar","homeIndicator","systemKeyboard"],
+  "runtimeViewportPolicy":"fill available; SafeArea and scrolling; no fixed canvas",
+  "notes":["No new assets or screenshot background", "Page-first implementation reuses existing components; final native dialog geometry pending calibration", "Force flag visible, production force gate waits for installer", "No fake visual measurement or on-device pass"]
+}

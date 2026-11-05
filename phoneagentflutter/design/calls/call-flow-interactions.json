@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-17",
+  "id": "conversation-call-flow",
+  "behaviorSource": "v65 4c781e3 AgentStreamConfirmCallHandler / ConversationTaskCallPointsSubmissionGate",
+  "visualSource": "Existing conversation and calls components; static HTML/CSS first, calibration pending",
+  "routes": ["conversation", "single-call", "insufficient-dialog", "call-flow-scenarios"],
+  "edges": [
+    {"id": "live-single", "from": "conversation", "to": "single-call", "action": "auto-confirm", "guard": "live single request, 1500ms and admission allowed"},
+    {"id": "restored-admission", "from": "conversation", "to": "insufficient-dialog", "action": "submit-after-history-restore", "guard": "restorable pending makeCall; notified same-task alias; still insufficient after refresh; restore alone does nothing"},
+    {"id": "live-batch", "from": "conversation", "to": "conversation", "action": "auto-confirm", "guard": "live batch request and admission allowed"},
+    {"id": "first-block", "from": "conversation", "to": "conversation", "action": "assistant-notice", "guard": "first known insufficiency"},
+    {"id": "repeat-block", "from": "conversation", "to": "insufficient-dialog", "action": "refresh-before-user-submit", "guard": "still insufficient; no Agent submission"},
+    {"id": "dismiss-block", "from": "insufficient-dialog", "to": "conversation", "action": "dismiss"},
+    {"id": "agent-outcome", "from": "single-call", "to": "conversation", "action": "merge-ledger-and-dismiss", "guard": "matching reported Agent outcome"},
+    {"id": "model-failure", "from": "single-call", "to": "conversation", "action": "safe-error-and-allow-input", "guard": "structured non-network failure before call registration; no retry"},
+    {"id": "live-final", "from": "single-call", "to": "conversation", "action": "render-result-and-dismiss", "guard": "terminal receipt for current confirm command; known callId must match"},
+    {"id": "explicit-hangup", "from": "single-call", "to": "conversation", "action": "hangup-once", "guard": "successful explicit command"},
+    {"id": "local-back", "from": "single-call", "to": "conversation", "action": "local-observer-cleanup", "sideEffect": "no hangup"}
+  ],
+  "sharedImplementation": ["ConversationController", "CallLaunchCoordinator", "ConversationCallController", "ConversationCallHost", "CallSessionPage"],
+  "mockPorts": ["AgentGateway", "ConversationHistoryRepository", "CallSessionRepository", "CallAdmissionNoticeStore", "CallAdmissionNoticeRepository", "balance"],
+  "mockIsolation": "Developer-only explicit entry, persistent MOCK label, no account/network/audio IO",
+  "verifiedInBrowser": ["live-single", "agent-outcome", "live-batch", "first-block", "repeat-block", "dismiss-block", "model-failure", "live-final", "restored-admission"],
+  "verifiedInTests": ["local-back", "explicit-hangup", "network-uncertainty-no-retry", "known-rejection", "history-no-execution", "late-response-ignored", "structured-failure-precedence", "physical-end-not-outcome", "old-command-rejected", "foreign-call-rejected"],
+  "notVerified": ["real call", "real billing", "media", "new Android/iOS device installation", "pixel fidelity"]
+}

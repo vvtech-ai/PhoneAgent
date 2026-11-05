@@ -1,0 +1,26 @@
+// Opt-in pure component APK; never part of ordinary dev or release builds.
+if (gradle.parent == null && gradle.startParameter.taskNames != [':app:assembleDebug']) {
+    throw new GradleException('Flutter reference only supports :app:assembleDebug')
+}
+gradle.beforeProject { p ->
+    if (p.path == ':app') {
+        p.plugins.withId('com.android.application') {
+            final sourceRoot = System.getProperty('phoneagent.uiReferenceSource')
+            if (!sourceRoot) throw new GradleException('Missing isolated reference source path')
+            final isolatedHost = System.getProperty('phoneagent.uiReferenceNoBusinessHost') == 'true'
+            p.android.sourceSets.debug.manifest.srcFile(new File(sourceRoot,
+                isolatedHost ? 'FlutterIsolatedAndroidManifest.xml' : 'FlutterAndroidManifest.xml'))
+            if (isolatedHost) {
+                p.android.sourceSets.debug.java.srcDir(new File(sourceRoot, 'flutter_android_ui_host'))
+            }
+            p.extensions.getByName('androidComponents').finalizeDsl { android ->
+                p.extensions.getByName('androidComponents').onVariants(
+                    p.extensions.getByName('androidComponents').selector().withBuildType('debug')
+                ) { variant ->
+                    variant.applicationId.set(System.getProperty('phoneagent.uiReferenceContactsTab') == 'true'
+                        ? 'com.vvtech.aiassistant.ui.contactstab' : 'com.vvtech.aiassistant.ui.flutterreference')
+                }
+            }
+        }
+    }
+}

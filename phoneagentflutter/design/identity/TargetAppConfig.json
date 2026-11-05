@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T04:47:53.865Z",
+  "targetPlatform": "flutter",
+  "projectMode": "existing-project",
+  "outputDir": "lib/features/identity",
+  "packageName": "phone_agent",
+  "featureName": "identity",
+  "designSystem": {
+    "tokenFile": "lib/core/design/shell_tokens.dart",
+    "themeFile": "lib/app/phone_agent_app.dart",
+    "allowHardcodedValues": false
+  },
+  "stateManagement": {
+    "library": "riverpod",
+    "stateDir": "lib/features/auth/presentation/controller",
+    "mockDataDir": "test/support"
+  },
+  "systemUi": {
+    "renderDesignSystemBars": false,
+    "usePlatformSystemBars": true,
+    "contentViewportSource": "platform-window-insets"
+  },
+  "validationCommands": [
+    {
+      "name": "flutter analyze",
+      "command": "flutter analyze",
+      "required": true
+    },
+    {
+      "name": "flutter test",
+      "command": "flutter test",
+      "required": true
+    },
+    {
+      "name": "flutter build apk --debug",
+      "command": "flutter build apk --debug",
+      "required": true
+    }
+  ],
+  "autoValidation": {
+    "enabled": true,
+    "provider": "openspec",
+    "maxSelfFixRounds": 2,
+    "maxNoImprovementRounds": 2
+  },
+  "hosts": [
+    {
+      "id": "android",
+      "applicationId": "com.vvtech.aiassistant.dev",
+      "device": "emulator-5554",
+      "report": "docs/engineering/AUTH_VALIDATION.md"
+    },
+    {
+      "id": "ios",
+      "bundleId": "com.chaken.phoneagent.test",
+      "report": "docs/engineering/AUTH_VALIDATION.md#ios",
+      "status": "not-validated-in-this-batch"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:28:27.525Z",
+  "source": "html",
+  "assets": [
+    {
+      "assetId": "translation_0",
+      "sourceNodeId": "v64HistoryDetail.1.0.0",
+      "name": "translation_0",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "v64HistoryDetail.1.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "v64HistoryDetail.1.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/translation/translation_0.svg",
+      "targetPath": "assets/images/translation/translation_0.svg",
+      "hash": "b1813207adf65a99dcd42a14859acd0e8a479d049ce598fc5bf2a5c68cfc7c9c"
+    }
+  ]
+}

@@ -1,0 +1,4886 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:13:15.205Z",
+  "targetPlatform": "flutter",
+  "pages": [
+    {
+      "id": "tasksPage",
+      "rootComponent": "tasksPage"
+    },
+    {
+      "id": "pureVoicePage",
+      "rootComponent": "pureVoicePage"
+    }
+  ],
+  "components": [
+    {
+      "id": "tasksPage.0.0.0",
+      "name": "H1",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "28px",
+        "fontWeight": "800",
+        "lineHeight": "29.4px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.0.0",
+      "name": "TitleBlock",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.0.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.0.0.0"
+      ]
+    },
+    {
+      "id": "tasksPage.0",
+      "name": "Topbar",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "12px",
+        "padding": "8px 4px 10px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.0.0"
+      ]
+    },
+    {
+      "id": "v64TranslationTaskTitle",
+      "name": "V64TranslationTaskTitle",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64TranslationTaskTitle"
+      ],
+      "visualNodeRefs": [
+        "v64TranslationTaskTitle"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 6px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64TranslationTaskTime",
+      "name": "V64TranslationTaskTime",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64TranslationTaskTime"
+      ],
+      "visualNodeRefs": [
+        "v64TranslationTaskTime"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(110, 110, 115)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "18.85px",
+        "border": "0px none rgb(110, 110, 115)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.0.0",
+      "name": "V64TaskCopy",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.1.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64TranslationTaskTitle",
+        "v64TranslationTaskTime"
+      ]
+    },
+    {
+      "id": "v64TranslationTaskDuration",
+      "name": "V64TranslationTaskDuration",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64TranslationTaskDuration"
+      ],
+      "visualNodeRefs": [
+        "v64TranslationTaskDuration"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(59, 130, 246)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "800",
+        "lineHeight": "normal",
+        "border": "0px none rgb(59, 130, 246)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64TranslationTaskCard",
+      "name": "V64TranslationTaskCard",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v64TranslationTaskCard"
+      ],
+      "visualNodeRefs": [
+        "v64TranslationTaskCard"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "12px",
+        "padding": "16px",
+        "margin": "0px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(255, 255, 255, 0.8)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(0, 0, 0)",
+        "borderRadius": "24px",
+        "boxShadow": "rgba(16, 17, 20, 0.08) 0px 10px 24px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0.0.0",
+        "v64TranslationTaskDuration"
+      ]
+    },
+    {
+      "id": "tasksPage.1.0.1.0.0",
+      "name": "H4",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.1.0.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.1.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 6px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.1.0.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.1.0.1"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.1.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(110, 110, 115)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "18.85px",
+        "border": "0px none rgb(110, 110, 115)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.1.0",
+      "name": "V64TaskCopy",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.1.0.1.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0.1.0.0",
+        "tasksPage.1.0.1.0.1"
+      ]
+    },
+    {
+      "id": "tasksPage.1.0.1.1",
+      "name": "TaskStateRunningV64TranslationDuration",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.1.1"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(59, 130, 246)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "800",
+        "lineHeight": "normal",
+        "border": "0px none rgb(59, 130, 246)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64TranslationContactTaskCard",
+      "name": "V64TranslationContactTaskCard",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v64TranslationContactTaskCard"
+      ],
+      "visualNodeRefs": [
+        "v64TranslationContactTaskCard"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "12px",
+        "padding": "16px",
+        "margin": "0px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(255, 255, 255, 0.8)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(0, 0, 0)",
+        "borderRadius": "24px",
+        "boxShadow": "rgba(16, 17, 20, 0.08) 0px 10px 24px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0.1.0",
+        "tasksPage.1.0.1.1"
+      ]
+    },
+    {
+      "id": "tasksPage.1.0.2.0.0",
+      "name": "H4",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.2.0.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.2.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 6px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.2.0.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.2.0.1"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.2.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(110, 110, 115)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "18.85px",
+        "border": "0px none rgb(110, 110, 115)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.2.0",
+      "name": "DIV",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.1.0.2.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.2.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0.2.0.0",
+        "tasksPage.1.0.2.0.1"
+      ]
+    },
+    {
+      "id": "tasksPage.1.0.2.1",
+      "name": "TaskStateDone",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.2.1"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.2.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(31, 143, 70)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "800",
+        "lineHeight": "normal",
+        "border": "0px none rgb(31, 143, 70)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "openCallFromTask",
+      "name": "OpenCallFromTask",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "openCallFromTask"
+      ],
+      "visualNodeRefs": [
+        "openCallFromTask"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "12px",
+        "padding": "16px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(255, 255, 255, 0.8)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgba(255, 255, 255, 0.78)",
+        "borderRadius": "24px",
+        "boxShadow": "rgba(16, 17, 20, 0.08) 0px 10px 24px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0.2.0",
+        "tasksPage.1.0.2.1"
+      ]
+    },
+    {
+      "id": "tasksPage.1.0.3.0.0",
+      "name": "H4",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.3.0.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.3.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 6px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.3.0.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.3.0.1"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.3.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(110, 110, 115)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "18.85px",
+        "border": "0px none rgb(110, 110, 115)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.3.0",
+      "name": "DIV",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.1.0.3.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.3.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0.3.0.0",
+        "tasksPage.1.0.3.0.1"
+      ]
+    },
+    {
+      "id": "tasksPage.1.0.3.1",
+      "name": "TaskStateRunning",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.3.1"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.3.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(59, 130, 246)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "800",
+        "lineHeight": "normal",
+        "border": "0px none rgb(59, 130, 246)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.3",
+      "name": "TaskItemCardTaskToResult",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.1.0.3"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.3"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "12px",
+        "padding": "16px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(255, 255, 255, 0.8)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgba(255, 255, 255, 0.78)",
+        "borderRadius": "24px",
+        "boxShadow": "rgba(16, 17, 20, 0.08) 0px 10px 24px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0.3.0",
+        "tasksPage.1.0.3.1"
+      ]
+    },
+    {
+      "id": "tasksPage.1.0.4.0.0",
+      "name": "H4",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.4.0.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.4.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 6px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.4.0.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.4.0.1"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.4.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(110, 110, 115)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "18.85px",
+        "border": "0px none rgb(110, 110, 115)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.4.0",
+      "name": "DIV",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.1.0.4.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.4.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0.4.0.0",
+        "tasksPage.1.0.4.0.1"
+      ]
+    },
+    {
+      "id": "tasksPage.1.0.4.1",
+      "name": "TaskStatePending",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.4.1"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.4.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 159, 10)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "800",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 159, 10)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.4",
+      "name": "TaskItemCardTaskToResult",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.1.0.4"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.4"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "12px",
+        "padding": "16px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(255, 255, 255, 0.8)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgba(255, 255, 255, 0.78)",
+        "borderRadius": "24px",
+        "boxShadow": "rgba(16, 17, 20, 0.08) 0px 10px 24px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0.4.0",
+        "tasksPage.1.0.4.1"
+      ]
+    },
+    {
+      "id": "tasksPage.1.0.5.0.0",
+      "name": "H4",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.5.0.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.5.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 6px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.5.0.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.5.0.1"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.5.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(110, 110, 115)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "18.85px",
+        "border": "0px none rgb(110, 110, 115)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.5.0",
+      "name": "DIV",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.1.0.5.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.5.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0.5.0.0",
+        "tasksPage.1.0.5.0.1"
+      ]
+    },
+    {
+      "id": "tasksPage.1.0.5.1",
+      "name": "TaskStateError",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "tasksPage.1.0.5.1"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.5.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 59, 48)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "800",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 59, 48)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "tasksPage.1.0.5",
+      "name": "TaskItemCardTaskToResult",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.1.0.5"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0.5"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "12px",
+        "padding": "16px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(255, 255, 255, 0.8)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgba(255, 255, 255, 0.78)",
+        "borderRadius": "24px",
+        "boxShadow": "rgba(16, 17, 20, 0.08) 0px 10px 24px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0.5.0",
+        "tasksPage.1.0.5.1"
+      ]
+    },
+    {
+      "id": "tasksPage.1.0",
+      "name": "TasksList",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.1.0"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "10px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64TranslationTaskCard",
+        "v64TranslationContactTaskCard",
+        "openCallFromTask",
+        "tasksPage.1.0.3",
+        "tasksPage.1.0.4",
+        "tasksPage.1.0.5"
+      ]
+    },
+    {
+      "id": "tasksPage.1",
+      "name": "Scroll",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage.1"
+      ],
+      "visualNodeRefs": [
+        "tasksPage.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 10px 24px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.1.0"
+      ]
+    },
+    {
+      "id": "tasksPage",
+      "name": "TasksPage",
+      "kind": "page",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "tasksPage"
+      ],
+      "visualNodeRefs": [
+        "tasksPage"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "tasksPage.0",
+        "tasksPage.1"
+      ]
+    },
+    {
+      "id": "pureVoicePage.0.0.0",
+      "name": "PvLogo",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pureVoicePage.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "18px",
+        "fontWeight": "800",
+        "lineHeight": "normal",
+        "border": "0px none rgb(26, 26, 26)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.0.0.1",
+      "name": "PvSubtitle",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pureVoicePage.0.0.1"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.0.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "2px 0px 0px",
+        "color": "rgb(143, 152, 168)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "11px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(143, 152, 168)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.0.0",
+      "name": "DIV",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.0.0.0",
+        "pureVoicePage.0.0.1"
+      ]
+    },
+    {
+      "id": "pvCloseBtn",
+      "name": "PvCloseBtn",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "pvCloseBtn"
+      ],
+      "visualNodeRefs": [
+        "pvCloseBtn"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(26, 26, 26)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "44px"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.0",
+      "name": "PvHeader",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "4px 22px 6px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.0.0",
+        "pvCloseBtn"
+      ]
+    },
+    {
+      "id": "pvSl1",
+      "name": "PvSl1",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pvSl1"
+      ],
+      "visualNodeRefs": [
+        "pvSl1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(10, 132, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "10px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(10, 132, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pvSl2",
+      "name": "PvSl2",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pvSl2"
+      ],
+      "visualNodeRefs": [
+        "pvSl2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(176, 184, 201)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "10px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(176, 184, 201)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pvSl3",
+      "name": "PvSl3",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pvSl3"
+      ],
+      "visualNodeRefs": [
+        "pvSl3"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(176, 184, 201)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "10px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(176, 184, 201)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pvSl4",
+      "name": "PvSl4",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pvSl4"
+      ],
+      "visualNodeRefs": [
+        "pvSl4"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(176, 184, 201)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "10px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(176, 184, 201)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.1.0",
+      "name": "StageLabels",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.1.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 8px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pvSl1",
+        "pvSl2",
+        "pvSl3",
+        "pvSl4"
+      ]
+    },
+    {
+      "id": "pvSb1",
+      "name": "PvSb1",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvSb1"
+      ],
+      "visualNodeRefs": [
+        "pvSb1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(90deg, rgb(10, 132, 255), rgb(52, 170, 255))",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.1.1.0",
+      "name": "StageBarTrack",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.1.1.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.1.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(232, 236, 242)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pvSb1"
+      ]
+    },
+    {
+      "id": "pvSb2",
+      "name": "PvSb2",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvSb2"
+      ],
+      "visualNodeRefs": [
+        "pvSb2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(90deg, rgb(10, 132, 255), rgb(52, 170, 255))",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.1.1.1",
+      "name": "StageBarTrack",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.1.1.1"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.1.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(232, 236, 242)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pvSb2"
+      ]
+    },
+    {
+      "id": "pvSb3",
+      "name": "PvSb3",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvSb3"
+      ],
+      "visualNodeRefs": [
+        "pvSb3"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(90deg, rgb(10, 132, 255), rgb(52, 170, 255))",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.1.1.2",
+      "name": "StageBarTrack",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.1.1.2"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.1.1.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(232, 236, 242)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pvSb3"
+      ]
+    },
+    {
+      "id": "pvSb4",
+      "name": "PvSb4",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvSb4"
+      ],
+      "visualNodeRefs": [
+        "pvSb4"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(90deg, rgb(10, 132, 255), rgb(52, 170, 255))",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.1.1.3",
+      "name": "StageBarTrack",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.1.1.3"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.1.1.3"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(232, 236, 242)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pvSb4"
+      ]
+    },
+    {
+      "id": "pureVoicePage.1.1",
+      "name": "StageBars",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.1.1"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "6px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.1.1.0",
+        "pureVoicePage.1.1.1",
+        "pureVoicePage.1.1.2",
+        "pureVoicePage.1.1.3"
+      ]
+    },
+    {
+      "id": "pureVoicePage.1",
+      "name": "StageSection",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.1"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "6px 22px 0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.1.0",
+        "pureVoicePage.1.1"
+      ]
+    },
+    {
+      "id": "pvLiveDot",
+      "name": "PvLiveDot",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvLiveDot"
+      ],
+      "visualNodeRefs": [
+        "pvLiveDot"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(10, 132, 255)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "border": "0px none rgb(10, 132, 255)",
+        "borderRadius": "50%",
+        "boxShadow": "none",
+        "opacity": "0.759414",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pvLiveText",
+      "name": "PvLiveText",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pvLiveText"
+      ],
+      "visualNodeRefs": [
+        "pvLiveText"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(10, 132, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "border": "0px none rgb(10, 132, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pvLiveIndicator",
+      "name": "PvLiveIndicator",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvLiveIndicator"
+      ],
+      "visualNodeRefs": [
+        "pvLiveIndicator"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "8px",
+        "padding": "12px 22px 0px",
+        "margin": "0px",
+        "color": "rgb(10, 132, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "border": "0px none rgb(10, 132, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pvLiveDot",
+        "pvLiveText"
+      ]
+    },
+    {
+      "id": "pureVoicePage.3.0.0",
+      "name": "AiGlow",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.3.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.3.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(circle, rgba(10, 132, 255, 0.22) 0%, rgba(10, 132, 255, 0.06) 50%, rgba(0, 0, 0, 0) 72%)",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "50%",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.3.0.1.0",
+      "name": "AiBar",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.3.0.1.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.3.0.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.3.0.1.1",
+      "name": "AiBar",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.3.0.1.1"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.3.0.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.3.0.1.2",
+      "name": "AiBar",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.3.0.1.2"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.3.0.1.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.3.0.1.3",
+      "name": "AiBar",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.3.0.1.3"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.3.0.1.3"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.3.0.1.4",
+      "name": "AiBar",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.3.0.1.4"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.3.0.1.4"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.3.0.1.5",
+      "name": "AiBar",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.3.0.1.5"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.3.0.1.5"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.3.0.1.6",
+      "name": "AiBar",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.3.0.1.6"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.3.0.1.6"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.3.0.1.7",
+      "name": "AiBar",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.3.0.1.7"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.3.0.1.7"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.3.0.1.8",
+      "name": "AiBar",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.3.0.1.8"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.3.0.1.8"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pvAiVisual",
+      "name": "PvAiVisual",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvAiVisual"
+      ],
+      "visualNodeRefs": [
+        "pvAiVisual"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "3px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.3.0.1.0",
+        "pureVoicePage.3.0.1.1",
+        "pureVoicePage.3.0.1.2",
+        "pureVoicePage.3.0.1.3",
+        "pureVoicePage.3.0.1.4",
+        "pureVoicePage.3.0.1.5",
+        "pureVoicePage.3.0.1.6",
+        "pureVoicePage.3.0.1.7",
+        "pureVoicePage.3.0.1.8"
+      ]
+    },
+    {
+      "id": "pureVoicePage.3.0",
+      "name": "AiIconWrap",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.3.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.3.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.3.0.0",
+        "pvAiVisual"
+      ]
+    },
+    {
+      "id": "pvAiStateArea",
+      "name": "PvAiStateArea",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvAiStateArea"
+      ],
+      "visualNodeRefs": [
+        "pvAiStateArea"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "normal",
+        "padding": "8px 0px 4px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.3.0"
+      ]
+    },
+    {
+      "id": "pvThread",
+      "name": "PvThread",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvThread"
+      ],
+      "visualNodeRefs": [
+        "pvThread"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "10px",
+        "padding": "18px 22px 136px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0.16) 12px, rgba(0, 0, 0, 0.48) 28px, rgb(0, 0, 0) 52px)",
+        "webkitMaskImage": "linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0.16) 12px, rgba(0, 0, 0, 0.48) 28px, rgb(0, 0, 0) 52px)",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.4.0",
+      "name": "ThreadArea",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "12px 0px 0px",
+        "margin": "-12px 0px 0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pvThread"
+      ]
+    },
+    {
+      "id": "pureVoicePage.4.1",
+      "name": "PvInputBackdrop",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.1"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(248, 249, 252, 0.08)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 8%, rgb(0, 0, 0) 16%)",
+        "webkitMaskImage": "linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 8%, rgb(0, 0, 0) 16%)",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.4.2.0.0.0",
+      "name": "PvModelName",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(95, 107, 122)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "850",
+        "lineHeight": "16px",
+        "border": "0px none rgb(95, 107, 122)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.4.2.0.0.1.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.0.0.1.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.0.0.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(138, 148, 166)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "850",
+        "lineHeight": "16px",
+        "border": "0px none rgb(138, 148, 166)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.4.2.0.0.1",
+      "name": "PvModelArrow",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.0.0.1"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.0.0.1"
+      ],
+      "assetRefs": [
+        "conversation_0"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(138, 148, 166)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "850",
+        "lineHeight": "16px",
+        "border": "0px none rgb(138, 148, 166)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.0.0.1.0"
+      ]
+    },
+    {
+      "id": "taskVoiceModelChip",
+      "name": "TaskVoiceModelChip",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "taskVoiceModelChip"
+      ],
+      "visualNodeRefs": [
+        "taskVoiceModelChip"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "3px",
+        "padding": "5px 10px",
+        "margin": "0px",
+        "color": "rgb(95, 107, 122)",
+        "backgroundColor": "rgba(255, 255, 255, 0.7)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "850",
+        "lineHeight": "16px",
+        "border": "1px solid rgba(255, 255, 255, 0.7)",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.0.0.0",
+        "pureVoicePage.4.2.0.0.1"
+      ]
+    },
+    {
+      "id": "pureVoicePage.4.2.0",
+      "name": "PvInputModelRow",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 0px 4px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "taskVoiceModelChip"
+      ]
+    },
+    {
+      "id": "pureVoicePage.4.2.1.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.1.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.1.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(15, 23, 42)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(15, 23, 42)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.4.2.1.0",
+      "name": "Svg",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.1.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.1.0"
+      ],
+      "assetRefs": [
+        "conversation_1"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(15, 23, 42)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(15, 23, 42)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.1.0.0"
+      ]
+    },
+    {
+      "id": "pvPlusBtn",
+      "name": "PvPlusBtn",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "pvPlusBtn"
+      ],
+      "visualNodeRefs": [
+        "pvPlusBtn"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "1px 6px",
+        "margin": "0px",
+        "color": "rgb(15, 23, 42)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(15, 23, 42)",
+        "borderRadius": "50%",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.1.0"
+      ]
+    },
+    {
+      "id": "pureVoicePage.4.2.2.0.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.2.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.2.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(15, 23, 42)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(15, 23, 42)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.4.2.2.0.0",
+      "name": "Svg",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.2.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.2.0.0"
+      ],
+      "assetRefs": [
+        "conversation_2"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(15, 23, 42)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(15, 23, 42)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.2.0.0.0"
+      ]
+    },
+    {
+      "id": "pvVoiceMiniBtn",
+      "name": "PvVoiceMiniBtn",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "pvVoiceMiniBtn"
+      ],
+      "visualNodeRefs": [
+        "pvVoiceMiniBtn"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "1px 6px",
+        "margin": "0px",
+        "color": "rgb(15, 23, 42)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(15, 23, 42)",
+        "borderRadius": "50%",
+        "boxShadow": "none",
+        "opacity": "0",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.2.0.0"
+      ]
+    },
+    {
+      "id": "pureVoicePage.4.2.2.1.0.0",
+      "name": "Rect",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.2.1.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.2.1.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.4.2.2.1.0",
+      "name": "StopIcon",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.2.1.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.2.1.0"
+      ],
+      "assetRefs": [
+        "conversation_3"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.2.1.0.0"
+      ]
+    },
+    {
+      "id": "pvControlBtn",
+      "name": "PvControlBtn",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "pvControlBtn"
+      ],
+      "visualNodeRefs": [
+        "pvControlBtn"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "1px 6px",
+        "margin": "0px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(135deg, rgb(33, 150, 243), rgb(25, 118, 210))",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(0, 0, 0)",
+        "borderRadius": "50%",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.2.1.0"
+      ]
+    },
+    {
+      "id": "pureVoicePage.4.2.2",
+      "name": "PvVoiceStack",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.2"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pvVoiceMiniBtn",
+        "pvControlBtn"
+      ]
+    },
+    {
+      "id": "pureVoicePage.4.2.3.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.3.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.3.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(15, 23, 42)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(15, 23, 42)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.4.2.3.0",
+      "name": "Svg",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.3.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.3.0"
+      ],
+      "assetRefs": [
+        "conversation_4"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(15, 23, 42)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(15, 23, 42)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.3.0.0"
+      ]
+    },
+    {
+      "id": "pvTextToggleBtn",
+      "name": "PvTextToggleBtn",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "pvTextToggleBtn"
+      ],
+      "visualNodeRefs": [
+        "pvTextToggleBtn"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "1px 6px",
+        "margin": "0px",
+        "color": "rgb(15, 23, 42)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(15, 23, 42)",
+        "borderRadius": "50%",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.3.0"
+      ]
+    },
+    {
+      "id": "pvTextInput",
+      "name": "PvTextInput",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvTextInput"
+      ],
+      "visualNodeRefs": [
+        "pvTextInput"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 16px",
+        "margin": "0px",
+        "color": "rgb(17, 24, 39)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 24, 39)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.4.2.4.1.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.4.1.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.4.1.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.4.2.4.1.0",
+      "name": "Svg",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4.2.4.1.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4.2.4.1.0"
+      ],
+      "assetRefs": [
+        "conversation_5"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.4.1.0.0"
+      ]
+    },
+    {
+      "id": "pvTextSendBtn",
+      "name": "PvTextSendBtn",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "pvTextSendBtn"
+      ],
+      "visualNodeRefs": [
+        "pvTextSendBtn"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "1px 6px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(135deg, rgb(33, 150, 243), rgb(25, 118, 210))",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "50%",
+        "boxShadow": "none",
+        "opacity": "0.36",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.4.1.0"
+      ]
+    },
+    {
+      "id": "pvTextComposer",
+      "name": "PvTextComposer",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvTextComposer"
+      ],
+      "visualNodeRefs": [
+        "pvTextComposer"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "6px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(243, 246, 251)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgba(226, 232, 240, 0.9)",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "opacity": "0",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pvTextInput",
+        "pvTextSendBtn"
+      ]
+    },
+    {
+      "id": "pvToast",
+      "name": "PvToast",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvToast"
+      ],
+      "visualNodeRefs": [
+        "pvToast"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "8px 12px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(17, 24, 39, 0.86)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "opacity": "0",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pvInputDock",
+      "name": "PvInputDock",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvInputDock"
+      ],
+      "visualNodeRefs": [
+        "pvInputDock"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "normal",
+        "padding": "10px 18px 24px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.2.0",
+        "pvPlusBtn",
+        "pureVoicePage.4.2.2",
+        "pvTextToggleBtn",
+        "pvTextComposer",
+        "pvToast"
+      ]
+    },
+    {
+      "id": "pureVoicePage.4",
+      "name": "PvConversationStack",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.4"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.4"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.4.0",
+        "pureVoicePage.4.1",
+        "pvInputDock"
+      ]
+    },
+    {
+      "id": "pvAttachmentSheetBackdrop",
+      "name": "PvAttachmentSheetBackdrop",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvAttachmentSheetBackdrop"
+      ],
+      "visualNodeRefs": [
+        "pvAttachmentSheetBackdrop"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.5.1.0",
+      "name": "PvSheetHandle",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.5.1.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.5.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 147px 14px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(216, 222, 232)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pvAttachmentSheetTitle",
+      "name": "PvAttachmentSheetTitle",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pvAttachmentSheetTitle"
+      ],
+      "visualNodeRefs": [
+        "pvAttachmentSheetTitle"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 16px",
+        "color": "rgb(17, 24, 39)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "800",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 24, 39)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.5.1.2.0.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.5.1.2.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.5.1.2.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(10, 132, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(10, 132, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.5.1.2.0.0",
+      "name": "Svg",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.5.1.2.0.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.5.1.2.0.0"
+      ],
+      "assetRefs": [
+        "conversation_6"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(10, 132, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(10, 132, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.5.1.2.0.0.0"
+      ]
+    },
+    {
+      "id": "pureVoicePage.5.1.2.0",
+      "name": "PvSheetItemIcon",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.5.1.2.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.5.1.2.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(10, 132, 255)",
+        "backgroundColor": "rgba(10, 132, 255, 0.12)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(10, 132, 255)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.5.1.2.0.0"
+      ]
+    },
+    {
+      "id": "pureVoicePage.5.1.2.1.0",
+      "name": "STRONG",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pureVoicePage.5.1.2.1.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.5.1.2.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 24, 39)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "15px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 24, 39)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.5.1.2.1.1",
+      "name": "SPAN",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pureVoicePage.5.1.2.1.1"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.5.1.2.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "3px 0px 0px",
+        "color": "rgb(107, 114, 128)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(107, 114, 128)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.5.1.2.1",
+      "name": "PvSheetItemCopy",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.5.1.2.1"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.5.1.2.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(0, 0, 0)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.5.1.2.1.0",
+        "pureVoicePage.5.1.2.1.1"
+      ]
+    },
+    {
+      "id": "pvSheetAlbumBtn",
+      "name": "PvSheetAlbumBtn",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "pvSheetAlbumBtn"
+      ],
+      "visualNodeRefs": [
+        "pvSheetAlbumBtn"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "12px",
+        "padding": "14px",
+        "margin": "0px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgb(248, 251, 255)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(0, 0, 0)",
+        "borderRadius": "18px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.5.1.2.0",
+        "pureVoicePage.5.1.2.1"
+      ]
+    },
+    {
+      "id": "pureVoicePage.5.1",
+      "name": "PvSheetCard",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.5.1"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.5.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "14px 16px 26px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "24px 24px 0px 0px",
+        "boxShadow": "rgba(15, 23, 42, 0.16) 0px -20px 40px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.5.1.0",
+        "pvAttachmentSheetTitle",
+        "pvSheetAlbumBtn"
+      ]
+    },
+    {
+      "id": "pvAttachmentSheet",
+      "name": "PvAttachmentSheet",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvAttachmentSheet"
+      ],
+      "visualNodeRefs": [
+        "pvAttachmentSheet"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(15, 23, 42, 0.24)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "0",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pvAttachmentSheetBackdrop",
+        "pureVoicePage.5.1"
+      ]
+    },
+    {
+      "id": "pvImagePickerBackdrop",
+      "name": "PvImagePickerBackdrop",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvImagePickerBackdrop"
+      ],
+      "visualNodeRefs": [
+        "pvImagePickerBackdrop"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.6.1.0",
+      "name": "PvSheetHandle",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.6.1.0"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.6.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 147px 14px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(216, 222, 232)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "999px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pvImagePickerTitle",
+      "name": "PvImagePickerTitle",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "pvImagePickerTitle"
+      ],
+      "visualNodeRefs": [
+        "pvImagePickerTitle"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 16px",
+        "color": "rgb(17, 24, 39)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "800",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 24, 39)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pvImagePickerGrid",
+      "name": "PvImagePickerGrid",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvImagePickerGrid"
+      ],
+      "visualNodeRefs": [
+        "pvImagePickerGrid"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "10px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "162px 162px"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "pureVoicePage.6.1",
+      "name": "PvPickerCard",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage.6.1"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage.6.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "14px 16px 26px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "24px 24px 0px 0px",
+        "boxShadow": "rgba(15, 23, 42, 0.16) 0px -20px 40px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.6.1.0",
+        "pvImagePickerTitle",
+        "pvImagePickerGrid"
+      ]
+    },
+    {
+      "id": "pvImagePicker",
+      "name": "PvImagePicker",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pvImagePicker"
+      ],
+      "visualNodeRefs": [
+        "pvImagePicker"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(15, 23, 42, 0.24)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "0",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pvImagePickerBackdrop",
+        "pureVoicePage.6.1"
+      ]
+    },
+    {
+      "id": "pureVoicePage",
+      "name": "PureVoicePage",
+      "kind": "page",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "pureVoicePage"
+      ],
+      "visualNodeRefs": [
+        "pureVoicePage"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "pureVoicePage.0",
+        "pureVoicePage.1",
+        "pvLiveIndicator",
+        "pvAiStateArea",
+        "pureVoicePage.4",
+        "pvAttachmentSheet",
+        "pvImagePicker"
+      ]
+    }
+  ]
+}

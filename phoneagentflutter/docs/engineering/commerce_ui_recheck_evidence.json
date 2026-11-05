@@ -1,0 +1,49 @@
+{
+  "updated_at": "2026-10-13T01:40:57.163792",
+  "branch": "codex/story1837-membership-commerce",
+  "demo_sha": "7e7bd38aa006a48a21dc01e8be500396d5a39c9c",
+  "tests": {
+    "scope": {
+      "passed": 291,
+      "log": "D:\\Temp\\story1837-ui-final-tests.log"
+    },
+    "last_layout": {
+      "passed": 50,
+      "log": "D:\\Temp\\story1837-ui-final-refinement.log"
+    },
+    "price_contract": {
+      "passed": 11,
+      "log": "D:\\Temp\\story1837-ui-reference-price-green.log"
+    },
+    "keyboard": {
+      "passed": 3,
+      "log": "D:\\Temp\\story1837-ui-keyboard.log"
+    }
+  },
+  "test_sets_overlap": true,
+  "analyze": "No issues found",
+  "openspec": {
+    "mode": "all_non_strict",
+    "passed": 94,
+    "failed": 0,
+    "current_changes_strict": "PASS",
+    "all_strict": {
+      "passed": 90,
+      "failed": 4,
+      "reason": "Unchanged baseline spec Purpose sections shorter than 50 characters"
+    }
+  },
+  "text_checks": {
+    "files": 40,
+    "utf8": "PASS",
+    "private_value_match": "NONE"
+  },
+  "screenshots": {
+    "directory": "output/commerce1837/ui-recheck",
+    "png_count": 111,
+    "synthetic": true
+  },
+  "business_database_migration": "NOT_RUN",
+  "push": "NOT_RUN",
+  "ios_current_build": "NOT_RUN_MAC_UNREACHABLE"
+}

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0",
+  "sourceSnapshotRef": "SourceSnapshot.json",
+  "root": {"id": "attachment-overlay", "kind": "overlay", "children": [
+    {"id": "card", "source": "#pvAttachmentSheet .pv-sheet-card", "kind": "vertical", "children": [
+      {"id": "handle", "kind": "decoration", "implemented": false},
+      {"id": "title", "kind": "text", "text": "添加内容"},
+      {"id": "album", "kind": "action-row", "text": "相册", "children": [{"id": "album-svg", "kind": "asset"}, {"id": "album-subtitle", "kind": "text", "text": "识别图片中的联系方式和文字"}]},
+      {"id": "document", "kind": "action-row", "behaviorSource": "v65 PureVoiceAttachmentSheet", "text": "文档", "children": [{"id": "document-icon", "kind": "material-icon"}, {"id": "document-subtitle", "kind": "text", "text": "导入 Word 或 Excel 资料"}]}
+    ]}
+  ]},
+  "excluded": ["mock-image-gallery", "system-status-bar", "home-indicator", "native-picker-internals"],
+  "implementationExtensions": ["close button", "document progress sheet", "debug-only MOCK scenarios"]
+}

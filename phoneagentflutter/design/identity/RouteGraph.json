@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:51:47.944Z",
+  "targetPlatform": "flutter",
+  "initialRoute": "identity-empty",
+  "nodes": [
+    {
+      "routeId": "identity-empty",
+      "sourceNodeId": "identity-empty",
+      "name": "identity-empty",
+      "module": "identity",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "identity-filled",
+      "sourceNodeId": "identity-filled",
+      "name": "identity-filled",
+      "module": "identity",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "identity-verified",
+      "sourceNodeId": "identity-verified",
+      "name": "identity-verified",
+      "module": "identity",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "identity-edit",
+      "sourceNodeId": "identity-edit",
+      "name": "identity-edit",
+      "module": "identity",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    },
+    {
+      "routeId": "identity-delete",
+      "sourceNodeId": "identity-delete",
+      "name": "identity-delete",
+      "module": "identity",
+      "kind": "dialog",
+      "baseRouteId": "identity-verified",
+      "overlayKind": "dialog",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edgeId": "v63IdentityBack",
+      "sourceRouteId": "identity-empty",
+      "targetRouteId": "back",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "v63AddIdentity",
+      "sourceRouteId": "identity-empty",
+      "targetRouteId": "identity-edit",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "v63EditIdentity",
+      "sourceRouteId": "identity-filled",
+      "targetRouteId": "identity-edit",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "v63DeleteIdentity",
+      "sourceRouteId": "identity-filled",
+      "targetRouteId": "identity-delete",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "v63VerifyIdentity",
+      "sourceRouteId": "identity-filled",
+      "targetRouteId": "model-settings",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "v63IdentityName",
+      "sourceRouteId": "identity-edit",
+      "targetRouteId": "edit-name",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "v63IdentityMobile",
+      "sourceRouteId": "identity-edit",
+      "targetRouteId": "edit-phone",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "myIdentityPage.1.0.0.2.1",
+      "sourceRouteId": "identity-edit",
+      "targetRouteId": "gender",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "myIdentityPage.1.0.0.3.1",
+      "sourceRouteId": "identity-edit",
+      "targetRouteId": "save",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "v63IdentityCancel",
+      "sourceRouteId": "identity-edit",
+      "targetRouteId": "cancel-edit",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "v63Cancel",
+      "sourceRouteId": "identity-delete",
+      "targetRouteId": "dismiss",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "v63Confirm",
+      "sourceRouteId": "identity-delete",
+      "targetRouteId": "delete",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    }
+  ],
+  "coverage": {
+    "totalScreens": 5,
+    "connectedScreens": 5,
+    "coverageRatio": 1
+  }
+}

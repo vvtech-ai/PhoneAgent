@@ -1,0 +1,7 @@
+# 实施范围
+
+领域目录以已验证的configVersionId=0、空products/benefits表示未发布。Controller保留目录与会员读取，空商品目录不请求原生支付商品；非空停售SKU保留原StoreKit本地价读取路径。页面渲染真实未配置空态，不造默认权益或报价。Android原订单处理经订单入口进入，底部不展示恢复购买；iOS依据现有requiresPlatformProducts标记保留旧Apple交易恢复入口，即使当前目录未发布。
+
+MembershipPage、CatalogController及对应回归由会员子任务负责；CommerceOrdersPage仅展示已有订单时的横滑操作，永久移除文字提示，root负责。数据解析发现实际契约差异须先用服务器literal重现，不以吞掉异常替代修复。
+
+Root独占Flutter测试/analyze/build，按每批最多3业务文件执行。375/390/430及2×字号、合法空目录、真实错误、空订单与非空横滑需验证。设备包同签名保留数据；未登录不伪造业务成功。

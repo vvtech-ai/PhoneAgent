@@ -1,0 +1,12 @@
+## Context
+原生对照FinalOtaUpdateInstaller.nextInstallRequest验证实际文件可用后交FileProvider；旧实现另有可选摘要比较，按本次用户明确指令不迁移该门禁。当前Flutter在Controller两次inspect，Android verifiedFile又检查，版本比较虽然已移除，其他字段仍会阻止交接。OPPO截图能确认按钮间异常边缘，源码没有显式分割线，尚无该设备GPU渲染的确定根因证据。
+
+## Decisions
+1. 下载状态为downloaded后直接ready；用户主动下载可自动打开系统安装器，恢复任务须新动作。不再调用inspect，删除本轮因此成为孤儿的证据DTO与检查方法。保留实际安装权限、下载任务所有权、取消与账号代次守卫。
+2. Android仅将自有完成下载文件完整暂存至私有路径，由FileProvider授权系统读取，不调用getPackageArchiveInfo或比较APK版本/包名/签名/后台大小/摘要。安装完成追踪仍可记录目标文件实际摘要，但只用于安装后的证据核对，摘要记录失败不阻止打开安装器，不与后台元数据比较。
+3. OTA专用NativeUpdateActions负责按钮绘制，以单个受圆角裁剪的Material/Ink背景绘制渐变、等宽等高和明确空白。NativeBusinessDialog只增加可选actions插槽，默认按钮与其他业务弹窗保持现状；NativeUpdateDialog复用该按钮栏覆盖全部OTA入口。保留强更隐藏稍后与返回限制。
+4. 不扩大到移除HTTP响应类型、下载URL/请求头格式、scope/job/路径检查。它们用于接线与下载归属，不判断APK是否可安装。系统安装失败交系统提示，不声称可绕过系统版本/签名策略。
+5. 已就绪下载的记录被移除、文件丢失或为空时，Android通过OTA_FILE_UNAVAILABLE映射到领域异常，页面进入failed，下一次操作清理旧job并重新下载；安装权限或系统Intent失败保留安装重试。
+
+## Verification
+先以当前Port.inspect抛错/不兼容证据写RED，要求仍交接系统；回归恢复、重复点击、取消/切号、来源授权和系统返回。原生纯文件暂存用非APK字节验证不解析包；安装完成证据继续回归。UI用像素边界与布局测试覆盖分数像素比、等高间距和大字。按模块与直接调用方测试、analyze/OpenSpec/UTF8/diff验证；OPPO/小米真实渲染和系统安装需真机环境验收，日志不足部分如实保留。

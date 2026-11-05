@@ -1,0 +1,50 @@
+{
+  "referenceCommit": "bb9ff34966f40a3c2794a9a8b8e935669a9faa12",
+  "images": [
+    {
+      "file": "call_credentials_bg_icon.png",
+      "sha256": "5c8c703b4b00f14f52f63adb0646416aacabedb647cb0901bfba43f6f3dfb8ca",
+      "source": "ios/TrustedCallerSDK/Resources/call_credentials_bg_icon.png"
+    },
+    {
+      "file": "call_credentials_home_icon.png",
+      "sha256": "c1eaecf4f39b50b2a90d4235bf0b05b72f58506d9dd35d868b093de95f22053b",
+      "source": "ios/TrustedCallerSDK/Resources/call_credentials_home_icon.png"
+    },
+    {
+      "file": "id_card_ca_image.png",
+      "sha256": "0a2d147becd11bb50ea73a4237e75cf31235c79723433ef3bc7107bb3452296d",
+      "source": "ios/TrustedCallerSDK/Resources/id_card_ca_image.png"
+    },
+    {
+      "file": "id_card_chaken_image.png",
+      "sha256": "6ebd51ae5ffffbf802b30f7a15349a88b9ad7fdd157dd880580bea84fee3ce5c",
+      "source": "ios/TrustedCallerSDK/Resources/id_card_chaken_image.png"
+    },
+    {
+      "file": "id_card_tag1_image.png",
+      "sha256": "586a0b6eea0ad78de21915f8cbe330cfea6f9b8ced4637a3cf9addc33bca0471",
+      "source": "ios/TrustedCallerSDK/Resources/id_card_tag1_image.png"
+    },
+    {
+      "file": "id_card_tag2_image.png",
+      "sha256": "e57bca9a115fa74665278af8132e5b563042ae3ba5a769294653642f6af094e8",
+      "source": "ios/TrustedCallerSDK/Resources/id_card_tag2_image.png"
+    },
+    {
+      "file": "id_card_title_image.png",
+      "sha256": "21de0e4fc7f3b05066d0f36f2eee000ef6bc3ce9aba96a69f106a8b07e2a72f3",
+      "source": "ios/TrustedCallerSDK/Resources/id_card_title_image.png"
+    },
+    {
+      "file": "id_card_view_image.png",
+      "sha256": "97ab411343991c2b11d4e7abe051bf5bbb33b7c8c054ccde2eeddc0225273f47",
+      "source": "ios/TrustedCallerSDK/Resources/id_card_view_image.png"
+    },
+    {
+      "file": "identity_card_avatar_default.png",
+      "sha256": "1c648986048a3884977ad16fec7f38cc862b150f26dbbaea0f281882a2120405",
+      "source": "ios/TrustedCallerSDK/Resources/identity_card_avatar_default.png"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Let Android own the splash icon size. The initial Flutter frame is held
+     until local session restoration finishes, so no second icon is shown. -->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="fill"
+    android:src="@drawable/launch_wave" />

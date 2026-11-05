@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T04:47:53.865Z",
+  "targetPlatform": "flutter",
+  "interactions": [
+    {
+      "id": "loginPhone",
+      "interactionId": "loginPhone",
+      "triggerNodeId": "loginPhone",
+      "controlRole": "input",
+      "actionType": "updateInput",
+      "eventType": "input",
+      "sourceRouteId": "loginPage",
+      "targetRouteId": "loginPage",
+      "hitArea": {
+        "x": 86.921875,
+        "y": 438.984375,
+        "width": 260.078125,
+        "height": 20
+      },
+      "source": "manual",
+      "confidence": "high",
+      "testTag": "loginPhone",
+      "description": "输入手机号",
+      "runtimeBinding": "TextField.onChanged or Button.onPressed",
+      "expectedResult": {
+        "behavior": "输入手机号",
+        "conditional": null
+      },
+      "evidence": "HTML visual + v65 behavior"
+    },
+    {
+      "id": "loginCode",
+      "interactionId": "loginCode",
+      "triggerNodeId": "loginCode",
+      "controlRole": "input",
+      "actionType": "updateInput",
+      "eventType": "input",
+      "sourceRouteId": "loginPage",
+      "targetRouteId": "loginPage",
+      "hitArea": {
+        "x": 43,
+        "y": 508.984375,
+        "width": 182,
+        "height": 20
+      },
+      "source": "manual",
+      "confidence": "high",
+      "testTag": "loginCode",
+      "description": "输入4–8位验证码",
+      "runtimeBinding": "TextField.onChanged or Button.onPressed",
+      "expectedResult": {
+        "behavior": "输入4–8位验证码",
+        "conditional": null
+      },
+      "evidence": "HTML visual + v65 behavior"
+    },
+    {
+      "id": "loginGetCode",
+      "interactionId": "loginGetCode",
+      "triggerNodeId": "loginGetCode",
+      "controlRole": "formSubmit",
+      "actionType": "submit",
+      "eventType": "click",
+      "sourceRouteId": "loginPage",
+      "targetRouteId": "loginPage",
+      "hitArea": {
+        "x": 225,
+        "y": 490.984375,
+        "width": 122,
+        "height": 56
+      },
+      "source": "manual",
+      "confidence": "high",
+      "testTag": "loginGetCode",
+      "description": "发送验证码",
+      "runtimeBinding": "TextField.onChanged or Button.onPressed",
+      "expectedResult": {
+        "behavior": "发送验证码",
+        "conditional": null
+      },
+      "evidence": "HTML visual + v65 behavior"
+    },
+    {
+      "id": "loginBtn",
+      "interactionId": "loginBtn",
+      "triggerNodeId": "loginBtn",
+      "controlRole": "formSubmit",
+      "actionType": "submit",
+      "eventType": "click",
+      "sourceRouteId": "loginPage",
+      "targetRouteId": "activationPage",
+      "hitArea": {
+        "x": 42,
+        "y": 567.984375,
+        "width": 306,
+        "height": 49
+      },
+      "source": "manual",
+      "confidence": "high",
+      "testTag": "loginBtn",
+      "description": "登录；仅服务结果要求时进入邀请码",
+      "runtimeBinding": "TextField.onChanged or Button.onPressed",
+      "expectedResult": {
+        "behavior": "登录；仅服务结果要求时进入邀请码",
+        "conditional": "gateway.inviteRequired"
+      },
+      "evidence": "HTML visual + v65 behavior"
+    },
+    {
+      "id": "activationCodeInput",
+      "interactionId": "activationCodeInput",
+      "triggerNodeId": "activationCodeInput",
+      "controlRole": "input",
+      "actionType": "updateInput",
+      "eventType": "input",
+      "sourceRouteId": "activationPage",
+      "targetRouteId": "activationPage",
+      "hitArea": {
+        "x": 43,
+        "y": 473.984375,
+        "width": 304,
+        "height": 20
+      },
+      "source": "manual",
+      "confidence": "high",
+      "testTag": "activationCodeInput",
+      "description": "输入邀请码",
+      "runtimeBinding": "TextField.onChanged or Button.onPressed",
+      "expectedResult": {
+        "behavior": "输入邀请码",
+        "conditional": null
+      },
+      "evidence": "HTML visual + v65 behavior"
+    },
+    {
+      "id": "activationBtn",
+      "interactionId": "activationBtn",
+      "triggerNodeId": "activationBtn",
+      "controlRole": "formSubmit",
+      "actionType": "submit",
+      "eventType": "click",
+      "sourceRouteId": "activationPage",
+      "targetRouteId": "activationPage",
+      "hitArea": {
+        "x": 42,
+        "y": 532.984375,
+        "width": 306,
+        "height": 49
+      },
+      "source": "manual",
+      "confidence": "high",
+      "testTag": "activationBtn",
+      "description": "提交邀请码及challenge",
+      "runtimeBinding": "TextField.onChanged or Button.onPressed",
+      "expectedResult": {
+        "behavior": "提交邀请码及challenge",
+        "conditional": null
+      },
+      "evidence": "HTML visual + v65 behavior"
+    },
+    {
+      "id": "backLogin",
+      "interactionId": "backLogin",
+      "triggerNodeId": "V88AuthPages.onBackLogin",
+      "controlRole": "back",
+      "actionType": "back",
+      "eventType": "click",
+      "sourceRouteId": "activationPage",
+      "targetRouteId": "loginPage",
+      "hitArea": {
+        "x": 151,
+        "y": 570,
+        "width": 88,
+        "height": 48
+      },
+      "source": "manual",
+      "confidence": "high",
+      "testTag": "backLogin",
+      "description": "返回登录；来自v65 onBackLogin",
+      "runtimeBinding": "TextField.onChanged or Button.onPressed",
+      "expectedResult": {
+        "behavior": "返回登录；来自v65 onBackLogin",
+        "conditional": null
+      },
+      "evidence": "v65 production code"
+    }
+  ]
+}

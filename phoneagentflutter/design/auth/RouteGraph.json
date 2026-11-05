@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T04:47:53.865Z",
+  "targetPlatform": "flutter",
+  "initialRoute": "loginPage",
+  "nodes": [
+    {
+      "routeId": "loginPage",
+      "sourceNodeId": "loginPage",
+      "name": "loginPage",
+      "module": "auth",
+      "kind": "form",
+      "states": [
+        "idle",
+        "submitting",
+        "error"
+      ],
+      "additionalStates": [
+        "sendingCode",
+        "cooldown"
+      ]
+    },
+    {
+      "routeId": "activationPage",
+      "sourceNodeId": "activationPage",
+      "name": "activationPage",
+      "module": "auth",
+      "kind": "form",
+      "states": [
+        "idle",
+        "submitting",
+        "error"
+      ],
+      "additionalStates": [
+        "inviteRequired"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edgeId": "requireInvite",
+      "sourceRouteId": "loginPage",
+      "targetRouteId": "activationPage",
+      "eventType": "submit",
+      "source": "manual",
+      "confidence": "high",
+      "reason": "gateway.inviteRequired"
+    },
+    {
+      "edgeId": "backLogin",
+      "sourceRouteId": "activationPage",
+      "targetRouteId": "loginPage",
+      "eventType": "back",
+      "source": "manual",
+      "confidence": "high",
+      "reason": "backLogin or systemBack"
+    }
+  ],
+  "coverage": {
+    "totalScreens": 2,
+    "connectedScreens": 2,
+    "coverageRatio": 1
+  },
+  "strategy": "auth-local back state guarded with PopScope; outer go_router unchanged"
+}

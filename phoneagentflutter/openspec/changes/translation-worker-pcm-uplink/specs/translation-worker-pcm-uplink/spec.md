@@ -1,0 +1,20 @@
+## ADDED Requirements
+### Requirement: PCM上行必须使用单一工作线程
+系统 MUST 在独立工作线程统一执行PCM缓冲、可选混音、20ms取帧、编码及RTP发送，默认160ms预缓冲且队列有界，完成短句可排空。
+#### Scenario: 主线程卡顿
+- **WHEN** 主线程短时阻塞且工作线程已有音频
+- **THEN** 持续输出已缓冲真实音频而非以静音代替
+#### Scenario: 按键及结束
+- **WHEN** 发送DTMF或结束通话
+- **THEN** 维持事件时序并停止出帧、释放端口且允许幂等关闭
+### Requirement: 欠载必须与正常等待区分
+系统 MUST 区分未完成语音的欠载和完成语句后的等待，仅导出固定数值统计。
+#### Scenario: 短句播放完毕
+- **WHEN** 收到完成边界且音频排空
+- **THEN** 正常静音不计为播放中欠载，不导出音频内容或敏感信息
+
+### Requirement: 双端测试包必须可保留数据安装
+测试包 MUST 保持既定测试身份及签名，iOS扩展包含有效CFBundleName，不以卸载绕过安装错误。
+#### Scenario: 扩展元数据缺失
+- **WHEN** iOS拒绝安装并报告MissingBundleNameString
+- **THEN** 核实旧应用仍在，补齐标准元数据后重建覆盖安装

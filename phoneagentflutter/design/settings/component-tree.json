@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0", "generatedAt": "2026-09-17", "id": "settings-components",
+  "source": "memory/index.html#settingsPage and #translationOriginalAudioPage; v65 FinalSettingsHomePage / DomesticTranslationAudioSettingsCard / AssistantDeveloperToolsPage",
+  "systemInsets": "platform SafeArea", "runtimeFillPolicy": "fillAvailableViewport",
+  "excludedSystemNodes": ["statusBar", "homeIndicator", "systemKeyboard"],
+  "components": [
+    {"id":"settings-header","visualNodeRefs":["settingsPage .flow-title"],"layoutSpec":{"horizontalPadding":22},"styleSpec":{"reuse":"ShellTokens.title"},"assetRefs":[],"fidelityRisk":"static, not measured"},
+    {"id":"settings-card","visualNodeRefs":["settingsPage .setting-item.card"],"layoutSpec":{"padding":16,"gap":12},"styleSpec":{"reuse":"ShellTokens.cardDecoration","radius":24},"assetRefs":["identity-back"],"fidelityRisk":"existing component reused; text and icon alignment pending"},
+    {"id":"original-audio-form","visualNodeRefs":["translationOriginalAudioPage .v633-toggle-card","v65 OriginalAudioSettings"],"layoutSpec":{"padding":16,"scroll":true},"styleSpec":{"reuse":"ShellTokens"},"assetRefs":[],"fidelityRisk":"v65 sliders absent in HTML; behavior takes precedence"},
+    {"id":"settings-dialog","visualNodeRefs":["auth.js logout confirmation","v65 dialogs"],"layoutSpec":{"platformDialog":true},"styleSpec":{"reuse":"existing AlertDialog theme"},"assetRefs":[],"fidelityRisk":"platform visual difference allowed"}
+  ]
+}

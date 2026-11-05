@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_clone_face_loading_title">人脸认证页面加载中</string>
+    <string name="voice_clone_face_loading_detail">首次加载认证资源可能需要十几秒，请保持网络畅通并耐心等待。\n加载完成后将自动进入人脸跟读认证。</string>
+    <string name="voice_clone_face_agreement_title">协议内容</string>
+    <string name="voice_clone_face_back">返回</string>
+    <string name="voice_clone_face_close">关闭</string>
+</resources>

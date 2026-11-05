@@ -1,0 +1,68 @@
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+import java.nio.file.Files
+
+// Only root local.properties supplies trusted credentials; cloud JSON is business configuration.
+def environment = System.getenv('PHONEAGENT_ANDROID_ENV') ?: 'dev'
+if (!(environment in ['dev', 'test', 'pro'])) {
+    throw new GradleException('PHONEAGENT_ANDROID_ENV 仅允许 dev/test/pro。')
+}
+def repo = rootProject.projectDir.parentFile.toPath().toAbsolutePath().normalize()
+def configPath = repo.resolve(".local/cloud-${environment}/device-defines.json")
+for (def component = configPath; component != repo; component = component.parent) {
+    if (Files.isSymbolicLink(component)) {
+        throw new GradleException('可信来电配置路径不允许符号链接。')
+    }
+}
+if (!Files.isRegularFile(configPath)) {
+    throw new GradleException("缺少 .local/cloud-${environment}/device-defines.json。")
+}
+def config
+try {
+    config = new JsonSlurper().parse(configPath.toFile(), 'UTF-8')
+} catch (Exception ignored) {
+    // Never attach the parser exception: it may contain private JSON fragments.
+    throw new GradleException('可信来电环境配置无法解析。')
+}
+def appEnvironment = environment == 'pro' ? 'prod' : environment
+if (!(config instanceof Map) || config.APP_ENV != appEnvironment) {
+    throw new GradleException('可信来电配置 APP_ENV 与 Android 构建环境不一致。')
+}
+def trustedPath = repo.resolve('local.properties')
+if (Files.isSymbolicLink(trustedPath) || !Files.isRegularFile(trustedPath)) {
+    throw new GradleException('缺少根目录 local.properties 或路径为符号链接。')
+}
+def properties = new Properties()
+try {
+    trustedPath.toFile().withReader('UTF-8') { reader -> properties.load(reader) }
+} catch (Exception ignored) {
+    throw new GradleException('可信来电 local.properties 无法读取或格式无效。')
+}
+def credentials = [:]
+for (def field in ['appKey', 'appSecret']) {
+    def key = "trustedCaller.android.${environment}.${field}"
+    def value = properties.getProperty(key)
+    if (!value || value.matches('[\\p{javaWhitespace}\\p{Z}\\u0085]*') ||
+            value.contains('\r') || value.contains('\n') || value.contains('\u0000')) {
+        throw new GradleException("可信来电配置缺少或包含无效字段 ${key}。")
+    }
+    credentials[field] = value
+}
+// Flutter passes base64-encoded defines; prevent a test Dart / dev native mix.
+try {
+    def defines = (project.findProperty('dart-defines') ?: '').toString().split(',')
+    for (def item in defines.findAll { it }) {
+        def decoded = new String(Base64.decoder.decode(item), 'UTF-8')
+        if (decoded.startsWith('APP_ENV=') && decoded != "APP_ENV=${appEnvironment}") {
+            throw new IllegalArgumentException()
+        }
+    }
+} catch (Exception ignored) {
+    throw new GradleException('Dart 配置无效或 APP_ENV 与 Android 构建环境不一致。')
+}
+android.buildFeatures.buildConfig = true
+android.defaultConfig {
+    buildConfigField 'String', 'TRUSTED_CALLER_ENVIRONMENT', JsonOutput.toJson(environment == 'pro' ? 'pro' : 'test')
+    buildConfigField 'String', 'TRUSTED_CALLER_APP_KEY', JsonOutput.toJson(credentials.appKey)
+    buildConfigField 'String', 'TRUSTED_CALLER_APP_SECRET', JsonOutput.toJson(credentials.appSecret)
+}

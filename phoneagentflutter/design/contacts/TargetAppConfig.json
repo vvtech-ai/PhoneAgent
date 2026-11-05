@@ -1,0 +1,16 @@
+{
+  "target": "flutter",
+  "project": "PhoneAgentFlutter",
+  "outputDirectory": "lib/features/contacts",
+  "stateManagement": "Riverpod",
+  "flutter": "3.32.0",
+  "orientation": "portrait",
+  "systemUi": { "renderDesignSystemBars": false, "usePlatformSystemBars": true, "fullscreen": false, "edgeToEdge": false, "consumeDesignSystemInsets": true },
+  "validation": [
+    { "command": "flutter analyze", "required": true },
+    { "command": "flutter test test/features/contacts", "required": true },
+    { "command": "flutter build web", "required": true }
+  ],
+  "fidelity": "provisional-static-first",
+  "approval": "2026-09-17 用户允许先基于现有 HTML/CSS 和组件完成全部交互页面，视觉差异后续统一校准"
+}

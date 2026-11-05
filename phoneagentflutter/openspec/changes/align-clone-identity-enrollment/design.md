@@ -1,0 +1,8 @@
+## 设计
+IdentityProfile增加可选certNoMasked，经现有API和CloneIdentityPrefill传入流程状态，仅已认证且非空时展示。用户开始编辑身份证时清除旧提示；不会用脱敏号填充或提交认证。
+重置入口仅填写信息且已有认证身份时出现，使用NativeConfirmationDialog。删除通过路由服务调用现有IdentityRepository，成功复用IdentityDeletionCleanup刷新模型/目录并清理账号绑定录音。删除失败保留表单；删除已成功而本地清理失败时仅允许重试清理，不再次发送DELETE。旧账号回调不得清理新账号。
+失败返回保留脱敏表单，点击/键盘聚焦编辑先清空原值，锁定姓名仍保持不可编辑。保留现有身份证规范化与严格校验。
+## 拆分
+CloneFlowController已有500行，提取纯展示状态投影，避免新增职责继续堆积。产品源码每微批最多3文件，测试/格式化/文档独立批。
+## 验证
+OpenSpec全量校验、Flutter analyze、voice_clone与identity定向测试及页面取消/失败/成功连续流程。无平台依赖修改不重打包；真实服务及设备验收待验。

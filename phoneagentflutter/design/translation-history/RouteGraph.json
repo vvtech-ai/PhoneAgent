@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:31:10.696Z",
+  "targetPlatform": "flutter",
+  "initialRoute": "v64HistoryDetail",
+  "nodes": [
+    {
+      "routeId": "v64HistoryDetail",
+      "sourceNodeId": "v64HistoryDetail",
+      "name": "v64HistoryDetail",
+      "module": "translation-history",
+      "kind": "list",
+      "states": [
+        "loading",
+        "content",
+        "error",
+        "saving"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "edgeId": "v64HistoryClose",
+      "sourceRouteId": "v64HistoryDetail",
+      "targetRouteId": "back",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "v64RecordingPlay",
+      "sourceRouteId": "v64HistoryDetail",
+      "targetRouteId": "audio-deferred",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "v64RecordingSave",
+      "sourceRouteId": "v64HistoryDetail",
+      "targetRouteId": "save-deferred",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    }
+  ],
+  "coverage": {
+    "totalScreens": 1,
+    "connectedScreens": 1,
+    "coverageRatio": 1
+  }
+}

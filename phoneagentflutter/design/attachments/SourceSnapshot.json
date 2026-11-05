@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0",
+  "captureMode": "static-source-only",
+  "designCommit": "0cd58de9bb578845517aeb54bef8ab6970392b81",
+  "behaviorCommit": "4c781e3ccfcd148c1f205921534907ee0c5aa864",
+  "sources": [
+    {"path": "memory/index.html", "selector": "#pvAttachmentSheet", "observation": "bottom card, handle, title, album icon and row; no document row"},
+    {"path": "memory/css/multimodal.css", "selector": ".pv-sheet-card, .pv-sheet-item, .pv-sheet-icon", "observation": "white card; radius24; padding14/16/26; rowradius18, padding14, gap12; iconbox44, svg22"},
+    {"path": "memory/css/multimodal.css", "selector": ".pv-uploaded-file-bubble", "observation": "max242, radius18, backgroundEAF4FF; not yet implemented as a dedicated message card"},
+    {"path": "PureVoiceAttachmentSheet.kt", "observation": "v65 album and document rows; native multiple document picker"},
+    {"path": "AssistantAgentDocumentActionHandler.kt", "observation": "voluntary docx/xlsx only; all previews checked; sequential parse; complete batch required"},
+    {"path": "AssistantUserDocumentTurnCoordinator.kt", "observation": "user_document_batch.v1; documentBatchId; documents; inputKind=document; no pendingToolCallId"}
+  ],
+  "runtimeDesignMeasured": false,
+  "override": "User authorizes static HTML/CSS/components and interaction completion before visual calibration."
+}

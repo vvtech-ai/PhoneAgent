@@ -1,0 +1,4 @@
+## 设计
+独立纯Dart本地环境投影owner管理版本和现有NetworkAvailabilitySource/Events生命周期。网络初始未知不冒充可用；双模型握手或SIP返回证明网络承载可达，仅用于补pending，不覆盖OS明确离线。读数与事件竞态以新事件优先。模型仅双会话握手完成置available；SIP仅进入dialing（注册确认）或connected置available。各自失败分别标红，计费/录音错误不泛化为网络模型失败。
+coordinator显式typed onEnvironment回调，controller写入同一个TranslationCallView.environment；装配注入已有device network端口。终止/注销取消监测并拒绝迟到结果。环境不可用时保留字幕拒绝规则。界面尺寸/颜色/组件不变。
+每业务微批最多3源码，文档/测试独立；OpenSpec、flutter analyze、投影/协调器/控制器/装配及页面定向测试。设备与真实服务待验。

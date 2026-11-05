@@ -1,0 +1,4455 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:51:47.944Z",
+  "targetPlatform": "flutter",
+  "pages": [
+    {
+      "id": "identity-empty",
+      "rootComponent": "identity-empty"
+    },
+    {
+      "id": "identity-filled",
+      "rootComponent": "identity-filled"
+    },
+    {
+      "id": "identity-verified",
+      "rootComponent": "identity-verified"
+    },
+    {
+      "id": "identity-edit",
+      "rootComponent": "identity-edit"
+    },
+    {
+      "id": "identity-delete",
+      "rootComponent": "identity-delete"
+    }
+  ],
+  "components": [
+    {
+      "id": "myIdentityPage.0.0.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0.0.0",
+      "name": "V63BackIcon",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.0.0"
+      ],
+      "assetRefs": [
+        "identity_0"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0.0.0.0"
+      ]
+    },
+    {
+      "id": "v63IdentityBack",
+      "name": "V63IdentityBack",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63IdentityBack"
+      ],
+      "visualNodeRefs": [
+        "v63IdentityBack"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "24px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0.0.0"
+      ]
+    },
+    {
+      "id": "myIdentityPage.0.1",
+      "name": "FlowTitle",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.0.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "22px",
+        "fontWeight": "800",
+        "lineHeight": "26.4px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0.2",
+      "name": "HeaderSpacer",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.2"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0",
+      "name": "FlowTitlebarV63TitlebarV631IdentityTitlebar",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "0px",
+        "padding": "0px 0px 8px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "44px 266px 44px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63IdentityBack",
+        "myIdentityPage.0.1",
+        "myIdentityPage.0.2"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.0",
+      "name": "H3",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 8px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "20px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(105, 107, 120)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "22.4px",
+        "border": "0px none rgb(105, 107, 120)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v63AddIdentity",
+      "name": "V63AddIdentity",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63AddIdentity"
+      ],
+      "visualNodeRefs": [
+        "v63AddIdentity"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline-block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "24px 0px 0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0",
+      "name": "V63CardV63EmptyV63IdentityEmpty",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "38px 24px 30px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(255, 255, 255, 0.8)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgba(255, 255, 255, 0.78)",
+        "borderRadius": "24px",
+        "boxShadow": "rgba(16, 17, 20, 0.08) 0px 10px 24px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0",
+        "myIdentityPage.1.0.1",
+        "v63AddIdentity"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1",
+      "name": "ScrollV63Stack",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "14px",
+        "padding": "8px 18px 28px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0"
+      ]
+    },
+    {
+      "id": "identity-empty",
+      "name": "MyIdentityPage",
+      "kind": "page",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "identity-empty"
+      ],
+      "visualNodeRefs": [
+        "identity-empty"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0",
+        "myIdentityPage.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.0.0.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0.0.0",
+      "name": "V63BackIcon",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.0.0"
+      ],
+      "assetRefs": [
+        "identity_0"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0.0.0.0"
+      ]
+    },
+    {
+      "id": "v63IdentityBack",
+      "name": "V63IdentityBack",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63IdentityBack"
+      ],
+      "visualNodeRefs": [
+        "v63IdentityBack"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "24px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0.0.0"
+      ]
+    },
+    {
+      "id": "myIdentityPage.0.1",
+      "name": "FlowTitle",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.0.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "22px",
+        "fontWeight": "800",
+        "lineHeight": "26.4px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0.2",
+      "name": "HeaderSpacer",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.2"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0",
+      "name": "FlowTitlebarV63TitlebarV631IdentityTitlebar",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "0px",
+        "padding": "0px 0px 8px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "44px 266px 44px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63IdentityBack",
+        "myIdentityPage.0.1",
+        "myIdentityPage.0.2"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.0.0.0",
+      "name": "H3",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "18.72px",
+        "fontWeight": "700",
+        "lineHeight": "23.4px",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.0",
+      "name": "DIV",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "9px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0.0.0"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.0.1.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.1.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.1.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(217, 45, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(217, 45, 32)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.1.0",
+      "name": "Svg",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.1.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.1.0"
+      ],
+      "assetRefs": [
+        "identity_1"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(217, 45, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(217, 45, 32)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0.1.0.0"
+      ]
+    },
+    {
+      "id": "v63DeleteIdentity",
+      "name": "V63DeleteIdentity",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63DeleteIdentity"
+      ],
+      "visualNodeRefs": [
+        "v63DeleteIdentity"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(217, 45, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(217, 45, 32)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "44px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0.1.0"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.0",
+      "name": "V63IdentityHead",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 14px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0.0",
+        "v63DeleteIdentity"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.1.0",
+      "name": "SPAN",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.1.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(105, 107, 120)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(105, 107, 120)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.1.1",
+      "name": "B",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.1.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.1",
+      "name": "V63DataRow",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "18px",
+        "padding": "12px 0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.1.0",
+        "myIdentityPage.1.0.1.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.2.0",
+      "name": "SPAN",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.2.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.2.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(105, 107, 120)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(105, 107, 120)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.2.1",
+      "name": "B",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.2.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.2.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.2",
+      "name": "V63DataRow",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.2"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "18px",
+        "padding": "12px 0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.2.0",
+        "myIdentityPage.1.0.2.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.3.0",
+      "name": "SPAN",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.3.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.3.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(105, 107, 120)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(105, 107, 120)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.3.1",
+      "name": "B",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.3.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.3.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.3",
+      "name": "V63DataRowV631GenderRow",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.3"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.3"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "18px",
+        "padding": "12px 0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.3.0",
+        "myIdentityPage.1.0.3.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.4.0.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(58, 58, 60)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(58, 58, 60)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.4.0.0.1",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4.0.0.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4.0.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(58, 58, 60)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(58, 58, 60)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.4.0.0",
+      "name": "Svg",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4.0.0"
+      ],
+      "assetRefs": [
+        "identity_2"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(58, 58, 60)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(58, 58, 60)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.4.0.0.0",
+        "myIdentityPage.1.0.4.0.0.1"
+      ]
+    },
+    {
+      "id": "v63EditIdentity",
+      "name": "V63EditIdentity",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63EditIdentity"
+      ],
+      "visualNodeRefs": [
+        "v63EditIdentity"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(58, 58, 60)",
+        "backgroundColor": "rgb(242, 242, 247)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgba(60, 60, 67, 0.1)",
+        "borderRadius": "13px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "46px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.4.0.0"
+      ]
+    },
+    {
+      "id": "v63VerifyIdentity",
+      "name": "V63VerifyIdentity",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63VerifyIdentity"
+      ],
+      "visualNodeRefs": [
+        "v63VerifyIdentity"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.4.1.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4.1.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 2px",
+        "color": "rgb(102, 112, 133)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "11px",
+        "fontWeight": "500",
+        "lineHeight": "15.95px",
+        "border": "0px none rgb(102, 112, 133)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.4.1",
+      "name": "V634IdentityCloneAction",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "6px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "222px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63VerifyIdentity",
+        "myIdentityPage.1.0.4.1.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.4",
+      "name": "V63IdentityActions",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "10px",
+        "padding": "0px",
+        "margin": "18px 0px 0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "48px 222px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63EditIdentity",
+        "myIdentityPage.1.0.4.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0",
+      "name": "V63CardV631IdentityCard",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "18px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(255, 255, 255, 0.8)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgba(255, 255, 255, 0.78)",
+        "borderRadius": "24px",
+        "boxShadow": "rgba(16, 17, 20, 0.08) 0px 10px 24px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0",
+        "myIdentityPage.1.0.1",
+        "myIdentityPage.1.0.2",
+        "myIdentityPage.1.0.3",
+        "myIdentityPage.1.0.4"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1",
+      "name": "ScrollV63Stack",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "14px",
+        "padding": "8px 18px 28px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0"
+      ]
+    },
+    {
+      "id": "identity-filled",
+      "name": "MyIdentityPage",
+      "kind": "page",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "identity-filled"
+      ],
+      "visualNodeRefs": [
+        "identity-filled"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0",
+        "myIdentityPage.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.0.0.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0.0.0",
+      "name": "V63BackIcon",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.0.0"
+      ],
+      "assetRefs": [
+        "identity_0"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0.0.0.0"
+      ]
+    },
+    {
+      "id": "v63IdentityBack",
+      "name": "V63IdentityBack",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63IdentityBack"
+      ],
+      "visualNodeRefs": [
+        "v63IdentityBack"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "24px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0.0.0"
+      ]
+    },
+    {
+      "id": "myIdentityPage.0.1",
+      "name": "FlowTitle",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.0.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "22px",
+        "fontWeight": "800",
+        "lineHeight": "26.4px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0.2",
+      "name": "HeaderSpacer",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.2"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0",
+      "name": "FlowTitlebarV63TitlebarV631IdentityTitlebar",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "0px",
+        "padding": "0px 0px 8px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "44px 266px 44px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63IdentityBack",
+        "myIdentityPage.0.1",
+        "myIdentityPage.0.2"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.0.0.0",
+      "name": "H3",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "18.72px",
+        "fontWeight": "700",
+        "lineHeight": "23.4px",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.0.1",
+      "name": "V63Badge",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.0.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "5px 9px",
+        "margin": "0px",
+        "color": "rgb(25, 114, 74)",
+        "backgroundColor": "rgb(233, 248, 241)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(25, 114, 74)",
+        "borderRadius": "99px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.0",
+      "name": "DIV",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "9px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0.0.0",
+        "myIdentityPage.1.0.0.0.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.0.1.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.1.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.1.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(217, 45, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(217, 45, 32)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.1.0",
+      "name": "Svg",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.1.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.1.0"
+      ],
+      "assetRefs": [
+        "identity_1"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(217, 45, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(217, 45, 32)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0.1.0.0"
+      ]
+    },
+    {
+      "id": "v63DeleteIdentity",
+      "name": "V63DeleteIdentity",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63DeleteIdentity"
+      ],
+      "visualNodeRefs": [
+        "v63DeleteIdentity"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(217, 45, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(217, 45, 32)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "44px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0.1.0"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.0",
+      "name": "V63IdentityHead",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 14px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0.0",
+        "v63DeleteIdentity"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.1.0",
+      "name": "SPAN",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.1.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(105, 107, 120)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(105, 107, 120)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.1.1",
+      "name": "B",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.1.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.1",
+      "name": "V63DataRow",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "18px",
+        "padding": "12px 0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.1.0",
+        "myIdentityPage.1.0.1.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.2.0",
+      "name": "SPAN",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.2.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.2.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(105, 107, 120)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(105, 107, 120)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.2.1",
+      "name": "B",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.2.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.2.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.2",
+      "name": "V63DataRow",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.2"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "18px",
+        "padding": "12px 0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.2.0",
+        "myIdentityPage.1.0.2.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.3.0",
+      "name": "SPAN",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.3.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.3.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(105, 107, 120)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(105, 107, 120)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.3.1",
+      "name": "B",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.3.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.3.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.3",
+      "name": "V63DataRowV631GenderRow",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.3"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.3"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "18px",
+        "padding": "12px 0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.3.0",
+        "myIdentityPage.1.0.3.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.4.0.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(58, 58, 60)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(58, 58, 60)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.4.0.0.1",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4.0.0.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4.0.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(58, 58, 60)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(58, 58, 60)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.4.0.0",
+      "name": "Svg",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4.0.0"
+      ],
+      "assetRefs": [
+        "identity_2"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(58, 58, 60)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(58, 58, 60)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.4.0.0.0",
+        "myIdentityPage.1.0.4.0.0.1"
+      ]
+    },
+    {
+      "id": "v63EditIdentity",
+      "name": "V63EditIdentity",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63EditIdentity"
+      ],
+      "visualNodeRefs": [
+        "v63EditIdentity"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(58, 58, 60)",
+        "backgroundColor": "rgb(242, 242, 247)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgba(60, 60, 67, 0.1)",
+        "borderRadius": "13px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "46px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.4.0.0"
+      ]
+    },
+    {
+      "id": "v63VerifyIdentity",
+      "name": "V63VerifyIdentity",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63VerifyIdentity"
+      ],
+      "visualNodeRefs": [
+        "v63VerifyIdentity"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.4.1.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4.1.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 2px",
+        "color": "rgb(102, 112, 133)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "11px",
+        "fontWeight": "500",
+        "lineHeight": "15.95px",
+        "border": "0px none rgb(102, 112, 133)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.4.1",
+      "name": "V634IdentityCloneAction",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "6px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "222px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63VerifyIdentity",
+        "myIdentityPage.1.0.4.1.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.4",
+      "name": "V63IdentityActionsV631VerifiedActions",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.4"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.4"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "10px",
+        "padding": "0px",
+        "margin": "18px 0px 0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "48px 222px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63EditIdentity",
+        "myIdentityPage.1.0.4.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0",
+      "name": "V63CardV631IdentityCard",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "18px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(255, 255, 255, 0.8)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgba(255, 255, 255, 0.78)",
+        "borderRadius": "24px",
+        "boxShadow": "rgba(16, 17, 20, 0.08) 0px 10px 24px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0",
+        "myIdentityPage.1.0.1",
+        "myIdentityPage.1.0.2",
+        "myIdentityPage.1.0.3",
+        "myIdentityPage.1.0.4"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1",
+      "name": "ScrollV63Stack",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "14px",
+        "padding": "8px 18px 28px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0"
+      ]
+    },
+    {
+      "id": "identity-verified",
+      "name": "MyIdentityPage",
+      "kind": "page",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "identity-verified"
+      ],
+      "visualNodeRefs": [
+        "identity-verified"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0",
+        "myIdentityPage.1"
+      ]
+    },
+    {
+      "id": "myIdentityPage.0.0.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0.0.0",
+      "name": "V63BackIcon",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.0.0"
+      ],
+      "assetRefs": [
+        "identity_0"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0.0.0.0"
+      ]
+    },
+    {
+      "id": "v63IdentityBack",
+      "name": "V63IdentityBack",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63IdentityBack"
+      ],
+      "visualNodeRefs": [
+        "v63IdentityBack"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "30px",
+        "fontWeight": "800",
+        "lineHeight": "0px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "24px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0.0.0"
+      ]
+    },
+    {
+      "id": "myIdentityPage.0.1",
+      "name": "FlowTitle",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.0.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "22px",
+        "fontWeight": "800",
+        "lineHeight": "26.4px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0.2",
+      "name": "HeaderSpacer",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0.2"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.0",
+      "name": "FlowTitlebarV63TitlebarV631IdentityTitlebar",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "0px",
+        "padding": "0px 0px 8px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "44px 266px 44px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63IdentityBack",
+        "myIdentityPage.0.1",
+        "myIdentityPage.0.2"
+      ]
+    },
+    {
+      "id": "v63IdentityName",
+      "name": "V63IdentityName",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v63IdentityName"
+      ],
+      "visualNodeRefs": [
+        "v63IdentityName"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 13px",
+        "margin": "0px",
+        "color": "rgb(107, 114, 128)",
+        "backgroundColor": "rgb(243, 244, 246)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "border": "1px solid rgb(216, 217, 226)",
+        "borderRadius": "13px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v63NameError",
+      "name": "V63NameError",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v63NameError"
+      ],
+      "visualNodeRefs": [
+        "v63NameError"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(217, 45, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "lineHeight": "normal",
+        "border": "0px none rgb(217, 45, 32)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.0",
+      "name": "V63Field",
+      "kind": "molecule",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "7px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "14px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63IdentityName",
+        "v63NameError"
+      ]
+    },
+    {
+      "id": "v63IdentityMobile",
+      "name": "V63IdentityMobile",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v63IdentityMobile"
+      ],
+      "visualNodeRefs": [
+        "v63IdentityMobile"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 13px",
+        "margin": "0px",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "border": "1px solid rgb(216, 217, 226)",
+        "borderRadius": "13px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v63MobileError",
+      "name": "V63MobileError",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v63MobileError"
+      ],
+      "visualNodeRefs": [
+        "v63MobileError"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(217, 45, 32)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "lineHeight": "normal",
+        "border": "0px none rgb(217, 45, 32)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.1",
+      "name": "V63Field",
+      "kind": "molecule",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "7px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "14px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63IdentityMobile",
+        "v63MobileError"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.0.2.0",
+      "name": "LEGEND",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.2.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.2.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 2px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "14px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.2.1.0",
+      "name": "V63Segment",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.2.1.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.2.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "1px 6px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgb(216, 217, 226)",
+        "borderRadius": "12px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.2.1.1",
+      "name": "V63Segment",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.2.1.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.2.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "1px 6px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgb(216, 217, 226)",
+        "borderRadius": "12px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.2.1.2",
+      "name": "V63SegmentSelected",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.2.1.2"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.2.1.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "1px 6px",
+        "margin": "0px",
+        "color": "rgb(10, 132, 255)",
+        "backgroundColor": "rgb(237, 246, 255)",
+        "backgroundImage": "none",
+        "fontSize": "13.3333px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "1px solid rgb(10, 132, 255)",
+        "borderRadius": "12px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.2.1",
+      "name": "V63Segments",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.2.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.2.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "8px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "14px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "88px 88px 88px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0.2.1.0",
+        "myIdentityPage.1.0.0.2.1.1",
+        "myIdentityPage.1.0.0.2.1.2"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0.0.2",
+      "name": "V63Field",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.2"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "7px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "14px",
+        "fontWeight": "600",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0.2.0",
+        "myIdentityPage.1.0.0.2.1"
+      ]
+    },
+    {
+      "id": "v63IdentityCancel",
+      "name": "V63IdentityCancel",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63IdentityCancel"
+      ],
+      "visualNodeRefs": [
+        "v63IdentityCancel"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.3.1",
+      "name": "V63BtnPrimary",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.3.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.3.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(10, 132, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "myIdentityPage.1.0.0.3",
+      "name": "V63Actions",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0.0.3"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0.0.3"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "10px",
+        "padding": "0px",
+        "margin": "18px 0px 0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63IdentityCancel",
+        "myIdentityPage.1.0.0.3.1"
+      ]
+    },
+    {
+      "id": "v63IdentityForm",
+      "name": "V63IdentityForm",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v63IdentityForm"
+      ],
+      "visualNodeRefs": [
+        "v63IdentityForm"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "15px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0.0.0",
+        "myIdentityPage.1.0.0.1",
+        "myIdentityPage.1.0.0.2",
+        "myIdentityPage.1.0.0.3"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1.0",
+      "name": "V63Card",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1.0"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "18px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(255, 255, 255, 0.8)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "1px solid rgba(255, 255, 255, 0.78)",
+        "borderRadius": "24px",
+        "boxShadow": "rgba(16, 17, 20, 0.08) 0px 10px 24px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63IdentityForm"
+      ]
+    },
+    {
+      "id": "myIdentityPage.1",
+      "name": "ScrollV63Stack",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "myIdentityPage.1"
+      ],
+      "visualNodeRefs": [
+        "myIdentityPage.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "14px",
+        "padding": "8px 18px 28px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.1.0"
+      ]
+    },
+    {
+      "id": "identity-edit",
+      "name": "MyIdentityPage",
+      "kind": "page",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "identity-edit"
+      ],
+      "visualNodeRefs": [
+        "identity-edit"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "myIdentityPage.0",
+        "myIdentityPage.1"
+      ]
+    },
+    {
+      "id": "v63DialogTitle",
+      "name": "V63DialogTitle",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v63DialogTitle"
+      ],
+      "visualNodeRefs": [
+        "v63DialogTitle"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 10px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "19px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v63Overlay.0.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v63Overlay.0.1"
+      ],
+      "visualNodeRefs": [
+        "v63Overlay.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(105, 107, 120)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "25.6px",
+        "border": "0px none rgb(105, 107, 120)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v63Cancel",
+      "name": "V63Cancel",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63Cancel"
+      ],
+      "visualNodeRefs": [
+        "v63Cancel"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "0px",
+        "color": "rgb(23, 24, 33)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(23, 24, 33)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v63Confirm",
+      "name": "V63Confirm",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v63Confirm"
+      ],
+      "visualNodeRefs": [
+        "v63Confirm"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px 18px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(217, 45, 32)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v63Overlay.0.2",
+      "name": "V63Actions",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v63Overlay.0.2"
+      ],
+      "visualNodeRefs": [
+        "v63Overlay.0.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "10px",
+        "padding": "0px",
+        "margin": "18px 0px 0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63Cancel",
+        "v63Confirm"
+      ]
+    },
+    {
+      "id": "v63Overlay.0",
+      "name": "V63DialogCenter",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v63Overlay.0"
+      ],
+      "visualNodeRefs": [
+        "v63Overlay.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "22px 20px 20px",
+        "margin": "326.906px 18px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "22px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63DialogTitle",
+        "v63Overlay.0.1",
+        "v63Overlay.0.2"
+      ]
+    },
+    {
+      "id": "identity-delete",
+      "name": "V63Overlay",
+      "kind": "page",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "identity-delete"
+      ],
+      "visualNodeRefs": [
+        "identity-delete"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(18, 18, 25, 0.48)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v63Overlay.0"
+      ]
+    }
+  ]
+}

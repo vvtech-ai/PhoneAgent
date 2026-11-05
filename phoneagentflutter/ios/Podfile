@@ -1,0 +1,77 @@
+platform :ios, '16.1'
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+def flutter_root
+  settings = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+  raise "Run flutter pub get before pod install" unless File.exist?(settings)
+  File.foreach(settings) do |line|
+    matches = line.match(/FLUTTER_ROOT\=(.*)/)
+    return matches[1].strip if matches
+  end
+  raise 'FLUTTER_ROOT missing in Generated.xcconfig'
+end
+
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+flutter_ios_podfile_setup
+
+# Ensure ignored generated sources exist before CocoaPods collects source files.
+unless system('python3', '-B', File.expand_path('../tool/prepare_trusted_caller_credentials.py', __dir__), '--ios-only')
+  raise 'Trusted caller root Properties preparation failed (values not logged).'
+end
+
+target 'Runner' do
+  use_frameworks!
+  pod 'GoogleMLKit/TextRecognitionChinese', '6.0.0'
+  pod 'PhoneAgentIdentityCapture', :path => 'IdentityCaptureSDK'
+  pod 'PhoneAgentCrashDiagnostics', :path => 'CrashDiagnostics'
+  pod 'PhoneAgentTrustedCaller', :path => 'TrustedCallerSDK'
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  target 'RunnerTests' do
+    inherit! :search_paths
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+    target.build_configurations.each do |config|
+      if target.name == 'PhoneAgentTrustedCaller'
+        config.build_settings['PHONEAGENT_IOS_ENV'] = config.name == 'Release' ? 'prod' : 'dev'
+        config.build_settings['PHONEAGENT_TRUSTED_SDK_ENV'] = '$(PHONEAGENT_TRUSTED_SDK_ENV_$(PHONEAGENT_IOS_ENV))'
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = ['$(inherited)', 'PHONEAGENT_TRUSTED_SDK_TEST=$(PHONEAGENT_TRUSTED_SDK_TEST_$(PHONEAGENT_IOS_ENV))']
+      end
+      # QMUIKit's class-list probe cannot see the Flutter app image in a
+      # Debug framework build and trips an unconditional NSAssert during
+      # startup. Release already blocks assertions; mirror that behavior
+      # only for the Debug QMUIKit target so the experience build can launch.
+      if target.name == 'QMUIKit' && config.name == 'Debug'
+        definitions = Array(config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'])
+        definitions = ['$(inherited)'] if definitions.empty?
+        definitions << 'NS_BLOCK_ASSERTIONS=1' unless definitions.include?('NS_BLOCK_ASSERTIONS=1')
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = definitions
+      end
+      config.build_settings['EXCLUDED_ARCHS[sdk=*]'] = 'armv7'
+      minimum = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] || '12.0'
+      if Gem::Version.new(minimum) < Gem::Version.new('16.1')
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.1'
+      end
+    end
+  end
+
+  # AFNetworking 4.0.1 imports a header that Xcode 26 exposes as private;
+  # netinet/in.h already provides the IPv6 declarations it needs.
+  afnetworking_root = File.join(installer.sandbox.root.to_s, 'AFNetworking/AFNetworking')
+  %w[AFNetworkReachabilityManager.m AFHTTPSessionManager.m].each do |filename|
+    source_file = File.join(afnetworking_root, filename)
+    next unless File.exist?(source_file)
+    source = File.read(source_file)
+    patched = source.gsub("#import <netinet6/in6.h>\n", '')
+    File.write(source_file, patched) unless patched == source
+  end
+end

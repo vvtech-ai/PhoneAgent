@@ -1,0 +1,32 @@
+{
+  "cases": [
+    {
+      "code": "MEMBERSHIP_CLIENT_UPDATE_REQUIRED",
+      "meaning": "仅阻止会员新报价和新单"
+    },
+    {
+      "code": "QUOTE_STALE",
+      "meaning": "未付款刷新并重新确认；已付款不得要求重付"
+    },
+    {
+      "code": "MEMBERSHIP_SYNCING",
+      "meaning": "独立补跑已提交后可重试"
+    },
+    {
+      "code": "MEMBERSHIP_REVIEW_REQUIRED",
+      "meaning": "保留权益且不降为免费"
+    },
+    {
+      "code": "MEMBERSHIP_STATE_CONFLICT",
+      "meaning": "首次命令版本不符，无副作用"
+    },
+    {
+      "code": "IDEMPOTENCY_CONFLICT",
+      "meaning": "同requestId异指纹，无副作用"
+    },
+    {
+      "code": "LEGACY_MEMBERSHIP_REVIEW_REQUIRED",
+      "meaning": "旧单迟到成功保留资金事实，不创建新权益"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+## 固定来源
+
+Android 0f8879e4：FinalSettingsHomePage可信来电MCP服务卡；AssistantAuthRuntimeController首次openIncallUi/后续SettingActivity回退，V88GuideDialogs与300ms首页门禁；TrustedCalleeSimNumberBridge双SIM规则。iOS bb9ff349：AISettingsViewController内嵌AITrustedCalleeIntroductionViewController首次说明/开始/后续KX设置；AIKXSDKService初始化、read信息、账号/号码/generation作废和表面token。固定iOS旧入口烟测与实际首次说明冲突，以有效源码为依据。
+
+## 状态和所有权
+
+授权状态unknown/unavailable/readyToConfigure/notAuthorized/authorized分开。点击或打开页面不能作为authorized事实；只有当前owner匹配且SDK明确确认的结果可展示授权完成。采用accountId+phone+loginEpoch内存绑定，不记录token或号码到日志。初始化、读取及表面显示分别持有限代际，页面关闭/账号改变后晚到结果失效。打开失败保持可重试但不自动重开SDK；离开后重新核验，不猜测权限或证书。
+
+## 平台与配置
+
+Android能力由已配置SDK报告，首次SDK引导和后续设置适配，不向iOS搬默认拨号器/悬浮窗权限。iOS原生首次说明是平台差异，LiveActivity依赖已验证来电与授权生命周期，扩展签名独立验收。Web不注册手机SDK。当前尚无Flutter SDK部署配置，默认port不可用，不能称可信来电完成；源码端口/模拟测试只是中间成果。
+
+## 微批与验证
+
+先domain+controller+竞态测试（最多3手写文件），再data/provider/页面及入口分批。日常analyze+受影响测试，平台/依赖改动才双端构建；真实SDK授权及来电需明确条件。现有普通用户数据不清除、不卸载。
+
+平台SDK只读契约和分发/结果/最小权限缺口详见[SDK核对](../../../docs/engineering/TRUSTED_CALLER_SDK_CONTRACT_20261008.md)。Android core为加固Helper、公开UI方法未确认授权查询，未解保护载荷；SDK配置和结果契约未明确前默认门禁继续，不能将本地guide authorized等价于真实授权。
+
+## 用户指定SDK副本与环境（2026-10-08）
+
+用户提供工程根iOS_SDK/test与pro两份KXSDK.framework，并明确必须拷贝到正确工程目录，不得构建引用提供路径。采用ios/TrustedCallerSDK/Vendor/test/KXSDK.framework及Vendor/pro/KXSDK.framework，Android固定原生1.5 AAR拷贝android/app/libs/trusted_caller。机械复制后逐文件哈希前后校验，vendor二进制/生成模块单独标记，不混入密钥、签名或构建缓存。提供源目录仅追溯、保持只读，Git只加入工程内副本。
+
+测试SDK映射测试环境、正式SDK映射正式环境；两者同模块名不能同时链接或按发现先后任意选择。接线前核验实际架构、动态依赖和环境选择；选错或未配置拒绝初始化。供应SDK路径已明确，但安全AppKey/AppSecret部署方式和Android明确授权事实契约仍须核对，不复制原生凭据、不提前调用真实SDK。
+
+## 工程链接微批
+
+KX与ASN1实际都是arm64 IOS静态archive，不走动态framework嵌入。新增本地PhoneAgentTrustedCaller CocoaPod，只对iphoneos添加工程Vendor/{test,pro}及Common的framework搜索/链接；模拟器native availability返回不可用，不错误链接真机库。Debug/Profile取test、Release取pro，Pod及Runner配置一致。AFNetworking4.0.1、SSZipArchive2.4.3、OpenSSL-Universal1.1.2301、SnapKit5.7.1、QMUIKit4.6.0、SDWebImage5.21.0、Masonry1.1.0按固定原生Podfile锁定；不升级既有MLKit/工具链。SDK内置资源由本地pod放App资源域。初批仅依赖与availability编译事实，不调用setAppKey/SDK授权；后续实际Flutter/native端口及安全配置独立接线。Android显式fileTree仅工程libs/trusted_caller，必要传递依赖/manifest合并先核查，禁止直接扩张敏感权限。
+
+## Flutter/native通道后续微批
+
+每个DeviceTrustedCallerPort实例生成独立surfaceToken；所有prepare/read/open/release请求与响应携带完整owner及token，跨页面同账号也隔离，释放旧token不得关闭新surface。native prepare返回linked/configured/environment事实，未安全部署configured=false且不初始化SDK；默认未配置门禁保留。read只有严格五枚举和明确布尔授权证明才可接受；不向Dart传SDK密钥，不在错误中传播原生参数。先Dart契约与mock通道竞态验证，再两端薄通道分批接线。
+
+## iOS首次说明UI微批
+
+固定AISettingsViewController3065–3208的34白标题、17徽章/说明、蓝色竖向渐变、三手机图2秒轮播及白色56开始按钮独立迁入纯Flutter说明页。图片从固定Assets.xcassets对象导出工程assets/images/trusted_caller，构建仅副本。减少动画/无障碍禁自动轮播，大字号短屏可滚动、退出与开始热区可达。先纯页及定向验证，不默认给未配置SDK开启入口；后续有效SDK初始化成功后才按账号guideSeen决定展示，guideSeen不作授权证据。
+
+## 用户授权参照配置读取（2026-10-08）
+
+最新用户明确AppKey/AppSecret从参照项目读取，覆盖此前“配置来源未明确”的阶段描述。采用固定双端Git对象提取，仅写工作区ignored本地配置及generated原生凭据类；Git/聊天/日志不含值，不向Dart暴露。Debug/Profile仅生成测试配置、Release仅正式配置，缺失/环境错配仍在SDK初始化前拒绝。构建可验证配置装配，不自动发起真实SDK初始化、权限/SIM/认证/来电测试；实际业务代码的初始化与返回状态按owner/surface代际接续。
+
+## 已部署SDK运行与页面退出
+
+Android初始化采用固定公开init(Application,key,secret)，配置只由native私有读取。初始化返回仅组件可配置，真实授权查询缺失时read保持readyToConfigure和explicit=false。首次openIncallUi，后续显式SettingActivity并保留SDK回退；引导seen只按环境/账号私有摘要key记忆，不置authorized。独立surface registry保护账号/号码/epoch/token，SDK Activity只在当前打开期间登记，回到host且其页面已结束才完成open，release只关闭当前登记页面、不得释放新owner页面。manifest后台接收与来电服务在授权事实/账户注册契约完成前仍禁用，不清理未知SDK内部存储。初始化与页面代码编译/JVM生命周期规则验证，不自动实际运行SDK或授权流程。iOS初始化/授权回调同样检查owner/surface代际，后续UI与APNS来电owner另实施。
+
+## 可信入口的正常连续流程
+
+原生有效卡点击成功后直接进入组件/首次说明，Flutter已配置分支不能多加一次“打开设置”点击。设置路由作为初始化/不可用反馈壳，初始化与读取就绪后本次进入只自动启动一次：iOS先有效guide记录→纯说明，开始进入KX设置，取消返回设置首页；已看过则直接SDK；Android直接SDK首次/后续适配。SDK退出并重新读取后返回设置首页，不因刷新/恢复再自动弹出。缺配置/错误保留反馈页与退出/明确重试，不将SDKUI展示当授权；同账号同次流程重入/换账号/旧回调需隔离。
+
+## iOS来电账户绑定独立续批
+
+账户级推送绑定独立于设置surface，按固定bindRid四参数接口及空格解绑语义实现。先纯Foundation串行状态规则：完整账号/号码/登录代际/环境冻结，通知已允许且有64位hex APNS token才生成绑定动作；SDK初始化成功是执行前条件。换账号/号码/token/通知撤权时先完成旧绑定解绑，再执行新绑定；迟到成功绑定也必须先补解绑，不把超时当解绑成功，不并发触发新账号绑定。未知结果保持待重试固定错误，推送token不入Dart、日志或持久fixture。此批仅离线规则及合成测试，后续接App级通知消费者/登录变更；不因设置关闭解绑账户。真实注册/APNS、来电和扩展另验收。
+
+执行端续批：原生App级PushRegistration独立持有driver，Flutter root仅同步账号/号码/epoch和环境，不读取或传输APNS token。原生consumer代际隔离引擎重注册和detach；账户更新后重新读取现有通知授权，不主动申请。APNS授权且真机SDK可用才注册；SDK绑定请求无超时自动重发，未返回保持串行门禁，显式失败待重试。Debug/Profile APNS development、Release production按工程构建映射配置，签名profile与后台真实交付仍需设备验证。SDK exec仅固定bindRid四参数、解绑双空格，不记录SDK结果、token或号码。通知消费者与账户变化源码接线不代表真实推送成功。
+
+## 来电身份解析续批
+
+固定iOS push精确root字段token/phoneno/targetNumber/sequence，called规范号码必须匹配当前账号；opaque token保持native内存且不落日志/Dart/fixture。SDK parseIdentityToken明确成功前只可pending/failed，不显示verified证书。解析请求冻结账号/号码/epoch/env及独立事件代际，账户/来电结束/新事件作废旧成功；不复用原生在parse完成后漏核对账号的风险。首批纯Foundation提取/白名单与新鲜时间门禁、合成测试，之后SDK执行和事件/Flutter凭据页分批。Activity新鲜时间保留20分钟有效窗，缺失/非法/未来超过60秒不创建Activity，不能按负age误判未来推送新鲜；实际身份验证本身不因此伪造成功。未验证payload不能提供授权状态、任意跳转或任意远程头像加载。
+
+后台通知完成回调独立event请求，一次完成；只accepted不等于verified。SDK只读解析15秒失败，背景回调25秒上限；owner/事件/引擎替换取消旧请求，opaque payload不进EventChannel，未知push交回其他宿主消费者。先接UIApplication后台通知，UN前台/点击消费者及FlutterHost另批，不以局部编译当实际投递通过。
+
+## Flutter凭据展示续批
+
+Incoming EventChannel独立于SDK设置port，Flutter仅接当前owner/环境/事件id及native安全identity投影；未知验证枚举/类型/owner不匹配作废显示，绝不从signStaus或推送authorized推导verified。纯Dartmodel与DTO/stream先做合成专项，再Controller/Provider及root presentation host。页面按固定单页凭据源：深灰+原图背景、30%黑遮罩、top60/外20、72%黑22圆角panel、50圆头像、原生状态文字、仅verified且非type6的1.438比例凭据卡、白图50返回首页。三原生状态/verified/uncertified分别展示；缺失证书字段不编造凭据，Avatar先默认原图，未经明确验证和安全加载的远程URL不交UI。大字短屏内容滚动和返回可达，root只展示当前事件并在账号/事件结束时关闭，不关闭其他业务路由。先UI独立演练，不触发真实SDK/推送；正常PSTN结束关联与Activity扩展仍后续。
+
+## iOS前台与点击通知接续
+
+App级UN代理在宿主启动结束后安装，保存并转发既有代理；只消费当前consumer/session确认的可信payload，其他前台通知保留原代理呈现options，其他点击保留原回调。切引擎只替换当前consumer，旧detach不得清新handler；无current消费者恢复原代理。所有系统completion仅一次，前台接受后立即完成系统呈现回调，SDK解析由独立Session继续，不以接受当验证。原生通知分类/其他消息不改，不主动申请权限或真实发送推送。先纯Foundation分发/回调代际测试再UN薄代理和真机目标编译。
+
+## 系统来电结束关联
+
+固定原生CXCallObserver在任意incoming结束时清所有身份，Flutter改为独立UUID/event关联，避免旧通话结束清新事件。只观察系统现有incoming，忽略outgoing，不发起CallKit电话、不读取号码、不申请权限。当前事件仅关联唯一未占用活跃incoming UUID；旧事件已占UUID不能再给新事件，存在多incoming歧义不猜测。只有绑定当前event的incoming结束才结束Session，Session再次核对event id；账号/事件替换拒绝旧回调。CXCallObserver不提供号码，UUID与事件是时间关联而非号码匹配，真实PSTN时序另验收。先Foundation竞态规则后薄CallKit observer接线和编译。
+
+## LiveActivity扩展与公开API续批
+
+新增独立WidgetKit extension，固定bb9ff349锁屏/灵动岛视图参数与图资源工程副本，App/Extension共享纯ActivityAttributes。只接native白名单verified且activityFresh=true的当前owner/event，不从push创建“验证通过”。使用默认工程头像而非任意网络下载；Activity编码总量在公开4KB限制内，超过预算拒绝而非伪造内容。账号/事件替换、验证失败、PSTN结束清仅本功能活动，异步结束/更新/创建均再核对代际，重启先清孤立活动。
+
+公开Activity.request只在App前台、系统允许且iOS16.1+调用；后台push-to-start需独立可信验证服务端契约，不能按固定原生私有/异常size回退或日志token冒充完成。Apple公开request文档 https://developer.apple.com/documentation/activitykit/activity/request(attributes:content:pushtype:) 明确foreground。保持iOS15.5 App部署基线，extension最低16.1；测试/正式bundle继承各App身份前缀，普通证书签名及真实锁屏展示另验。当前阶段不采集/绑定push-to-start token。Widget deep link只处理固定scheme/host/path并读取当前已验证事件，不接受URL携带身份字段或旧event。
+
+深链显式重新展示采用native递增presentationRevision，不改验证event id/电话关联。仅当前已验证事件可递增；Flutter关闭按event+revision冻结，低版本迟到拒绝。同一事件普通SDK晚到不能复活已关闭页，只有当前活动的明确点击可请求新展示，旧页关闭不能关闭新revision。URL中的身份/账号字段一律不解析。
+
+## Android SIM桥续批
+
+先纯Kotlin规划固定原生SIM规则：规范大陆号码，无有效登录号/无卡不写，单SIM优先实际号码否则登录号，双/多SIM先各有效实际号码，仅secondary1或最后slot未知才登录fallback。负slot去除，重复slot去重排序，fallback不能作为实际读到号码或授权事实。设备端后续只在现有对应读取权限下读取，不自动申请；账号/环境代际隔离SDK已知SIM键，只清App明确写入且值未被SDK用户更改的键，不清未知SDK存储。SDK授权查询未知仍不置authorized，不启用后台角色或服务。首纯规则/JVM专项后设备/account生命周期分批；不读取真实SIM或发起真实电话测试。
+
+Android设备接续明确：App root账户端口覆盖Android，Application级SIM消费者单调代际；设置surface只能使用匹配完整账户的SIM桥。已知SIM变更前SharedPreferences.commit持久journal，异常只固定错误码，SDK预先相等用户值不认领，未知清理阻止新写。初始nil账号亦清恢复journal，旧engine detach不能清新consumer。设备读取仅显式设置开启及返回阶段按现有权限执行，SDK/API读槽位要求READ_PHONE_STATE；Android11+号码要求READ_PHONE_NUMBERS，API33+用SubscriptionManager.getPhoneNumber，旧系统支持line1 fallback。READ_PHONE_NUMBERS按固定原生Manifest补声明，不申请权限/读取IMEI/增精确电话权限；SDK后台组件仍禁用、真实授权查询未知仍readyToConfigure。账户切换只关闭旧owned SDK窗口，不越过尚未销毁的旧窗口打开新SDK。原型规则和编译不代表硬件号码/SDK清理验收。权限来源 https://developer.android.com/reference/android/telephony/SubscriptionManager 。
+
+冷启动账号恢复窗口：仅当前consumer尚未收到第一条账户状态时，原生内存接收最多一条严格提取、当前callTime新鲜的通知，不初始化SDK、不输出token。保存白名单字段而非整包；25秒恢复窗口，到期清理，第一条账户状态（包括nil）关闭窗口并取走缓存。非nil恢复后再次校验当前时间与called规范号码后才走既有SDK验证。替换引擎、结束来电和签出清缓存；完成系统通知回调返回未验证，不把延迟消费当后台验证成功。通知早于Plugin注册和被系统终止的恢复不在本批覆盖范围。
+
+设置过渡route退出边界：SDK正常退出并回读无错误后，精确关闭当前TrustedCallerSettingsRoute自身；若其上有来电凭据或其他业务route覆盖，移除这条owned route而非对Navigator通用pop。保留覆盖页面和业务历史，SDK错误仍留原设置反馈供用户返回处理。追加跨route覆盖的合成连续流程，避免可信凭据关闭后残留已完成SDK设置页。
+
+Android SDK延迟启动边界：公开SDK打开调用与Activity创建异步，账户/表面可能在onActivityCreated之前失效。App级保留一条冻结surface/consumer的未确认launch，后续打开不得越过未确认launch；Activity真正创建时核对当前完整owner和consumer，作废的窗口先finish并等待销毁再处理账户清理。surface释放、账户变更和旧engine关闭均不能抹掉此保护。25秒未观察到SDK Activity时仅返回固定失败反馈，不把未知打开当已取消，不自动再开；后到Activity仍由App级observer关闭。纯launch规则测试后接现有Bridge/Runtime，不运行实际SDK。
+
+SDK未观察到窗口的25秒反馈只计算连续宿主前台等待：系统权限/角色页面导致宿主pause时作废等待代际，resume后重新计时；实际SDK Activity一经创建即结束此等待。不能因用户在系统授权页停留较久误判SDK打开失败。纯launch规则核对pause/resume/旧timer/旧release，Runtime只装配Handler，不自动重放打开。
+
+冷启动候选与已恢复payload结构规则保持一致：targetNumber字符串或非布尔NSNumber按既有Text提取和号码规则处理，不因尚无owner而丢弃有效数字字段；结构候选只供25秒内存缓存，不代表被叫归属或验证结果。恢复后仍以真实当前owner再次提取/核对，布尔号码和不符号码拒绝。
+
+SDK竖屏配置补齐：工程AAR UI manifest有10个可信SDK Activity，均未声明screenOrientation，正式MainActivity的portrait不继承到这些Activity。宿主manifest对这10个固定类明确portrait，不修改Vendor/AAR，不向Android系统角色或权限Activity加方向声明。工具同时从工程AAR公开manifest核对活动清单及宿主覆盖、iOS iPhone/iPad既有portrait；实际APK合并方向与构建检查，不把静态声明当真实SDK旋转验收。
+
+iOS设置窗口账户门禁：root账户同步时原生surface立即核对accountId/phone/loginEpoch/environment，签出或任一字段变化关闭旧窗口并完成旧请求为作废。prepare/read/open均要求已同步的当前账户，SDK初始化迟到回调再次核对；旧engine consumer除释放自身外不能发起SDK请求或更新账户。登录代际拒绝负数，与Android契约一致。纯Foundation字段规则和真机目标编译分开记录，真实窗口切换仍待验。
+
+共享Dart账户准入与原生一致：valid要求非负loginEpoch，并拒绝accountId/phone内C0及C1控制字符；DeviceAccount和设置port在MethodChannel之前拒绝，合法合成号码保持兼容，不新增电话号码业务格式限制。针对双端账号和设置请求无通道副作用测试，既有控制器/同步/事件DTO邻接定向验证。
+
+iOS环境装配必须显式：只有PHONEAGENT_TRUSTED_SDK_TEST=1/0分别映射test/pro，宏缺失或其他值返回unavailable并不读取任何私有凭据，不能以预处理else隐式落到正式环境。固定Pod三配置保持；纯编译矩阵覆盖缺失/非法/测试/正式，设备Debug编译核对，未调用SDK。
+
+iOS账号通道结构与Android一致：owner字段必须存在，只有显式NSNull是签出；账号字典只允许accountId/phone/loginEpoch三键，环境必须是当前已配置test/pro。Foundation解析器冻结白名单metadata，缺字段/多字段/错误类型/错环境均在修改任何surface/绑定/来电状态之前拒绝。纯合成结构专项和真机目标编译，不触发解绑或SDK。
+
+Web完整Shell实际prepare=false提示误称尚未配置；布尔端口同时涵盖不支持平台/模拟器/缺配置，不能推断原因。本批只将共享false提示改为当前环境服务暂不可用，保留状态、按钮、读取重试、所有权及SDK调用门禁，无平台/通道协议修改。

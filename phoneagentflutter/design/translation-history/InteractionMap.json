@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:31:10.696Z",
+  "targetPlatform": "flutter",
+  "interactions": [
+    {
+      "id": "v64HistoryClose",
+      "controlId": "v64HistoryClose",
+      "pageId": "v64HistoryDetail",
+      "sourceRouteId": "v64HistoryDetail",
+      "sourceNodeId": "v64HistoryClose",
+      "nodeId": "v64HistoryClose",
+      "action": "back",
+      "label": "back",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 332,
+        "y": 42,
+        "width": 44,
+        "height": 44
+      },
+      "interactionId": "v64HistoryClose",
+      "triggerNodeId": "v64HistoryClose",
+      "eventType": "click",
+      "actionType": "back",
+      "testTag": "v64HistoryClose",
+      "source": "manual",
+      "targetRouteId": "back",
+      "hitArea": {
+        "x": 332,
+        "y": 42,
+        "width": 44,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "back"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "v64RecordingPlay",
+      "controlId": "v64RecordingPlay",
+      "pageId": "v64HistoryDetail",
+      "sourceRouteId": "v64HistoryDetail",
+      "sourceNodeId": "v64RecordingPlay",
+      "nodeId": "v64RecordingPlay",
+      "action": "audio-deferred",
+      "label": "audio-deferred",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 312,
+        "y": 759,
+        "width": 44,
+        "height": 44
+      },
+      "interactionId": "v64RecordingPlay",
+      "triggerNodeId": "v64RecordingPlay",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "v64RecordingPlay",
+      "source": "manual",
+      "targetRouteId": "audio-deferred",
+      "hitArea": {
+        "x": 312,
+        "y": 759,
+        "width": 44,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "audio-deferred"
+      },
+      "runtimeBinding": "typed controller callback"
+    },
+    {
+      "id": "v64RecordingSave",
+      "controlId": "v64RecordingSave",
+      "pageId": "v64HistoryDetail",
+      "sourceRouteId": "v64HistoryDetail",
+      "sourceNodeId": "v64RecordingSave",
+      "nodeId": "v64RecordingSave",
+      "action": "save-deferred",
+      "label": "save-deferred",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 34,
+        "y": 759,
+        "width": 44,
+        "height": 44
+      },
+      "interactionId": "v64RecordingSave",
+      "triggerNodeId": "v64RecordingSave",
+      "eventType": "click",
+      "actionType": "navigate",
+      "testTag": "v64RecordingSave",
+      "source": "manual",
+      "targetRouteId": "save-deferred",
+      "hitArea": {
+        "x": 34,
+        "y": 759,
+        "width": 44,
+        "height": 44
+      },
+      "expectedResult": {
+        "behavior": "save-deferred"
+      },
+      "runtimeBinding": "typed controller callback"
+    }
+  ]
+}

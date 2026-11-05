@@ -1,0 +1,7 @@
+# 设计
+
+Android凭据从固定aiassistant_app提交的TrustedSdkIdentityInterceptor及Application提取，生成debug/profile/release相同凭据；原生仍接受合法test/pro请求标签，但不因标签阻止读取统一凭据。未知环境仍拒绝。生成器提供Android-only入口，本轮不重写iOS或其私有清单。
+
+既有NativeCrashApplication已在启动时调用进程级可信运行时，不重复建设。SDK初始化缓存按现有合法环境键复用，设置入口保留重试；缺凭据/未链接返回明确错误码。Android prepare的能力报告判定在诊断动作内完成，configured=false不得记录成功；iOS分支行为保留。
+
+每个手写实现微批最多3文件。定向验证凭据生成、Android错误分类、入口/切号/SIM和iOS既有分支；运行analyze、OpenSpec和Android构建。设备验收独立，不自动安装、短信或外呼。iOS受控文件Git diff及本地私有文件摘要前后对比确保不变。

@@ -1,0 +1,5 @@
+# 设计
+参考固定iOS bb9ff349的AIClientSipMediaBridge使用scheduleBuffer连续排队、不等待每块完成；Android固定0f8879e4使用连续AudioTrack写入。iOS新增仅通信翻译启用的enqueue/drain：入队完成和真实播放完成分离，待播容量2秒，超过500ms高水位时等待旧缓冲实际回调腾容量，不能等待最后入队块播完才放行。drain仅pendingBytes为0时完成；取消释放所有ordinary play/admission/drain回调。共享普通play与其他业务保持。
+提示音本机路径按200ms块连续提交（模拟不支持排空的旧桥保留20ms测试兼容），整段真实drain完成后解除门禁。远端提示音和模型触发既有20ms流保持。模型本机连续块复用新iOS入队，不为每块插入等待或静音；完成标记不提前stop。
+增加固定数值outputPlatform(1 Android/2 iOS)、outputMaxQueuedMs、outputQueuedMs、outputEmptyTransitions、outputMaxEnqueueGapMs、outputEnqueuedBuffers、outputPlayedBuffers；队列排空次数是观察值，不能等同语音欠载。桥在段尾/周期/关闭前采样，经既有安全白名单导出，不记录内容/地址/标识。Android另导出硬件underrunCount，普通播放不改变。
+微批<=3源码文件，保持500行约束，定向测试覆盖双端队列路由/背压/真实drain隔离和提示音块提交/取消/尾帧。iOS原生通过构建与模拟纯状态规则验证，真实听感待用户；Android debug/iOS Profile同测试签名USB覆盖安装，不卸载清数据、不外呼。此前android-translation-playback-queue关于iOS不变仅代表当时阶段，本变更新增iOS翻译专用契约。

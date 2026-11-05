@@ -1,0 +1,5 @@
+- [x] 读取契约、规则与 Apple API 文档，明确仅 CNY 锁价。
+- [x] Flutter 通道与反馈真实 RED 9 通过/2 失败 → GREEN 11 通过。
+- [x] Swift 精确校验、launch 接线及 RunnerTests 用例已编写，未作原生运行声明。
+- [x] 8 文件定向 Flutter 测试 72 通过；analyze 无问题；OpenSpec 132 项通过，中文/diff 检查及记录完成。
+- [ ] 在 macOS/Xcode 编译并执行 RunnerTests，验证真实 StoreKit 场景（当前 Windows 待验）。

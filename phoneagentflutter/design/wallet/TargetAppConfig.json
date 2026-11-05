@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-17",
+  "targetPlatform": "flutter",
+  "projectMode": "existing-project",
+  "packageName": "phone_agent",
+  "outputDir": "lib/features/points",
+  "stateManagement": { "library": "riverpod" },
+  "systemUi": { "renderDesignSystemBars": false, "usePlatformSystemBars": true, "contentViewportSource": "platform-window-insets" },
+  "validationCommands": [
+    { "name": "analyze", "command": "flutter analyze", "required": true },
+    { "name": "tests", "command": "flutter test", "required": true },
+    { "name": "web", "command": "flutter build web --debug", "required": true }
+  ],
+  "fidelity": "static-first-user-approved; visual calibration pending"
+}

@@ -1,0 +1,7 @@
+## 来源
+固定Android0f8879e4的Application、AssistantAuthRuntimeController.openTrustedCalleeAuthorization、TrustedCalleeSimNumberBridge。登录成功和打开SDK前同步；退出未见清空SIM。首次记录guide后openIncallUi，后续SettingActivity失败fallback；不追踪SDK Activity销毁或finish。
+## 实现
+SIM检测始终尝试SDK槽位，订阅API在READ_PHONE_STATE或READ_PHONE_NUMBERS下尝试并catch；号码SDK local仅null时回退sdk sim，再SubscriptionInfo.number、line1Number，保留原空字符串语义。写入先反射两参数set，否则SPUtil.put(key,number)，不清未写槽位。账号仅保存当前桥接上下文，退出/引擎detach不写SDK。旧journal不再读取。
+SDK调用发出即回MethodChannel成功；SDK自行管理返回，不强制关闭，去除launchGate/Activity回调。Flutter归属字段只保证通道回复匹配，不改变SDK可见行为。
+## 验证
+纯JVM覆盖写入/退出保留/双卡/null与权限规则；源码提取对照守卫覆盖生产桥接。Flutter可信定向/analyze，Android JVM、Debug构建及SDK产物守卫。真实来电/角色设备未验不归档，不触发收费测试。

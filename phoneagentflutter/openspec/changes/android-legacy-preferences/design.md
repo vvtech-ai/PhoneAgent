@@ -1,0 +1,28 @@
+## Context
+
+固定v65 4c781e3：TranslationCallSettingsRepository使用translation_call_settings；AssistantRootRuntimeGraph将index9_native_screen传给AssistantDialerPreferenceState。前者包含海外模型/节点/原音，后者包含翻译开关/提示/中文语言名/两种地区。当前两个Flutter安全存储均为空即默认。
+
+## Goals / Non-Goals
+
+Goals：同生产包升级保留有效偏好，新数据优先，失败和并发行为可回归。
+Non-Goals：国内模型/SIP、旧页面草稿/权限状态、身份录音/通话记录、真实升级与签名验证；iOS无旧Android数据。
+
+## Decisions
+
+2026-09-21定位缓存补漏：固定v65 AndroidTranslationRegionRepository/DefaultTranslationRegionRepository在translation_region_state保存trusted_country_iso和trusted_country_sampled_at_ms，冷启动及定位失败使用TrustedCache；没有TTL策略。本批沿用已有语义，不刷新时间或添加定位授权。LegacyPreferencesChannel增加location白名单，DeviceLegacyPreferences严格映射现有TrustedTranslationLocation（两位ISO、正整数时间，格式错误报错）。SecureTranslationLocationStore增加可选legacyRead并用PreferenceOperationQueue串行所有读写，新key不存在时先保存旧值再发布；不存在不写默认，错误不回退，新写不被旧导入覆盖。translationLocationStoreProvider复用现有生产双门禁；iOS/Web/dev不导入。真实系统权限和生产同签名升级另验。
+
+新增只读LegacyPreferencesChannel，仅read且无路径/key入参，原生严格检查com.vvtech.aiassistant；固定字段白名单，不返回account/token/号码/坐标。Dart应用装配复用旧登录精确prod作用域检查，并额外限定Android非Web。
+
+DeviceLegacyPreferences映射原音及翻译两份类型化快照：中文七语言→现有码；海外枚举→OPENAI/GEMINI、节点→DEFAULT/US/JP，按v65默认/范围处理未知值；国内provider不读取，权限历史标志不读取。所有字段类型不符应报错而非静默覆盖。
+
+两个现有SecureStore增加可选legacyRead，仅新key不存在时读取、映射并持久化一次。使用共享按key串行队列覆盖read/write和跨实例，先排队的旧读取不能覆盖后来的新设置；新数据损坏/读取失败不回退旧源。源缺失返回原默认，不更改旧文件；目标写失败仍可重试。不需要额外消费标记：这两类偏好没有清除操作，已写新key本身是导入完成证据。
+
+## Risks / Trade-offs
+
+补漏：固定v65 AssistantContactRuntimeController在跳过初始化、删除身份时将index9_native_screen/identity_initialization_skipped置true，remember读取该值；不是账号级身份或系统权限。原生白名单增加initialization.skipped，仅旧key存在才提供，Dart严格要求bool。IdentityInitializationStore增加可选legacyRead并复用同key队列，新key任何非空值优先（现有非法字符串仍返回false，不用旧值掩盖）。旧true/false先持久再返回；无旧值不落默认。markSkipped仍立即置本实例内存true，即使持久失败也不反转当次选择，后续显式mark可重试；晚到旧false不能覆盖排队的新true。正式provider沿用生产双门禁。此项不接入AuthRoute初始化门禁，不替代第三步产品决策。
+
+同生产签名升级未验→Debug构建不冒充真实迁移；旧文件保留不代表降级同步，Flutter新设置不会回写旧版。偏好与账号无关，沿v65设备级语义。其他旧数据继续独立待办。
+
+## Validation
+
+定向映射/门禁/存储并发失败/正式provider回归、analyze、Android Debug编译。无真实私有数据读取、安装或短信。微批≤3手写文件，500行约束。

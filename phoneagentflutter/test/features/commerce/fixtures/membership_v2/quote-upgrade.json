@@ -1,0 +1,37 @@
+{
+  "purchaseType": "UPGRADE",
+  "conversionSeconds": 0,
+  "membershipPreview": {
+    "ruleVersion": "PAUSE_QUEUE_V1",
+    "purchaseType": "UPGRADE",
+    "targetLevel": "PREMIUM",
+    "targetMonths": 1,
+    "immediateGrantPoints": 16000,
+    "firstGrantPoints": 16000,
+    "basePointsPerPeriod": 15500,
+    "bonusPointsPerPeriod": 500,
+    "totalPeriods": 1,
+    "activationTiming": "IMMEDIATE",
+    "estimatedStartsAt": "2026-10-14T10:00:00+08:00",
+    "estimatedExpiresAt": "2026-11-14T10:00:00+08:00",
+    "pausedEntitlement": {
+      "entitlementId": "201",
+      "sourceOrderNo": "EXAMPLE-201",
+      "level": "BASIC",
+      "months": 1,
+      "state": "ACTIVE",
+      "position": 1,
+      "firstActivatedAt": "2026-10-04T10:00:00+08:00",
+      "currentExpiresAt": "2026-11-04T10:00:00+08:00",
+      "estimatedStartsAt": null,
+      "estimatedExpiresAt": null,
+      "remainingSeconds": 1814400,
+      "firstGrantPoints": 4500,
+      "totalPeriods": 1,
+      "grantedPeriods": 1,
+      "nextGrantAt": null
+    },
+    "precedingEntitlements": [],
+    "membershipVersion": "18"
+  }
+}

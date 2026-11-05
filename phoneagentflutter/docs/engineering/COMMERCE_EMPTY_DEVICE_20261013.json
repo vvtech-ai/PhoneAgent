@@ -1,0 +1,93 @@
+{
+  "intermediate1304": {
+    "stage": "1304 intermediate empty-state device acceptance",
+    "packageName": "com.vvtech.aiassistant.dev",
+    "versionCode": 2026101304,
+    "firstInstallTime": "2026-10-10 12:36:18",
+    "lastUpdateTime": "2026-10-13 12:21:02",
+    "certificateSha256": "45655392a9295955d0d651eb7d1ff3f3edb1d15f8a62d74f201dfbc3789cdb4b",
+    "apkSha256": "F244B85AB6BE0B2C7F30846281C4935F8A8CE96B85D63DB5EE38B9389A0D01FB",
+    "installResult": "Success",
+    "reverseBindings": [
+      "tcp:18082 tcp:18082"
+    ],
+    "sdkListenPid": 51432,
+    "androidAppPid": 18067,
+    "authenticatedOrdinaryHomeVisible": true,
+    "unconfiguredMembershipRendered": true,
+    "totalPointsAndLedgerEntryPresent": true,
+    "fakeMarketingAndPricesAbsent": true,
+    "genericLoadingErrorAbsent": true,
+    "emptyOrdersRendered": true,
+    "emptyOrdersTableNavigationAbsent": true,
+    "horizontalInstructionAbsent": true,
+    "rawHttpStatus": null,
+    "safeHttpEventsObserved": 0,
+    "rawApiCode": null,
+    "underlying500ObservedDuringUiAcceptance": false,
+    "authenticationActionPerformed": false,
+    "actualPurchaseOrRecoveryActionPerformed": false,
+    "finalForeground": "ORDINARY_HOME",
+    "nextVersionRequiredForAndroidRestoreVisibility": 2026101305,
+    "privateScreenshots": [
+      "home-1304.png",
+      "membership-1304.png",
+      "orders-1304.png",
+      "home-return-1304.png"
+    ]
+  },
+  "candidate1305": {
+    "candidateVersionCode": 2026101305,
+    "packageName": "com.vvtech.aiassistant.dev",
+    "candidateApkSha256": "46767994653FAB8C4DDED48B024399447A0881DB1EB8AC33767FBD774C6D90D0",
+    "candidateCertificateSha256": "45655392a9295955d0d651eb7d1ff3f3edb1d15f8a62d74f201dfbc3789cdb4b",
+    "manifestAndCertificateVerified": true,
+    "installCommand": "adb install --no-incremental -r",
+    "installationSuccess": false,
+    "initialFailure": "INSTALL_FAILED_ABORTED: User rejected permissions",
+    "authorizedRetries": 1,
+    "retryResult": "INSTALL_FAILED_ABORTED: User rejected permissions",
+    "retryExitCode": 1,
+    "furtherRetryPerformed": false,
+    "installedVersionCode": 2026101304,
+    "firstInstallTime": "2026-10-10 12:36:18",
+    "lastUpdateTime": "2026-10-13 12:21:02",
+    "reverseBindings": [
+      "tcp:18082 tcp:18082"
+    ],
+    "applicationDataCleared": false,
+    "uninstallOrDowngradePerformed": false,
+    "deviceSecuritySettingsChanged": false,
+    "automatedLoginOrSmsPerformed": false,
+    "paymentOrRestorePerformed": false,
+    "androidRestoreButtonRemovalVerifiedOnDevice": false,
+    "screenshotsRepresentCandidate1305": false,
+    "finalForeground": "EXISTING_1304_ORDINARY_HOME",
+    "privateEvidence": [
+      "install-1305.png",
+      "install-1305-retry.png",
+      "home-after-1305-failed-kept-1304.png"
+    ]
+  },
+  "installed1305": {
+    "date": "2026-10-13",
+    "packageName": "com.vvtech.aiassistant.dev",
+    "installedVersionCode": 2026101305,
+    "versionName": "1.0.51",
+    "firstInstallTime": "2026-10-10 12:36:18",
+    "lastUpdateTime": "2026-10-13 12:47:52",
+    "apkSha256": "46767994653FAB8C4DDED48B024399447A0881DB1EB8AC33767FBD774C6D90D0",
+    "installCommand": "adb -d install --no-incremental -r",
+    "installResult": "Success",
+    "certificateMatches1304": true,
+    "unconfiguredMembershipRendered": true,
+    "androidRestoreButtonAbsent": true,
+    "loadingErrorAbsent": true,
+    "ordinaryHomeConfirmed": true,
+    "orderEmptyDeviceEvidenceVersion": 2026101304,
+    "rawHttpStatus": null,
+    "automatedLoginOrSmsPerformed": false,
+    "dataCleared": false,
+    "deviceSecuritySettingsChanged": false
+  }
+}

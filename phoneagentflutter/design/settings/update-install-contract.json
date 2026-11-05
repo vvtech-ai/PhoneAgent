@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0", "generatedAt": "2026-09-18", "id": "update-install",
+  "source": "v65 FinalOtaUpdateDialog/FinalOtaUpdateInstaller + existing AppUpdatePage and ShellTokens",
+  "targetConfig": "TargetAppConfig.json",
+  "visualPolicy": "User-approved existing components first; final dialog geometry calibration pending",
+  "components": ["AppBar", "SafeArea", "scrollable release card padding18", "progress", "FilledButton", "TextButton"],
+  "routes": ["settings", "update-check", "update-install", "external-permission", "external-installer"],
+  "states": ["idle", "restoring", "downloading", "paused", "verifying", "ready", "permission", "installing", "failed"],
+  "controls": [
+    {"id":"update-install-entry", "role":"primaryButton", "action":"navigate", "target":"update-install", "expected":"restore only, no enqueue"},
+    {"id":"update-install-primary", "role":"primaryButton", "action":"submit", "expected":"explicit download, verify, handoff; single flight"},
+    {"id":"update-install-permission", "role":"permissionCta", "action":"openSystemSettings", "expected":"resume checks permission, denial remains retryable"},
+    {"id":"update-install-retry", "role":"primaryButton", "action":"submit", "expected":"retry download or installation as appropriate"},
+    {"id":"update-install-close", "role":"back", "action":"back", "expected":"cancel own job then pop; forced dialog cannot dismiss"},
+    {"id":"update-install-preview-return", "role":"secondaryButton", "action":"toggleState", "expected":"mock permission/installer return only; no platform call"}
+  ],
+  "interactionBinding": "semantic Flutter controls; no coordinate overlay",
+  "excludedSystemNodes": ["statusBar", "homeIndicator", "systemKeyboard"],
+  "mockStates": ["normal", "denied", "download-failed", "bad-package", "restored", "paused"],
+  "notes": ["DownloadManager persists independently of UI", "Installer handoff is not successful upgrade", "No iOS entry", "No new raster asset or invented visual measurement"]
+}

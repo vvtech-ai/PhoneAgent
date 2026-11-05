@@ -1,0 +1,10 @@
+# 设计
+Flutter c10ad11c，参考aiassistant_app 47d1cee的普通BackendTranslationCallGateway，V70试点不启用。该入口使用构建区域节点而非plan.nodeEndpoint；本次用户明确批准，覆盖align-current-server-contracts中普通后端外呼和语言目录使用options节点的实现，options继续用于国家/精确模型/语言能力。模拟国家仅覆盖逻辑主叫位置，不跳过服务与媒体。
+
+正式拨号冻结有效主叫国家，US/JP映射相应区域、其他DEFAULT、国内强制海外US；既有无位置离线调用保留fixture区域。runtime的resolveServices保留新拨打目录门禁但使用translationEndpointProvider(dial.serviceRegion)，catalog同步使用同节点策略，通话资源冻结。domain独立语言和错误策略，coordinator保持单次外呼、挂断顺序及清理不确定性。提示映射阶段/安全状态码，不透出服务器原始文本或凭证，沿用现有UI。
+
+LiveKit解析和媒体校验统一接受https/wss及query，保留host/userinfo/fragment校验；AppAudio仍仅wss。缺省voiceProvider/realtimeProvider按原请求回退。媒体超时10秒、409 MEDIA_CHANNEL_NOT_READY每500ms最多10秒重试及创建IO兼容已有，复用不重复实现。
+
+每个手写业务微批最多3文件；格式化/测试独立记录。定向覆盖HTTP、coordinator、media、runtime/provider、页面及国内直接调用方，analyze与OpenSpec；设备与实际服务另列待验。
+
+设置页沿用原布局，仅说明文案改为按主叫国家匹配通话节点，下方区域选择用于公开语言目录检查，避免旧文案声称手选区域覆盖正式通话。

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16",
+  "sourceVersion": "0cd58de9bb578845517aeb54bef8ab6970392b81",
+  "source": "NormalizedDesignTree.json: existing runtime_dom capture",
+  "contentViewport": {"width": 390, "height": 793},
+  "excludedSystemNodes": [".status-bar"],
+  "runtimeFillPolicy": "fillAvailableViewport",
+  "components": [
+    {"id":"conversation-header", "sourceNodeIds":["pureVoicePage.0","pureVoicePage.0.0.0","pvCloseBtn"], "category":"Header", "padding":[4,22,6,22], "minHeight":54, "title":{"fontSize":18,"fontWeight":800,"lineHeight":24,"color":"#1A1A1A"}, "subtitle":{"fontSize":11,"lineHeight":15,"color":"#8F98A8","gap":2}, "close":{"width":44,"height":44,"fontSize":18}},
+    {"id":"conversation-stages", "sourceNodeIds":["pureVoicePage.1","pvSl1","pvSb1"], "category":"StageIndicator", "padding":[6,22,0,22], "labelHeight":14, "labelFontSize":10, "labelWeight":700, "labelToBarGap":8, "barGap":6, "barHeight":4, "barRadius":99, "labelCount":4, "inactiveLabel":"#B0B8C9", "inactiveBar":"#E8ECF2"},
+    {"id":"conversation-live", "sourceNodeIds":["pvLiveIndicator","pvLiveDot","pvLiveText"], "category":"Status", "padding":[12,22,0,22], "dotSize":7, "gap":8, "fontSize":12, "fontWeight":600, "lineHeight":16, "color":"#0A84FF"},
+    {"id":"conversation-dock", "sourceNodeIds":["pvInputDock","taskVoiceModelChip","pvPlusBtn","pvControlBtn","pvTextToggleBtn"], "category":"Input", "padding":[10,18,24,18], "runtimeAnchor":"bottom", "modelHeight":28, "modelPadding":[5,10], "modelIconGap":3, "modelFontSize":12, "modelLineHeight":16, "modelColor":"#5F6B7A", "sideButtonSize":40, "voiceButtonSize":56, "voiceGradient":["#2196F3","#1976D2"], "assets":["conversation_0","conversation_1","conversation_2","conversation_4","conversation_5"]}
+  ],
+  "notAccepted": ["populated message layout", "tool/result states", "attachment overlay interactions", "font equivalence", "real audio behavior"],
+  "provisionalCssComponents": [
+    {"id":"user-message", "source":"memory/css/style.css:.user-bubble", "maxWidth":220, "fontSize":14, "lineHeight":1.5, "padding":[10,14], "radii":[18,18,4,18], "gradient":["#007AFF","#0066DD"]},
+    {"id":"assistant-message", "source":"memory/css/style.css:.ai-bubble", "maxWidth":260, "fontSize":14, "lineHeight":1.55, "padding":[10,14], "radii":[18,18,18,4], "color":"#1A1A1A"},
+    {"id":"tool-card", "source":"memory/css/style.css:.tool-card/.tool-header/.tool-body/.tool-result", "maxWidth":270, "padding":[10,14], "radius":14, "border":"#E8EDF2", "fontSize":11}
+  ],
+  "notes": ["No app runtime JSON renderer", "Voice state follows v65/user decisions, not prototype autoplay", "Hidden transformed text-composer bounds are not used as visible dimensions", "CSS-derived populated components are provisional pending runtime design state comparison; no full visual acceptance claim"]
+}

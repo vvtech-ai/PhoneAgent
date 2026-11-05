@@ -1,0 +1,16 @@
+if (gradle.parent == null && gradle.startParameter.taskNames != [':app:assembleDebug']) {
+    throw new GradleException('Recording probe only supports explicit debug assemble')
+}
+gradle.beforeProject { p ->
+    if (p.path == ':app') p.plugins.withId('com.android.application') {
+        final sourceRoot = System.getProperty('phoneagent.recordingProbeSource')
+        if (!sourceRoot) throw new GradleException('Missing isolated recording probe path')
+        p.android.sourceSets.debug.manifest.srcFile(new File(sourceRoot, 'AndroidManifest.xml'))
+        p.android.sourceSets.debug.java.srcDir(sourceRoot)
+        p.extensions.getByName('androidComponents').finalizeDsl { android ->
+            p.extensions.getByName('androidComponents').onVariants(
+                p.extensions.getByName('androidComponents').selector().withBuildType('debug')
+            ) { variant -> variant.applicationId.set('com.vvtech.aiassistant.synthetic.recordingprobe') }
+        }
+    }
+}

@@ -1,0 +1,410 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T04:53:11.312Z",
+  "targetPlatform": "flutter",
+  "packageName": "com.vvtech.aiassistant.dev",
+  "id": "auth-result",
+  "buildResults": [
+    {
+      "command": "scripts/verify.ps1",
+      "status": "pass",
+      "tests": 55
+    },
+    {
+      "command": "flutter drive --driver=test_driver/auth_driver.dart --target=integration_test/auth_flow_test.dart -d emulator-5554 --no-pub",
+      "status": "pass"
+    }
+  ],
+  "installResult": {
+    "status": "pass",
+    "installerConfirmationRequired": false,
+    "ordinaryEntryReinstalled": true
+  },
+  "launchOutput": "Ordinary app launch succeeded; PID-scoped AndroidRuntime:E/flutter:E filter empty",
+  "initialScreenshot": {
+    "id": "login",
+    "path": ".local/auth-validation/login.png",
+    "sha256": "3d8ba876cb2c64c967ea5adacbd2b54d66b341d184bf65972b6a9653909afac5"
+  },
+  "screenshots": [
+    {
+      "id": "login",
+      "path": ".local/auth-validation/login.png",
+      "sha256": "3d8ba876cb2c64c967ea5adacbd2b54d66b341d184bf65972b6a9653909afac5"
+    },
+    {
+      "id": "invitation",
+      "path": ".local/auth-validation/invitation.png",
+      "sha256": "d8d1220b5d3ee61b4f07f89833043ff62a5ff2bc48bec619a68587f13ff1b7a8"
+    },
+    {
+      "id": "default-app",
+      "path": ".local/auth-validation/default-app.png",
+      "sha256": "544e9da918548e05b276f746d5b71bcb4198bc6bed7a1536653d1266d1a7187e"
+    }
+  ],
+  "interactionResults": [
+    {
+      "interactionId": "loginPhone",
+      "status": "pass",
+      "sourceRouteId": "loginPage",
+      "targetRouteId": "loginPage",
+      "trigger": "ValueKey(loginPhone)",
+      "coordinates": null,
+      "coordinateReason": "semantic Flutter finder tap/input, not absolute coordinates",
+      "sourceSetup": "prior controls in continuous login/invite flow",
+      "beforeScreenshot": ".local/auth-validation/login.png",
+      "afterScreenshot": ".local/auth-validation/login.png",
+      "screenshotScope": "representative route screenshots, not per-click snapshots",
+      "assertions": "integration_test/auth_flow_test.dart"
+    },
+    {
+      "interactionId": "loginCode",
+      "status": "pass",
+      "sourceRouteId": "loginPage",
+      "targetRouteId": "loginPage",
+      "trigger": "ValueKey(loginCode)",
+      "coordinates": null,
+      "coordinateReason": "semantic Flutter finder tap/input, not absolute coordinates",
+      "sourceSetup": "prior controls in continuous login/invite flow",
+      "beforeScreenshot": ".local/auth-validation/login.png",
+      "afterScreenshot": ".local/auth-validation/login.png",
+      "screenshotScope": "representative route screenshots, not per-click snapshots",
+      "assertions": "integration_test/auth_flow_test.dart"
+    },
+    {
+      "interactionId": "loginGetCode",
+      "status": "pass",
+      "sourceRouteId": "loginPage",
+      "targetRouteId": "loginPage",
+      "trigger": "ValueKey(loginGetCode)",
+      "coordinates": null,
+      "coordinateReason": "semantic Flutter finder tap/input, not absolute coordinates",
+      "sourceSetup": "prior controls in continuous login/invite flow",
+      "beforeScreenshot": ".local/auth-validation/login.png",
+      "afterScreenshot": ".local/auth-validation/login.png",
+      "screenshotScope": "representative route screenshots, not per-click snapshots",
+      "assertions": "integration_test/auth_flow_test.dart"
+    },
+    {
+      "interactionId": "loginBtn",
+      "status": "pass",
+      "sourceRouteId": "loginPage",
+      "targetRouteId": "activationPage",
+      "trigger": "ValueKey(loginBtn)",
+      "coordinates": null,
+      "coordinateReason": "semantic Flutter finder tap/input, not absolute coordinates",
+      "sourceSetup": "prior controls in continuous login/invite flow",
+      "beforeScreenshot": ".local/auth-validation/login.png",
+      "afterScreenshot": ".local/auth-validation/invitation.png",
+      "screenshotScope": "representative route screenshots, not per-click snapshots",
+      "assertions": "integration_test/auth_flow_test.dart"
+    },
+    {
+      "interactionId": "activationCodeInput",
+      "status": "pass",
+      "sourceRouteId": "activationPage",
+      "targetRouteId": "activationPage",
+      "trigger": "ValueKey(activationCodeInput)",
+      "coordinates": null,
+      "coordinateReason": "semantic Flutter finder tap/input, not absolute coordinates",
+      "sourceSetup": "prior controls in continuous login/invite flow",
+      "beforeScreenshot": ".local/auth-validation/invitation.png",
+      "afterScreenshot": ".local/auth-validation/invitation.png",
+      "screenshotScope": "representative route screenshots, not per-click snapshots",
+      "assertions": "integration_test/auth_flow_test.dart"
+    },
+    {
+      "interactionId": "activationBtn",
+      "status": "pass",
+      "sourceRouteId": "activationPage",
+      "targetRouteId": "activationPage",
+      "trigger": "ValueKey(activationBtn)",
+      "coordinates": null,
+      "coordinateReason": "semantic Flutter finder tap/input, not absolute coordinates",
+      "sourceSetup": "prior controls in continuous login/invite flow",
+      "beforeScreenshot": ".local/auth-validation/invitation.png",
+      "afterScreenshot": ".local/auth-validation/invitation.png",
+      "screenshotScope": "representative route screenshots, not per-click snapshots",
+      "assertions": "integration_test/auth_flow_test.dart"
+    },
+    {
+      "interactionId": "backLogin",
+      "status": "pass",
+      "sourceRouteId": "activationPage",
+      "targetRouteId": "loginPage",
+      "trigger": "ValueKey(backLogin)",
+      "coordinates": null,
+      "coordinateReason": "semantic Flutter finder tap/input, not absolute coordinates",
+      "sourceSetup": "prior controls in continuous login/invite flow",
+      "beforeScreenshot": ".local/auth-validation/invitation.png",
+      "afterScreenshot": ".local/auth-validation/login.png",
+      "screenshotScope": "representative route screenshots, not per-click snapshots",
+      "assertions": "integration_test/auth_flow_test.dart"
+    }
+  ],
+  "routeAssertionResults": [
+    {
+      "routeId": "loginPage",
+      "status": "pass"
+    },
+    {
+      "routeId": "activationPage",
+      "status": "pass"
+    }
+  ],
+  "controlCoverage": {
+    "criticalTotal": 7,
+    "executed": 7,
+    "ratio": 1,
+    "routes": 2
+  },
+  "crashEvents": [],
+  "visualChecks": [
+    {
+      "id": "startup",
+      "status": "pass",
+      "evidence": ".local/auth-validation/login.png"
+    },
+    {
+      "id": "postNavigation",
+      "status": "pass",
+      "evidence": ".local/auth-validation/invitation.png"
+    },
+    {
+      "id": "viewport",
+      "status": "pass",
+      "reason": "No fixed content height; centered whitespace matches design intent"
+    }
+  ],
+  "architectureChecks": {
+    "status": "pass",
+    "maxLines": 500,
+    "semanticControls": true,
+    "genericJsonRenderer": false,
+    "fullPagePreviewBackground": false,
+    "evidence": "architecture-report.md"
+  },
+  "visualFidelityChecks": [
+    {
+      "checkId": "authBrand",
+      "region": "brand",
+      "status": "pass",
+      "sourceNodeIds": [
+        "loginPage.div0.div0.img0"
+      ],
+      "evidence": [
+        "test/widget_test.dart",
+        ".local/auth-validation/login.png"
+      ],
+      "reason": "107x98 contain / title28 / subtitle14, actual logo; no mask"
+    },
+    {
+      "checkId": "authForm",
+      "region": "input and CTA",
+      "status": "pass",
+      "sourceNodeIds": [
+        "loginPhone",
+        "loginBtn"
+      ],
+      "evidence": [
+        "test/widget_test.dart",
+        ".local/auth-validation/login.png"
+      ],
+      "reason": "390x793 widget: x42,w306,CTA49,top568±2; field58,r12; device max320"
+    },
+    {
+      "checkId": "authInvitation",
+      "region": "invitation and return",
+      "status": "pass",
+      "sourceNodeIds": [
+        "activationCodeInput",
+        "activationBtn",
+        "V88AuthPages.onBackLogin"
+      ],
+      "evidence": [
+        ".local/auth-validation/invitation.png",
+        "visual-diff-report.md"
+      ],
+      "reason": "v65 adds return link / disabled empty invite; documented override"
+    },
+    {
+      "checkId": "authFont",
+      "region": "system typography",
+      "status": "minor",
+      "sourceNodeIds": [
+        "loginPage.div0.div0.div1"
+      ],
+      "evidence": [
+        "visual-diff-report.md"
+      ],
+      "reason": "Platform system glyph/width differences; no exact pixel-match claim"
+    }
+  ],
+  "visualContractChecks": [
+    {
+      "checkId": "authBrand",
+      "region": "brand",
+      "status": "pass",
+      "sourceNodeIds": [
+        "loginPage.div0.div0.img0"
+      ],
+      "evidence": [
+        "test/widget_test.dart",
+        ".local/auth-validation/login.png"
+      ],
+      "reason": "107x98 contain / title28 / subtitle14, actual logo; no mask"
+    },
+    {
+      "checkId": "authForm",
+      "region": "input and CTA",
+      "status": "pass",
+      "sourceNodeIds": [
+        "loginPhone",
+        "loginBtn"
+      ],
+      "evidence": [
+        "test/widget_test.dart",
+        ".local/auth-validation/login.png"
+      ],
+      "reason": "390x793 widget: x42,w306,CTA49,top568±2; field58,r12; device max320"
+    },
+    {
+      "checkId": "authInvitation",
+      "region": "invitation and return",
+      "status": "pass",
+      "sourceNodeIds": [
+        "activationCodeInput",
+        "activationBtn",
+        "V88AuthPages.onBackLogin"
+      ],
+      "evidence": [
+        ".local/auth-validation/invitation.png",
+        "visual-diff-report.md"
+      ],
+      "reason": "v65 adds return link / disabled empty invite; documented override"
+    },
+    {
+      "checkId": "authFont",
+      "region": "system typography",
+      "status": "minor",
+      "sourceNodeIds": [
+        "loginPage.div0.div0.div1"
+      ],
+      "evidence": [
+        "visual-diff-report.md"
+      ],
+      "reason": "Platform system glyph/width differences; no exact pixel-match claim"
+    }
+  ],
+  "componentVisualContractChecks": [
+    {
+      "checkId": "authBrand",
+      "region": "brand",
+      "status": "pass",
+      "sourceNodeIds": [
+        "loginPage.div0.div0.img0"
+      ],
+      "evidence": [
+        "test/widget_test.dart",
+        ".local/auth-validation/login.png"
+      ],
+      "reason": "107x98 contain / title28 / subtitle14, actual logo; no mask"
+    },
+    {
+      "checkId": "authForm",
+      "region": "input and CTA",
+      "status": "pass",
+      "sourceNodeIds": [
+        "loginPhone",
+        "loginBtn"
+      ],
+      "evidence": [
+        "test/widget_test.dart",
+        ".local/auth-validation/login.png"
+      ],
+      "reason": "390x793 widget: x42,w306,CTA49,top568±2; field58,r12; device max320"
+    },
+    {
+      "checkId": "authInvitation",
+      "region": "invitation and return",
+      "status": "pass",
+      "sourceNodeIds": [
+        "activationCodeInput",
+        "activationBtn",
+        "V88AuthPages.onBackLogin"
+      ],
+      "evidence": [
+        ".local/auth-validation/invitation.png",
+        "visual-diff-report.md"
+      ],
+      "reason": "v65 adds return link / disabled empty invite; documented override"
+    },
+    {
+      "checkId": "authFont",
+      "region": "system typography",
+      "status": "minor",
+      "sourceNodeIds": [
+        "loginPage.div0.div0.div1"
+      ],
+      "evidence": [
+        "visual-diff-report.md"
+      ],
+      "reason": "Platform system glyph/width differences; no exact pixel-match claim"
+    }
+  ],
+  "templateRisk": {
+    "riskLevel": "low",
+    "reason": "Measured 24-node contract and hash-verified asset, not generic form redesign",
+    "evidence": [
+      "SourceSnapshot.json",
+      "component-tree.json",
+      "generated-ui-summary.md"
+    ]
+  },
+  "interactionArchitectureChecks": {
+    "nativeCallbacks": true,
+    "transparentOverlays": false
+  },
+  "systemUiChecks": {
+    "status": "pass",
+    "designBarsExcluded": true,
+    "evidence": ".local/auth-validation/default-app.png"
+  },
+  "runtimeViewportChecks": {
+    "status": "pass",
+    "policy": "fillAvailableViewport"
+  },
+  "navigationLifecycleChecks": {
+    "explicitBack": true,
+    "frameworkSystemBack": true,
+    "reentry": true
+  },
+  "blockers": [],
+  "majorIssues": [],
+  "minorIssues": [
+    "System-font differences; no automated full-image pixel diff"
+  ],
+  "score": 90,
+  "scoreMethod": "Heuristic review: runtime/build40 + behavior40 + visual10/20; not pixel similarity",
+  "shouldSelfFix": false,
+  "stopReason": "Bounded presentation milestone verified; API/persistence/home/iOS remain separate work",
+  "remaining": [
+    "HTTP authentication",
+    "session persistence",
+    "home",
+    "iOS page verification"
+  ],
+  "warnings": [
+    "Emulator graphics buffer format probes warn but rendering/tests pass"
+  ],
+  "syntheticEvidence": {
+    "syntheticOnly": true,
+    "externalRequests": 0,
+    "sendCodeCalls": 1,
+    "loginCalls": 3,
+    "routesExercised": 2,
+    "criticalControlsExercised": 7,
+    "systemBackVerified": true
+  }
+}

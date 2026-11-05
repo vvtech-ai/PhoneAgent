@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="424" height="424" viewBox="0 0 424 424">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+        filter: url(#filter);
+      }
+    </style>
+    <filter id="filter" x="46" y="60" width="331.5" height="303.75" filterUnits="userSpaceOnUse">
+      <feImage preserveAspectRatio="none" x="46" y="60" width="331.5" height="303.75" result="image" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzMxLjUiIGhlaWdodD0iMzAzLjc1IiB2aWV3Qm94PSIwIDAgMzMxLjUgMzAzLjc1Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiB1cmwoI2xpbmVhci1ncmFkaWVudCk7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImxpbmVhci1ncmFkaWVudCIgeDE9IjE2NS43NSIgeTE9IjMwMy43NSIgeDI9IjE2NS43NSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxYWQ1ZmYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNzU2MWZjIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCBjbGFzcz0iY2xzLTEiIHdpZHRoPSIzMzEuNSIgaGVpZ2h0PSIzMDMuNzUiLz4KPC9zdmc+Cg=="/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <path id="圆角矩形_1_拷贝_6" data-name="圆角矩形 1 拷贝 6" class="cls-1" d="M211.746,60a15.418,15.418,0,0,1,15.419,15.418v272.9a15.419,15.419,0,0,1-30.837,0V75.418A15.418,15.418,0,0,1,211.746,60Zm50.11,53.033a15.418,15.418,0,0,1,15.418,15.419V295.285a15.418,15.418,0,1,1-30.836,0V128.452A15.418,15.418,0,0,1,261.856,113.033Zm50.109,60.748A15.418,15.418,0,0,1,327.383,189.2v46.3a15.418,15.418,0,0,1-30.836,0V189.2A15.418,15.418,0,0,1,311.965,173.781Zm50.11,16.392a15.418,15.418,0,0,1,15.418,15.418v12.554a15.419,15.419,0,1,1-30.837,0V205.591A15.418,15.418,0,0,1,362.075,190.173Zm-200.438-77.14a15.418,15.418,0,0,0-15.418,15.419V295.285a15.418,15.418,0,0,0,30.836,0V128.452A15.418,15.418,0,0,0,161.637,113.033Zm-50.109,60.748A15.418,15.418,0,0,0,96.109,189.2v46.3a15.418,15.418,0,0,0,30.837,0V189.2A15.418,15.418,0,0,0,111.528,173.781Zm-50.11,16.392A15.418,15.418,0,0,0,46,205.591v12.554a15.418,15.418,0,1,0,30.837,0V205.591A15.418,15.418,0,0,0,61.418,190.173Z"/>
+</svg>

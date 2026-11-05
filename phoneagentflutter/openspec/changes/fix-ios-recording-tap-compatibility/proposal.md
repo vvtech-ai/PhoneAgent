@@ -1,0 +1,3 @@
+# iOS录音波形Tap编译兼容修复
+
+当前iOS SDK将MTAudioProcessingTapCreate输出导入为MTAudioProcessingTap?，现有Unmanaged包装导致Profile构建失败。修复输出类型及解包，保留播放与回调上下文释放边界。只影响一个Swift源码，不升级工具链或依赖。

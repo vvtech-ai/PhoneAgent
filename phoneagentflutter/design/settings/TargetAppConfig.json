@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1.0", "generatedAt": "2026-09-17", "id": "settings-target",
+  "targetPlatform": "flutter", "projectMode": "existing", "outputDirectory": "lib/features/settings",
+  "stateManagement": "Riverpod", "sourceCommit": "0cd58de9bb578845517aeb54bef8ab6970392b81",
+  "systemUi": {"renderDesignSystemBars": false, "usePlatformSystemBars": true, "fullscreen": false},
+  "fidelityPolicy": "User-approved static HTML/CSS and existing components first; visual calibration pending",
+  "validationCommands": ["flutter analyze", "flutter test", "flutter build web --debug", "flutter build apk --debug"]
+}

@@ -1,0 +1,24 @@
+// Explicit clone integration fixture only; never applied by ordinary builds.
+if (gradle.parent == null && gradle.startParameter.taskNames != [':app:assembleDebug']) {
+    throw new GradleException('Clone stage only supports :app:assembleDebug')
+}
+gradle.beforeProject { p ->
+    if (p.path == ':app') {
+        p.plugins.withId('com.android.application') {
+            final sourceRoot = System.getProperty('phoneagent.cloneStageSource')
+            if (!sourceRoot) throw new GradleException('Missing clone stage source path')
+            final expectedTarget = new File(sourceRoot, '../../integration_test/voice_clone_stage_test.dart').canonicalFile
+            if (new File(p.rootProject.findProperty('target') ?: '').canonicalFile != expectedTarget) {
+                throw new GradleException('Clone stage requires its synthetic integration target')
+            }
+            p.android.sourceSets.debug.manifest.srcFile(new File(sourceRoot, 'AndroidStageManifest.xml'))
+            p.extensions.getByName('androidComponents').finalizeDsl { android ->
+                p.extensions.getByName('androidComponents').onVariants(
+                    p.extensions.getByName('androidComponents').selector().withBuildType('debug')
+                ) { variant ->
+                    variant.applicationId.set('com.vvtech.aiassistant.ui.clonestage')
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T04:24:34.781Z",
+  "source": "html",
+  "metrics": {
+    "pagePreviewCount": 2,
+    "imageFillCount": 2,
+    "vectorCandidateCount": 0,
+    "exportSettingCount": 0,
+    "instanceAssetCandidateCount": 0,
+    "fontCandidateCount": 0,
+    "nonPreviewAssetCount": 1,
+    "excludedFoundationCount": 0,
+    "excludedSystemNodeCount": 1
+  },
+  "assets": [
+    {
+      "assetId": "authBrandLogo",
+      "sourceNodeId": "loginPage.div0.div0.img0",
+      "name": "auth_brand_logo",
+      "type": "image",
+      "format": "png",
+      "source": "html",
+      "sourceKind": "html_resource",
+      "role": "ui",
+      "resourceUrl": ".local/design-auth/source/memory/chakenailogo.png",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed git archive",
+      "localPath": ".local/design-auth/source/memory/chakenailogo.png",
+      "targetPath": "assets/images/auth_brand_logo.png",
+      "hash": "bc2774769013dfa58801edd4a1a45a5fd5ac0c6d441a221d96f593c5c556882e",
+      "expiresAt": null,
+      "usage": [
+        "loginPage",
+        "activationPage"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed"
+    }
+  ]
+}

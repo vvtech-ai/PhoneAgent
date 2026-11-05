@@ -1,0 +1,4 @@
+framework module KXSDK {
+  header "KXSSDK-Swift.h"
+  requires objc
+}

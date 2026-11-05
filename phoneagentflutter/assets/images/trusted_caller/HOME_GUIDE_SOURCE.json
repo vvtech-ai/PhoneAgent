@@ -1,0 +1,7 @@
+{
+  "reference_project": "AIAssistant1",
+  "reference_commit": "a0bedb12afd8aa47c82f70fe1e93bf034706f727",
+  "source": "android/app/src/main/res/drawable-nodpi/chakencalledicon.png",
+  "destination": "assets/images/trusted_caller/chakencalledicon.png",
+  "sha256": "c6c7feec5a702e13fc4cf2947e7bc364af22f5a243f0ab84008a0324f388b19f"
+}

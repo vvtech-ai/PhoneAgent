@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:22:03.874Z",
+  "targetPlatform": "flutter",
+  "packageName": "com.vvtech.aiassistant.dev",
+  "architectureChecks": {
+    "genericJsonRenderer": false,
+    "fullPagePreviewBackground": false
+  },
+  "visualFidelityChecks": [
+    {
+      "checkId": "conversation-readability",
+      "routeId": "pureVoicePage",
+      "region": "header/thread/composer",
+      "status": "pass",
+      "evidence": [
+        ".local/conversation-validation/tasks.png",
+        ".local/conversation-validation/restored-voice.png",
+        ".local/conversation-validation/options.png",
+        ".local/conversation-validation/text-result.png"
+      ],
+      "reason": "Screenshots inspected. Original SVG icons; task shadows and toggle corrected. No claim of pixel-identical/full-tool acceptance."
+    }
+  ],
+  "templateRisk": {
+    "riskLevel": "low",
+    "reason": "原始资源+独立真实控件",
+    "evidence": [
+      "component-tree.json"
+    ]
+  },
+  "blockers": [],
+  "majorIssues": [
+    "复杂工具/回执/音频/完整阶段状态仍待迁移；基础文字范围以验证文档为准"
+  ],
+  "minorIssues": [
+    "iOS与真实账号联调待集中验证"
+  ],
+  "score": 0,
+  "shouldSelfFix": false,
+  "stopReason": "scoped-foundation-verified; continue read-only result detail; no full-app score assigned",
+  "runtimeEvidence": {
+    "routes": [
+      "tasks",
+      "unified-voice",
+      "unified-text"
+    ],
+    "cases": [
+      "closed-restore",
+      "toggle",
+      "send",
+      "ordinal",
+      "stream",
+      "explicit-close",
+      "system-back"
+    ],
+    "commands": 2,
+    "network": "none; synthetic repositories only",
+    "captures": [
+      {
+        "path": ".local/conversation-validation/tasks.png",
+        "sha256": "a4393304ae789d99cacb0a8921d4a8788eeccbc40fec79ec5a868d59010f8acb"
+      },
+      {
+        "path": ".local/conversation-validation/restored-voice.png",
+        "sha256": "6cafbae664b9c8b97cac0fbc518530dfb31b31cb333519a2de6d4db0de9ac3a5"
+      },
+      {
+        "path": ".local/conversation-validation/options.png",
+        "sha256": "f23f7cabfb8ee6af91ffbf015fe02e553b1a91fe8ecff8e239a93810af12d901"
+      },
+      {
+        "path": ".local/conversation-validation/text-result.png",
+        "sha256": "6a1e884fcf687e0fd9226385bb70232641e935e7e61df5aca0e0a21d02dc6b23"
+      }
+    ]
+  }
+}

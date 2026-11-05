@@ -1,0 +1,200 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T07:27:08.579Z",
+  "targetPlatform": "flutter",
+  "controls": [
+    {
+      "id": "homeVoiceModelChip",
+      "controlId": "homeVoiceModelChip",
+      "pageId": "homePage",
+      "sourceRouteId": "homePage",
+      "sourceNodeId": "homeVoiceModelChip",
+      "nodeId": "homeVoiceModelChip",
+      "action": "model-sheet",
+      "label": "model-sheet",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 94.40625,
+        "y": 320.9375,
+        "width": 201.1875,
+        "height": 34
+      }
+    },
+    {
+      "id": "quickRow",
+      "controlId": "quickRow",
+      "pageId": "homePage",
+      "sourceRouteId": "homePage",
+      "sourceNodeId": "quickRow",
+      "nodeId": "quickRow",
+      "action": "skill-entry",
+      "label": "skill-entry",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 30,
+        "y": 368.9375,
+        "width": 330,
+        "height": 656.984375
+      }
+    },
+    {
+      "id": "floatingNav",
+      "controlId": "floatingNav",
+      "pageId": "homePage",
+      "sourceRouteId": "homePage",
+      "sourceNodeId": "floatingNav",
+      "nodeId": "floatingNav",
+      "action": "tab-switch",
+      "label": "tab-switch",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 28,
+        "y": 705,
+        "width": 334,
+        "height": 80
+      }
+    },
+    {
+      "id": "assistantFab",
+      "controlId": "assistantFab",
+      "pageId": "homePage",
+      "sourceRouteId": "homePage",
+      "sourceNodeId": "assistantFab",
+      "nodeId": "assistantFab",
+      "action": "dialer",
+      "label": "dialer",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 165,
+        "y": 696,
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "id": "backFromVoiceModel",
+      "controlId": "backFromVoiceModel",
+      "pageId": "voiceModelPage",
+      "sourceRouteId": "voiceModelPage",
+      "sourceNodeId": "backFromVoiceModel",
+      "nodeId": "backFromVoiceModel",
+      "action": "back",
+      "label": "back",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 18,
+        "y": 0,
+        "width": 44,
+        "height": 44
+      }
+    },
+    {
+      "id": "provider-option",
+      "controlId": "provider-option",
+      "pageId": "voiceModelPage",
+      "sourceRouteId": "voiceModelPage",
+      "sourceNodeId": "provider-option",
+      "nodeId": "provider-option",
+      "action": "select-provider",
+      "label": "select-provider",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      }
+    },
+    {
+      "id": "voice-setting",
+      "controlId": "voice-setting",
+      "pageId": "voiceModelPage",
+      "sourceRouteId": "voiceModelPage",
+      "sourceNodeId": "voice-setting",
+      "nodeId": "voice-setting",
+      "action": "voiceIdentityPage",
+      "label": "voiceIdentityPage",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      }
+    },
+    {
+      "id": "backFromVoiceIdentity",
+      "controlId": "backFromVoiceIdentity",
+      "pageId": "voiceIdentityPage",
+      "sourceRouteId": "voiceIdentityPage",
+      "sourceNodeId": "backFromVoiceIdentity",
+      "nodeId": "backFromVoiceIdentity",
+      "action": "back",
+      "label": "back",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 18,
+        "y": 0,
+        "width": 44,
+        "height": 44
+      }
+    },
+    {
+      "id": "callVoiceList",
+      "controlId": "callVoiceList",
+      "pageId": "voiceIdentityPage",
+      "sourceRouteId": "voiceIdentityPage",
+      "sourceNodeId": "callVoiceList",
+      "nodeId": "callVoiceList",
+      "action": "select-voice",
+      "label": "select-voice",
+      "role": "primaryButton",
+      "priority": "critical",
+      "actionability": "must-interact",
+      "confidence": "high",
+      "reason": "HTML visual + v65 runtime behavior",
+      "bounds": {
+        "x": 45,
+        "y": 289.578125,
+        "width": 300,
+        "height": 186
+      }
+    }
+  ],
+  "coverage": {
+    "totalControls": 9,
+    "mappedControls": 9
+  }
+}

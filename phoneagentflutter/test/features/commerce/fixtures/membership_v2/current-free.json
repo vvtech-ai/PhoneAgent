@@ -1,0 +1,11 @@
+{
+  "ruleVersion": "PAUSE_QUEUE_V1",
+  "membershipVersion": "19",
+  "observedAt": "2026-10-14T10:00:00+08:00",
+  "level": "FREE",
+  "currentMonths": null,
+  "expiresAt": null,
+  "activeEntitlement": null,
+  "retainedEntitlements": [],
+  "queuedEntitlements": []
+}

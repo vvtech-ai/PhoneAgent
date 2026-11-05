@@ -1,0 +1,7 @@
+# OCR架构检查
+
+独立domain模型/recognizer/committer接口；StateNotifier控制器编排异步，Widget只渲染；演练data端口与正式账号/provider/HTTP无依赖。ConversationController不增新职责，ConversationPage只增加锚点附件插槽，空消息判定同时考虑附件。
+
+无需新依赖、原生文件或权限配置。新增文件最高175行，普通入口和main未引入通用JSON渲染器，无整页图片背景，无透明点击层。ImageProvider由UI composition传入，未来真实图片缓存和鉴权不能写到Card中。
+
+正常会话当前不注入OCR插槽；正式相册仍未接入提示，debug演练须显式选取。此隔离边界避免MOCK覆盖用户数据，不能作为生产OCR完成证据。

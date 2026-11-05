@@ -1,0 +1,7 @@
+# 设计
+
+CommerceOrderAction独立负责固定操作列：未付款或仍未履约完成的订单回调onOrder，只进入已有PurchaseResultRoute并查询本人原单；成功且履约完成保留原发票行为。PROCESSING保持PAYING/PDR未知语义，不放宽canPay，不新建订单或自动调用支付。
+
+OrderResponse追加可空membershipLevel/membershipMonths，后端从持久产品快照投影。Flutter domain/data可选接收，非空值严格验证，展示helper只在字段明确时格式化“初级会员·包月”等；旧响应保留productName，不解析名称中的等级/周期，不改原历史名称。ALIPAY明确中文支付宝，Apple保持应用内购买。
+
+使用合成完整JSON订单进行RED→GREEN，覆盖待支付、结果未知、已付履约异常的可见操作回调与正确原单、已完成发票行为、旧字段缺省及坏新字段拒绝；购买控制器原单query/restore不launch、未知不能完成等直接回归维持。此后安全原生反馈另行微批，不与状态事实混用。

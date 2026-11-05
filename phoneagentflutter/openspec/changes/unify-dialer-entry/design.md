@@ -1,0 +1,11 @@
+## Context
+shell_route.dart:434底部openDialer进入_DialerHost，后者再push TranslationDialerRoute。首页卡片已用TranslationDialerRoute；原生AndroidRootCallEntryActions统一openCallsDialSheet(selectTranslate)，iOScenterActionTapped与home card均直接呈现同一缓存translation center；仅开发者重置明确开启。共同目标采用Android卡片明确开启、底部恢复偏好，记录原生差异而不称双方相同。
+## Decisions
+- TranslationDialerRoute是唯一正式页面，DialerPage及共享组件保留；openDialer负责mounted/current和RouteProviderScope装配，旧DialerRoute兼容已有tool调用但直接渲染统一页。
+- 正式无显式port时复用dialerControllerProvider并由provider负责销毁；preview/显式测试port保留本地controller隔离，页面只移除listener、不销毁共享草稿。
+- 提取小型presentation输入所有权/入口意图helper，防止489行route增至500以上。首页卡片翻译开启在偏好读成功后当前route微任务执行；关闭或账号/controller变化则取消意图。
+- 开发者串在电话校验、预设、网络/权限呼叫之前消费，绝不发起系统/翻译电话；preview只提示，不改正式开发者状态。
+- 底部普通入口不新增在线门禁，首页卡片保持已有在线准入。普通呼叫现有系统交接不变，未扩大到原生SIP普通呼叫迁移。
+- 国家按normal/translation偏好同步，号码/名称在同账号重入与入口之间共享，loginEpoch变更换controller，旧route操作拒绝；现有实时翻译业务与媒体生命周期保持。
+## Validation
+先正式Shell直接入口RED；再开发者、号码重入/账号隔离、国家/最近/联系人、翻译预检/旧回调/模型语言及Shell主流程定向，analyze/OpenSpec。不无理由全量或普通包构建。隔离UI构建与运行单列，不把自动测试当设备验收。既有pubspec.lock他方差异不提交。

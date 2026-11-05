@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T04:24:34.781Z",
+  "sourceType": "html",
+  "sourceId": "phoneagent-auth",
+  "sourceUrl": "memory/index.html",
+  "sourceVersion": "0cd58de9bb578845517aeb54bef8ab6970392b81",
+  "nodeIds": [
+    "loginPage",
+    "activationPage"
+  ],
+  "fileKey": null,
+  "warnings": [],
+  "rawMetadata": {
+    "htmlRuntimeCapture": {
+      "engine": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "routeSetup": "existing showPage routing function",
+      "externalNetwork": "blocked",
+      "previews": ".local/design-auth/previews",
+      "htmlSha256": "e0f8bdfd4595995a21eb32b2baceed58415a8177960e760b9fe5e34cc704a939"
+    },
+    "excludedSystemNodes": [
+      {
+        "sourceNodeId": ".status-bar",
+        "systemRole": "statusBar",
+        "excludeReason": "由真实平台提供，不重绘原型 9:41",
+        "appliesToRoutes": [
+          "loginPage",
+          "activationPage"
+        ]
+      }
+    ],
+    "systemInsetsByPage": {
+      "loginPage": {
+        "top": 41,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "activationPage": {
+        "top": 41,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      }
+    }
+  }
+}

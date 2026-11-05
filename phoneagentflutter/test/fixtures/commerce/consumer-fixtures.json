@@ -1,0 +1,46 @@
+{
+  "order": {
+    "orderNo": "fixture-order-1",
+    "quoteId": "fixture-quote-1",
+    "productType": "MEMBERSHIP",
+    "productName": "高级月会员",
+    "paymentState": "SUCCEEDED",
+    "fulfillmentState": "EXCEPTION",
+    "appState": "CREDITING",
+    "cashAmountFen": 3000,
+    "cashPaidFen": 3000,
+    "currency": "CNY",
+    "channel": "ALIPAY",
+    "createdAt": "2026-10-12 12:00:00",
+    "paidAt": "2026-10-12 12:01:00",
+    "fulfilledAt": null,
+    "effectiveAt": null,
+    "expiresAt": "2026-10-12 12:15:00",
+    "safeErrorCode": "MEMBERSHIP_STATE_CONFLICT",
+    "recoveryRequired": true,
+    "invoiceAllowed": false,
+    "rowVersion": 1
+  },
+  "recovery": {
+    "recoveryQuoteId": "fixture-recovery-1",
+    "proposalHash": "fixture-sha256",
+    "orderNo": "fixture-order-1",
+    "cashPaidFen": 3000,
+    "targetLevel": "PREMIUM",
+    "pricingOrderNo": "fixture-premium-order",
+    "targetPriceFen": 6000,
+    "targetMonths": 1,
+    "appendSeconds": 1296000,
+    "appendStartsAt": "2026-11-01 00:00:00",
+    "estimatedExpiresAt": "2026-11-16 00:00:00",
+    "expiresAt": "2026-10-12 12:15:00"
+  },
+  "wallet": {
+    "availableBalance": 150,
+    "heldBalance": 25,
+    "membershipAvailableBalance": 50,
+    "membershipHeldBalance": 20,
+    "permanentAvailableBalance": 100,
+    "permanentHeldBalance": 5
+  }
+}

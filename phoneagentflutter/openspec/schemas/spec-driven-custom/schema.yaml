@@ -1,0 +1,208 @@
+name: spec-driven-custom
+version: 1
+description: AIAssistant 中文 OpenSpec 工作流 - proposal -> specs -> design -> tasks
+artifacts:
+  - id: proposal
+    generates: proposal.md
+    description: 使用中文创建初始变更提案，说明变更原因和影响范围
+    template: proposal.md
+    instruction: >
+      创建 proposal.md，默认使用简体中文。该文档说明为什么需要这个变更，而不是展开实现细节。
+
+
+      章节要求：
+
+      - **Why**：用 1-2 段说明问题或机会。回答：解决什么问题？为什么现在需要做？
+
+      - **What Changes**：用项目符号列出变化。具体说明新增、修改、移除的能力；破坏性变更标记 **BREAKING**。
+
+      - **Capabilities**：列出将创建或修改的 spec：
+        - **New Capabilities**：新增 capability。每个名称必须使用 kebab-case，并对应 `specs/<name>/spec.md`。
+        - **Modified Capabilities**：已有 capability 的需求层行为发生变化时填写。仅实现细节变化时不要填写。必须先检查 `openspec/specs/` 中已有 spec 名称。
+      - **Impact**：说明影响的代码、API、依赖、数据、运行时系统、日志和验证方式。
+
+
+      Capabilities 章节是 proposal 与 specs 阶段之间的契约，必须认真填写。
+
+      保持简洁，通常 1-2 页。重点写“为什么”和“行为边界”，实现细节放到 design.md。
+    requires: []
+  - id: specs
+    generates: specs/**/*.md
+    description: 使用中文创建变更规格，定义系统应该做什么
+    template: spec.md
+    instruction: >
+      创建 spec 文件，默认使用简体中文描述需求和场景。结构标记必须保留 OpenSpec 需要的英文关键字。
+
+
+      为 proposal 中 Capabilities 章节列出的每个 capability 创建一个 spec 文件：
+
+      - 新 capability：使用 proposal 中的 kebab-case 名称，路径为 `specs/<capability>/spec.md`。
+
+      - 修改已有 capability：使用 `openspec/specs/<capability>/` 中已有目录名，在 change 下创建 delta spec。
+
+
+      Delta 操作标题必须使用以下英文格式：
+
+      - **ADDED Requirements**：新增需求。
+
+      - **MODIFIED Requirements**：修改已有行为，必须包含完整更新后的 requirement 内容。
+
+      - **REMOVED Requirements**：移除需求，必须包含 **Reason** 和 **Migration**。
+
+      - **RENAMED Requirements**：仅改名，使用 FROM:/TO: 格式。
+
+
+      格式要求：
+
+      - 每个需求使用 `### Requirement: <中文需求名称>`，后面接中文需求描述。
+
+      - 每个场景使用 `#### Scenario: <中文场景名称>`，并使用 WHEN/THEN 格式。
+
+      - **关键**：Scenario 必须正好使用 4 个 `#`。使用 3 个 `#` 或普通项目符号会导致归档/校验行为异常。
+
+      - 每个 Requirement 至少包含一个 Scenario。
+
+      - 需求正文默认使用中文；字段名、API 路径、日志关键字、枚举、类名、函数名可以保留英文。
+
+
+      MODIFIED requirements 工作流：
+
+      1. 在 `openspec/specs/<capability>/spec.md` 找到已有 requirement。
+
+      2. 复制完整 requirement block，从 `### Requirement:` 到其全部 scenarios。
+
+      3. 粘贴到 `## MODIFIED Requirements` 下并修改为新行为。
+
+      4. 确保 requirement 标题文本与主 spec 中一致。
+
+
+      常见错误：用 MODIFIED 写部分内容会在 archive 时丢失未复制的细节。
+
+      如果只是新增独立关注点且不改变已有行为，优先使用 ADDED。
+
+
+      示例：
+
+      ```
+
+      ## ADDED Requirements
+
+
+      ### Requirement: 用户可以导出数据
+
+      系统必须允许用户以 CSV 格式导出自己的数据。
+
+
+      #### Scenario: 成功导出
+
+      - **WHEN** 用户点击“导出”按钮
+
+      - **THEN** 系统下载包含全部用户数据的 CSV 文件
+
+
+      ## REMOVED Requirements
+
+
+      ### Requirement: 旧版导出
+
+      **Reason**: 已被新的导出系统替代
+
+      **Migration**: 使用 `/api/v2/export` 新接口
+
+      ```
+
+
+      Specs 必须可测试；每个 scenario 都应能成为潜在测试用例。
+    requires:
+      - proposal
+  - id: design
+    generates: design.md
+    description: 使用中文创建技术设计文档，说明如何实现变更
+    template: design.md
+    instruction: >
+      创建 design.md，默认使用简体中文。该文档说明如何实现变更，以及关键技术选择的理由。
+
+
+      仅在以下任一情况成立时创建 design.md：
+
+      - 跨模块或跨服务变更，或引入新的架构模式。
+
+      - 新增外部依赖或显著改变数据模型。
+
+      - 存在安全、性能、迁移复杂度。
+
+      - 需求有歧义，需要先记录技术决策。
+
+
+      章节要求：
+
+      - **Context**：背景、当前状态、约束、相关方。
+
+      - **Goals / Non-Goals**：本设计达成什么，明确不做什么。
+
+      - **Decisions**：关键技术选择与理由。必要时列出备选方案。
+
+      - **Risks / Trade-offs**：风险与取舍，格式建议为“风险 -> 缓解方案”。
+
+      - **Migration Plan**：部署步骤和回滚策略，如适用。
+
+      - **Open Questions**：仍需确认的问题。
+
+
+      聚焦架构和方案，不写逐行实现。动机参考 proposal，需求参考 specs。
+    requires:
+      - proposal
+  - id: tasks
+    generates: tasks.md
+    description: 使用中文创建可跟踪实现任务清单
+    template: tasks.md
+    instruction: >
+      创建 tasks.md，默认使用简体中文。任务必须可跟踪、可执行、可验证。
+
+
+      **重要：必须严格使用模板中的 checkbox 格式。** apply 阶段依赖 `- [ ]` 解析任务状态。
+
+
+      要求：
+
+      - 用 `##` 编号标题分组相关任务。
+
+      - 每项任务必须是 checkbox：`- [ ] X.Y 中文任务描述`。
+
+      - 任务粒度应足够小，通常一个会话可完成。
+
+      - 任务顺序应体现依赖关系。
+
+
+      示例：
+
+      ```
+
+      ## 1. 准备
+
+
+      - [ ] 1.1 创建新模块结构
+
+      - [ ] 1.2 添加必要依赖
+
+
+      ## 2. 核心实现
+
+
+      - [ ] 2.1 实现数据导出函数
+
+      - [ ] 2.2 添加 CSV 格式化工具
+
+      ```
+
+
+      任务应引用 specs 中定义的行为，以及 design 中确定的实现方式。
+    requires:
+      - specs
+      - design
+apply:
+  requires:
+    - tasks
+  tracks: tasks.md
+  instruction: |
+    默认使用简体中文阅读上下文和执行任务。先读取 context files，按 pending tasks 逐项推进，并在完成时更新 checkbox。遇到阻塞或需要用户确认时暂停说明。

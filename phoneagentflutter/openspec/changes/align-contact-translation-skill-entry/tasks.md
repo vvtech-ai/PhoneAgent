@@ -1,0 +1,4 @@
+- [x] 核对 Native 正式入口、当前 Flutter 规格和已批准回退决策
+- [x] 红测复现联系人翻译目录和导航缺失（主线程实跑 +1/-4，disabled 保持隐藏）
+- [x] 补齐目录选项与复用统一翻译拨号导航
+- [x] 定向测试、analyze 和 OpenSpec 校验（主线程串行执行，证据见verification.md）

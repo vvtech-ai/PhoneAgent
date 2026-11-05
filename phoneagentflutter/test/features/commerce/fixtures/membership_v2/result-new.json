@@ -1,0 +1,20 @@
+{
+  "paymentState": "SUCCEEDED",
+  "fulfillmentState": "SUCCEEDED",
+  "appState": "COMPLETED",
+  "effectiveAt": "2026-10-14T10:00:00+08:00",
+  "expiresAt": "2026-11-14T10:00:00+08:00",
+  "membershipFulfillment": {
+    "ruleVersion": "PAUSE_QUEUE_V1",
+    "actualPurchaseType": "NEW",
+    "entitlementId": "204",
+    "initialEntitlementState": "ACTIVE",
+    "entitlementState": "ACTIVE",
+    "fulfillmentDecisionAt": "2026-10-14T10:00:00+08:00",
+    "activatedAt": "2026-10-14T10:00:00+08:00",
+    "initialGrantedPoints": 4500,
+    "firstActivationGrantedPoints": 4500,
+    "queuedFirstGrantPoints": 0,
+    "totalPeriods": 1
+  }
+}

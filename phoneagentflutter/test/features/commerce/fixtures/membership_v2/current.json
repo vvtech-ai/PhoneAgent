@@ -1,0 +1,63 @@
+{
+  "ruleVersion": "PAUSE_QUEUE_V1",
+  "membershipVersion": "18",
+  "observedAt": "2026-10-14T10:00:00+08:00",
+  "level": "PREMIUM",
+  "currentMonths": 1,
+  "expiresAt": "2026-11-04T10:00:00+08:00",
+  "activeEntitlement": {
+    "entitlementId": "203",
+    "sourceOrderNo": "EXAMPLE-203",
+    "level": "PREMIUM",
+    "months": 1,
+    "state": "ACTIVE",
+    "position": 1,
+    "firstActivatedAt": "2026-10-04T10:00:00+08:00",
+    "currentExpiresAt": "2026-11-04T10:00:00+08:00",
+    "estimatedStartsAt": null,
+    "estimatedExpiresAt": null,
+    "remainingSeconds": 1814400,
+    "firstGrantPoints": 16000,
+    "totalPeriods": 1,
+    "grantedPeriods": 1,
+    "nextGrantAt": null
+  },
+  "retainedEntitlements": [
+    {
+      "entitlementId": "202",
+      "sourceOrderNo": "EXAMPLE-202",
+      "level": "PLUS",
+      "months": 1,
+      "state": "PAUSED",
+      "position": 2,
+      "firstActivatedAt": "2026-10-04T10:00:00+08:00",
+      "currentExpiresAt": null,
+      "estimatedStartsAt": null,
+      "estimatedExpiresAt": null,
+      "remainingSeconds": 1814400,
+      "firstGrantPoints": 8000,
+      "totalPeriods": 1,
+      "grantedPeriods": 1,
+      "nextGrantAt": null
+    }
+  ],
+  "queuedEntitlements": [
+    {
+      "entitlementId": "204",
+      "sourceOrderNo": "EXAMPLE-204",
+      "level": "BASIC",
+      "months": 1,
+      "state": "QUEUED",
+      "position": 3,
+      "firstActivatedAt": null,
+      "currentExpiresAt": null,
+      "estimatedStartsAt": null,
+      "estimatedExpiresAt": null,
+      "remainingSeconds": null,
+      "firstGrantPoints": 4500,
+      "totalPeriods": 1,
+      "grantedPeriods": 0,
+      "nextGrantAt": null
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "purchaseType": "RENEW",
+  "conversionSeconds": 0,
+  "membershipPreview": {
+    "ruleVersion": "PAUSE_QUEUE_V1",
+    "purchaseType": "RENEW",
+    "targetLevel": "PREMIUM",
+    "targetMonths": 1,
+    "immediateGrantPoints": 0,
+    "firstGrantPoints": 16000,
+    "basePointsPerPeriod": 15500,
+    "bonusPointsPerPeriod": 500,
+    "totalPeriods": 1,
+    "activationTiming": "AFTER_QUEUE",
+    "estimatedStartsAt": null,
+    "estimatedExpiresAt": null,
+    "pausedEntitlement": null,
+    "precedingEntitlements": [
+      {
+        "entitlementId": "203",
+        "sourceOrderNo": "EXAMPLE-203",
+        "level": "PREMIUM",
+        "months": 1,
+        "state": "ACTIVE",
+        "position": 1,
+        "firstActivatedAt": "2026-10-04T10:00:00+08:00",
+        "currentExpiresAt": "2026-11-04T10:00:00+08:00",
+        "estimatedStartsAt": null,
+        "estimatedExpiresAt": null,
+        "remainingSeconds": 1814400,
+        "firstGrantPoints": 16000,
+        "totalPeriods": 1,
+        "grantedPeriods": 1,
+        "nextGrantAt": null
+      }
+    ],
+    "membershipVersion": "18"
+  }
+}

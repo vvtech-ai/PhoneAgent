@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1.0",
+  "assets": [
+    {"id": "album", "source": "0cd58de:memory/index.html#pvSheetAlbumBtn svg", "output": "assets/images/conversation/attachment_album.svg", "type": "svg", "policy": "copied vector path; runtime accent color"},
+    {"id": "document", "source": "v65 Icons.Rounded.Description", "output": "Flutter Icons.description_rounded", "type": "existing-material-icon", "policy": "no bitmap recreation"},
+    {"id": "close", "source": "existing governed shell asset", "output": "assets/images/shell/dial_close.svg", "type": "svg", "policy": "reuse; no duplicate"}
+  ],
+  "externalDownloads": [],
+  "generatedRasterAssets": []
+}

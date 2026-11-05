@@ -1,0 +1,3442 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:28:27.525Z",
+  "sourceSnapshotId": "phoneagent-translation-history",
+  "pages": [
+    {
+      "id": "v64HistoryDetail",
+      "sourceNodeId": "v64HistoryDetail",
+      "name": "v64HistoryDetail",
+      "type": "page",
+      "tagName": "SECTION",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      },
+      "style": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "normal",
+        "padding": "44px 0px 0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(244, 247, 251)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "text": {
+        "content": ""
+      },
+      "image": null,
+      "vector": null,
+      "pseudo": {
+        "::before": {
+          "content": "none",
+          "backgroundImage": "none",
+          "maskImage": "none",
+          "opacity": "1",
+          "width": "auto",
+          "height": "auto",
+          "right": "auto",
+          "bottom": "auto"
+        },
+        "::after": {
+          "content": "none",
+          "backgroundImage": "none",
+          "maskImage": "none",
+          "opacity": "1",
+          "width": "auto",
+          "height": "auto",
+          "right": "auto",
+          "bottom": "auto"
+        }
+      },
+      "children": [
+        {
+          "id": "v64HistoryDetail.0",
+          "sourceNodeId": "v64HistoryDetail.0",
+          "name": "v64-history-scroll",
+          "type": "frame",
+          "tagName": "DIV",
+          "bounds": {
+            "x": 0,
+            "y": 44,
+            "width": 390,
+            "height": 800
+          },
+          "style": {
+            "display": "block",
+            "flexDirection": "row",
+            "gap": "normal",
+            "padding": "20px 20px 150px",
+            "margin": "0px",
+            "color": "rgb(17, 17, 17)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "normal",
+            "border": "0px none rgb(17, 17, 17)",
+            "borderRadius": "0px",
+            "boxShadow": "none",
+            "opacity": "1",
+            "maskImage": "none",
+            "webkitMaskImage": "none",
+            "gridTemplateColumns": "none"
+          },
+          "text": {
+            "content": ""
+          },
+          "image": null,
+          "vector": null,
+          "pseudo": {
+            "::before": {
+              "content": "none",
+              "backgroundImage": "none",
+              "maskImage": "none",
+              "opacity": "1",
+              "width": "auto",
+              "height": "auto",
+              "right": "auto",
+              "bottom": "auto"
+            },
+            "::after": {
+              "content": "none",
+              "backgroundImage": "none",
+              "maskImage": "none",
+              "opacity": "1",
+              "width": "auto",
+              "height": "auto",
+              "right": "auto",
+              "bottom": "auto"
+            }
+          },
+          "children": [
+            {
+              "id": "v64HistoryDetail.0.0",
+              "sourceNodeId": "v64HistoryDetail.0.0",
+              "name": "v64-history-head",
+              "type": "frame",
+              "tagName": "HEADER",
+              "bounds": {
+                "x": 20,
+                "y": 64,
+                "width": 350,
+                "height": 64.59375
+              },
+              "style": {
+                "display": "block",
+                "flexDirection": "row",
+                "gap": "normal",
+                "padding": "0px",
+                "margin": "0px 0px 28px",
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "backgroundImage": "none",
+                "fontSize": "16px",
+                "fontWeight": "400",
+                "lineHeight": "normal",
+                "border": "0px none rgb(17, 17, 17)",
+                "borderRadius": "0px",
+                "boxShadow": "none",
+                "opacity": "1",
+                "maskImage": "none",
+                "webkitMaskImage": "none",
+                "gridTemplateColumns": "none"
+              },
+              "text": {
+                "content": ""
+              },
+              "image": null,
+              "vector": null,
+              "pseudo": {
+                "::before": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                },
+                "::after": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                }
+              },
+              "children": [
+                {
+                  "id": "v64HistoryDetail.0.0.0",
+                  "sourceNodeId": "v64HistoryDetail.0.0.0",
+                  "name": "v64-history-heading",
+                  "type": "frame",
+                  "tagName": "DIV",
+                  "bounds": {
+                    "x": 20,
+                    "y": 64,
+                    "width": 350,
+                    "height": 64.59375
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(17, 17, 17)",
+                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(17, 17, 17)",
+                    "borderRadius": "0px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": [
+                    {
+                      "id": "v64HistoryTitle",
+                      "sourceNodeId": "v64HistoryTitle",
+                      "name": "v64HistoryTitle",
+                      "type": "frame",
+                      "tagName": "H2",
+                      "bounds": {
+                        "x": 20,
+                        "y": 64,
+                        "width": 350,
+                        "height": 33.59375
+                      },
+                      "style": {
+                        "display": "block",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "0px",
+                        "color": "rgb(17, 17, 17)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "28px",
+                        "fontWeight": "700",
+                        "lineHeight": "33.6px",
+                        "border": "0px none rgb(17, 17, 17)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "1",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": "138 8888 8888"
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "v64HistoryDetail.0.0.0.1",
+                      "sourceNodeId": "v64HistoryDetail.0.0.0.1",
+                      "name": "v64-history-meta",
+                      "type": "frame",
+                      "tagName": "DIV",
+                      "bounds": {
+                        "x": 20,
+                        "y": 109.59375,
+                        "width": 350,
+                        "height": 19
+                      },
+                      "style": {
+                        "display": "flex",
+                        "flexDirection": "row",
+                        "gap": "12px",
+                        "padding": "0px",
+                        "margin": "12px 0px 0px",
+                        "color": "rgb(119, 119, 119)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "14px",
+                        "fontWeight": "400",
+                        "lineHeight": "normal",
+                        "border": "0px none rgb(119, 119, 119)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "1",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": ""
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": [
+                        {
+                          "id": "v64HistoryDate",
+                          "sourceNodeId": "v64HistoryDate",
+                          "name": "v64HistoryDate",
+                          "type": "frame",
+                          "tagName": "SPAN",
+                          "bounds": {
+                            "x": 20,
+                            "y": 109.59375,
+                            "width": 64.21875,
+                            "height": 19
+                          },
+                          "style": {
+                            "display": "block",
+                            "flexDirection": "row",
+                            "gap": "normal",
+                            "padding": "0px",
+                            "margin": "0px",
+                            "color": "rgb(119, 119, 119)",
+                            "backgroundColor": "rgba(0, 0, 0, 0)",
+                            "backgroundImage": "none",
+                            "fontSize": "14px",
+                            "fontWeight": "400",
+                            "lineHeight": "normal",
+                            "border": "0px none rgb(119, 119, 119)",
+                            "borderRadius": "0px",
+                            "boxShadow": "none",
+                            "opacity": "1",
+                            "maskImage": "none",
+                            "webkitMaskImage": "none",
+                            "gridTemplateColumns": "none"
+                          },
+                          "text": {
+                            "content": "昨天14:23"
+                          },
+                          "image": null,
+                          "vector": null,
+                          "pseudo": {
+                            "::before": {
+                              "content": "none",
+                              "backgroundImage": "none",
+                              "maskImage": "none",
+                              "opacity": "1",
+                              "width": "auto",
+                              "height": "auto",
+                              "right": "auto",
+                              "bottom": "auto"
+                            },
+                            "::after": {
+                              "content": "none",
+                              "backgroundImage": "none",
+                              "maskImage": "none",
+                              "opacity": "1",
+                              "width": "auto",
+                              "height": "auto",
+                              "right": "auto",
+                              "bottom": "auto"
+                            }
+                          },
+                          "children": []
+                        },
+                        {
+                          "id": "v64HistoryDuration",
+                          "sourceNodeId": "v64HistoryDuration",
+                          "name": "v64HistoryDuration",
+                          "type": "frame",
+                          "tagName": "SPAN",
+                          "bounds": {
+                            "x": 333.78125,
+                            "y": 109.59375,
+                            "width": 36.21875,
+                            "height": 19
+                          },
+                          "style": {
+                            "display": "block",
+                            "flexDirection": "row",
+                            "gap": "normal",
+                            "padding": "0px",
+                            "margin": "0px",
+                            "color": "rgb(119, 119, 119)",
+                            "backgroundColor": "rgba(0, 0, 0, 0)",
+                            "backgroundImage": "none",
+                            "fontSize": "14px",
+                            "fontWeight": "400",
+                            "lineHeight": "normal",
+                            "border": "0px none rgb(119, 119, 119)",
+                            "borderRadius": "0px",
+                            "boxShadow": "none",
+                            "opacity": "1",
+                            "maskImage": "none",
+                            "webkitMaskImage": "none",
+                            "gridTemplateColumns": "none"
+                          },
+                          "text": {
+                            "content": "02:50"
+                          },
+                          "image": null,
+                          "vector": null,
+                          "pseudo": {
+                            "::before": {
+                              "content": "none",
+                              "backgroundImage": "none",
+                              "maskImage": "none",
+                              "opacity": "1",
+                              "width": "auto",
+                              "height": "auto",
+                              "right": "auto",
+                              "bottom": "auto"
+                            },
+                            "::after": {
+                              "content": "none",
+                              "backgroundImage": "none",
+                              "maskImage": "none",
+                              "opacity": "1",
+                              "width": "auto",
+                              "height": "auto",
+                              "right": "auto",
+                              "bottom": "auto"
+                            }
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "v64HistoryClose",
+              "sourceNodeId": "v64HistoryClose",
+              "name": "v64HistoryClose",
+              "type": "frame",
+              "tagName": "BUTTON",
+              "bounds": {
+                "x": 332,
+                "y": 42,
+                "width": 44,
+                "height": 44
+              },
+              "style": {
+                "display": "grid",
+                "flexDirection": "row",
+                "gap": "normal",
+                "padding": "0px",
+                "margin": "0px",
+                "color": "rgb(26, 26, 26)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "backgroundImage": "none",
+                "fontSize": "24px",
+                "fontWeight": "400",
+                "lineHeight": "24px",
+                "border": "0px none rgb(26, 26, 26)",
+                "borderRadius": "0px",
+                "boxShadow": "none",
+                "opacity": "1",
+                "maskImage": "none",
+                "webkitMaskImage": "none",
+                "gridTemplateColumns": "44px"
+              },
+              "text": {
+                "content": "×"
+              },
+              "image": null,
+              "vector": null,
+              "pseudo": {
+                "::before": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                },
+                "::after": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                }
+              },
+              "children": []
+            },
+            {
+              "id": "v64HistoryMessages",
+              "sourceNodeId": "v64HistoryMessages",
+              "name": "v64HistoryMessages",
+              "type": "frame",
+              "tagName": "DIV",
+              "bounds": {
+                "x": 20,
+                "y": 156.59375,
+                "width": 350,
+                "height": 394.46875
+              },
+              "style": {
+                "display": "flex",
+                "flexDirection": "column",
+                "gap": "18px",
+                "padding": "0px",
+                "margin": "0px",
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "backgroundImage": "none",
+                "fontSize": "16px",
+                "fontWeight": "400",
+                "lineHeight": "normal",
+                "border": "0px none rgb(17, 17, 17)",
+                "borderRadius": "0px",
+                "boxShadow": "none",
+                "opacity": "1",
+                "maskImage": "none",
+                "webkitMaskImage": "none",
+                "gridTemplateColumns": "none"
+              },
+              "text": {
+                "content": ""
+              },
+              "image": null,
+              "vector": null,
+              "pseudo": {
+                "::before": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                },
+                "::after": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                }
+              },
+              "children": [
+                {
+                  "id": "v64HistoryDetail.0.2.0",
+                  "sourceNodeId": "v64HistoryDetail.0.2.0",
+                  "name": "v64-history-message theirs",
+                  "type": "frame",
+                  "tagName": "ARTICLE",
+                  "bounds": {
+                    "x": 20,
+                    "y": 156.59375,
+                    "width": 128,
+                    "height": 79.4375
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "14px 16px",
+                    "margin": "0px",
+                    "color": "rgb(17, 17, 17)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "22.72px",
+                    "border": "0px none rgb(17, 17, 17)",
+                    "borderRadius": "22px 22px 22px 6px",
+                    "boxShadow": "rgba(0, 0, 0, 0.07) 0px 2px 7px 0px",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": [
+                    {
+                      "id": "v64HistoryDetail.0.2.0.0",
+                      "sourceNodeId": "v64HistoryDetail.0.2.0.0",
+                      "name": "P",
+                      "type": "frame",
+                      "tagName": "P",
+                      "bounds": {
+                        "x": 36,
+                        "y": 170.59375,
+                        "width": 96,
+                        "height": 22.71875
+                      },
+                      "style": {
+                        "display": "block",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "0px",
+                        "color": "rgb(17, 17, 17)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "16px",
+                        "fontWeight": "400",
+                        "lineHeight": "22.72px",
+                        "border": "0px none rgb(17, 17, 17)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "1",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": "你好，在吗？"
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "v64HistoryDetail.0.2.0.1",
+                      "sourceNodeId": "v64HistoryDetail.0.2.0.1",
+                      "name": "P",
+                      "type": "frame",
+                      "tagName": "P",
+                      "bounds": {
+                        "x": 36,
+                        "y": 199.3125,
+                        "width": 96,
+                        "height": 22.71875
+                      },
+                      "style": {
+                        "display": "block",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "6px 0px 0px",
+                        "color": "rgb(17, 17, 17)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "16px",
+                        "fontWeight": "400",
+                        "lineHeight": "22.72px",
+                        "border": "0px none rgb(17, 17, 17)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "0.66",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": "Hello?"
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "v64HistoryDetail.0.2.1",
+                  "sourceNodeId": "v64HistoryDetail.0.2.1",
+                  "name": "v64-history-message mine",
+                  "type": "frame",
+                  "tagName": "ARTICLE",
+                  "bounds": {
+                    "x": 178,
+                    "y": 254.03125,
+                    "width": 192,
+                    "height": 79.4375
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "14px 16px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(22, 119, 232)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "22.72px",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "22px 22px 6px",
+                    "boxShadow": "rgba(0, 0, 0, 0.07) 0px 2px 7px 0px",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": [
+                    {
+                      "id": "v64HistoryDetail.0.2.1.0",
+                      "sourceNodeId": "v64HistoryDetail.0.2.1.0",
+                      "name": "P",
+                      "type": "frame",
+                      "tagName": "P",
+                      "bounds": {
+                        "x": 194,
+                        "y": 268.03125,
+                        "width": 160,
+                        "height": 22.71875
+                      },
+                      "style": {
+                        "display": "block",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "0px",
+                        "color": "rgb(255, 255, 255)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "16px",
+                        "fontWeight": "400",
+                        "lineHeight": "22.72px",
+                        "border": "0px none rgb(255, 255, 255)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "1",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": "我在的，有什么事吗？"
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "v64HistoryDetail.0.2.1.1",
+                      "sourceNodeId": "v64HistoryDetail.0.2.1.1",
+                      "name": "P",
+                      "type": "frame",
+                      "tagName": "P",
+                      "bounds": {
+                        "x": 194,
+                        "y": 296.75,
+                        "width": 160,
+                        "height": 22.71875
+                      },
+                      "style": {
+                        "display": "block",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "6px 0px 0px",
+                        "color": "rgb(255, 255, 255)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "16px",
+                        "fontWeight": "400",
+                        "lineHeight": "22.72px",
+                        "border": "0px none rgb(255, 255, 255)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "0.66",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": "Yeah, can I help you?"
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "v64HistoryDetail.0.2.2",
+                  "sourceNodeId": "v64HistoryDetail.0.2.2",
+                  "name": "v64-history-message theirs",
+                  "type": "frame",
+                  "tagName": "ARTICLE",
+                  "bounds": {
+                    "x": 20,
+                    "y": 351.46875,
+                    "width": 287,
+                    "height": 102.15625
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "14px 16px",
+                    "margin": "0px",
+                    "color": "rgb(17, 17, 17)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "22.72px",
+                    "border": "0px none rgb(17, 17, 17)",
+                    "borderRadius": "22px 22px 22px 6px",
+                    "boxShadow": "rgba(0, 0, 0, 0.07) 0px 2px 7px 0px",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": [
+                    {
+                      "id": "v64HistoryDetail.0.2.2.0",
+                      "sourceNodeId": "v64HistoryDetail.0.2.2.0",
+                      "name": "P",
+                      "type": "frame",
+                      "tagName": "P",
+                      "bounds": {
+                        "x": 36,
+                        "y": 365.46875,
+                        "width": 255,
+                        "height": 22.71875
+                      },
+                      "style": {
+                        "display": "block",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "0px",
+                        "color": "rgb(17, 17, 17)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "16px",
+                        "fontWeight": "400",
+                        "lineHeight": "22.72px",
+                        "border": "0px none rgb(17, 17, 17)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "1",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": "我想邀请你晚上来吃饭，有空吗？"
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "v64HistoryDetail.0.2.2.1",
+                      "sourceNodeId": "v64HistoryDetail.0.2.2.1",
+                      "name": "P",
+                      "type": "frame",
+                      "tagName": "P",
+                      "bounds": {
+                        "x": 36,
+                        "y": 394.1875,
+                        "width": 255,
+                        "height": 45.4375
+                      },
+                      "style": {
+                        "display": "block",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "6px 0px 0px",
+                        "color": "rgb(17, 17, 17)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "16px",
+                        "fontWeight": "400",
+                        "lineHeight": "22.72px",
+                        "border": "0px none rgb(17, 17, 17)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "0.66",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": "I'd like to invite you to dinner tonight. Are you free?"
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "v64HistoryDetail.0.2.3",
+                  "sourceNodeId": "v64HistoryDetail.0.2.3",
+                  "name": "v64-history-message mine",
+                  "type": "frame",
+                  "tagName": "ARTICLE",
+                  "bounds": {
+                    "x": 206.515625,
+                    "y": 471.625,
+                    "width": 163.484375,
+                    "height": 79.4375
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "14px 16px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(22, 119, 232)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "22.72px",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "22px 22px 6px",
+                    "boxShadow": "rgba(0, 0, 0, 0.07) 0px 2px 7px 0px",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": [
+                    {
+                      "id": "v64HistoryDetail.0.2.3.0",
+                      "sourceNodeId": "v64HistoryDetail.0.2.3.0",
+                      "name": "P",
+                      "type": "frame",
+                      "tagName": "P",
+                      "bounds": {
+                        "x": 222.515625,
+                        "y": 485.625,
+                        "width": 131.484375,
+                        "height": 22.71875
+                      },
+                      "style": {
+                        "display": "block",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "0px",
+                        "color": "rgb(255, 255, 255)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "16px",
+                        "fontWeight": "400",
+                        "lineHeight": "22.72px",
+                        "border": "0px none rgb(255, 255, 255)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "1",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": "可以啊，几点钟？"
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "v64HistoryDetail.0.2.3.1",
+                      "sourceNodeId": "v64HistoryDetail.0.2.3.1",
+                      "name": "P",
+                      "type": "frame",
+                      "tagName": "P",
+                      "bounds": {
+                        "x": 222.515625,
+                        "y": 514.34375,
+                        "width": 131.484375,
+                        "height": 22.71875
+                      },
+                      "style": {
+                        "display": "block",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "6px 0px 0px",
+                        "color": "rgb(255, 255, 255)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "16px",
+                        "fontWeight": "400",
+                        "lineHeight": "22.72px",
+                        "border": "0px none rgb(255, 255, 255)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "0.66",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": "Sure! What time?"
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "v64Recording",
+          "sourceNodeId": "v64Recording",
+          "name": "v64Recording",
+          "type": "frame",
+          "tagName": "DIV",
+          "bounds": {
+            "x": 18,
+            "y": 740,
+            "width": 354,
+            "height": 82
+          },
+          "style": {
+            "display": "grid",
+            "flexDirection": "row",
+            "gap": "9px",
+            "padding": "14px 16px",
+            "margin": "0px",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(22, 132, 248)",
+            "backgroundImage": "none",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "normal",
+            "border": "0px none rgb(255, 255, 255)",
+            "borderRadius": "22px",
+            "boxShadow": "rgba(22, 119, 255, 0.22) 0px 8px 24px 0px",
+            "opacity": "1",
+            "maskImage": "none",
+            "webkitMaskImage": "none",
+            "gridTemplateColumns": "105.375px 101.625px 44px 44px"
+          },
+          "text": {
+            "content": ""
+          },
+          "image": null,
+          "vector": null,
+          "pseudo": {
+            "::before": {
+              "content": "none",
+              "backgroundImage": "none",
+              "maskImage": "none",
+              "opacity": "1",
+              "width": "auto",
+              "height": "auto",
+              "right": "auto",
+              "bottom": "auto"
+            },
+            "::after": {
+              "content": "none",
+              "backgroundImage": "none",
+              "maskImage": "none",
+              "opacity": "1",
+              "width": "auto",
+              "height": "auto",
+              "right": "auto",
+              "bottom": "auto"
+            }
+          },
+          "children": [
+            {
+              "id": "v64RecordingSave",
+              "sourceNodeId": "v64RecordingSave",
+              "name": "v64RecordingSave",
+              "type": "frame",
+              "tagName": "BUTTON",
+              "bounds": {
+                "x": 34,
+                "y": 759,
+                "width": 44,
+                "height": 44
+              },
+              "style": {
+                "display": "grid",
+                "flexDirection": "row",
+                "gap": "normal",
+                "padding": "0px",
+                "margin": "0px",
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.208)",
+                "backgroundImage": "none",
+                "fontSize": "18px",
+                "fontWeight": "400",
+                "lineHeight": "normal",
+                "border": "0px none rgb(255, 255, 255)",
+                "borderRadius": "50%",
+                "boxShadow": "none",
+                "opacity": "1",
+                "maskImage": "none",
+                "webkitMaskImage": "none",
+                "gridTemplateColumns": "44px"
+              },
+              "text": {
+                "content": ""
+              },
+              "image": null,
+              "vector": null,
+              "pseudo": {
+                "::before": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                },
+                "::after": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                }
+              },
+              "children": [
+                {
+                  "id": "v64HistoryDetail.1.0.0",
+                  "sourceNodeId": "v64HistoryDetail.1.0.0",
+                  "name": "svg",
+                  "type": "frame",
+                  "tagName": "svg",
+                  "bounds": {
+                    "x": 46.5,
+                    "y": 771.5,
+                    "width": 19,
+                    "height": 19
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                    "backgroundImage": "none",
+                    "fontSize": "18px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "0px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": "<svg viewBox=\"0 0 64 56\" aria-hidden=\"true\"><path d=\"M13 46V15C13 11.134 16.134 8 20 8H40L48 16V25\"></path><path d=\"M13 46C13 48.761 15.239 51 18 51H34\"></path><path d=\"M23 8V21C23 22.657 24.343 24 26 24H38C39.657 24 41 22.657 41 21V9\"></path><path d=\"M48 32V50M39 42L48 51L57 42\"></path></svg>",
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": [
+                    {
+                      "id": "v64HistoryDetail.1.0.0.0",
+                      "sourceNodeId": "v64HistoryDetail.1.0.0.0",
+                      "name": "path",
+                      "type": "frame",
+                      "tagName": "path",
+                      "bounds": {
+                        "x": 50.359375,
+                        "y": 775.0625,
+                        "width": 10.390625,
+                        "height": 11.28125
+                      },
+                      "style": {
+                        "display": "inline",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "0px",
+                        "color": "rgb(255, 255, 255)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "18px",
+                        "fontWeight": "400",
+                        "lineHeight": "normal",
+                        "border": "0px none rgb(255, 255, 255)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "1",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": ""
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "v64HistoryDetail.1.0.0.1",
+                      "sourceNodeId": "v64HistoryDetail.1.0.0.1",
+                      "name": "path",
+                      "type": "frame",
+                      "tagName": "path",
+                      "bounds": {
+                        "x": 50.359375,
+                        "y": 786.34375,
+                        "width": 6.234375,
+                        "height": 1.484375
+                      },
+                      "style": {
+                        "display": "inline",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "0px",
+                        "color": "rgb(255, 255, 255)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "18px",
+                        "fontWeight": "400",
+                        "lineHeight": "normal",
+                        "border": "0px none rgb(255, 255, 255)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "1",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": ""
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "v64HistoryDetail.1.0.0.2",
+                      "sourceNodeId": "v64HistoryDetail.1.0.0.2",
+                      "name": "path",
+                      "type": "frame",
+                      "tagName": "path",
+                      "bounds": {
+                        "x": 53.328125,
+                        "y": 775.0625,
+                        "width": 5.34375,
+                        "height": 4.75
+                      },
+                      "style": {
+                        "display": "inline",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "0px",
+                        "color": "rgb(255, 255, 255)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "18px",
+                        "fontWeight": "400",
+                        "lineHeight": "normal",
+                        "border": "0px none rgb(255, 255, 255)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "1",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": ""
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "v64HistoryDetail.1.0.0.3",
+                      "sourceNodeId": "v64HistoryDetail.1.0.0.3",
+                      "name": "path",
+                      "type": "frame",
+                      "tagName": "path",
+                      "bounds": {
+                        "x": 58.078125,
+                        "y": 782.1875,
+                        "width": 5.34375,
+                        "height": 5.640625
+                      },
+                      "style": {
+                        "display": "inline",
+                        "flexDirection": "row",
+                        "gap": "normal",
+                        "padding": "0px",
+                        "margin": "0px",
+                        "color": "rgb(255, 255, 255)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontSize": "18px",
+                        "fontWeight": "400",
+                        "lineHeight": "normal",
+                        "border": "0px none rgb(255, 255, 255)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "opacity": "1",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none",
+                        "gridTemplateColumns": "none"
+                      },
+                      "text": {
+                        "content": ""
+                      },
+                      "image": null,
+                      "vector": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none",
+                          "maskImage": "none",
+                          "opacity": "1",
+                          "width": "auto",
+                          "height": "auto",
+                          "right": "auto",
+                          "bottom": "auto"
+                        }
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "v64HistoryDetail.1.1",
+              "sourceNodeId": "v64HistoryDetail.1.1",
+              "name": "v64-recording-copy",
+              "type": "frame",
+              "tagName": "DIV",
+              "bounds": {
+                "x": 148.375,
+                "y": 770,
+                "width": 101.625,
+                "height": 22
+              },
+              "style": {
+                "display": "block",
+                "flexDirection": "row",
+                "gap": "normal",
+                "padding": "0px",
+                "margin": "0px",
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "backgroundImage": "none",
+                "fontSize": "16px",
+                "fontWeight": "400",
+                "lineHeight": "normal",
+                "border": "0px none rgb(255, 255, 255)",
+                "borderRadius": "0px",
+                "boxShadow": "none",
+                "opacity": "1",
+                "maskImage": "none",
+                "webkitMaskImage": "none",
+                "gridTemplateColumns": "none"
+              },
+              "text": {
+                "content": ""
+              },
+              "image": null,
+              "vector": null,
+              "pseudo": {
+                "::before": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                },
+                "::after": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                }
+              },
+              "children": [
+                {
+                  "id": "v64HistoryDetail.1.1.0",
+                  "sourceNodeId": "v64HistoryDetail.1.1.0",
+                  "name": "STRONG",
+                  "type": "frame",
+                  "tagName": "STRONG",
+                  "bounds": {
+                    "x": 148.375,
+                    "y": 770,
+                    "width": 68,
+                    "height": 22
+                  },
+                  "style": {
+                    "display": "inline",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                    "backgroundImage": "none",
+                    "fontSize": "17px",
+                    "fontWeight": "700",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "0px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": "通话录音"
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64RecordingTime",
+                  "sourceNodeId": "v64RecordingTime",
+                  "name": "v64RecordingTime",
+                  "type": "frame",
+                  "tagName": "SPAN",
+                  "bounds": {
+                    "x": 216.375,
+                    "y": 774,
+                    "width": 33.625,
+                    "height": 17
+                  },
+                  "style": {
+                    "display": "inline",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                    "backgroundImage": "none",
+                    "fontSize": "13px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "0px",
+                    "boxShadow": "none",
+                    "opacity": "0.85",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": "02:50"
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "v64HistoryDetail.1.2",
+              "sourceNodeId": "v64HistoryDetail.1.2",
+              "name": "v64-recording-wave",
+              "type": "frame",
+              "tagName": "DIV",
+              "bounds": {
+                "x": 259,
+                "y": 766,
+                "width": 44,
+                "height": 30
+              },
+              "style": {
+                "display": "flex",
+                "flexDirection": "row",
+                "gap": "4px",
+                "padding": "0px",
+                "margin": "0px",
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "backgroundImage": "none",
+                "fontSize": "16px",
+                "fontWeight": "400",
+                "lineHeight": "normal",
+                "border": "0px none rgb(255, 255, 255)",
+                "borderRadius": "0px",
+                "boxShadow": "none",
+                "opacity": "1",
+                "maskImage": "none",
+                "webkitMaskImage": "none",
+                "gridTemplateColumns": "none"
+              },
+              "text": {
+                "content": ""
+              },
+              "image": null,
+              "vector": null,
+              "pseudo": {
+                "::before": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                },
+                "::after": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                }
+              },
+              "children": [
+                {
+                  "id": "v64HistoryDetail.1.2.0",
+                  "sourceNodeId": "v64HistoryDetail.1.2.0",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 259,
+                    "y": 772,
+                    "width": 0,
+                    "height": 18
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.1",
+                  "sourceNodeId": "v64HistoryDetail.1.2.1",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 263,
+                    "y": 766,
+                    "width": 0,
+                    "height": 30
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.2",
+                  "sourceNodeId": "v64HistoryDetail.1.2.2",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 267,
+                    "y": 769.5,
+                    "width": 0,
+                    "height": 23
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.3",
+                  "sourceNodeId": "v64HistoryDetail.1.2.3",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 271,
+                    "y": 766,
+                    "width": 0,
+                    "height": 30
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.4",
+                  "sourceNodeId": "v64HistoryDetail.1.2.4",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 275,
+                    "y": 772,
+                    "width": 0,
+                    "height": 18
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.5",
+                  "sourceNodeId": "v64HistoryDetail.1.2.5",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 279,
+                    "y": 769.5,
+                    "width": 0,
+                    "height": 23
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.6",
+                  "sourceNodeId": "v64HistoryDetail.1.2.6",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 283,
+                    "y": 772,
+                    "width": 0,
+                    "height": 18
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.7",
+                  "sourceNodeId": "v64HistoryDetail.1.2.7",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 287,
+                    "y": 766,
+                    "width": 0,
+                    "height": 30
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.8",
+                  "sourceNodeId": "v64HistoryDetail.1.2.8",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 291,
+                    "y": 769.5,
+                    "width": 0,
+                    "height": 23
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.9",
+                  "sourceNodeId": "v64HistoryDetail.1.2.9",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 295,
+                    "y": 766,
+                    "width": 0,
+                    "height": 30
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.10",
+                  "sourceNodeId": "v64HistoryDetail.1.2.10",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 299,
+                    "y": 772,
+                    "width": 0,
+                    "height": 18
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.11",
+                  "sourceNodeId": "v64HistoryDetail.1.2.11",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 303,
+                    "y": 769.5,
+                    "width": 0,
+                    "height": 23
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.12",
+                  "sourceNodeId": "v64HistoryDetail.1.2.12",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 307,
+                    "y": 772,
+                    "width": 0,
+                    "height": 18
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.13",
+                  "sourceNodeId": "v64HistoryDetail.1.2.13",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 311,
+                    "y": 766,
+                    "width": 0,
+                    "height": 30
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.14",
+                  "sourceNodeId": "v64HistoryDetail.1.2.14",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 315,
+                    "y": 769.5,
+                    "width": 0,
+                    "height": 23
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.15",
+                  "sourceNodeId": "v64HistoryDetail.1.2.15",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 319,
+                    "y": 766,
+                    "width": 0,
+                    "height": 30
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.16",
+                  "sourceNodeId": "v64HistoryDetail.1.2.16",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 323,
+                    "y": 772,
+                    "width": 0,
+                    "height": 18
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.17",
+                  "sourceNodeId": "v64HistoryDetail.1.2.17",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 327,
+                    "y": 769.5,
+                    "width": 0,
+                    "height": 23
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.18",
+                  "sourceNodeId": "v64HistoryDetail.1.2.18",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 331,
+                    "y": 772,
+                    "width": 0,
+                    "height": 18
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.19",
+                  "sourceNodeId": "v64HistoryDetail.1.2.19",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 335,
+                    "y": 766,
+                    "width": 0,
+                    "height": 30
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.20",
+                  "sourceNodeId": "v64HistoryDetail.1.2.20",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 339,
+                    "y": 769.5,
+                    "width": 0,
+                    "height": 23
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "v64HistoryDetail.1.2.21",
+                  "sourceNodeId": "v64HistoryDetail.1.2.21",
+                  "name": "I",
+                  "type": "frame",
+                  "tagName": "I",
+                  "bounds": {
+                    "x": 343,
+                    "y": 766,
+                    "width": 0,
+                    "height": 30
+                  },
+                  "style": {
+                    "display": "block",
+                    "flexDirection": "row",
+                    "gap": "normal",
+                    "padding": "0px",
+                    "margin": "0px",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(255, 255, 255)",
+                    "backgroundImage": "none",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "3px",
+                    "boxShadow": "none",
+                    "opacity": "1",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none",
+                    "gridTemplateColumns": "none"
+                  },
+                  "text": {
+                    "content": ""
+                  },
+                  "image": null,
+                  "vector": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none",
+                      "maskImage": "none",
+                      "opacity": "1",
+                      "width": "auto",
+                      "height": "auto",
+                      "right": "auto",
+                      "bottom": "auto"
+                    }
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "v64RecordingPlay",
+              "sourceNodeId": "v64RecordingPlay",
+              "name": "v64RecordingPlay",
+              "type": "frame",
+              "tagName": "BUTTON",
+              "bounds": {
+                "x": 312,
+                "y": 759,
+                "width": 44,
+                "height": 44
+              },
+              "style": {
+                "display": "grid",
+                "flexDirection": "row",
+                "gap": "normal",
+                "padding": "0px",
+                "margin": "0px",
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.208)",
+                "backgroundImage": "none",
+                "fontSize": "18px",
+                "fontWeight": "400",
+                "lineHeight": "normal",
+                "border": "0px none rgb(255, 255, 255)",
+                "borderRadius": "50%",
+                "boxShadow": "none",
+                "opacity": "1",
+                "maskImage": "none",
+                "webkitMaskImage": "none",
+                "gridTemplateColumns": "44px"
+              },
+              "text": {
+                "content": "▶"
+              },
+              "image": null,
+              "vector": null,
+              "pseudo": {
+                "::before": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                },
+                "::after": {
+                  "content": "none",
+                  "backgroundImage": "none",
+                  "maskImage": "none",
+                  "opacity": "1",
+                  "width": "auto",
+                  "height": "auto",
+                  "right": "auto",
+                  "bottom": "auto"
+                }
+              },
+              "children": []
+            }
+          ]
+        }
+      ],
+      "navigation": null
+    }
+  ],
+  "assets": [
+    "translation_0"
+  ]
+}

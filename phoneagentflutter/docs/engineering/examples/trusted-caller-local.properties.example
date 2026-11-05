@@ -1,0 +1,14 @@
+# Copy to the project root local.properties; fill privately. UTF-8 / Java Properties.
+# Do not use android/local.properties or commit real values. APP_ENV prod maps to pro.
+trustedCaller.android.dev.appKey=
+trustedCaller.android.dev.appSecret=
+trustedCaller.android.test.appKey=
+trustedCaller.android.test.appSecret=
+trustedCaller.android.pro.appKey=
+trustedCaller.android.pro.appSecret=
+trustedCaller.ios.dev.appKey=
+trustedCaller.ios.dev.appSecret=
+trustedCaller.ios.test.appKey=
+trustedCaller.ios.test.appSecret=
+trustedCaller.ios.pro.appKey=
+trustedCaller.ios.pro.appSecret=

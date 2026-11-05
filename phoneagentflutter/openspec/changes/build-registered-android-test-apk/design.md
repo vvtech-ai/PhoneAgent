@@ -1,0 +1,9 @@
+# 设计
+
+android/test-environment.gradle仅负责测试构建身份和外部签名，app/build.gradle.kts在既有Debug/Profile包名注册后apply。无全局flavor，不改变默认dev变体、Profile和Release门禁。
+
+PHONEAGENT_ANDROID_ENV仅接受未设置/dev/test；test时PHONEAGENT_TEST_SIGNING_PROPERTIES必须指向外部文件，按Java Properties读取既有signingStoreFile/signingKeyAlias/signingStorePassword/signingKeyPassword。只读打开keystore并校验公钥证书DER MD5等于ebd4c931de412bf5d9c3716815389097，失败不给Debug签名回退。
+
+scripts/build-task-test-apk.ps1负责输入校验和执行：固定Flutter3.32、APP_ENV=test、三个批准testURL及四个非空C1字段，正式main/ARM64/Debug/关闭预览。PlanOnly只验证输入并返回命令计划，不代表Gradle证书或实际构建通过；实际运行临时设置两个环境变量，finally恢复，签名材料不复制也不输出。测试参数和签名文件由主代理指定现有受控路径。
+
+先运行脚本参数回归及Gradle只配置help的默认dev/缺私有配置/非法环境/有效test校验。Release使用dry-run任务图验证原门禁，不编译、不生成APK、不安装。未来新环境另加独立策略，不将未知环境默认为dev。

@@ -1,0 +1,2 @@
+// Only share generated build version fields; no Flutter/Pods linkage.
+#include "../Flutter/Generated.xcconfig"

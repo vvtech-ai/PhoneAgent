@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:13:15.205Z",
+  "targetPlatform": "flutter",
+  "states": [
+    {
+      "routeId": "tasksPage",
+      "sourceNodeId": "tasksPage",
+      "name": "tasksPage",
+      "module": "conversation-history",
+      "kind": "list",
+      "states": [
+        "restoring",
+        "ready",
+        "sending",
+        "recoveryRequired",
+        "restoreFailed",
+        "closed"
+      ]
+    },
+    {
+      "routeId": "pureVoicePage",
+      "sourceNodeId": "pureVoicePage",
+      "name": "pureVoicePage",
+      "module": "conversation-history",
+      "kind": "list",
+      "states": [
+        "restoring",
+        "ready",
+        "sending",
+        "recoveryRequired",
+        "restoreFailed",
+        "closed"
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "edgeId": "tasksPage.1.0.3",
+      "sourceRouteId": "tasksPage",
+      "targetRouteId": "pureVoicePage",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "pvCloseBtn",
+      "sourceRouteId": "pureVoicePage",
+      "targetRouteId": "back",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "pvTextToggleBtn",
+      "sourceRouteId": "pureVoicePage",
+      "targetRouteId": "toggle-input",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "pvTextSendBtn",
+      "sourceRouteId": "pureVoicePage",
+      "targetRouteId": "send-text",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "taskVoiceModelChip",
+      "sourceRouteId": "pureVoicePage",
+      "targetRouteId": "model-sheet",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "pvControlBtn",
+      "sourceRouteId": "pureVoicePage",
+      "targetRouteId": "voice-not-implemented",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    },
+    {
+      "edgeId": "pvPlusBtn",
+      "sourceRouteId": "pureVoicePage",
+      "targetRouteId": "attachment-not-implemented",
+      "eventType": "click",
+      "source": "manual",
+      "confidence": "high"
+    }
+  ],
+  "coverage": {
+    "totalScreens": 2,
+    "classifiedScreens": 2,
+    "stateGraphCoverageRatio": 1
+  }
+}

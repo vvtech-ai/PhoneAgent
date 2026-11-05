@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:51:42.825Z",
+  "source": "html",
+  "assets": [
+    {
+      "assetId": "identity_0",
+      "sourceNodeId": "myIdentityPage.0.0.0",
+      "name": "identity_0",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "myIdentityPage.0.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "myIdentityPage.0.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/identity/identity_0.svg",
+      "targetPath": "assets/images/identity/identity_0.svg",
+      "hash": "78e7fcaea7bdcf02facb1661f68e907553c1ed144ce9ca5e9ed5bd20ae80deee"
+    },
+    {
+      "assetId": "identity_1",
+      "sourceNodeId": "myIdentityPage.1.0.0.1.0",
+      "name": "identity_1",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "myIdentityPage.1.0.0.1.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "myIdentityPage.1.0.0.1.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/identity/identity_1.svg",
+      "targetPath": "assets/images/identity/identity_1.svg",
+      "hash": "b6c3cb66d07eea8de5a597aeb40ff8d1aed0cc3b79d63636d54bbf39dbe49413"
+    },
+    {
+      "assetId": "identity_2",
+      "sourceNodeId": "myIdentityPage.1.0.4.0.0",
+      "name": "identity_2",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "myIdentityPage.1.0.4.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "myIdentityPage.1.0.4.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/identity/identity_2.svg",
+      "targetPath": "assets/images/identity/identity_2.svg",
+      "hash": "19f06dbd969819e063942ce49ca061967ce2fefae1d3913fbe304f53e7ff7691"
+    }
+  ]
+}

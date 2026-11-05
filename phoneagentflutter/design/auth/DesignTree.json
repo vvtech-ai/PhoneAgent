@@ -1,0 +1,1833 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T04:24:34.781Z",
+  "sourceSnapshotId": "phoneagent-auth",
+  "pages": [
+    {
+      "id": "loginPage",
+      "sourceNodeId": "loginPage",
+      "name": "loginPage",
+      "type": "page",
+      "sourceKind": "runtime_dom",
+      "tagName": "SECTION",
+      "className": "screen-page active",
+      "bounds": {
+        "x": 0,
+        "y": 41,
+        "width": 390,
+        "height": 793
+      },
+      "style": {
+        "display": "flex",
+        "position": "static",
+        "flexDirection": "column",
+        "justifyContent": "normal",
+        "alignItems": "normal",
+        "gap": "normal",
+        "paddingTop": "0px",
+        "paddingRight": "18px",
+        "paddingBottom": "0px",
+        "paddingLeft": "18px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "minHeight": "0px",
+        "maxWidth": "none",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "letterSpacing": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "overflow": "visible",
+        "opacity": "1",
+        "transform": "none",
+        "zIndex": "auto",
+        "objectFit": "fill",
+        "clipPath": "none",
+        "maskImage": "none",
+        "webkitMaskImage": "none"
+      },
+      "layout": {
+        "mode": "vertical"
+      },
+      "text": {
+        "content": "",
+        "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+        "fontSize": 16,
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "placeholder": null,
+      "assetRefs": [],
+      "image": null,
+      "pseudo": {
+        "::before": {
+          "content": "none",
+          "backgroundImage": "none"
+        },
+        "::after": {
+          "content": "none",
+          "backgroundImage": "none"
+        }
+      },
+      "children": [
+        {
+          "id": "loginPage.div0",
+          "sourceNodeId": "loginPage.div0",
+          "name": "auth-container",
+          "type": "frame",
+          "sourceKind": "runtime_dom",
+          "tagName": "DIV",
+          "className": "auth-container",
+          "bounds": {
+            "x": 18,
+            "y": 41,
+            "width": 354,
+            "height": 793
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "flexDirection": "column",
+            "justifyContent": "center",
+            "alignItems": "center",
+            "gap": "normal",
+            "paddingTop": "40px",
+            "paddingRight": "24px",
+            "paddingBottom": "24px",
+            "paddingLeft": "24px",
+            "marginTop": "0px",
+            "marginBottom": "0px",
+            "minHeight": "100%",
+            "maxWidth": "none",
+            "color": "rgb(17, 17, 17)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "normal",
+            "letterSpacing": "normal",
+            "border": "0px none rgb(17, 17, 17)",
+            "borderRadius": "0px",
+            "boxShadow": "none",
+            "overflow": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "zIndex": "auto",
+            "objectFit": "fill",
+            "clipPath": "none",
+            "maskImage": "none",
+            "webkitMaskImage": "none"
+          },
+          "layout": {
+            "mode": "vertical"
+          },
+          "text": {
+            "content": "",
+            "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "placeholder": null,
+          "assetRefs": [],
+          "image": null,
+          "pseudo": {
+            "::before": {
+              "content": "none",
+              "backgroundImage": "none"
+            },
+            "::after": {
+              "content": "none",
+              "backgroundImage": "none"
+            }
+          },
+          "children": [
+            {
+              "id": "loginPage.div0.div0",
+              "sourceNodeId": "loginPage.div0.div0",
+              "name": "auth-brand",
+              "type": "frame",
+              "sourceKind": "runtime_dom",
+              "tagName": "DIV",
+              "className": "auth-brand",
+              "bounds": {
+                "x": 106.0625,
+                "y": 233.015625,
+                "width": 177.859375,
+                "height": 187.96875
+              },
+              "style": {
+                "display": "block",
+                "position": "static",
+                "flexDirection": "row",
+                "justifyContent": "normal",
+                "alignItems": "normal",
+                "gap": "normal",
+                "paddingTop": "0px",
+                "paddingRight": "0px",
+                "paddingBottom": "0px",
+                "paddingLeft": "0px",
+                "marginTop": "0px",
+                "marginBottom": "40px",
+                "minHeight": "auto",
+                "maxWidth": "none",
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "backgroundImage": "none",
+                "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                "fontSize": "16px",
+                "fontWeight": "400",
+                "lineHeight": "normal",
+                "letterSpacing": "normal",
+                "border": "0px none rgb(17, 17, 17)",
+                "borderRadius": "0px",
+                "boxShadow": "none",
+                "overflow": "visible",
+                "opacity": "1",
+                "transform": "none",
+                "zIndex": "auto",
+                "objectFit": "fill",
+                "clipPath": "none",
+                "maskImage": "none",
+                "webkitMaskImage": "none"
+              },
+              "layout": {
+                "mode": "stack"
+              },
+              "text": {
+                "content": "",
+                "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": "normal"
+              },
+              "placeholder": null,
+              "assetRefs": [],
+              "image": null,
+              "pseudo": {
+                "::before": {
+                  "content": "none",
+                  "backgroundImage": "none"
+                },
+                "::after": {
+                  "content": "none",
+                  "backgroundImage": "none"
+                }
+              },
+              "children": [
+                {
+                  "id": "loginPage.div0.div0.img0",
+                  "sourceNodeId": "loginPage.div0.div0.img0",
+                  "name": "auth-brand-logo",
+                  "type": "image",
+                  "sourceKind": "runtime_dom",
+                  "tagName": "IMG",
+                  "className": "auth-brand-logo",
+                  "bounds": {
+                    "x": 141.484375,
+                    "y": 233.015625,
+                    "width": 107,
+                    "height": 97.96875
+                  },
+                  "style": {
+                    "display": "block",
+                    "position": "static",
+                    "flexDirection": "row",
+                    "justifyContent": "normal",
+                    "alignItems": "normal",
+                    "gap": "normal",
+                    "paddingTop": "0px",
+                    "paddingRight": "0px",
+                    "paddingBottom": "0px",
+                    "paddingLeft": "0px",
+                    "marginTop": "0px",
+                    "marginBottom": "14px",
+                    "minHeight": "0px",
+                    "maxWidth": "none",
+                    "color": "rgb(17, 17, 17)",
+                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                    "backgroundImage": "none",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "letterSpacing": "normal",
+                    "border": "0px none rgb(17, 17, 17)",
+                    "borderRadius": "0px",
+                    "boxShadow": "none",
+                    "overflow": "clip",
+                    "opacity": "1",
+                    "transform": "none",
+                    "zIndex": "auto",
+                    "objectFit": "fill",
+                    "clipPath": "none",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none"
+                  },
+                  "layout": {
+                    "mode": "stack"
+                  },
+                  "text": {
+                    "content": "",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": "normal"
+                  },
+                  "placeholder": null,
+                  "assetRefs": [
+                    "authBrandLogo"
+                  ],
+                  "image": {
+                    "src": "chakenailogo.png",
+                    "width": 344,
+                    "height": 315
+                  },
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "loginPage.div0.div0.div1",
+                  "sourceNodeId": "loginPage.div0.div0.div1",
+                  "name": "auth-logo",
+                  "type": "frame",
+                  "sourceKind": "runtime_dom",
+                  "tagName": "DIV",
+                  "className": "auth-logo",
+                  "bounds": {
+                    "x": 106.0625,
+                    "y": 344.984375,
+                    "width": 177.859375,
+                    "height": 37
+                  },
+                  "style": {
+                    "display": "block",
+                    "position": "static",
+                    "flexDirection": "row",
+                    "justifyContent": "normal",
+                    "alignItems": "normal",
+                    "gap": "normal",
+                    "paddingTop": "0px",
+                    "paddingRight": "0px",
+                    "paddingBottom": "0px",
+                    "paddingLeft": "0px",
+                    "marginTop": "0px",
+                    "marginBottom": "0px",
+                    "minHeight": "0px",
+                    "maxWidth": "none",
+                    "color": "rgb(26, 26, 46)",
+                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                    "backgroundImage": "none",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": "28px",
+                    "fontWeight": "800",
+                    "lineHeight": "normal",
+                    "letterSpacing": "-0.5px",
+                    "border": "0px none rgb(26, 26, 46)",
+                    "borderRadius": "0px",
+                    "boxShadow": "none",
+                    "overflow": "visible",
+                    "opacity": "1",
+                    "transform": "none",
+                    "zIndex": "auto",
+                    "objectFit": "fill",
+                    "clipPath": "none",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none"
+                  },
+                  "layout": {
+                    "mode": "stack"
+                  },
+                  "text": {
+                    "content": "Phone Agent",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": 28,
+                    "fontWeight": "800",
+                    "lineHeight": "normal"
+                  },
+                  "placeholder": null,
+                  "assetRefs": [],
+                  "image": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "loginPage.div0.div0.p2",
+                  "sourceNodeId": "loginPage.div0.div0.p2",
+                  "name": "auth-subtitle",
+                  "type": "frame",
+                  "sourceKind": "runtime_dom",
+                  "tagName": "P",
+                  "className": "auth-subtitle",
+                  "bounds": {
+                    "x": 106.0625,
+                    "y": 387.984375,
+                    "width": 177.859375,
+                    "height": 19
+                  },
+                  "style": {
+                    "display": "block",
+                    "position": "static",
+                    "flexDirection": "row",
+                    "justifyContent": "normal",
+                    "alignItems": "normal",
+                    "gap": "normal",
+                    "paddingTop": "0px",
+                    "paddingRight": "0px",
+                    "paddingBottom": "0px",
+                    "paddingLeft": "0px",
+                    "marginTop": "6px",
+                    "marginBottom": "14px",
+                    "minHeight": "0px",
+                    "maxWidth": "none",
+                    "color": "rgb(139, 143, 163)",
+                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                    "backgroundImage": "none",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": "14px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "letterSpacing": "normal",
+                    "border": "0px none rgb(139, 143, 163)",
+                    "borderRadius": "0px",
+                    "boxShadow": "none",
+                    "overflow": "visible",
+                    "opacity": "1",
+                    "transform": "none",
+                    "zIndex": "auto",
+                    "objectFit": "fill",
+                    "clipPath": "none",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none"
+                  },
+                  "layout": {
+                    "mode": "stack"
+                  },
+                  "text": {
+                    "content": "电话智能体 - 你的语音分身",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": 14,
+                    "fontWeight": "400",
+                    "lineHeight": "normal"
+                  },
+                  "placeholder": null,
+                  "assetRefs": [],
+                  "image": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    }
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "loginPage.div0.div1",
+              "sourceNodeId": "loginPage.div0.div1",
+              "name": "auth-form",
+              "type": "frame",
+              "sourceKind": "runtime_dom",
+              "tagName": "DIV",
+              "className": "auth-form",
+              "bounds": {
+                "x": 42,
+                "y": 460.984375,
+                "width": 306,
+                "height": 197
+              },
+              "style": {
+                "display": "block",
+                "position": "static",
+                "flexDirection": "row",
+                "justifyContent": "normal",
+                "alignItems": "normal",
+                "gap": "normal",
+                "paddingTop": "0px",
+                "paddingRight": "0px",
+                "paddingBottom": "0px",
+                "paddingLeft": "0px",
+                "marginTop": "0px",
+                "marginBottom": "0px",
+                "minHeight": "auto",
+                "maxWidth": "320px",
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "backgroundImage": "none",
+                "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                "fontSize": "16px",
+                "fontWeight": "400",
+                "lineHeight": "normal",
+                "letterSpacing": "normal",
+                "border": "0px none rgb(17, 17, 17)",
+                "borderRadius": "0px",
+                "boxShadow": "none",
+                "overflow": "visible",
+                "opacity": "1",
+                "transform": "none",
+                "zIndex": "auto",
+                "objectFit": "fill",
+                "clipPath": "none",
+                "maskImage": "none",
+                "webkitMaskImage": "none"
+              },
+              "layout": {
+                "mode": "stack"
+              },
+              "text": {
+                "content": "",
+                "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": "normal"
+              },
+              "placeholder": null,
+              "assetRefs": [],
+              "image": null,
+              "pseudo": {
+                "::before": {
+                  "content": "none",
+                  "backgroundImage": "none"
+                },
+                "::after": {
+                  "content": "none",
+                  "backgroundImage": "none"
+                }
+              },
+              "children": [
+                {
+                  "id": "loginPage.div0.div1.div0",
+                  "sourceNodeId": "loginPage.div0.div1.div0",
+                  "name": "auth-input-group",
+                  "type": "frame",
+                  "sourceKind": "runtime_dom",
+                  "tagName": "DIV",
+                  "className": "auth-input-group",
+                  "bounds": {
+                    "x": 42,
+                    "y": 460.984375,
+                    "width": 306,
+                    "height": 58
+                  },
+                  "style": {
+                    "display": "flex",
+                    "position": "static",
+                    "flexDirection": "row",
+                    "justifyContent": "normal",
+                    "alignItems": "center",
+                    "gap": "normal",
+                    "paddingTop": "0px",
+                    "paddingRight": "0px",
+                    "paddingBottom": "0px",
+                    "paddingLeft": "0px",
+                    "marginTop": "0px",
+                    "marginBottom": "12px",
+                    "minHeight": "58px",
+                    "maxWidth": "none",
+                    "color": "rgb(17, 17, 17)",
+                    "backgroundColor": "rgb(245, 247, 250)",
+                    "backgroundImage": "none",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "letterSpacing": "normal",
+                    "border": "1px solid rgba(0, 0, 0, 0)",
+                    "borderRadius": "12px",
+                    "boxShadow": "none",
+                    "overflow": "hidden",
+                    "opacity": "1",
+                    "transform": "none",
+                    "zIndex": "auto",
+                    "objectFit": "fill",
+                    "clipPath": "none",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none"
+                  },
+                  "layout": {
+                    "mode": "horizontal"
+                  },
+                  "text": {
+                    "content": "",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": "normal"
+                  },
+                  "placeholder": null,
+                  "assetRefs": [],
+                  "image": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    }
+                  },
+                  "children": [
+                    {
+                      "id": "loginPage.div0.div1.div0.span0",
+                      "sourceNodeId": "loginPage.div0.div1.div0.span0",
+                      "name": "auth-prefix",
+                      "type": "frame",
+                      "sourceKind": "runtime_dom",
+                      "tagName": "SPAN",
+                      "className": "auth-prefix",
+                      "bounds": {
+                        "x": 43,
+                        "y": 479.984375,
+                        "width": 43.921875,
+                        "height": 20
+                      },
+                      "style": {
+                        "display": "block",
+                        "position": "static",
+                        "flexDirection": "row",
+                        "justifyContent": "normal",
+                        "alignItems": "normal",
+                        "gap": "normal",
+                        "paddingTop": "0px",
+                        "paddingRight": "0px",
+                        "paddingBottom": "0px",
+                        "paddingLeft": "14px",
+                        "marginTop": "0px",
+                        "marginBottom": "0px",
+                        "minHeight": "auto",
+                        "maxWidth": "none",
+                        "color": "rgb(26, 26, 46)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                        "fontSize": "15px",
+                        "fontWeight": "600",
+                        "lineHeight": "normal",
+                        "letterSpacing": "normal",
+                        "border": "0px none rgb(26, 26, 46)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "overflow": "visible",
+                        "opacity": "1",
+                        "transform": "none",
+                        "zIndex": "auto",
+                        "objectFit": "fill",
+                        "clipPath": "none",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none"
+                      },
+                      "layout": {
+                        "mode": "stack"
+                      },
+                      "text": {
+                        "content": "+86",
+                        "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                        "fontSize": 15,
+                        "fontWeight": "600",
+                        "lineHeight": "normal"
+                      },
+                      "placeholder": null,
+                      "assetRefs": [],
+                      "image": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none"
+                        }
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "loginPhone",
+                      "sourceNodeId": "loginPhone",
+                      "name": "loginPhone",
+                      "type": "input",
+                      "sourceKind": "runtime_dom",
+                      "tagName": "INPUT",
+                      "className": "auth-input",
+                      "bounds": {
+                        "x": 86.921875,
+                        "y": 479.984375,
+                        "width": 260.078125,
+                        "height": 20
+                      },
+                      "style": {
+                        "display": "block",
+                        "position": "static",
+                        "flexDirection": "row",
+                        "justifyContent": "normal",
+                        "alignItems": "normal",
+                        "gap": "normal",
+                        "paddingTop": "0px",
+                        "paddingRight": "14px",
+                        "paddingBottom": "0px",
+                        "paddingLeft": "14px",
+                        "marginTop": "0px",
+                        "marginBottom": "0px",
+                        "minHeight": "auto",
+                        "maxWidth": "none",
+                        "color": "rgb(26, 26, 46)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontFamily": "Arial",
+                        "fontSize": "15px",
+                        "fontWeight": "400",
+                        "lineHeight": "20px",
+                        "letterSpacing": "normal",
+                        "border": "0px none rgb(26, 26, 46)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "overflow": "clip",
+                        "opacity": "1",
+                        "transform": "none",
+                        "zIndex": "auto",
+                        "objectFit": "fill",
+                        "clipPath": "none",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none"
+                      },
+                      "layout": {
+                        "mode": "stack"
+                      },
+                      "text": {
+                        "content": "",
+                        "fontFamily": "Arial",
+                        "fontSize": 15,
+                        "fontWeight": "400",
+                        "lineHeight": "20px"
+                      },
+                      "placeholder": "请输入手机号",
+                      "assetRefs": [],
+                      "image": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none"
+                        }
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "loginPage.div0.div1.div1",
+                  "sourceNodeId": "loginPage.div0.div1.div1",
+                  "name": "auth-input-group",
+                  "type": "frame",
+                  "sourceKind": "runtime_dom",
+                  "tagName": "DIV",
+                  "className": "auth-input-group",
+                  "bounds": {
+                    "x": 42,
+                    "y": 530.984375,
+                    "width": 306,
+                    "height": 58
+                  },
+                  "style": {
+                    "display": "flex",
+                    "position": "static",
+                    "flexDirection": "row",
+                    "justifyContent": "normal",
+                    "alignItems": "center",
+                    "gap": "normal",
+                    "paddingTop": "0px",
+                    "paddingRight": "0px",
+                    "paddingBottom": "0px",
+                    "paddingLeft": "0px",
+                    "marginTop": "0px",
+                    "marginBottom": "12px",
+                    "minHeight": "58px",
+                    "maxWidth": "none",
+                    "color": "rgb(17, 17, 17)",
+                    "backgroundColor": "rgb(245, 247, 250)",
+                    "backgroundImage": "none",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "letterSpacing": "normal",
+                    "border": "1px solid rgba(0, 0, 0, 0)",
+                    "borderRadius": "12px",
+                    "boxShadow": "none",
+                    "overflow": "hidden",
+                    "opacity": "1",
+                    "transform": "none",
+                    "zIndex": "auto",
+                    "objectFit": "fill",
+                    "clipPath": "none",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none"
+                  },
+                  "layout": {
+                    "mode": "horizontal"
+                  },
+                  "text": {
+                    "content": "",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": "normal"
+                  },
+                  "placeholder": null,
+                  "assetRefs": [],
+                  "image": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    }
+                  },
+                  "children": [
+                    {
+                      "id": "loginCode",
+                      "sourceNodeId": "loginCode",
+                      "name": "loginCode",
+                      "type": "input",
+                      "sourceKind": "runtime_dom",
+                      "tagName": "INPUT",
+                      "className": "auth-input",
+                      "bounds": {
+                        "x": 43,
+                        "y": 549.984375,
+                        "width": 182,
+                        "height": 20
+                      },
+                      "style": {
+                        "display": "block",
+                        "position": "static",
+                        "flexDirection": "row",
+                        "justifyContent": "normal",
+                        "alignItems": "normal",
+                        "gap": "normal",
+                        "paddingTop": "0px",
+                        "paddingRight": "14px",
+                        "paddingBottom": "0px",
+                        "paddingLeft": "14px",
+                        "marginTop": "0px",
+                        "marginBottom": "0px",
+                        "minHeight": "auto",
+                        "maxWidth": "none",
+                        "color": "rgb(26, 26, 46)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontFamily": "Arial",
+                        "fontSize": "15px",
+                        "fontWeight": "400",
+                        "lineHeight": "20px",
+                        "letterSpacing": "normal",
+                        "border": "0px none rgb(26, 26, 46)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "overflow": "clip",
+                        "opacity": "1",
+                        "transform": "none",
+                        "zIndex": "auto",
+                        "objectFit": "fill",
+                        "clipPath": "none",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none"
+                      },
+                      "layout": {
+                        "mode": "stack"
+                      },
+                      "text": {
+                        "content": "",
+                        "fontFamily": "Arial",
+                        "fontSize": 15,
+                        "fontWeight": "400",
+                        "lineHeight": "20px"
+                      },
+                      "placeholder": "请输入验证码",
+                      "assetRefs": [],
+                      "image": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none"
+                        }
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "loginGetCode",
+                      "sourceNodeId": "loginGetCode",
+                      "name": "loginGetCode",
+                      "type": "frame",
+                      "sourceKind": "runtime_dom",
+                      "tagName": "BUTTON",
+                      "className": "auth-code-btn",
+                      "bounds": {
+                        "x": 225,
+                        "y": 531.984375,
+                        "width": 122,
+                        "height": 56
+                      },
+                      "style": {
+                        "display": "flex",
+                        "position": "static",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "alignItems": "center",
+                        "gap": "normal",
+                        "paddingTop": "0px",
+                        "paddingRight": "12px",
+                        "paddingBottom": "0px",
+                        "paddingLeft": "12px",
+                        "marginTop": "0px",
+                        "marginBottom": "0px",
+                        "minHeight": "auto",
+                        "maxWidth": "none",
+                        "color": "rgb(10, 132, 255)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontFamily": "Arial",
+                        "fontSize": "12px",
+                        "fontWeight": "600",
+                        "lineHeight": "16px",
+                        "letterSpacing": "normal",
+                        "border": "0px none rgb(10, 132, 255)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "overflow": "visible",
+                        "opacity": "1",
+                        "transform": "none",
+                        "zIndex": "auto",
+                        "objectFit": "fill",
+                        "clipPath": "none",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none"
+                      },
+                      "layout": {
+                        "mode": "horizontal"
+                      },
+                      "text": {
+                        "content": "获取验证码",
+                        "fontFamily": "Arial",
+                        "fontSize": 12,
+                        "fontWeight": "600",
+                        "lineHeight": "16px"
+                      },
+                      "placeholder": null,
+                      "assetRefs": [],
+                      "image": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none"
+                        }
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "loginBtn",
+                  "sourceNodeId": "loginBtn",
+                  "name": "loginBtn",
+                  "type": "frame",
+                  "sourceKind": "runtime_dom",
+                  "tagName": "BUTTON",
+                  "className": "auth-btn primary",
+                  "bounds": {
+                    "x": 42,
+                    "y": 608.984375,
+                    "width": 306,
+                    "height": 49
+                  },
+                  "style": {
+                    "display": "inline-block",
+                    "position": "static",
+                    "flexDirection": "row",
+                    "justifyContent": "normal",
+                    "alignItems": "normal",
+                    "gap": "normal",
+                    "paddingTop": "14px",
+                    "paddingRight": "0px",
+                    "paddingBottom": "14px",
+                    "paddingLeft": "0px",
+                    "marginTop": "8px",
+                    "marginBottom": "0px",
+                    "minHeight": "0px",
+                    "maxWidth": "none",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(10, 132, 255)",
+                    "backgroundImage": "none",
+                    "fontFamily": "Arial",
+                    "fontSize": "16px",
+                    "fontWeight": "700",
+                    "lineHeight": "normal",
+                    "letterSpacing": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "12px",
+                    "boxShadow": "none",
+                    "overflow": "visible",
+                    "opacity": "1",
+                    "transform": "none",
+                    "zIndex": "auto",
+                    "objectFit": "fill",
+                    "clipPath": "none",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none"
+                  },
+                  "layout": {
+                    "mode": "stack"
+                  },
+                  "text": {
+                    "content": "登录 / 注册",
+                    "fontFamily": "Arial",
+                    "fontSize": 16,
+                    "fontWeight": "700",
+                    "lineHeight": "normal"
+                  },
+                  "placeholder": null,
+                  "assetRefs": [],
+                  "image": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    }
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "appBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      },
+      "systemInsets": {
+        "top": 41,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      }
+    },
+    {
+      "id": "activationPage",
+      "sourceNodeId": "activationPage",
+      "name": "activationPage",
+      "type": "page",
+      "sourceKind": "runtime_dom",
+      "tagName": "SECTION",
+      "className": "screen-page active",
+      "bounds": {
+        "x": 0,
+        "y": 41,
+        "width": 390,
+        "height": 793
+      },
+      "style": {
+        "display": "flex",
+        "position": "static",
+        "flexDirection": "column",
+        "justifyContent": "normal",
+        "alignItems": "normal",
+        "gap": "normal",
+        "paddingTop": "0px",
+        "paddingRight": "18px",
+        "paddingBottom": "0px",
+        "paddingLeft": "18px",
+        "marginTop": "0px",
+        "marginBottom": "0px",
+        "minHeight": "0px",
+        "maxWidth": "none",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "letterSpacing": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "overflow": "visible",
+        "opacity": "1",
+        "transform": "none",
+        "zIndex": "auto",
+        "objectFit": "fill",
+        "clipPath": "none",
+        "maskImage": "none",
+        "webkitMaskImage": "none"
+      },
+      "layout": {
+        "mode": "vertical"
+      },
+      "text": {
+        "content": "",
+        "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+        "fontSize": 16,
+        "fontWeight": "400",
+        "lineHeight": "normal"
+      },
+      "placeholder": null,
+      "assetRefs": [],
+      "image": null,
+      "pseudo": {
+        "::before": {
+          "content": "none",
+          "backgroundImage": "none"
+        },
+        "::after": {
+          "content": "none",
+          "backgroundImage": "none"
+        }
+      },
+      "children": [
+        {
+          "id": "activationPage.div0",
+          "sourceNodeId": "activationPage.div0",
+          "name": "auth-container",
+          "type": "frame",
+          "sourceKind": "runtime_dom",
+          "tagName": "DIV",
+          "className": "auth-container",
+          "bounds": {
+            "x": 18,
+            "y": 41,
+            "width": 354,
+            "height": 793
+          },
+          "style": {
+            "display": "flex",
+            "position": "static",
+            "flexDirection": "column",
+            "justifyContent": "center",
+            "alignItems": "center",
+            "gap": "normal",
+            "paddingTop": "40px",
+            "paddingRight": "24px",
+            "paddingBottom": "24px",
+            "paddingLeft": "24px",
+            "marginTop": "0px",
+            "marginBottom": "0px",
+            "minHeight": "100%",
+            "maxWidth": "none",
+            "color": "rgb(17, 17, 17)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "normal",
+            "letterSpacing": "normal",
+            "border": "0px none rgb(17, 17, 17)",
+            "borderRadius": "0px",
+            "boxShadow": "none",
+            "overflow": "visible",
+            "opacity": "1",
+            "transform": "none",
+            "zIndex": "auto",
+            "objectFit": "fill",
+            "clipPath": "none",
+            "maskImage": "none",
+            "webkitMaskImage": "none"
+          },
+          "layout": {
+            "mode": "vertical"
+          },
+          "text": {
+            "content": "",
+            "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+            "fontSize": 16,
+            "fontWeight": "400",
+            "lineHeight": "normal"
+          },
+          "placeholder": null,
+          "assetRefs": [],
+          "image": null,
+          "pseudo": {
+            "::before": {
+              "content": "none",
+              "backgroundImage": "none"
+            },
+            "::after": {
+              "content": "none",
+              "backgroundImage": "none"
+            }
+          },
+          "children": [
+            {
+              "id": "activationPage.div0.div0",
+              "sourceNodeId": "activationPage.div0.div0",
+              "name": "auth-brand",
+              "type": "frame",
+              "sourceKind": "runtime_dom",
+              "tagName": "DIV",
+              "className": "auth-brand",
+              "bounds": {
+                "x": 106.0625,
+                "y": 268.015625,
+                "width": 177.859375,
+                "height": 187.96875
+              },
+              "style": {
+                "display": "block",
+                "position": "static",
+                "flexDirection": "row",
+                "justifyContent": "normal",
+                "alignItems": "normal",
+                "gap": "normal",
+                "paddingTop": "0px",
+                "paddingRight": "0px",
+                "paddingBottom": "0px",
+                "paddingLeft": "0px",
+                "marginTop": "0px",
+                "marginBottom": "40px",
+                "minHeight": "auto",
+                "maxWidth": "none",
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "backgroundImage": "none",
+                "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                "fontSize": "16px",
+                "fontWeight": "400",
+                "lineHeight": "normal",
+                "letterSpacing": "normal",
+                "border": "0px none rgb(17, 17, 17)",
+                "borderRadius": "0px",
+                "boxShadow": "none",
+                "overflow": "visible",
+                "opacity": "1",
+                "transform": "none",
+                "zIndex": "auto",
+                "objectFit": "fill",
+                "clipPath": "none",
+                "maskImage": "none",
+                "webkitMaskImage": "none"
+              },
+              "layout": {
+                "mode": "stack"
+              },
+              "text": {
+                "content": "",
+                "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": "normal"
+              },
+              "placeholder": null,
+              "assetRefs": [],
+              "image": null,
+              "pseudo": {
+                "::before": {
+                  "content": "none",
+                  "backgroundImage": "none"
+                },
+                "::after": {
+                  "content": "none",
+                  "backgroundImage": "none"
+                }
+              },
+              "children": [
+                {
+                  "id": "activationPage.div0.div0.img0",
+                  "sourceNodeId": "activationPage.div0.div0.img0",
+                  "name": "auth-brand-logo",
+                  "type": "image",
+                  "sourceKind": "runtime_dom",
+                  "tagName": "IMG",
+                  "className": "auth-brand-logo",
+                  "bounds": {
+                    "x": 141.484375,
+                    "y": 268.015625,
+                    "width": 107,
+                    "height": 97.96875
+                  },
+                  "style": {
+                    "display": "block",
+                    "position": "static",
+                    "flexDirection": "row",
+                    "justifyContent": "normal",
+                    "alignItems": "normal",
+                    "gap": "normal",
+                    "paddingTop": "0px",
+                    "paddingRight": "0px",
+                    "paddingBottom": "0px",
+                    "paddingLeft": "0px",
+                    "marginTop": "0px",
+                    "marginBottom": "14px",
+                    "minHeight": "0px",
+                    "maxWidth": "none",
+                    "color": "rgb(17, 17, 17)",
+                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                    "backgroundImage": "none",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "letterSpacing": "normal",
+                    "border": "0px none rgb(17, 17, 17)",
+                    "borderRadius": "0px",
+                    "boxShadow": "none",
+                    "overflow": "clip",
+                    "opacity": "1",
+                    "transform": "none",
+                    "zIndex": "auto",
+                    "objectFit": "fill",
+                    "clipPath": "none",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none"
+                  },
+                  "layout": {
+                    "mode": "stack"
+                  },
+                  "text": {
+                    "content": "",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": "normal"
+                  },
+                  "placeholder": null,
+                  "assetRefs": [
+                    "authBrandLogo"
+                  ],
+                  "image": {
+                    "src": "chakenailogo.png",
+                    "width": 344,
+                    "height": 315
+                  },
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "activationPage.div0.div0.div1",
+                  "sourceNodeId": "activationPage.div0.div0.div1",
+                  "name": "auth-logo",
+                  "type": "frame",
+                  "sourceKind": "runtime_dom",
+                  "tagName": "DIV",
+                  "className": "auth-logo",
+                  "bounds": {
+                    "x": 106.0625,
+                    "y": 379.984375,
+                    "width": 177.859375,
+                    "height": 37
+                  },
+                  "style": {
+                    "display": "block",
+                    "position": "static",
+                    "flexDirection": "row",
+                    "justifyContent": "normal",
+                    "alignItems": "normal",
+                    "gap": "normal",
+                    "paddingTop": "0px",
+                    "paddingRight": "0px",
+                    "paddingBottom": "0px",
+                    "paddingLeft": "0px",
+                    "marginTop": "0px",
+                    "marginBottom": "0px",
+                    "minHeight": "0px",
+                    "maxWidth": "none",
+                    "color": "rgb(26, 26, 46)",
+                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                    "backgroundImage": "none",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": "28px",
+                    "fontWeight": "800",
+                    "lineHeight": "normal",
+                    "letterSpacing": "-0.5px",
+                    "border": "0px none rgb(26, 26, 46)",
+                    "borderRadius": "0px",
+                    "boxShadow": "none",
+                    "overflow": "visible",
+                    "opacity": "1",
+                    "transform": "none",
+                    "zIndex": "auto",
+                    "objectFit": "fill",
+                    "clipPath": "none",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none"
+                  },
+                  "layout": {
+                    "mode": "stack"
+                  },
+                  "text": {
+                    "content": "Phone Agent",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": 28,
+                    "fontWeight": "800",
+                    "lineHeight": "normal"
+                  },
+                  "placeholder": null,
+                  "assetRefs": [],
+                  "image": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    }
+                  },
+                  "children": []
+                },
+                {
+                  "id": "activationPage.div0.div0.p2",
+                  "sourceNodeId": "activationPage.div0.div0.p2",
+                  "name": "auth-subtitle",
+                  "type": "frame",
+                  "sourceKind": "runtime_dom",
+                  "tagName": "P",
+                  "className": "auth-subtitle",
+                  "bounds": {
+                    "x": 106.0625,
+                    "y": 422.984375,
+                    "width": 177.859375,
+                    "height": 19
+                  },
+                  "style": {
+                    "display": "block",
+                    "position": "static",
+                    "flexDirection": "row",
+                    "justifyContent": "normal",
+                    "alignItems": "normal",
+                    "gap": "normal",
+                    "paddingTop": "0px",
+                    "paddingRight": "0px",
+                    "paddingBottom": "0px",
+                    "paddingLeft": "0px",
+                    "marginTop": "6px",
+                    "marginBottom": "14px",
+                    "minHeight": "0px",
+                    "maxWidth": "none",
+                    "color": "rgb(139, 143, 163)",
+                    "backgroundColor": "rgba(0, 0, 0, 0)",
+                    "backgroundImage": "none",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": "14px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "letterSpacing": "normal",
+                    "border": "0px none rgb(139, 143, 163)",
+                    "borderRadius": "0px",
+                    "boxShadow": "none",
+                    "overflow": "visible",
+                    "opacity": "1",
+                    "transform": "none",
+                    "zIndex": "auto",
+                    "objectFit": "fill",
+                    "clipPath": "none",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none"
+                  },
+                  "layout": {
+                    "mode": "stack"
+                  },
+                  "text": {
+                    "content": "电话智能体 - 你的语音分身",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": 14,
+                    "fontWeight": "400",
+                    "lineHeight": "normal"
+                  },
+                  "placeholder": null,
+                  "assetRefs": [],
+                  "image": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    }
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "activationPage.div0.div1",
+              "sourceNodeId": "activationPage.div0.div1",
+              "name": "auth-form",
+              "type": "frame",
+              "sourceKind": "runtime_dom",
+              "tagName": "DIV",
+              "className": "auth-form",
+              "bounds": {
+                "x": 42,
+                "y": 495.984375,
+                "width": 306,
+                "height": 127
+              },
+              "style": {
+                "display": "block",
+                "position": "static",
+                "flexDirection": "row",
+                "justifyContent": "normal",
+                "alignItems": "normal",
+                "gap": "normal",
+                "paddingTop": "0px",
+                "paddingRight": "0px",
+                "paddingBottom": "0px",
+                "paddingLeft": "0px",
+                "marginTop": "0px",
+                "marginBottom": "0px",
+                "minHeight": "auto",
+                "maxWidth": "320px",
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "backgroundImage": "none",
+                "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                "fontSize": "16px",
+                "fontWeight": "400",
+                "lineHeight": "normal",
+                "letterSpacing": "normal",
+                "border": "0px none rgb(17, 17, 17)",
+                "borderRadius": "0px",
+                "boxShadow": "none",
+                "overflow": "visible",
+                "opacity": "1",
+                "transform": "none",
+                "zIndex": "auto",
+                "objectFit": "fill",
+                "clipPath": "none",
+                "maskImage": "none",
+                "webkitMaskImage": "none"
+              },
+              "layout": {
+                "mode": "stack"
+              },
+              "text": {
+                "content": "",
+                "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "lineHeight": "normal"
+              },
+              "placeholder": null,
+              "assetRefs": [],
+              "image": null,
+              "pseudo": {
+                "::before": {
+                  "content": "none",
+                  "backgroundImage": "none"
+                },
+                "::after": {
+                  "content": "none",
+                  "backgroundImage": "none"
+                }
+              },
+              "children": [
+                {
+                  "id": "activationPage.div0.div1.div0",
+                  "sourceNodeId": "activationPage.div0.div1.div0",
+                  "name": "auth-input-group",
+                  "type": "frame",
+                  "sourceKind": "runtime_dom",
+                  "tagName": "DIV",
+                  "className": "auth-input-group",
+                  "bounds": {
+                    "x": 42,
+                    "y": 495.984375,
+                    "width": 306,
+                    "height": 58
+                  },
+                  "style": {
+                    "display": "flex",
+                    "position": "static",
+                    "flexDirection": "row",
+                    "justifyContent": "normal",
+                    "alignItems": "center",
+                    "gap": "normal",
+                    "paddingTop": "0px",
+                    "paddingRight": "0px",
+                    "paddingBottom": "0px",
+                    "paddingLeft": "0px",
+                    "marginTop": "0px",
+                    "marginBottom": "12px",
+                    "minHeight": "58px",
+                    "maxWidth": "none",
+                    "color": "rgb(17, 17, 17)",
+                    "backgroundColor": "rgb(245, 247, 250)",
+                    "backgroundImage": "none",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": "16px",
+                    "fontWeight": "400",
+                    "lineHeight": "normal",
+                    "letterSpacing": "normal",
+                    "border": "1px solid rgba(0, 0, 0, 0)",
+                    "borderRadius": "12px",
+                    "boxShadow": "none",
+                    "overflow": "hidden",
+                    "opacity": "1",
+                    "transform": "none",
+                    "zIndex": "auto",
+                    "objectFit": "fill",
+                    "clipPath": "none",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none"
+                  },
+                  "layout": {
+                    "mode": "horizontal"
+                  },
+                  "text": {
+                    "content": "",
+                    "fontFamily": "-apple-system, BlinkMacSystemFont, \"SF Pro Display\", \"PingFang SC\", \"Helvetica Neue\", sans-serif",
+                    "fontSize": 16,
+                    "fontWeight": "400",
+                    "lineHeight": "normal"
+                  },
+                  "placeholder": null,
+                  "assetRefs": [],
+                  "image": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    }
+                  },
+                  "children": [
+                    {
+                      "id": "activationCodeInput",
+                      "sourceNodeId": "activationCodeInput",
+                      "name": "activationCodeInput",
+                      "type": "input",
+                      "sourceKind": "runtime_dom",
+                      "tagName": "INPUT",
+                      "className": "auth-input",
+                      "bounds": {
+                        "x": 43,
+                        "y": 514.984375,
+                        "width": 304,
+                        "height": 20
+                      },
+                      "style": {
+                        "display": "block",
+                        "position": "static",
+                        "flexDirection": "row",
+                        "justifyContent": "normal",
+                        "alignItems": "normal",
+                        "gap": "normal",
+                        "paddingTop": "0px",
+                        "paddingRight": "14px",
+                        "paddingBottom": "0px",
+                        "paddingLeft": "14px",
+                        "marginTop": "0px",
+                        "marginBottom": "0px",
+                        "minHeight": "auto",
+                        "maxWidth": "none",
+                        "color": "rgb(26, 26, 46)",
+                        "backgroundColor": "rgba(0, 0, 0, 0)",
+                        "backgroundImage": "none",
+                        "fontFamily": "Arial",
+                        "fontSize": "15px",
+                        "fontWeight": "400",
+                        "lineHeight": "20px",
+                        "letterSpacing": "normal",
+                        "border": "0px none rgb(26, 26, 46)",
+                        "borderRadius": "0px",
+                        "boxShadow": "none",
+                        "overflow": "clip",
+                        "opacity": "1",
+                        "transform": "none",
+                        "zIndex": "auto",
+                        "objectFit": "fill",
+                        "clipPath": "none",
+                        "maskImage": "none",
+                        "webkitMaskImage": "none"
+                      },
+                      "layout": {
+                        "mode": "stack"
+                      },
+                      "text": {
+                        "content": "",
+                        "fontFamily": "Arial",
+                        "fontSize": 15,
+                        "fontWeight": "400",
+                        "lineHeight": "20px"
+                      },
+                      "placeholder": "请输入邀请码",
+                      "assetRefs": [],
+                      "image": null,
+                      "pseudo": {
+                        "::before": {
+                          "content": "none",
+                          "backgroundImage": "none"
+                        },
+                        "::after": {
+                          "content": "none",
+                          "backgroundImage": "none"
+                        }
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "activationBtn",
+                  "sourceNodeId": "activationBtn",
+                  "name": "activationBtn",
+                  "type": "frame",
+                  "sourceKind": "runtime_dom",
+                  "tagName": "BUTTON",
+                  "className": "auth-btn primary",
+                  "bounds": {
+                    "x": 42,
+                    "y": 573.984375,
+                    "width": 306,
+                    "height": 49
+                  },
+                  "style": {
+                    "display": "inline-block",
+                    "position": "static",
+                    "flexDirection": "row",
+                    "justifyContent": "normal",
+                    "alignItems": "normal",
+                    "gap": "normal",
+                    "paddingTop": "14px",
+                    "paddingRight": "0px",
+                    "paddingBottom": "14px",
+                    "paddingLeft": "0px",
+                    "marginTop": "8px",
+                    "marginBottom": "0px",
+                    "minHeight": "0px",
+                    "maxWidth": "none",
+                    "color": "rgb(255, 255, 255)",
+                    "backgroundColor": "rgb(10, 132, 255)",
+                    "backgroundImage": "none",
+                    "fontFamily": "Arial",
+                    "fontSize": "16px",
+                    "fontWeight": "700",
+                    "lineHeight": "normal",
+                    "letterSpacing": "normal",
+                    "border": "0px none rgb(255, 255, 255)",
+                    "borderRadius": "12px",
+                    "boxShadow": "none",
+                    "overflow": "visible",
+                    "opacity": "1",
+                    "transform": "none",
+                    "zIndex": "auto",
+                    "objectFit": "fill",
+                    "clipPath": "none",
+                    "maskImage": "none",
+                    "webkitMaskImage": "none"
+                  },
+                  "layout": {
+                    "mode": "stack"
+                  },
+                  "text": {
+                    "content": "确认",
+                    "fontFamily": "Arial",
+                    "fontSize": 16,
+                    "fontWeight": "700",
+                    "lineHeight": "normal"
+                  },
+                  "placeholder": null,
+                  "assetRefs": [],
+                  "image": null,
+                  "pseudo": {
+                    "::before": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    },
+                    "::after": {
+                      "content": "none",
+                      "backgroundImage": "none"
+                    }
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "appBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844
+      },
+      "systemInsets": {
+        "top": 41,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      }
+    }
+  ],
+  "assets": [
+    "authBrandLogo"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:51:47.944Z",
+  "targetPlatform": "flutter",
+  "packageName": "com.vvtech.aiassistant.dev",
+  "architectureChecks": {
+    "genericJsonRenderer": false,
+    "fullPagePreviewBackground": false
+  },
+  "visualFidelityChecks": [],
+  "templateRisk": {
+    "riskLevel": "low",
+    "reason": "fixed runtime parameters and original SVG",
+    "evidence": [
+      "DesignTree.json"
+    ]
+  },
+  "blockers": [
+    "Device installation previously blocked by execution policy; no retry/bypass"
+  ],
+  "majorIssues": [
+    "SDK/clone/first-login guide deferred"
+  ],
+  "minorIssues": [],
+  "score": 0,
+  "shouldSelfFix": false,
+  "stopReason": "device-validation-blocked"
+}

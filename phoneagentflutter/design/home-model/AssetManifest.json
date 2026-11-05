@@ -1,0 +1,385 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T07:27:02.825Z",
+  "source": "html",
+  "assets": [
+    {
+      "assetId": "shell_0",
+      "sourceNodeId": "homePage.0.1.0",
+      "name": "shell_0",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "homePage.0.1.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "homePage.0.1.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_0.svg",
+      "targetPath": "assets/images/shell/shell_0.svg",
+      "hash": "c7c18e0d2679ff90d9c74c0a64df4461340d8db5da619e233001c45321f38ab6"
+    },
+    {
+      "assetId": "shell_1",
+      "sourceNodeId": "homePage.1.0.0.0",
+      "name": "shell_1",
+      "type": "image",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "html_resource",
+      "role": "ui",
+      "usage": [
+        "homePage.1.0.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "star-new_.svg",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_1.svg",
+      "targetPath": "assets/images/shell/shell_1.svg",
+      "hash": "e381c9c95a771d7fca0fd89481e859f9cc2db3a93832faf6452922d28dbf6601"
+    },
+    {
+      "assetId": "shell_2",
+      "sourceNodeId": "homePage.1.1.1",
+      "name": "shell_2",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "homePage.1.1.1"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "homePage.1.1.1",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_2.svg",
+      "targetPath": "assets/images/shell/shell_2.svg",
+      "hash": "83d43a9aa8496961dc438c580a7c698f07cf91b0efd05e2b643e5fb1b5acb73d"
+    },
+    {
+      "assetId": "shell_3",
+      "sourceNodeId": "tabbar.0.0.0",
+      "name": "shell_3",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "tabbar.0.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "tabbar.0.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_3.svg",
+      "targetPath": "assets/images/shell/shell_3.svg",
+      "hash": "d867d71932863fd5f899772bb0cf1abadb2ef22900e485e26c25c18fabc3a490"
+    },
+    {
+      "assetId": "shell_4",
+      "sourceNodeId": "tabbar.1.0.0",
+      "name": "shell_4",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "tabbar.1.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "tabbar.1.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_4.svg",
+      "targetPath": "assets/images/shell/shell_4.svg",
+      "hash": "846470da0ca7910d6e67c1d1e71d3e09f7e2216144899e1fc426977d42dbb5f2"
+    },
+    {
+      "assetId": "shell_5",
+      "sourceNodeId": "tabbar.3.0.0",
+      "name": "shell_5",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "tabbar.3.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "tabbar.3.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_5.svg",
+      "targetPath": "assets/images/shell/shell_5.svg",
+      "hash": "01fbbd1873c821ae1a11d0ff784c481f70b25f563230e97b0b6a75f5b93886e6"
+    },
+    {
+      "assetId": "shell_6",
+      "sourceNodeId": "tabbar.4.0.0",
+      "name": "shell_6",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "tabbar.4.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "tabbar.4.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_6.svg",
+      "targetPath": "assets/images/shell/shell_6.svg",
+      "hash": "d321be1428e3f111b664593168ec9d78d2cb6a2565076a2a79dbac84f92c5f8b"
+    },
+    {
+      "assetId": "shell_7",
+      "sourceNodeId": "voiceModelPage.0.2.0.0",
+      "name": "shell_7",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "voiceModelPage.0.2.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "voiceModelPage.0.2.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_7.svg",
+      "targetPath": "assets/images/shell/shell_7.svg",
+      "hash": "1cc1be94790eff00e7f3bd659b4eb07a15092f2d2a2f640f4727a6427f7312fc"
+    },
+    {
+      "assetId": "shell_8",
+      "sourceNodeId": "voiceIdentityPage.1.0.0.0.1.1.0.1.1.0",
+      "name": "shell_8",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "voiceIdentityPage.1.0.0.0.1.1.0.1.1.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "voiceIdentityPage.1.0.0.0.1.1.0.1.1.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_8.svg",
+      "targetPath": "assets/images/shell/shell_8.svg",
+      "hash": "91af9711861946f64a4ec6c9089ee0d0b1b7c0354f3d48a081ebb1c1c52ba44c"
+    },
+    {
+      "assetId": "shell_9",
+      "sourceNodeId": "voiceIdentityPage.1.0.0.0.1.1.1.1.0.0",
+      "name": "shell_9",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "voiceIdentityPage.1.0.0.0.1.1.1.1.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "voiceIdentityPage.1.0.0.0.1.1.1.1.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_9.svg",
+      "targetPath": "assets/images/shell/shell_9.svg",
+      "hash": "91af9711861946f64a4ec6c9089ee0d0b1b7c0354f3d48a081ebb1c1c52ba44c"
+    },
+    {
+      "assetId": "shell_10",
+      "sourceNodeId": "voiceIdentityPage.1.0.0.0.1.1.2.1.0.0",
+      "name": "shell_10",
+      "type": "svg",
+      "format": "svg",
+      "source": "html",
+      "sourceKind": "inline_svg",
+      "role": "ui",
+      "usage": [
+        "voiceIdentityPage.1.0.0.0.1.1.2.1.0.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "voiceIdentityPage.1.0.0.0.1.1.2.1.0.0",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_10.svg",
+      "targetPath": "assets/images/shell/shell_10.svg",
+      "hash": "91af9711861946f64a4ec6c9089ee0d0b1b7c0354f3d48a081ebb1c1c52ba44c"
+    },
+    {
+      "assetId": "shell_11",
+      "sourceNodeId": "restaurantCard",
+      "name": "shell_11",
+      "type": "image",
+      "format": "png",
+      "source": "html",
+      "sourceKind": "html_resource",
+      "role": "ui",
+      "usage": [
+        "restaurantCard"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "E:\\Git_project\\PhoneAgentFlutter\\.local\\design-auth\\source\\memory\\images\\restaurant-booking-transparent.png",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_11.png",
+      "targetPath": "assets/images/shell/shell_11.png",
+      "hash": "7ffb6536e68933edbc5e510341f016151a2cb46ad847f9d21fdad2a7949afc63"
+    },
+    {
+      "assetId": "shell_12",
+      "sourceNodeId": "largeMeetingInviteCard",
+      "name": "shell_12",
+      "type": "image",
+      "format": "png",
+      "source": "html",
+      "sourceKind": "html_resource",
+      "role": "ui",
+      "usage": [
+        "largeMeetingInviteCard"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "E:\\Git_project\\PhoneAgentFlutter\\.local\\design-auth\\source\\memory\\images\\meeting-invite-transparent.png",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_12.png",
+      "targetPath": "assets/images/shell/shell_12.png",
+      "hash": "e977a6c604ba603bc067d3731112349f113c1f8c1833982b25b54eb60c06366e"
+    },
+    {
+      "assetId": "shell_13",
+      "sourceNodeId": "translateSkillCard",
+      "name": "shell_13",
+      "type": "image",
+      "format": "png",
+      "source": "html",
+      "sourceKind": "html_resource",
+      "role": "ui",
+      "usage": [
+        "translateSkillCard"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "E:\\Git_project\\PhoneAgentFlutter\\.local\\design-auth\\source\\memory\\images\\simultaneous-interpretation-transparent.png",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_13.png",
+      "targetPath": "assets/images/shell/shell_13.png",
+      "hash": "4e5e41eff7bd77b9212c05299c41b1925a946428899036cdfe973e325a29614b"
+    },
+    {
+      "assetId": "shell_14",
+      "sourceNodeId": "apologySkillCard",
+      "name": "shell_14",
+      "type": "image",
+      "format": "png",
+      "source": "html",
+      "sourceKind": "html_resource",
+      "role": "ui",
+      "usage": [
+        "apologySkillCard"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "E:\\Git_project\\PhoneAgentFlutter\\.local\\design-auth\\source\\memory\\images\\apology-transparent.png",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_14.png",
+      "targetPath": "assets/images/shell/shell_14.png",
+      "hash": "6d0cfe554760699eb05019c75738b654acbd134109b79bcb915b06ae0ff538de"
+    },
+    {
+      "assetId": "shell_15",
+      "sourceNodeId": "eventInviteSkillCard",
+      "name": "shell_15",
+      "type": "image",
+      "format": "png",
+      "source": "html",
+      "sourceKind": "html_resource",
+      "role": "ui",
+      "usage": [
+        "eventInviteSkillCard"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "E:\\Git_project\\PhoneAgentFlutter\\.local\\design-auth\\source\\memory\\images\\event-invite-transparent.png",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_15.png",
+      "targetPath": "assets/images/shell/shell_15.png",
+      "hash": "293225a8f346be3c13a1a489e1fe45b0938172e1bd39e99a061130502e209afc"
+    },
+    {
+      "assetId": "shell_16",
+      "sourceNodeId": "homePage.1.2.4.0",
+      "name": "shell_16",
+      "type": "image",
+      "format": "png",
+      "source": "html",
+      "sourceKind": "html_resource",
+      "role": "ui",
+      "usage": [
+        "homePage.1.2.4.0"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "E:\\Git_project\\PhoneAgentFlutter\\.local\\design-auth\\source\\memory\\images\\sales-promotion-transparent.png",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_16.png",
+      "targetPath": "assets/images/shell/shell_16.png",
+      "hash": "d39faebe78b896f9a9c740a58149caa4a415b9c4c7cef326e19dedc29e1f7027"
+    },
+    {
+      "assetId": "shell_17",
+      "sourceNodeId": "diySkillCard",
+      "name": "shell_17",
+      "type": "image",
+      "format": "png",
+      "source": "html",
+      "sourceKind": "html_resource",
+      "role": "ui",
+      "usage": [
+        "diySkillCard"
+      ],
+      "downloadStatus": "downloaded",
+      "convertStatus": "not-needed",
+      "resourceUrl": "E:\\Git_project\\PhoneAgentFlutter\\.local\\design-auth\\source\\memory\\images\\diy-skill-transparent.png",
+      "urlStatus": "resolved",
+      "resolutionPlan": "fixed commit bytes",
+      "localPath": "assets/images/shell/shell_17.png",
+      "targetPath": "assets/images/shell/shell_17.png",
+      "hash": "6b1cd1f7e632e3ab1c88ab078bc297dc2d93f4f160b220368e7d3f0adf86b66b"
+    }
+  ]
+}

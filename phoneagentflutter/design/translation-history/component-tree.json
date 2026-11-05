@@ -1,0 +1,2269 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-16T08:31:10.696Z",
+  "targetPlatform": "flutter",
+  "pages": [
+    {
+      "id": "v64HistoryDetail",
+      "rootComponent": "v64HistoryDetail"
+    }
+  ],
+  "components": [
+    {
+      "id": "v64HistoryTitle",
+      "name": "V64HistoryTitle",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryTitle"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryTitle"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "28px",
+        "fontWeight": "700",
+        "lineHeight": "33.6px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDate",
+      "name": "V64HistoryDate",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryDate"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDate"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(119, 119, 119)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(119, 119, 119)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDuration",
+      "name": "V64HistoryDuration",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryDuration"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDuration"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(119, 119, 119)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(119, 119, 119)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.0.0.0.1",
+      "name": "V64HistoryMeta",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.0.0.1"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.0.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "12px",
+        "padding": "0px",
+        "margin": "12px 0px 0px",
+        "color": "rgb(119, 119, 119)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(119, 119, 119)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDate",
+        "v64HistoryDuration"
+      ]
+    },
+    {
+      "id": "v64HistoryDetail.0.0.0",
+      "name": "V64HistoryHeading",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryTitle",
+        "v64HistoryDetail.0.0.0.1"
+      ]
+    },
+    {
+      "id": "v64HistoryDetail.0.0",
+      "name": "V64HistoryHead",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px 0px 28px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.0.0.0"
+      ]
+    },
+    {
+      "id": "v64HistoryClose",
+      "name": "V64HistoryClose",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v64HistoryClose"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryClose"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(26, 26, 26)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "24px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "border": "0px none rgb(26, 26, 26)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "44px"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.0.2.0.0",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.0.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.0.2.0.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.0.1"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "6px 0px 0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "0.66",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.0.2.0",
+      "name": "V64HistoryMessageTheirs",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "14px 16px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "22px 22px 22px 6px",
+        "boxShadow": "rgba(0, 0, 0, 0.07) 0px 2px 7px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.0.2.0.0",
+        "v64HistoryDetail.0.2.0.1"
+      ]
+    },
+    {
+      "id": "v64HistoryDetail.0.2.1.0",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.1.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.0.2.1.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.1.1"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "6px 0px 0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "0.66",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.0.2.1",
+      "name": "V64HistoryMessageMine",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.1"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "14px 16px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(22, 119, 232)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "22px 22px 6px",
+        "boxShadow": "rgba(0, 0, 0, 0.07) 0px 2px 7px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.0.2.1.0",
+        "v64HistoryDetail.0.2.1.1"
+      ]
+    },
+    {
+      "id": "v64HistoryDetail.0.2.2.0",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.2.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.2.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.0.2.2.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.2.1"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.2.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "6px 0px 0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "0.66",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.0.2.2",
+      "name": "V64HistoryMessageTheirs",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.2"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "14px 16px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "22px 22px 22px 6px",
+        "boxShadow": "rgba(0, 0, 0, 0.07) 0px 2px 7px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.0.2.2.0",
+        "v64HistoryDetail.0.2.2.1"
+      ]
+    },
+    {
+      "id": "v64HistoryDetail.0.2.3.0",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.3.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.3.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.0.2.3.1",
+      "name": "P",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.3.1"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.3.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "6px 0px 0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "0.66",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.0.2.3",
+      "name": "V64HistoryMessageMine",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0.2.3"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0.2.3"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "14px 16px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(22, 119, 232)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "22.72px",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "22px 22px 6px",
+        "boxShadow": "rgba(0, 0, 0, 0.07) 0px 2px 7px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.0.2.3.0",
+        "v64HistoryDetail.0.2.3.1"
+      ]
+    },
+    {
+      "id": "v64HistoryMessages",
+      "name": "V64HistoryMessages",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryMessages"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryMessages"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "18px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.0.2.0",
+        "v64HistoryDetail.0.2.1",
+        "v64HistoryDetail.0.2.2",
+        "v64HistoryDetail.0.2.3"
+      ]
+    },
+    {
+      "id": "v64HistoryDetail.0",
+      "name": "V64HistoryScroll",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "20px 20px 150px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.0.0",
+        "v64HistoryClose",
+        "v64HistoryMessages"
+      ]
+    },
+    {
+      "id": "v64HistoryDetail.1.0.0.0",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.0.0.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.0.0.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.0.0.1",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.0.0.1"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.0.0.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.0.0.2",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.0.0.2"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.0.0.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.0.0.3",
+      "name": "Path",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.0.0.3"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.0.0.3"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.0.0",
+      "name": "Svg",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.0.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.0.0"
+      ],
+      "assetRefs": [
+        "translation_0"
+      ],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.1.0.0.0",
+        "v64HistoryDetail.1.0.0.1",
+        "v64HistoryDetail.1.0.0.2",
+        "v64HistoryDetail.1.0.0.3"
+      ]
+    },
+    {
+      "id": "v64RecordingSave",
+      "name": "V64RecordingSave",
+      "kind": "molecule",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v64RecordingSave"
+      ],
+      "visualNodeRefs": [
+        "v64RecordingSave"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(255, 255, 255, 0.208)",
+        "backgroundImage": "none",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "50%",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "44px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.1.0.0"
+      ]
+    },
+    {
+      "id": "v64HistoryDetail.1.1.0",
+      "name": "STRONG",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.1.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.1.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "17px",
+        "fontWeight": "700",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64RecordingTime",
+      "name": "V64RecordingTime",
+      "kind": "atom",
+      "semanticRole": "text",
+      "sourceNodeIds": [
+        "v64RecordingTime"
+      ],
+      "visualNodeRefs": [
+        "v64RecordingTime"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "inline",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "13px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "0.85",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.1",
+      "name": "V64RecordingCopy",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.1"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.1.1.0",
+        "v64RecordingTime"
+      ]
+    },
+    {
+      "id": "v64HistoryDetail.1.2.0",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.0"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.0"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.1",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.1"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.1"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.2",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.2"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.3",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.3"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.3"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.4",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.4"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.4"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.5",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.5"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.5"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.6",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.6"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.6"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.7",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.7"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.7"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.8",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.8"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.8"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.9",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.9"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.9"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.10",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.10"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.10"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.11",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.11"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.11"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.12",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.12"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.12"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.13",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.13"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.13"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.14",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.14"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.14"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.15",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.15"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.15"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.16",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.16"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.16"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.17",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.17"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.17"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.18",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.18"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.18"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.19",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.19"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.19"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.20",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.20"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.20"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2.21",
+      "name": "I",
+      "kind": "atom",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2.21"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2.21"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "block",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "3px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64HistoryDetail.1.2",
+      "name": "V64RecordingWave",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail.1.2"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail.1.2"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": "4px",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.1.2.0",
+        "v64HistoryDetail.1.2.1",
+        "v64HistoryDetail.1.2.2",
+        "v64HistoryDetail.1.2.3",
+        "v64HistoryDetail.1.2.4",
+        "v64HistoryDetail.1.2.5",
+        "v64HistoryDetail.1.2.6",
+        "v64HistoryDetail.1.2.7",
+        "v64HistoryDetail.1.2.8",
+        "v64HistoryDetail.1.2.9",
+        "v64HistoryDetail.1.2.10",
+        "v64HistoryDetail.1.2.11",
+        "v64HistoryDetail.1.2.12",
+        "v64HistoryDetail.1.2.13",
+        "v64HistoryDetail.1.2.14",
+        "v64HistoryDetail.1.2.15",
+        "v64HistoryDetail.1.2.16",
+        "v64HistoryDetail.1.2.17",
+        "v64HistoryDetail.1.2.18",
+        "v64HistoryDetail.1.2.19",
+        "v64HistoryDetail.1.2.20",
+        "v64HistoryDetail.1.2.21"
+      ]
+    },
+    {
+      "id": "v64RecordingPlay",
+      "name": "V64RecordingPlay",
+      "kind": "atom",
+      "semanticRole": "button",
+      "sourceNodeIds": [
+        "v64RecordingPlay"
+      ],
+      "visualNodeRefs": [
+        "v64RecordingPlay"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(255, 255, 255, 0.208)",
+        "backgroundImage": "none",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "50%",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "44px"
+      },
+      "fidelityRisk": "medium",
+      "children": []
+    },
+    {
+      "id": "v64Recording",
+      "name": "V64Recording",
+      "kind": "molecule",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64Recording"
+      ],
+      "visualNodeRefs": [
+        "v64Recording"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "grid"
+      },
+      "styleSpec": {
+        "display": "grid",
+        "flexDirection": "row",
+        "gap": "9px",
+        "padding": "14px 16px",
+        "margin": "0px",
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(22, 132, 248)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(255, 255, 255)",
+        "borderRadius": "22px",
+        "boxShadow": "rgba(22, 119, 255, 0.22) 0px 8px 24px 0px",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "105.375px 101.625px 44px 44px"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64RecordingSave",
+        "v64HistoryDetail.1.1",
+        "v64HistoryDetail.1.2",
+        "v64RecordingPlay"
+      ]
+    },
+    {
+      "id": "v64HistoryDetail",
+      "name": "V64HistoryDetail",
+      "kind": "page",
+      "semanticRole": "unknown",
+      "sourceNodeIds": [
+        "v64HistoryDetail"
+      ],
+      "visualNodeRefs": [
+        "v64HistoryDetail"
+      ],
+      "assetRefs": [],
+      "props": [],
+      "layoutSpec": {
+        "mode": "vertical"
+      },
+      "styleSpec": {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "normal",
+        "padding": "44px 0px 0px",
+        "margin": "0px",
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(244, 247, 251)",
+        "backgroundImage": "none",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "normal",
+        "border": "0px none rgb(17, 17, 17)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "opacity": "1",
+        "maskImage": "none",
+        "webkitMaskImage": "none",
+        "gridTemplateColumns": "none"
+      },
+      "fidelityRisk": "medium",
+      "children": [
+        "v64HistoryDetail.0",
+        "v64Recording"
+      ]
+    }
+  ]
+}
