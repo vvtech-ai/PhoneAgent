@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_page_background.dart';
 import '../../../../core/design/native_page_header.dart';
 import '../../../../core/design/native_gradient_action.dart';
 import '../controller/outbound_number_controller.dart';
@@ -78,122 +79,124 @@ class _OutboundNumberPageState extends State<OutboundNumberPage> {
       letterSpacing: 0,
       color: Color(0xFF6E6E73),
     );
-    return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FC),
-      body: SafeArea(
-        child: Column(
-          children: [
-            NativePageHeader(title: '固定外呼号码', onBack: _back),
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.fromLTRB(14, 10, 14, 18),
-                children: [
-                  if (widget.preview)
-                    const Text('MOCK · 内存配置，不修改真实外呼号码；使用合成号码演练。'),
-                  const Text(
-                    '手机号码',
-                    style: TextStyle(
-                      fontSize: 12,
-                      height: 14 / 12,
-                      letterSpacing: 0,
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xFF6E6E73),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Semantics(
-                    label: '手机号码',
-                    child: TextField(
-                      key: const Key('outbound-number-input'),
-                      controller: _input,
-                      enabled: !state.busy,
-                      keyboardType: TextInputType.phone,
-                      textInputAction: TextInputAction.done,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        height: 18 / 15,
+    return NativePageBackground(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: Column(
+            children: [
+              NativePageHeader(title: '固定外呼号码', onBack: _back),
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.fromLTRB(16, 10, 16, 18),
+                  children: [
+                    if (widget.preview)
+                      const Text('MOCK · 内存配置，不修改真实外呼号码；使用合成号码演练。'),
+                    const Text(
+                      '手机号码',
+                      style: TextStyle(
+                        fontSize: 12,
+                        height: 14 / 12,
                         letterSpacing: 0,
-                        color: Color(0xFF111111),
+                        fontWeight: FontWeight.w800,
+                        color: Color(0xFF6E6E73),
                       ),
-                      decoration: InputDecoration(
-                        constraints: const BoxConstraints(minHeight: 48),
-                        hintText: '例如：13800138000',
-                        hintStyle: const TextStyle(
-                          fontSize: 14,
-                          height: 18 / 14,
+                    ),
+                    const SizedBox(height: 8),
+                    Semantics(
+                      label: '手机号码',
+                      child: TextField(
+                        key: const Key('outbound-number-input'),
+                        controller: _input,
+                        enabled: !state.busy,
+                        keyboardType: TextInputType.phone,
+                        textInputAction: TextInputAction.done,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          height: 18 / 15,
                           letterSpacing: 0,
-                          color: Color(0xFF98A2B3),
+                          color: Color(0xFF111111),
                         ),
-                        filled: true,
-                        fillColor: const Color(0xF0FFFFFF),
-                        isDense: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 14,
+                        decoration: InputDecoration(
+                          constraints: const BoxConstraints(minHeight: 48),
+                          hintText: '例如：13800138000',
+                          hintStyle: const TextStyle(
+                            fontSize: 14,
+                            height: 18 / 14,
+                            letterSpacing: 0,
+                            color: Color(0xFF98A2B3),
+                          ),
+                          filled: true,
+                          fillColor: const Color(0xF0FFFFFF),
+                          isDense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 14,
+                          ),
+                          border: inputBorder,
+                          enabledBorder: inputBorder,
+                          focusedBorder: inputBorder,
+                          disabledBorder: inputBorder,
                         ),
-                        border: inputBorder,
-                        enabledBorder: inputBorder,
-                        focusedBorder: inputBorder,
-                        disabledBorder: inputBorder,
+                        onChanged: (value) {
+                          if (_editable) widget.onEdit(value);
+                        },
                       ),
-                      onChanged: (value) {
-                        if (_editable) widget.onEdit(value);
-                      },
                     ),
-                  ),
-                  if (state.operation == OutboundOperation.loading)
-                    const Padding(
-                      padding: EdgeInsets.only(top: 12),
-                      child: Text('正在读取当前固定外呼号码...', style: statusStyle),
-                    ),
-                  if (state.error != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12),
-                      child: Semantics(
-                        liveRegion: true,
-                        child: Text(
-                          state.error!,
-                          style: statusStyle.copyWith(
-                            color: const Color(0xFFE14D46),
+                    if (state.operation == OutboundOperation.loading)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 12),
+                        child: Text('正在读取当前固定外呼号码...', style: statusStyle),
+                      ),
+                    if (state.error != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Semantics(
+                          liveRegion: true,
+                          child: Text(
+                            state.error!,
+                            style: statusStyle.copyWith(
+                              color: const Color(0xFFE14D46),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  const SizedBox(height: 18),
-                  NativeGradientAction(
-                    onPressed: state.busy
-                        ? null
-                        : () => _write(widget.onSave, '固定外呼号码已保存'),
-                    label: state.operation == OutboundOperation.saving
-                        ? '保存中...'
-                        : '保存',
-                  ),
-                  if (state.saved?.number.isNotEmpty ?? false)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: NativeGradientAction(
-                        tone: NativeActionTone.danger,
-                        onPressed: state.busy
-                            ? null
-                            : () => _write(widget.onDelete, '固定外呼号码已删除'),
-                        label: state.operation == OutboundOperation.deleting
-                            ? '删除中...'
-                            : '删除固定外呼号码',
-                      ),
-                    ),
-                  if (state.error != null)
-                    TextButton(
+                    const SizedBox(height: 18),
+                    NativeGradientAction(
                       onPressed: state.busy
                           ? null
-                          : () {
-                              if (_editable) widget.onLoad();
-                            },
-                      child: const Text('重新读取'),
+                          : () => _write(widget.onSave, '固定外呼号码已保存'),
+                      label: state.operation == OutboundOperation.saving
+                          ? '保存中...'
+                          : '保存',
                     ),
-                ],
+                    if (state.saved?.number.isNotEmpty ?? false)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: NativeGradientAction(
+                          tone: NativeActionTone.danger,
+                          onPressed: state.busy
+                              ? null
+                              : () => _write(widget.onDelete, '固定外呼号码已删除'),
+                          label: state.operation == OutboundOperation.deleting
+                              ? '删除中...'
+                              : '删除固定外呼号码',
+                        ),
+                      ),
+                    if (state.error != null)
+                      TextButton(
+                        onPressed: state.busy
+                            ? null
+                            : () {
+                                if (_editable) widget.onLoad();
+                              },
+                        child: const Text('重新读取'),
+                      ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

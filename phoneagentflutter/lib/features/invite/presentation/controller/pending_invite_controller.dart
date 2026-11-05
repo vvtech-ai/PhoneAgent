@@ -152,7 +152,11 @@ class PendingInviteController extends StateNotifier<PendingInvite> {
 
   Future<void> failed(String code) async {
     finish();
-    if ({'REGISTRATION_ABORTED', 'INVITE_ACTIVITY_CHANGED'}.contains(code)) {
+    if ({
+      'REGISTRATION_ABORTED',
+      'INVITE_ACTIVITY_CHANGED',
+      'INVITER_ACCOUNT_CANCELLED',
+    }.contains(code)) {
       _key = '';
       _id = '';
       await store.write('pending', {

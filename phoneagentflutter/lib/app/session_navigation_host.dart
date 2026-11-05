@@ -13,11 +13,13 @@ class SessionNavigationHost extends StatefulWidget {
     required this.epoch,
     required this.child,
     this.onReleased,
+    this.releasePlaceholder,
   });
   final SessionController session;
   final int? epoch;
   final Widget child;
   final Future<void> Function()? onReleased;
+  final Widget? releasePlaceholder;
 
   @override
   State<SessionNavigationHost> createState() => _SessionNavigationHostState();
@@ -86,6 +88,6 @@ class _SessionNavigationHostState extends State<SessionNavigationHost> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (pending != null && !pending.isCompleted) pending.complete();
     });
-    return const SizedBox.expand();
+    return widget.releasePlaceholder ?? const SizedBox.expand();
   }
 }

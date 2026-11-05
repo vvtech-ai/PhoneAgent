@@ -1,3 +1,5 @@
+import '../../account_cancellation/domain/account_cancellation.dart';
+import '../../account_cancellation/data/api_cancellation_gateway.dart';
 import '../../invite/domain/invite.dart';
 import '../../invite/data/api_invite_repository.dart' show inviteErrorCodes;
 import 'package:dio/dio.dart';
@@ -14,7 +16,7 @@ import 'auth_request_diagnostics.dart';
 import 'auth_network_status.dart'
     if (dart.library.io) 'auth_network_status_io.dart';
 
-class DioAuthGateway implements AuthGateway {
+class DioAuthGateway implements AuthGateway, CancellationAuthGateway {
   DioAuthGateway(
     AppConfig config, {
     Dio? client,
@@ -81,7 +83,9 @@ class DioAuthGateway implements AuthGateway {
     );
     return request.run(
       () => _login(submission, request),
-      (result) => result.inviteRequired
+      (result) => result.cancellation != null
+          ? DiagnosticAuthOutcome.codeAccepted
+          : result.inviteRequired
           ? DiagnosticAuthOutcome.inviteRequired
           : DiagnosticAuthOutcome.credentialsReturned,
     );
@@ -103,8 +107,12 @@ class DioAuthGateway implements AuthGateway {
       if (submission.loginChallenge?.trim().isNotEmpty ?? false)
         'loginChallenge': submission.loginChallenge!.trim(),
     }, request);
+    return _decodeLogin(data, submission.phone);
+  }
+
+  LoginOutcome _decodeLogin(Map<String, dynamic> data, String expectedPhone) {
     final phone = _text(data, 'phone');
-    if (phone != submission.phone || !isLoginPhone(phone)) {
+    if (phone != expectedPhone || !isLoginPhone(phone)) {
       throw AuthFailure.invalidResponse;
     }
     final invite = data['inviteRequired'] ?? false;
@@ -114,7 +122,23 @@ class DioAuthGateway implements AuthGateway {
     final referral = data['referralResult'] is Map<String, dynamic>
         ? data['referralResult'] as Map<String, dynamic>
         : <String, dynamic>{};
+    CancellationPendingLogin? pending;
+    if (data['cancellation'] != null) {
+      final value = _object(data['cancellation']);
+      pending = CancellationPendingLogin(
+        _text(value, 'applicationId'),
+        ApiCancellationGateway.date(value, 'effectiveAt'),
+        _text(value, 'challenge'),
+      );
+      if (invite ||
+          _optionalText(data, 'voiceCloneAccessToken').isNotEmpty ||
+          grants.isNotEmpty ||
+          data['points'] != null) {
+        throw AuthFailure.invalidResponse;
+      }
+    }
     final result = LoginOutcome(
+      cancellation: pending,
       referralOperationId: referral['operationId'] is String
           ? referral['operationId']
           : '',
@@ -139,21 +163,24 @@ class DioAuthGateway implements AuthGateway {
         }),
       ),
     );
-    if (!invite && !result.toSession().valid) throw AuthFailure.invalidResponse;
+    if (!invite && pending == null && !result.toSession().valid) {
+      throw AuthFailure.invalidResponse;
+    }
     return result;
   }
 
   Future<Map<String, dynamic>> _post(
     String endpoint,
     Map<String, Object?> body,
-    AuthRequestDiagnostics request,
-  ) async {
+    AuthRequestDiagnostics request, {
+    String prefix = 'api/auth/sms/',
+  }) async {
     final base = _baseUri;
     if (base == null) throw AuthFailure.unavailable;
     final normalized = base.replace(
       path: base.path.endsWith('/') ? base.path : '${base.path}/',
     );
-    final url = normalized.resolve('api/auth/sms/$endpoint');
+    final url = normalized.resolve('$prefix$endpoint');
     try {
       final signed = await signing?.prepare(
         url,
@@ -203,6 +230,50 @@ class DioAuthGateway implements AuthGateway {
     }
   }
 
+  @override
+  Future<CancellationResult> lookupCancellation(
+    String queryToken,
+    String operationId,
+  ) async {
+    final request = AuthRequestDiagnostics(
+      DiagnosticOperation.authLogin,
+      _diagnostics,
+    );
+    return ApiCancellationGateway.decodeResult(
+      await _post(
+        'lookup',
+        {'queryToken': queryToken, 'operationId': operationId},
+        request,
+        prefix: 'api/auth/account-cancellation/',
+      ),
+    );
+  }
+
+  @override
+  Future<LoginOutcome> revokeCancellation(
+    CancellationPendingLogin pending,
+    String operationId,
+    String phone,
+  ) async {
+    final request = AuthRequestDiagnostics(
+      DiagnosticOperation.authLogin,
+      _diagnostics,
+    );
+    return _decodeLogin(
+      await _post(
+        'revoke',
+        {
+          'challenge': pending.challenge,
+          'applicationId': pending.applicationId,
+          'operationId': operationId,
+        },
+        request,
+        prefix: 'api/auth/account-cancellation/',
+      ),
+      phone,
+    );
+  }
+
   Future<bool> _confirmedOffline() async {
     try {
       return await _isOffline()
@@ -245,6 +316,8 @@ class DioAuthGateway implements AuthGateway {
   // Preserve known business categories; carry only the message for other errors.
   static Object _failure(Object? message) {
     final text = message is String ? message : '';
+    if (text.contains('账号已注销')) return AuthFailure.accountCancelled;
+    if (text.contains('登录验证已过期')) return AuthFailure.challengeExpired;
     if (text.contains('验证码已过期') || text.contains('错误次数过多')) {
       return AuthFailure.codeExpired;
     }

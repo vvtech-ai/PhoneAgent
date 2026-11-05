@@ -1,3 +1,4 @@
+import '../../account_cancellation/domain/account_cancellation.dart';
 import 'auth_session.dart';
 
 /// Authentication boundary. Implementations must not synthesize signed-in users.
@@ -47,7 +48,9 @@ class LoginOutcome {
     this.grantEvents = const [],
     this.referralOperationId = '',
     this.referralPoints,
+    this.cancellation,
   });
+  final CancellationPendingLogin? cancellation;
   final String phone;
   final bool inviteRequired;
   final String loginChallenge;
@@ -68,6 +71,7 @@ class LoginOutcome {
 
 enum AuthFailure implements Exception {
   unavailable,
+  accountCancelled,
   rejected,
   network,
   timeout,
@@ -123,4 +127,16 @@ String authExceptionMessage(Object error) {
     _ => '',
   };
   return message.trim().isEmpty ? '登录失败' : message.trim();
+}
+
+abstract interface class CancellationAuthGateway {
+  Future<LoginOutcome> revokeCancellation(
+    CancellationPendingLogin pending,
+    String operationId,
+    String phone,
+  );
+  Future<CancellationResult> lookupCancellation(
+    String queryToken,
+    String operationId,
+  );
 }

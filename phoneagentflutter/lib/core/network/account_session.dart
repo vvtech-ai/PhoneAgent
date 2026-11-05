@@ -41,3 +41,18 @@ class ApiCodeFailure implements Exception {
   final bool? retryable;
   final String? recoveryAction;
 }
+
+/// Only explicit server lifecycle failures (or rejected renewal) enter this boundary.
+enum SessionInvalidationReason {
+  cancellationPending,
+  cancelled,
+  revoked,
+  expired,
+}
+
+abstract interface class AccountSessionInvalidation {
+  Future<void> invalidateSession(
+    AccountCredentials expected,
+    SessionInvalidationReason reason,
+  );
+}

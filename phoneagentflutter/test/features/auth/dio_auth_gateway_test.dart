@@ -91,6 +91,87 @@ void main() {
     );
   });
   test(
+    'SDK login verification expiry is a challenge failure, not SMS expiry',
+    () async {
+      adapter.payload = {
+        'code': 'AC0001',
+        'message': '登录验证已过期，请重新获取验证码',
+        'data': null,
+      };
+      await expectLater(
+        gateway.login(submission),
+        throwsA(AuthFailure.challengeExpired),
+      );
+    },
+  );
+  test(
+    'cancelled inviter business error survives HTTP 409 and maps exact notice',
+    () async {
+      adapter.status = 409;
+      adapter.payload = {
+        'code': 409,
+        'message': '邀请码无效',
+        'data': {'errorCode': 'INVITER_ACCOUNT_CANCELLED'},
+      };
+      await expectLater(
+        gateway.login(submission),
+        throwsA(
+          isA<InviteFailure>()
+              .having((e) => e.code, 'code', 'INVITER_ACCOUNT_CANCELLED')
+              .having((e) => e.message, 'notice', '邀请码无效'),
+        ),
+      );
+    },
+  );
+  test('final cancellation is a known safe auth failure', () async {
+    adapter.payload = {
+      'code': 400,
+      'message': '账号已注销，无法恢复',
+      'data': <String, Object?>{},
+    };
+    expect(gateway.login(submission), throwsA(AuthFailure.accountCancelled));
+  });
+  test(
+    'pending login contains only restricted identity; ordinary token is rejected',
+    () async {
+      final pending = <String, Object?>{
+        'phone': '13800000000',
+        'inviteRequired': false,
+        'voiceCloneAccessToken': '',
+        'grantEvents': <Object?>[],
+        'cancellation': {
+          'applicationId': 'application',
+          'effectiveAt': '2026-11-10T08:00:00Z',
+          'challenge': 'restricted',
+        },
+      };
+      adapter.payload = {'code': 0, 'data': pending};
+      final outcome = await gateway.login(submission);
+      expect(outcome.cancellation?.applicationId, 'application');
+      expect(outcome.toSession().valid, isFalse);
+      pending['voiceCloneAccessToken'] = 'synthetic-business-token';
+      expect(gateway.login(submission), throwsA(AuthFailure.invalidResponse));
+    },
+  );
+  test(
+    'cancellation lookup and revoke use SDK auth routes with original operation',
+    () async {
+      adapter.payload = {
+        'code': 0,
+        'data': {'status': 'NOT_SUBMITTED'},
+      };
+      await gateway.lookupCancellation('synthetic-query', 'original-operation');
+      expect(
+        adapter.requests.last.uri.path,
+        '/aiassistant-api/api/auth/account-cancellation/lookup',
+      );
+      expect(
+        adapter.requests.last.data,
+        containsPair('operationId', 'original-operation'),
+      );
+    },
+  );
+  test(
     'test Release dispatches signed login to the configured test SDK service',
     () async {
       gateway.close();

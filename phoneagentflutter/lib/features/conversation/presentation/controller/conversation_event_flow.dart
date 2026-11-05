@@ -28,6 +28,7 @@ class ConversationEventFlow {
     required this.assistant,
     this.suppressInteractions,
     this.onFinalResponse,
+    this.onLiveCommitted,
   });
   final ConversationState Function() read;
   final void Function(ConversationState) write;
@@ -44,6 +45,7 @@ class ConversationEventFlow {
   final void Function(String, String) assistant;
   final bool Function()? suppressInteractions;
   final void Function(AgentEvent, String, int)? onFinalResponse;
+  final void Function(LedgerEvent, String)? onLiveCommitted;
   final _interactions = <(String, String, String)>{};
   String _delta = '';
   void reset() {
@@ -178,8 +180,14 @@ class ConversationEventFlow {
         publish();
         write(read().copy(activity: ''));
       case AgentEventKind.committed:
-        if (!await commit(event.ledger!, generation) && current(generation)) {
+        final fact = event.ledger!;
+        final known = messages.facts.containsKey(fact.eventId);
+        final accepted = await commit(fact, generation);
+        if (!current(generation)) return;
+        if (!accepted) {
           failed(generation, null);
+        } else if (!known) {
+          onLiveCommitted?.call(fact, command);
         }
       case AgentEventKind.signal:
         await signal(event, command, generation);

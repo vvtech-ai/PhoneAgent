@@ -132,7 +132,10 @@ class _PurchaseResultRouteState extends ConsumerState<PurchaseResultRoute>
     if (!matches) {
       return Scaffold(
         backgroundColor: Colors.white,
-        appBar: const NativePageAppBar(title: '购买结果'),
+        appBar: NativePageAppBar(
+          title: '购买结果',
+          textScaler: MediaQuery.textScalerOf(context),
+        ),
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,

@@ -34,7 +34,7 @@ class AboutPage extends StatelessWidget {
             ),
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.fromLTRB(10, 20, 10, 28),
+                padding: const EdgeInsets.fromLTRB(16, 20, 16, 28),
                 children: [
                   const SizedBox(height: 8),
                   Center(

@@ -1,8 +1,8 @@
+import '../../../core/design/native_action_style.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/design/native_business_dialog.dart';
 import '../../../../core/design/native_page_background.dart';
 import '../../../../core/design/native_page_header.dart';
-import '../../../../core/design/shell_tokens.dart';
 import 'feedback_form.dart';
 import 'feedback_state.dart';
 
@@ -124,14 +124,15 @@ class _FeedbackPageState extends State<FeedbackPage> {
         const SizedBox(height: 32),
         SizedBox(
           width: double.infinity,
-          height: 48,
-          child: FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: ShellTokens.accent),
-            onPressed: () {
-              widget.onSubmit();
-              Navigator.maybePop(context);
-            },
-            child: const Text('完成'),
+
+          child: NativeActionSurface(
+            child: FilledButton(
+              onPressed: () {
+                widget.onSubmit();
+                Navigator.maybePop(context);
+              },
+              child: const Text('完成'),
+            ),
           ),
         ),
       ],

@@ -17,7 +17,11 @@
 
 HomeCard 包含 id、title、status、action、skillId、opening、selectedContactOpening、minimumVersion、imageUrl 等字段。HomeConfigMapper 解析发布版本和 Skill 引用；HomeCard.canEnter 管动作、发布状态与最低版本，不负责推断当前会员权益。
 
+HomePublishedSnapshots为首页可选更新端口。DioHomeRepository保留单飞签名GET和ETag，先提供有效缓存/环境随包内容，再发布验证通过的完整配置；内存应用不等待磁盘写入。HomeController订阅时处理缓存迟到与销毁，首页变化不会改写已复制到ConversationEntry的卡片事实。testHomeSnapshot只用于test，其他环境保持原确认基础快照；环境选择不请求网络、不增加首屏等待。用户排序与显隐仍由原HomeCardPreferencePolicy投影。
+
 ConversationEntry 承载 session、Skill、开场、已选联系人、恢复标志和账号所属代次。ConversationSubmission 将用户输入映射为 AgentCommand 和本地回显；初次命令携带 initialSkillId / initialOpening / selectedContact，续接使用自己的 command 与 pending 身份。
+
+OCR-first 上传通过 OcrUpload 在 upload-intents 与 complete 的元数据中携带同一初始 Skill 和已选联系人，入口来自 ConversationController.pendingInitialEntry；已发送业务输入后不重复携带。后端在首次授权时持久保存绑定。ConversationRestoreFlow 不执行工具，控制器仅在已存在 USER_TURN_ACCEPTED 或旧历史无法区分时设置 initialSent；只有开场/OCR 的恢复不误认为业务首轮已发送。原账号/页面代次、OCR 图片重试和历史锚点继续使用原职责。
 
 AgentCommand 还包含 userId、idempotencyKey、traceId、actionId / payload、inputKind、supersedesCommandId 和 callVoiceSelection。输入回显、初始开场、工具确认和模型选择不能共用一个含糊身份。页面状态重建不应被当成新的用户操作。
 
@@ -49,8 +53,12 @@ DioAgentGateway → SSE frame / AgentEvent 解码
 
 - ConversationPresentationProjection 管 live / restore 展示；QuestionPromptPresentation 等纯规则只处理明确同身份的重复内容，不操作后端或音频。
 - 选项选择保留旧卡快照、使其失活，并追加独立用户回显；activeOptionsId 与 pendingToolCallId 的职责不同，不能以“页面还有一张卡”认定可以执行。
-- ConversationConfirmationFlow、CallConfirmationPolicy 与既有 call launch 协调器负责确认、修改 / 补充和提交；确认呈现、用户意图、当前工具和内容检查缺一不可。旧卡返回、切模或迟到回答不能自动拨号。
+- ConversationConfirmationFlow 将当前可见拨打卡的全部自然语言答复交给 CallConfirmationReplyCoordinator，后端按账本中的当前卡片判断整句语义；客户端不按固定话术或后缀授权，也不重复覆盖语义结果。原 call launch 协调器继续负责准备倒计时、准入和提交；确认呈现、账号/session/tool/内容签名和代次检查缺一不可。明确按钮使用显式确认动作，旧卡返回、切模或迟到回答不能自动拨号。
+- QUESTION/WAIT/UNCLEAR 及语义失败使用原补充问答记录并保留当前卡；批量补充通过 CALL_CONFIRMATION_SUPPLEMENT 交付。BatchConfirmationPending 只在同会话、同一未结束的最新 confirmBatchTask 仍有合法补充事实时恢复输入绑定，不授予执行权限或创建新卡。API 的有界 cardText 仅为兼容提示，权威内容由后端按身份读取。
 - 通话观察、结果与普通消息的 owner 分开。等待接通、已接通、停止受理、物理结束、结果整理不混成一个“完成”标记；媒体与语义字段只补同次通话。
+- 所有多路 Skill 的冻结执行名单恰为一人时，BatchSingleCallController 通过批次只读通话接口复用 CallSessionPage；多人逐个拨打或仅剩一路不切换。确认卡、批次执行/计费/重拨/回执/评分仍归原 owner。准备展示只认同身份 SDK launchReady，结束/关闭/停止事实优先；不从确认、callId 或进度推断启动。
+- 一人批次页面挂断通过 ConversationStopBinding.stopObservedBatch 衔接现有停止受理、在途禁用和结果恢复；不另起普通单呼挂断。实时与恢复批次进度使用同一接入点，旧 attempt 和已结束批次不能复活页面；监听仍使用真实 batchId/callId，观察不提交确认或拨打命令。
+- 连续一人外呼按有效 command/batch/attempt 区分：前批次已完成后，当前新命令的新一人批次进度建立独立观察，重新等待所属 SDK launchReady。不能依赖缺失的 toolStart，也不能由重复工具提示清空活动通话或停止标记；已结束批次集合保留以过滤迟到事件。
 - ConversationRestoreFlow 读取原 session 的事实，清旧进程 overlay，再按有效 pending 恢复操作权；TaskDetailController 读取原详情，TaskDetailPage 的卡片只读。两条路径应遵循同一消息与结果规则，不能因组件共用就省略跨入口回归。
 - 任务列表已读是原任务的阅读状态，不应改变业务终态、执行电话或凭空授予评分资格。
 
@@ -61,6 +69,8 @@ DioAgentGateway → SSE frame / AgentEvent 解码
 TaskRatingController 管资格、草稿、提交、只读与卡片 owner；ApiTaskRatingRepository 校验回执目标、资格和提交身份。评分接口使用 task-ratings 的 calls / batches 查询及 eligibilities 提交。资格晚到、失败恢复、owner 交接与账号变化必须按 RATING 场景测试，不能仅靠重新进页触发初始化。
 
 ConversationSpeechController 负责任务页回复播报，CommittedReplyNarration 协调已应用事实与结果说明；ReplySpeechPlayback 负责实际合成、排队、排空、取消和失败。voice host 处理用户开关、输入 / 生命周期门控和页面归属。任务页 TTS 与电话对端的媒体播放是不同范围；文字出现、进入队列、实际可听完成不等价。
+
+实时确认补充沿 ConversationEventFlow.onLiveCommitted → conversation_event_binding → ConversationSpeechController.acceptConfirmationSupplement 接线：只在首次已成功应用的当前输入事实完成显示后，核对 command/record、会话及当前待确认卡，再将 CALL_CONFIRMATION_SUPPLEMENT.assistantText 交给原播放队列。不同事件即使同文案也有独立资格；重复交付、历史恢复和补查的旧事实不自动播报，静音/后台/打断仍按原音频门禁。此接线不改变确认判断、pending 或拨号动作，也不伪造 TEXT_REPLY。
 
 开场、补问、确认与结果按各自身份取得播报资格；历史不自动重播。输入、静音、选项、切模和离页按原播放生命周期中断旧音频，不因此删除文字、停止任务或丢草稿。确认提示阶段与所属倒计时协调；结果说明由同次通话的结果与音频门禁共同放行，评分查询不阻塞播报。入队、合成、播放开始、排空或失败必须分开观察；失败不能冒充已播放，后续新消息不能被旧取消代次吞掉。
 
@@ -120,3 +130,7 @@ TaskController 持有操作结果的单次 effect，TaskPageMutation 只修改�
 
 
 餐厅候选资格补充：品牌名搜索返回多家分店时，同样在数量上限前过滤无号；仅明确餐厅且相关命中唯一门店可保留无号说明。limit=1 不等于唯一命中。服务端负责资格和最终候选编号，客户端与历史消费同一事实，不能在页面二次筛选重排。
+
+## 确认识别异常反馈
+
+拨打确认回复保持原完整语义路径及scope校验。API兼容可选replyId与unavailable标记；同一次HTTP操作带独立replyId，传输重试可复用。识别失败/超时属于临时不可用，ConversationConfirmationFlow保持当前卡片并提示重试，不落成用户含糊答复的补充正文，不调用confirm。有效UNCLEAR/WAIT/QUESTION仍沿原补充流程，明确同意仍进入原准入/倒计时/拨打owner；记忆采用和保存确认保持独立。批量重拨来源和执行集合由服务端校验，客户端不另造任务身份。验证见openspec/changes/repair-batch-retry-confirmation。

@@ -25,7 +25,8 @@ def install(options):
         shutil.copyfile(manifest, frozen_manifest)
         data = validate_package(frozen_ipa, frozen_manifest, options.environment,
                                 options.build_name, options.build_number, options.sha256,
-                                options.device, expected_source=options.source_sha256)
+                                options.device, expected_source=options.source_sha256,
+                                expected_mode=getattr(options, 'build_mode', None))
         device_file = root / 'device.json'
         subprocess.run(['xcrun', 'devicectl', 'device', 'info', 'details', '--device', options.device,
                         '--json-output', str(device_file)], check=True, capture_output=True)
@@ -55,6 +56,8 @@ def main():
     parser.add_argument('--environment', required=True, choices=['dev', 'test', 'pro', 'prod'])
     parser.add_argument('--build-name', required=True)
     parser.add_argument('--build-number', required=True, type=int)
+    parser.add_argument('--build-mode', choices=['debug', 'profile', 'release'],
+                        help='Require this mode in the signed package build manifest.')
     parser.add_argument('--sha256', required=True, help='Expected IPA SHA256 from this build output.')
     parser.add_argument('--source-sha256', help='Optional expected source snapshot SHA256.')
     parser.add_argument('--device', required=True, help='Physical device UDID from this build.')

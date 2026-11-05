@@ -6,6 +6,12 @@
 - 新增共享 AiContentNotice，放在原控制区下方可用宽度内，实时翻译原标签为 13sp、间距 7dp，任务通话原标签为 12sp/bold、间距 8dp；最新用户要求将新增说明字号乘 0.7 四舍五入，分别为 9sp / 8sp，原挂断标签字号不变；保留原按钮布局、禁用状态、回调及对话输入区独立说明。
 - 修改前 8/8 因缺少说明失败，最终 5 文件 31/31 通过，定向 analyze 无问题。新增换行测试曾因 SemanticsHandle 释放时机失败，修正测试清理后通过；没有修改业务来消除失败。OpenSpec strict 和 diff 检查通过，设备视觉待验。见[验证记录](../openspec/changes/add-call-ai-content-notice/verification.md)。
 
+## 2026-10-28 注销入口被旧本地恢复信息阻塞
+
+- 机制证据：提交前持久化恢复信息，入口确认后读取并查询旧操作；lookup异常统一显示“原注销申请结果暂未确认，请稍后重试”。现场具体网络/服务错误尚未确认，不能把该记录当成受理成功。
+- 用户明确要求去掉保存机制；删除本地恢复读写及入口门禁，保留当前页面内存身份查询、服务端状态裁定、UI和退出清理屏障。旧设备残留键不再访问，不清空应用数据。
+- RED复现后定向135/135通过、模块analyze无问题；未构建安装、提交推送、部署或修改数据库。详见[验证记录](../openspec/changes/remove-cancellation-local-recovery/verification.md)。
+
 ## 2026-10-26 对话输入区缺少 AI 生成说明
 
 - 用户确认在语音按钮与文本输入框下方增加“内容由AI生成”，并要求键盘弹出仍可见。现状共用 ConversationComposer 无该说明；改动只涉及展示层。
@@ -5546,3 +5552,30 @@ test 批次 `batch-665cbc9a6e5b35fcaee43e0b93c927aa`：服务端 13:49:10 提交
 ## 2026-10-27 批量等待线路文案续批
 
 原进度卡将 `LINE_BUSY_WAITING` 写成“线路繁忙，等待空闲线路后继续拨打”，逐路回执可能保留后台 headline。现将 `LINE_BUSY_WAITING`、`WAITING_FOR_LINE`、`WAITING_CALL` 在这两个展示入口统一为“等待呼叫中”，原 status、detail、运行中判断及最终裁决不变。批量回执、进度与页面定向 35 项通过，3 文件 analyze 无问题；未以文案变化推断该路已经拨出。
+
+## 2026-10-28 AI生成说明按附件统一
+用户批准align-ai-content-notice-reference：浅/深固定11sp/w400、仅说明不缩放、底部安全区20/键盘8；仅展示层，保留共用控件和业务。起点test_v1.8.0_fix@f285726b干净，不切分支/提交推送/安装，实施中。
+
+- align-ai-content-notice-reference实施：共享浅/深固定11sp/w400，仅说明不缩放，浅#B0B4C3/100%、深白34%，移除禁用透明度叠加；三处安全区20dp、对话键盘8dp，翻译说明独立于短屏滚动。源码按3/3/1文件微批，测试及format独立；≤500行。旧期望RED33，键盘首轮24失败后核对Scaffold已消费viewInsets，单文件改为仅判断所属View键盘存在，未叠加高度；49复验及10文件117扩大定向通过，analyze无问题。OpenSpec/diff收尾；非全量，未构建安装/真实通话/提交推送，真机视觉待验。
+
+- 本轮最终：117项定向通过，analyze6.6秒无问题、OpenSpec269通过0失败，diff/UTF-8/修改Dart≤500行通过。机型尺寸/安全区/键盘模拟通过，未实机视觉验收；无全量回归/构建安装/提交推送，change保持active。
+
+## 2026-10-28 Android两类通话底部导航白条
+用户批准fix-android-call-navigation-background，仅presentation，保留当前AI说明未提交改动；任务/翻译通话共用Android适配，iOS和业务不改。连接设备API34，只读检查，不安装/外呼；实施验证中，不提交推送。
+
+- fix-android-call-navigation-background自动验证完成：共享Android系统栏owner+两页面接线3源码微批，保留原正文/控件树与AI说明20dp，iOS/Web不切模式。83项相关页面/回调/系统栏生命周期及像素/安全区通过，analyze9.4秒无问题，OpenSpec270与diff通过；均低于500行。
+- 邻接translation_pages存在3个旧拨号准备失败：独立目录恢复修改前页面同样7通过3失败，原业务与断言保留，未全量回归。仅只读手机API34/test1.0.54(47)，本次未构建安装/外呼，手势/三键同包实机待验；不提交推送、不归档。详见openspec/changes/fix-android-call-navigation-background/verification.md。
+
+## 2026-10-28 iOS AI说明非零安全区间距
+用户侧会话批准执行；PhoneAgent展示层，基线test_v1.8.0_fix@2a9ec798起始干净。仅iOS原始底部安全区>0时，上gap+10，键盘关闭额外底距20→10；键盘8及其他情况不变。无接口/身份/状态owner变化，保留ENTRY-05/STOP-01/VOICE-01，共用控件、字体和颜色；更新align-ai-content-notice-reference。本地小范围修改，不提交推送/安装。
+
+- iOS说明间距完成：6源码按3+3微批，测试/format独立；iOS原始安全区>0上gap+10、无键盘底距10，键盘8及其他平台/零安全区保持。修正测试测量对象（内框边框1dp）后RED16，GREEN64、扩大12文件125项通过，analyze17.5秒无问题；非全量，无构建安装/真实通话/提交推送，真机视觉待验。规格/diff与500行最终核对见align-ai-content-notice-reference。
+
+- 本轮最终校验：OpenSpec272通过/0失败，git diff --check、UTF-8及500行检查通过。HEAD仍2a9ec798，无提交推送；真机待验。
+
+## 2026-10-29 iOS 声音克隆初始化频次对齐
+排查发现 Flutter 每个新认证采集会话调用 initSDK，AIAssistant 通过 prepared 按进程复用；上传日志记录 15 次实际初始化进入/返回，但尚未证明这就是声音克隆失败原因。用户批准仅对齐 iOS 初始化生命周期，不改 UI、参数处理、线程、录音配置或 Android。
+
+实现独立无账号数据的进程初始化保护，正常返回后置标记；初始化异常继续原处理，MetaInfo/后续业务失败不清初始化状态，reset/abort/插件重建不重新初始化。原生回归两进程各 7 断言和录音配置 10 断言通过；Flutter 定向 544 通过、3 项会员导航计时器基线失败（隔离原版插件复验一致），analyze 通过。
+
+根仓 Pod 锁文件缺既有 CrashDiagnostics，与安装 Manifest.lock 不一致，deployment 检查失败；本任务不修改该锁文件，在隔离快照使用已安装依赖完成 Debug/Release 无签名 arm64 编译并保留匹配 UUID 的符号。首次 Release 沿用 dev 参数被既有门禁拒绝，改用已有 prod 构建输入通过，未改门禁。真实认证、试听/其他音频交接与诊断共存/重启回放尚未验收，未安装用户 App、未用真实身份或收费克隆。完整记录见 openspec/changes/align-ios-identity-sdk-initialization/verification.md。

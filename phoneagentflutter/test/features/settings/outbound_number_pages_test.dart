@@ -47,8 +47,8 @@ void main() {
         final title = tester.widget<Text>(find.text('固定外呼号码'));
         expect(title.maxLines, 1);
         expect(title.overflow, TextOverflow.ellipsis);
-        expect(tester.getTopLeft(find.byType(TextField)).dx, 14);
-        expect(tester.getSize(find.byType(TextField)).width, 292);
+        expect(tester.getTopLeft(find.byType(TextField)).dx, 16);
+        expect(tester.getSize(find.byType(TextField)).width, 288);
         for (final label in ['保存', '删除固定外呼号码']) {
           final action = find.ancestor(
             of: find.text(label),
@@ -56,8 +56,8 @@ void main() {
           );
           await tester.ensureVisible(action);
           await tester.pumpAndSettle();
-          expect(tester.getSize(action).height, greaterThanOrEqualTo(48));
-          expect(tester.getSize(action).width, 292);
+          expect(tester.getSize(action).height, greaterThanOrEqualTo(50));
+          expect(tester.getSize(action).width, 288);
           expect(tester.widget<Text>(find.text(label)).maxLines, isNull);
         }
         expect(tester.takeException(), isNull);

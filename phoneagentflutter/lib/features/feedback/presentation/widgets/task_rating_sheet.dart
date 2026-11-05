@@ -1,3 +1,4 @@
+import '../../../../core/design/native_action_style.dart';
 import 'package:flutter/material.dart';
 import '../../domain/task_rating_draft_store.dart';
 import '../controller/task_rating_controller.dart';
@@ -237,23 +238,12 @@ class TaskRatingSheet extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               child: SizedBox(
                 width: double.infinity,
-                height: 50,
-                child: FilledButton(
-                  style: FilledButton.styleFrom(
-                    backgroundColor: const Color(0xFF1687F8),
-                    disabledBackgroundColor: const Color(0xFFB4D6F2),
-                    foregroundColor: Colors.white,
-                    disabledForegroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    textStyle: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                    ),
+
+                child: NativeActionSurface(
+                  child: FilledButton(
+                    onPressed: state.canSubmit ? onSubmit : null,
+                    child: Text(state.saving ? '提交中…' : '提交评价'),
                   ),
-                  onPressed: state.canSubmit ? onSubmit : null,
-                  child: Text(state.saving ? '提交中…' : '提交评价'),
                 ),
               ),
             ),

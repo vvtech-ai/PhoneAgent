@@ -19,7 +19,7 @@ void main() {
                 data: MediaQueryData(textScaler: TextScaler.linear(scale)),
                 child: Scaffold(
                   body: Padding(
-                    padding: const EdgeInsets.all(14),
+                    padding: const EdgeInsets.all(16),
                     child: MembershipBalanceCard(
                       availablePoints: 1500,
                       heldPoints: 0,
@@ -48,8 +48,8 @@ void main() {
           final divider = find.byType(Divider);
           final rowRect = tester.getRect(ledger);
           final purchaseRect = tester.getRect(purchase);
-          expect(rowRect.left, closeTo(28, 0.1));
-          expect(rowRect.right, closeTo(width - 28, 0.1));
+          expect(rowRect.left, closeTo(33, 0.1));
+          expect(rowRect.right, closeTo(width - 33, 0.1));
           expect(rowRect.height, greaterThanOrEqualTo(44));
           expect(
             tester.getRect(hint).bottom,

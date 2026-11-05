@@ -30,6 +30,8 @@ class CommerceFailure implements Exception {
     'APPLE_PRICE_CHANGED': '商品价格已变化，请刷新后重新确认',
     'APPLE_ATTEMPT_STORAGE_UNAVAILABLE': '暂时无法保存购买信息，请稍后重试',
     'APPLE_RECOVERY_TIMEOUT': '支付结果暂未确认，请稍后查询原订单',
+    'APPLE_RECONCILIATION_PENDING': '原购买仍在处理中，请稍后重试；若持续未完成，请联系客服',
+    'APPLE_RECOVERY_INCOMPLETE': '部分购买结果暂未确认，将稍后重试',
     'PAYMENT_EXPIRED': '支付资料已过期，请查询原订单',
     'CHANNEL_UNAVAILABLE': '当前支付渠道暂不可用',
     'PAYMENT_VERIFICATION_FAILED': '支付结果待核验，请查询原订单',

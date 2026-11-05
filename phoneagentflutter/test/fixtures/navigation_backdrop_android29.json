@@ -1,0 +1,124 @@
+{
+  "api": 29,
+  "platformBlurAvailable": false,
+  "width": 320,
+  "height": 500,
+  "samples": [
+    [
+      81,
+      100,
+      0,
+      0,
+      0
+    ],
+    [
+      85,
+      100,
+      255,
+      255,
+      255
+    ],
+    [
+      81,
+      345,
+      0,
+      0,
+      0
+    ],
+    [
+      85,
+      345,
+      255,
+      255,
+      255
+    ],
+    [
+      81,
+      346,
+      0,
+      0,
+      0
+    ],
+    [
+      85,
+      346,
+      255,
+      255,
+      255
+    ],
+    [
+      81,
+      365,
+      4,
+      4,
+      5
+    ],
+    [
+      85,
+      365,
+      254,
+      254,
+      255
+    ],
+    [
+      81,
+      400,
+      13,
+      13,
+      13
+    ],
+    [
+      85,
+      400,
+      254,
+      254,
+      254
+    ],
+    [
+      81,
+      423,
+      19,
+      19,
+      20
+    ],
+    [
+      85,
+      423,
+      254,
+      254,
+      255
+    ],
+    [
+      81,
+      460,
+      48,
+      49,
+      49
+    ],
+    [
+      85,
+      460,
+      253,
+      254,
+      254
+    ],
+    [
+      81,
+      499,
+      79,
+      79,
+      80
+    ],
+    [
+      85,
+      499,
+      253,
+      253,
+      254
+    ]
+  ],
+  "referenceCommit": "34c81900d2f128de861ec0133c74cd1b23f513a8",
+  "referenceSource": "android/app/src/main/java/com/vvtech/aiassistant/features/assistant_ui/AssistantBottomNavigationBackdrop.kt",
+  "referenceSourceSha256": "b9a1e17b44228b3c520e3c08daacfa7d3473a95fa0ccac1e311b84af54919da8",
+  "scope": "API29 default wash draw reference using Android Canvas; not an entire native app screenshot"
+}

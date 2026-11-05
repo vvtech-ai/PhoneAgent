@@ -4,6 +4,12 @@
 - [x] 说明脱离固定按钮列宽、允许自然换行且不缩小字号；定向 5 文件 31/31、analyze、OpenSpec strict 与 diff 检查通过。详见[验证记录](openspec/changes/add-call-ai-content-notice/verification.md)。
 - [ ] 双端真机视觉验收；未构建安装、提交推送，未归档。
 
+## 2026-10-28 移除注销申请本地恢复持久化
+
+- [x] 用户明确要求移除；删除恢复存储实现、端口、provider、提交前写入与入口旧操作读取/查询门禁。保留原UI、短信/最终确认、服务端状态及同页未知结果查询。
+- [x] RED复现存储不可用阻止短信；定向135/135通过、模块analyze无问题、UTF-8/规格场景/链接及diff检查通过。见[验证记录](openspec/changes/remove-cancellation-local-recovery/verification.md)。
+- [ ] 新构建真机验证；本次未构建安装、提交推送或修改服务端/数据库，未归档。
+
 ## 2026-10-26 对话输入区 AI 生成说明
 
 - [x] 用户确认执行；在共用输入组件下方加入居中12sp灰色“内容由AI生成”，语音/文本模式共用，保留既有 Flutter 样式与键盘避让。
@@ -5193,3 +5199,111 @@ Flutter 3.32.0 定向 voice suite 36 项通过（codec、session reuse、retry e
 
 - [x] `LINE_BUSY_WAITING`、`WAITING_FOR_LINE`、`WAITING_CALL` 的进度和逐路回执统一显示“等待呼叫中”，保留原 status、detail 和运行中判断。
 - [x] 批量回执、进度和页面定向 35 项通过，3 文件 analyze 无问题；见 `fix-batch-progress-unclear-label` 续批。
+
+## 2026-10-26 账号注销与15天冷静期
+
+- [x] 用户批准实施：先确认后验证码、逻辑删除、SDK owner为aiassistant-sdk-api；替换临时仅退出功能，保持Flutter原风格并复用控件。
+- [x] 客户端流程、受限登录、退出屏障、中央提示、加密原操作恢复及协议mailto发布稿。
+- [x] SDK申请/查询/撤销/到期、逻辑删除及权益终止记录；SDK/Agent凭证epoch与准入边界。
+- [x] 静态检查和定向自动回放，详见change verification；mock不代表真实后端验收。
+- [ ] 真实MySQL、短信、双端画面/邮箱、多设备及交易回调验收；正式协议发布和部署尚未执行。
+- 见 openspec/changes/account-cancellation-cooling-period/tasks.md。
+
+## 2026-10-28 注销冷静期按秒配置
+
+- [x] 用户确认执行；SDK Nacos秒配置默认1296000，确认/SMS/VERIFIED持久快照，旧申请截止不变。
+- [x] Flutter只读新响应字段，兼容旧响应，严格按天/小时/分钟/秒及完整单位数展示，原UI/流程不变。
+- [x] Flutter定向128项、SDK定向72项通过；analyze无问题。详见configure-cancellation-cooling-seconds/verification.md。
+- [ ] Nacos发布、数据库补列及部署/真实联调未执行。
+
+## 2026-10-28 最终注销确认文案对齐
+
+- [x] 按用户确认的需求原文恢复验证码后的最终弹窗正文，动态时间及蓝色协议内联保留；原UI、入口确认及申请/撤销逻辑不变。
+- [x] 文案精确回归8项先失败后通过；最终组合144项通过，analyze无问题，格式/diff/UTF-8检查通过。
+- [x] 同步本端文案及期限展示规格，保留秒配置和单位格式化实现；未修改服务端或数据库，未打包/提交/推送。
+- 见 openspec/changes/account-cancellation-cooling-period/verification.md。
+
+## 2026-10-28 登录注销中提示文案与按钮配色
+
+- [x] 登录提示按需求原文对齐，原申请完成时间动态显示；“保持注销”灰底红字、“继续登录”黑底白字。
+- [x] 共用按钮/弹窗增加可选配色，保留默认/危险/禁用样式及原业务门禁；上一批最终确认文案改动保留。
+- [x] 登录提示13项先RED后GREEN，最终组合173项通过，analyze无问题，格式/diff/UTF-8检查通过；未改后端/数据库，未打包/提交/推送。
+- 见 openspec/changes/account-cancellation-cooling-period/verification.md。
+
+## 2026-10-28 注销退出连续 loading
+
+- [x] 用户批准：最终确认后原页无文本单一loading覆盖提交/清理，登录就绪即移除，成功轻提示保留。
+- [x] 共用loading、账号/代次/操作隔离的静态页承接和根路由接线；真实旧订阅仍先卸载，退出失败只重试清理。
+- [x] 两平台连续帧先RED后GREEN；定向217项通过，扩大13通过/3项iOS计时器残留基线同名复现；analyze/diff/UTF-8通过。
+- [ ] OpenSpec strict及真机逐帧画面待验；未改后端/原生，未打包/提交/推送。
+- 见 openspec/changes/cancellation-exit-loading/verification.md。
+## 2026-10-28 AI生成说明按附件统一
+用户批准align-ai-content-notice-reference：浅/深固定11sp/w400、仅说明不缩放、底部安全区20/键盘8；仅展示层，保留共用控件和业务。起点test_v1.8.0_fix@f285726b干净，不切分支/提交推送/安装，实施中。
+
+- align-ai-content-notice-reference实施：共享浅/深固定11sp/w400，仅说明不缩放，浅#B0B4C3/100%、深白34%，移除禁用透明度叠加；三处安全区20dp、对话键盘8dp，翻译说明独立于短屏滚动。源码按3/3/1文件微批，测试及format独立；≤500行。旧期望RED33，键盘首轮24失败后核对Scaffold已消费viewInsets，单文件改为仅判断所属View键盘存在，未叠加高度；49复验及10文件117扩大定向通过，analyze无问题。OpenSpec/diff收尾；非全量，未构建安装/真实通话/提交推送，真机视觉待验。
+
+- 本轮最终：117项定向通过，analyze6.6秒无问题、OpenSpec269通过0失败，diff/UTF-8/修改Dart≤500行通过。机型尺寸/安全区/键盘模拟通过，未实机视觉验收；无全量回归/构建安装/提交推送，change保持active。
+
+## 2026-10-28 Android两类通话底部导航白条
+用户批准fix-android-call-navigation-background，仅presentation，保留当前AI说明未提交改动；任务/翻译通话共用Android适配，iOS和业务不改。连接设备API34，只读检查，不安装/外呼；实施验证中，不提交推送。
+
+- fix-android-call-navigation-background自动验证完成：共享Android系统栏owner+两页面接线3源码微批，保留原正文/控件树与AI说明20dp，iOS/Web不切模式。83项相关页面/回调/系统栏生命周期及像素/安全区通过，analyze9.4秒无问题，OpenSpec270与diff通过；均低于500行。
+- 邻接translation_pages存在3个旧拨号准备失败：独立目录恢复修改前页面同样7通过3失败，原业务与断言保留，未全量回归。仅只读手机API34/test1.0.54(47)，本次未构建安装/外呼，手势/三键同包实机待验；不提交推送、不归档。详见openspec/changes/fix-android-call-navigation-background/verification.md。
+
+## 2026-10-28 iOS AI说明非零安全区间距
+用户侧会话批准执行；PhoneAgent展示层，基线test_v1.8.0_fix@2a9ec798起始干净。仅iOS原始底部安全区>0时，上gap+10，键盘关闭额外底距20→10；键盘8及其他情况不变。无接口/身份/状态owner变化，保留ENTRY-05/STOP-01/VOICE-01，共用控件、字体和颜色；更新align-ai-content-notice-reference。本地小范围修改，不提交推送/安装。
+
+- iOS说明间距完成：6源码按3+3微批，测试/format独立；iOS原始安全区>0上gap+10、无键盘底距10，键盘8及其他平台/零安全区保持。修正测试测量对象（内框边框1dp）后RED16，GREEN64、扩大12文件125项通过，analyze17.5秒无问题；非全量，无构建安装/真实通话/提交推送，真机视觉待验。规格/diff与500行最终核对见align-ai-content-notice-reference。
+
+- 本轮最终校验：OpenSpec272通过/0失败，git diff --check、UTF-8及500行检查通过。HEAD仍2a9ec798，无提交推送；真机待验。
+
+## 2026-10-29 iOS 认证 SDK 初始化生命周期
+用户在侧会话批准 align-ios-identity-sdk-initialization，并明确 Android、UI 交互和原参数处理不变。基线 test_v1.8.0_fix@d678e713，开始时干净；本地修改不切分支，不提交推送或安装用户 App。
+
+- 生产源码仅 iOS 插件与独立进程级初始化保护，共 3 文件：首次显式 prepare 调用 initSDK，正常返回后复用；异常沿原出口处理并允许后续显式重试。每个新会话 getMetaInfo、服务端初始化和本次 certifyId、录音配置/线程/租约不变。
+- 原生保护回归 RED 捕获逐次初始化，GREEN 两个独立进程各 7 断言通过；原生录音配置 10 断言通过。Flutter 克隆及诊断定向 544 通过、3 个会员导航 pending timer 失败；隔离恢复原版插件后同样 4 通过、3 失败，未放宽断言或改业务。
+- analyze 无问题；OpenSpec 本 change 严格通过。隔离快照 iOS Debug/Release 无签名 arm64 编译通过，匹配 UUID 的符号已保留且新增方法可定位；原仓 Podfile.lock 缺已有 CrashDiagnostics 的差异只在验证副本处理，主工作区锁文件不变。首次 Release 沿用 dev 参数被既有门禁拒绝，改用已有 prod 构建输入通过，未改门禁。最终 diff/UTF-8/源码行数及 Android、Dart、UI/参数边界核对通过。
+- 真机 SDK/音频交接、账号切换及诊断共存回放仍待真实证据，不以自动测试替代，也不宣称已经解决克隆失败。详见 openspec/changes/align-ios-identity-sdk-initialization/verification.md。
+
+## 2026-10-30 Apple交易与账号生命周期隔离
+
+- [x] 按本侧会话批准计划执行；应用级加密证据补单、唯一finish、跨账号预检与中性反馈、恢复失败语义和当前账号权益刷新；SDK增量受限接口及材料持锁epoch门禁。保留原UI、无恢复购买入口和注销即时受理。
+- [x] 联合1114项与补充16项通过（有重叠），所属analyze、两仓OpenSpec strict与diff检查通过；SDK 480项中424通过、56条件跳过。详见[验证记录](openspec/changes/isolate-apple-transactions-from-account-lifecycle/verification.md)。
+- [ ] MySQL并发、Apple Sandbox/真机、历史安装包验收；本次未部署、执行SQL、真实支付、提交推送，未归档。
+
+## 2026-10-30 已注销邀请人邀请码提示
+
+- [x] 用户批准：最终注销或到期未撤销邀请人拒绝新注册，INVITER_ACCOUNT_CANCELLED/HTTP409，App现有Toast显示“邀请码无效”。
+- [x] SDK入口及提交锁内复验、有效原挑战定向恢复；App错误映射及新操作重试，历史COMMITTED保持。
+- [x] Flutter339项、analyze及后端60项通过，diff检查通过；未部署/真机/真实MySQL验证，未提交推送。
+- 见 openspec/changes/reject-cancelled-inviter/verification.md。
+
+## 2026-10-30 会话失效单次退出
+
+- [x] 用户批准专用失效code及统一退出，不扩大原接口登录要求，不主动通知。
+- [x] SDK/Agent/续期分类，Flutter按身份和实际token合并清理/导航/提示，注销提交与查询优先。
+- [x] Flutter238项/analyze、Java58项及全模块编译通过；原路由鉴权条件未变。
+- [ ] 真实设备/旧版/后端/支付通话渠道验证，未部署或提交推送。
+- 见openspec/changes/handle-revoked-account-session/verification.md。
+
+## 2026-11-02 强制失效退出过渡覆盖
+
+- [x] 用户确认Android/iOS共用修改，参考主动注销效果，权限/清理顺序不变。
+- [x] 根层复用不透明背景及加载，登录首帧后移除；失败重试及账号代次隔离。
+- [x] 新用例双端先RED后GREEN；组合53项通过、新增8项独立通过，analyze无问题。
+- [ ] 双端真实画面验收；扩大通话页退出用例持续等待，原始HEAD同名用例亦等待，未计通过。
+- 见openspec/changes/forced-session-exit-loading/verification.md。
+
+### 2026-11-02 强制退出保留当前页画面
+
+- [x] 用户批准：当前页内存静态画面+共用加载，主动注销验证码页效果不变。
+- [x] 有界采集、250ms回退、账号/代次及图像释放，权限和清理不等待采集。
+- [x] 最终定向57项含双端原页面像素/释放检查；静态检查与设备边界见forced-session-exit-loading/verification.md。
+- [ ] Android/iOS真机画面与平台视图回退验收；未打包或提交推送。
+
+## 2026-11-02 隐藏联系人详情备注模块
+
+- 用户确认执行：仅隐藏详情备注卡片及编辑/删除/重试/状态和专属留白，不清空数据，不改变备注接口、AI参考或其他入口。
+- ContactDetailPage展示层最小调整，回调接口保留；沿用现有联系人专用资料区与拨号/任务/返回。
+- 回归覆盖隐藏状态及相邻操作，保留备注编辑/删除/数据/守卫测试；结果见 openspec/changes/hide-contact-detail-remark/verification.md。
+- Android/iOS设备画面待验；未提交或推送。

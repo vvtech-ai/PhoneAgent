@@ -65,6 +65,10 @@ void main() {
         ),
       );
       await tester.pumpUntilUiSettled();
+      expect(
+        find.byKey(const ValueKey('navigation-background-wash')),
+        findsOneWidget,
+      );
       Future<void> tapKey(String key) async {
         final target = find.byKey(ValueKey(key));
         if (target.evaluate().isEmpty) {

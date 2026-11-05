@@ -2,6 +2,13 @@ import '../../domain/commerce_repository.dart';
 import '../../domain/commerce_order.dart';
 import '../../data/commerce_diagnostics.dart';
 import '../../domain/payment_launcher.dart';
+import '../../domain/apple_transaction_settlement.dart';
+
+class AppleRecoveryReport {
+  const AppleRecoveryReport(this.orders, {this.failed = false});
+  final List<CommerceOrder> orders;
+  final bool failed;
+}
 
 /// Account-scoped serialization and transaction deduplication.
 class AppleTransactionVerifier {
@@ -19,6 +26,10 @@ class AppleTransactionVerifier {
   final void Function()? onAccepted;
   final _inFlight = <String, Future<CommerceOrder?>>{};
   final _finished = <String, CommerceOrder>{};
+  final _foreignSettled = <String, String>{};
+  bool settledForeign(NativePaymentResult result) =>
+      result.transactionId != null &&
+      _foreignSettled[result.transactionId] == result.signedTransaction;
 
   Future<CommerceOrder?> verify(
     NativePaymentResult result, {
@@ -59,7 +70,22 @@ class AppleTransactionVerifier {
     return _inFlight
         .putIfAbsent(id, () async {
           try {
-            final order = await repository.verifyApple(result);
+            final CommerceOrder order;
+            try {
+              order = await repository.verifyApple(result);
+            } on CommerceFailure catch (failure) {
+              if (failure.code != 'ACCOUNT_MISMATCH' ||
+                  launcher is! AppleTransactionSettlement) {
+                rethrow;
+              }
+              final settled = await (launcher as AppleTransactionSettlement)
+                  .settleTransaction(result);
+              if (!settled) {
+                throw const CommerceFailure('APPLE_RECONCILIATION_PENDING');
+              }
+              _foreignSettled[id] = result.signedTransaction!;
+              return null;
+            }
             if (expectedOrderNo != null && order.orderNo != expectedOrderNo) {
               diagnostics?.event(
                 CommerceStage.verify,
@@ -72,7 +98,9 @@ class AppleTransactionVerifier {
             if (isCurrent() && order.channel == 'APPLE_IAP') onAccepted?.call();
             if (isCurrent() &&
                 order.channel == 'APPLE_IAP' &&
-                order.paymentState == 'SUCCEEDED') {
+                order.paymentState == 'SUCCEEDED' &&
+                order.fulfillmentState == 'SUCCEEDED' &&
+                order.safeErrorCode == null) {
               await (diagnostics?.run(
                     CommerceStage.finish,
                     () => launcher.acknowledge(result),
@@ -107,21 +135,38 @@ class AppleTransactionVerifier {
         });
   }
 
-  Future<void> recover(bool Function() current) async {
+  Future<AppleRecoveryReport> recover(bool Function() current) async {
     final List<NativePaymentResult> results;
     try {
       results = await launcher.restore();
-    } catch (_) {
+    } catch (error) {
       // Discovery failure cannot block the authoritative server order query.
-      return;
+      diagnostics?.event(
+        CommerceStage.recovery,
+        DiagnosticResult.failed,
+        error: error,
+      );
+      return const AppleRecoveryReport([], failed: true);
     }
+    final orders = <CommerceOrder>[];
+    var failed = false;
     for (final result in results) {
-      if (!current()) return;
+      if (!current()) return AppleRecoveryReport(orders, failed: true);
       try {
-        await verify(result);
-      } catch (_) {
+        final order = await verify(result);
+        if (order != null) orders.add(order);
+        if (order == null && !settledForeign(result)) failed = true;
+      } catch (error) {
         // Unknown ownership and provider failures leave the transaction unfinished.
+        failed = true;
+        diagnostics?.event(
+          CommerceStage.recovery,
+          DiagnosticResult.failed,
+          transactionId: result.transactionId ?? '',
+          error: error,
+        );
       }
     }
+    return AppleRecoveryReport(orders, failed: failed);
   }
 }

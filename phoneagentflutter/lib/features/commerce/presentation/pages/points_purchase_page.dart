@@ -40,7 +40,7 @@ class _PointsPurchasePageState extends State<PointsPurchasePage> {
         title: '积分',
         onBack: widget.onBack,
         child: ListView(
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(16),
           children: [
             const Text('积分购买暂未开放'),
             if (state.error.isNotEmpty)
@@ -58,7 +58,7 @@ class _PointsPurchasePageState extends State<PointsPurchasePage> {
       title: '购买积分',
       onBack: widget.onBack,
       child: ListView(
-        padding: const EdgeInsets.all(14),
+        padding: const EdgeInsets.all(16),
         children: [
           if (offers.isNotEmpty)
             const Padding(

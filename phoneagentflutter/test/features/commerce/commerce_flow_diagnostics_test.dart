@@ -55,7 +55,7 @@ class _Repo extends FakeCommerceRepository {
   );
   @override
   Future<CommerceOrder> verifyApple(NativePaymentResult result) async {
-    current = appleOrder();
+    if (current.paymentState != 'SUCCEEDED') current = appleOrder();
     return current;
   }
 }
@@ -74,6 +74,12 @@ void main() {
     'catalog through native finish and server crediting/completion is correlated and private',
     () async {
       var finishes = 0;
+      var launched = false;
+      final transaction = {
+        'transactionId': 'private-transaction',
+        'signedTransaction': 'private-jws',
+        'appAccountToken': 'private-token',
+      };
       messenger.setMockMethodCallHandler(updates, (_) async => null);
       messenger.setMockMethodCallHandler(
         channel,
@@ -88,12 +94,11 @@ void main() {
               'productType': 'consumable',
             },
           ],
-          'launch' => {
-            'transactionId': 'private-transaction',
-            'signedTransaction': 'private-jws',
-            'appAccountToken': 'private-token',
-          },
-          'restore' => <Object?>[],
+          'launch' => () {
+            launched = true;
+            return transaction;
+          }(),
+          'restore' => launched && finishes == 0 ? [transaction] : <Object?>[],
           'acknowledge' => finishes++ == 0 ? null : null,
           _ => null,
         },
@@ -126,10 +131,11 @@ void main() {
         ),
         CheckoutOutcome.purchase,
       );
-      expect(finishes, 1);
+      expect(finishes, 0);
       expect(purchase.state.order?.appState, OrderAppState.crediting);
       inner.current = appleOrder(fulfillment: 'SUCCEEDED');
       await purchase.query('order-1');
+      expect(finishes, 1);
       expect(purchase.state.order?.appState, OrderAppState.completed);
       final stages = events.map((e) => e.commerce!.stage).toList();
       for (final stage in [

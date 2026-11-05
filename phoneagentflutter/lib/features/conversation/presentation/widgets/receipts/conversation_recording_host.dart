@@ -36,8 +36,8 @@ class _ConversationRecordingHostState
   }
 
   void _listenCalls() {
-    _callsListener = widget.calls?.addListener((value) {
-      _manager?.setVisible(!value.showCall);
+    _callsListener = widget.calls?.addListener((_) {
+      _manager?.setVisible(widget.calls?.snapshot.showCall != true);
     }, fireImmediately: false);
   }
 

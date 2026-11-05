@@ -44,6 +44,68 @@ void main() {
   });
 
   test(
+    'expired invite challenge returns to login without resending SMS or losing cooldown',
+    () async {
+      controller.changePhone('13800000000');
+      await controller.sendCode();
+      controller.changeCode('123456');
+      await controller.submit();
+      controller.changeInvite('GOOD');
+      gateway.respond = () async => throw AuthFailure.challengeExpired;
+      await controller.submit();
+      expect(controller.state.invitation, isFalse);
+      expect(controller.state.challenge, isEmpty);
+      expect(controller.state.code, isEmpty);
+      expect(controller.state.phone, '13800000000');
+      expect(controller.state.invite, 'GOOD');
+      expect(controller.state.notice, contains('登录验证已过期'));
+      expect(controller.state.visibleRetrySeconds, 60);
+      expect(controller.state.working, isFalse);
+      expect(gateway.sends, 1);
+      final count = gateway.submissions.length;
+      await controller.submit();
+      expect(gateway.submissions.length, count);
+      await controller.sendCode();
+      expect(gateway.sends, 1);
+      now = now.add(const Duration(seconds: 61));
+      controller.refreshCooldown();
+      await controller.sendCode();
+      expect(gateway.sends, 2);
+      gateway.respond = null;
+      controller.changeCode('654321');
+      await controller.submit();
+      expect(gateway.submissions.last.loginChallenge, isNull);
+      expect(gateway.submissions.last.code, '654321');
+      expect(controller.state.invitation, isTrue);
+    },
+  );
+
+  test(
+    'invalid invite allows replacement using the same unexpired challenge',
+    () async {
+      controller.changePhone('13800000000');
+      controller.changeCode('123456');
+      await controller.submit();
+      controller.changeInvite('BAD1');
+      gateway.respond = () async => throw AuthFailure.invalidInvite;
+      await controller.submit();
+      expect(controller.state.invitation, isTrue);
+      expect(controller.state.challenge, 'synthetic');
+      controller.changeInvite('GOOD');
+      gateway.respond = () async => const LoginOutcome(
+        phone: '13800000000',
+        inviteRequired: false,
+        accessToken: 'synthetic',
+      );
+      await controller.submit();
+      expect(gateway.submissions.last.activationCode, 'GOOD');
+      expect(gateway.submissions.last.loginChallenge, 'synthetic');
+      expect(gateway.submissions.last.code, '');
+      expect(controller.state.outcome?.accessToken, 'synthetic');
+    },
+  );
+
+  test(
     'changing normalized phone clears SMS and challenge but same number does not',
     () async {
       controller.changePhone('13800000000');

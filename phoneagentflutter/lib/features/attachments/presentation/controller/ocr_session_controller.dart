@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../conversation/domain/agent_protocol.dart';
 import '../../domain/ocr_attachment.dart';
 import '../../domain/ocr_image_source.dart';
 import '../../domain/ocr_persistence.dart';
@@ -30,6 +31,8 @@ class OcrSessionController extends StateNotifier<OcrSessionState> {
     required this.nextId,
     required this.isCurrent,
     required this.initialOpening,
+    this.initialSkillId,
+    this.selectedContact,
   }) : super(const OcrSessionState()) {
     _ocr = OcrController(recognizer, _SessionCommitter(_commit), nextId);
     _removeListener = _ocr.addListener(
@@ -43,6 +46,8 @@ class OcrSessionController extends StateNotifier<OcrSessionState> {
   final String Function() nextId;
   final bool Function() isCurrent;
   final String? Function() initialOpening;
+  final String? Function()? initialSkillId;
+  final SelectedContactContext? Function()? selectedContact;
   late final OcrController _ocr;
   late final void Function() _removeListener;
   final _selected = <String, SelectedOcrImage>{};
@@ -116,6 +121,8 @@ class OcrSessionController extends StateNotifier<OcrSessionState> {
         mimeType: image.mimeType,
         recognition: recognition,
         initialOpening: initialOpening(),
+        initialSkillId: initialSkillId?.call(),
+        selectedContact: selectedContact?.call(),
       ),
     );
     if (!_alive) throw StateError('OCR session closed');

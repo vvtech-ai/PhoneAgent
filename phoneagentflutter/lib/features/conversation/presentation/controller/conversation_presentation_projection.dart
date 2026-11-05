@@ -2,6 +2,7 @@ import '../../domain/conversation_messages.dart';
 import '../../domain/conversation_message_merge.dart';
 import '../../domain/confirmation/stale_call_confirmation_presentation.dart';
 import '../../domain/confirmation/batch_confirmation_prompt_presentation.dart';
+import '../../domain/confirmation/batch_confirmation_pending.dart';
 import '../../domain/confirmation/question_prompt_presentation.dart';
 import '../../domain/history/conversation_history.dart';
 import '../../domain/history/ledger_event.dart';
@@ -102,6 +103,15 @@ abstract final class ConversationPresentationProjection {
                     m.toolCallId == state.pendingToolCallId,
               )
               .lastOrNull;
-    return state.copy(messages: visible, activeOptionsId: active?.id);
+    return state.copy(
+      messages: visible,
+      activeOptionsId: active?.id,
+      pendingToolCallId:
+          state.pendingToolCallId ??
+          BatchConfirmationPending.afterSupplement(
+            facts,
+            state.entry.sessionId,
+          ),
+    );
   }
 }

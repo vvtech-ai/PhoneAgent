@@ -27,6 +27,7 @@ ConversationCallController bindConversationCalls({
   required Future<void> Function(String?, bool Function() observationCurrent)
   syncUnregisteredOutcome,
   DiagnosticSink? diagnostics,
+  Future<bool> Function(String)? stopBatch,
   void Function(String id, String text)? narrateNotice,
 }) {
   late final ConversationCallController calls;
@@ -40,6 +41,8 @@ ConversationCallController bindConversationCalls({
     publish: publish,
   );
   calls = ConversationCallController(
+    sessionId: read().entry.sessionId,
+    stopBatch: stopBatch,
     admission: admission,
     sessions: sessions,
     syncOutcome: syncOutcome,

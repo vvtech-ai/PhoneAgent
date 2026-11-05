@@ -3,6 +3,7 @@ import '../../../../../core/design/receipt_tokens.dart';
 import '../../../domain/receipts/call_dialogue.dart';
 import '../../../domain/receipts/call_receipt.dart';
 import '../call_receipt_text.dart';
+import '../call_receipt_phone_mask.dart';
 
 class ReceiptFieldRow extends StatelessWidget {
   const ReceiptFieldRow(this.label, this.value, {super.key, this.color});
@@ -110,8 +111,8 @@ class ReceiptTranscript extends StatelessWidget {
                 child: Semantics(
                   container: true,
                   child: SelectableText(
-                    line.text,
-                    semanticsLabel: line.text,
+                    maskCallReceiptPhoneNumbers(line.text),
+                    semanticsLabel: maskCallReceiptPhoneNumbers(line.text),
                     style: const TextStyle(
                       fontSize: 13,
                       height: 19 / 13,

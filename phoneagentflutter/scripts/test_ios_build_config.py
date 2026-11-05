@@ -3,11 +3,15 @@ from copy import deepcopy
 from datetime import datetime, timedelta
 import json
 from pathlib import Path
+import hashlib
+import plistlib
+import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from ios_build_config import (policy, private_inputs, validate_apns, validate_identity,
-                              signing_entitlements, validate_communication, COMMUNICATION_KEY)
+                              select_profile, signing_entitlements, validate_communication, COMMUNICATION_KEY)
 from ios_invite_config import InviteConfigurationError, TEAM
 
 
@@ -65,6 +69,16 @@ class IosBuildConfigTests(unittest.TestCase):
         for env in ['dev', 'test', 'prod']:
             validate_apns(*self.fixture(env), env)
 
+    def test_dev_profile_changes_only_compilation_mode(self):
+        default = policy('dev')
+        profile = policy('dev', 'profile')
+        self.assertEqual(default['mode'], 'debug')
+        self.assertEqual(profile, {**default, 'mode': 'profile'})
+        for environment, mode in [('dev', 'release'), ('test', 'debug'),
+                                  ('prod', 'profile'), ('dev', '')]:
+            with self.subTest(environment=environment, mode=mode), self.assertRaises(InviteConfigurationError):
+                policy(environment, mode)
+
     def test_each_missing_or_wrong_apns_source_is_rejected(self):
         for source, key in [(0, 'TrustedCallerAPNSEnvironment'), (1, 'aps-environment'), (2, 'aps-environment')]:
             for value in [None, 'production', 'test', 42]:
@@ -119,6 +133,65 @@ class IosBuildConfigTests(unittest.TestCase):
         self.assertEqual(ent['keychain-access-groups'], [TEAM + '.' + bundle])
         self.assertNotIn('aps-environment', ent)
         validate_identity(info, ent, profile, bundle, 'test')
+
+    def choose(self, profiles, environment='test', device='synthetic-device'):
+        certificate = b'synthetic-certificate'
+        identity = hashlib.sha1(certificate).hexdigest().upper()
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for name, profile in profiles.items():
+                profile = deepcopy(profile)
+                profile['DeveloperCertificates'] = [certificate]
+                (root / (name + '.mobileprovision')).write_bytes(plistlib.dumps(profile))
+            def decode(args, **kwargs):
+                return subprocess.CompletedProcess(args, 0, Path(args[-1]).read_bytes(), b'')
+            with patch('ios_build_config.subprocess.run', side_effect=decode):
+                return select_profile(policy(environment)['bundle'], environment, device,
+                                      profile_roots=[root], identities={identity})[2]
+
+    def test_new_full_device_profile_wins_over_old_cache_path(self):
+        _, _, old = self.fixture()
+        old['UUID'] = 'old';old['CreationDate'] = datetime.now() - timedelta(days=2)
+        new = deepcopy(old);new['UUID'] = 'new'
+        new['ProvisionedDevices'] += ['new-one', 'new-two', 'new-three']
+        # A smaller profile may even be newer; full device coverage has priority.
+        new['CreationDate'] = datetime.now() - timedelta(days=3)
+        for device in ['synthetic-device', 'new-one', 'new-two', 'new-three']:
+            with self.subTest(device=device):
+                self.assertEqual(self.choose({'a-old': old, 'z-new': new}, device=device)['UUID'], 'new')
+        wildcard = deepcopy(new)
+        wildcard['Entitlements']['application-identifier'] = TEAM + '.*'
+        self.assertEqual(self.choose({'a-exact': old, 'z-wildcard': wildcard})['UUID'], 'new')
+
+    def test_newer_profile_wins_when_device_coverage_and_specificity_match(self):
+        _, _, old = self.fixture();old['UUID'] = 'old'
+        old['CreationDate'] = datetime.now() - timedelta(days=2)
+        new = deepcopy(old);new['UUID'] = 'new';new['CreationDate'] = datetime.now()
+        self.assertEqual(self.choose({'a-old': old, 'z-new': new})['UUID'], 'new')
+
+    def test_prod_store_and_direct_install_never_mix_distribution_types(self):
+        _, _, adhoc = self.fixture('prod');adhoc['UUID'] = 'adhoc'
+        store = deepcopy(adhoc);store['UUID'] = 'store';store.pop('ProvisionedDevices')
+        enterprise = deepcopy(store);enterprise['UUID'] = 'enterprise';enterprise['ProvisionsAllDevices'] = True
+        self.assertEqual(self.choose({'a-store': store, 'b-enterprise': enterprise, 'z-adhoc': adhoc},
+                                     'prod')['UUID'], 'adhoc')
+        self.assertEqual(self.choose({'a-adhoc': adhoc, 'b-enterprise': enterprise, 'z-store': store},
+                                     'prod', None)['UUID'], 'store')
+        for profile, device in [(adhoc, None), (store, 'synthetic-device'),
+                                (enterprise, None), (enterprise, 'synthetic-device')]:
+            with self.subTest(profile=profile['UUID'], device=device):
+                with self.assertRaises(InviteConfigurationError):
+                    self.choose({'wrong-type': profile}, 'prod', device)
+
+    def test_missing_target_or_wrong_distribution_has_no_fallback(self):
+        for env in ['dev', 'test', 'prod']:
+            _, _, profile = self.fixture(env)
+            with self.subTest(env=env), self.assertRaises(InviteConfigurationError):
+                self.choose({'profile': profile}, env, 'unregistered')
+        _, _, profile = self.fixture()
+        profile.pop('ProvisionedDevices')
+        with self.assertRaises(InviteConfigurationError):
+            self.choose({'invalid-development': profile}, device=None)
 
     def test_temporary_pro_input_rejected_without_rewriting(self):
         with tempfile.TemporaryDirectory() as t:

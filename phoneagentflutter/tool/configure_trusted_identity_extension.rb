@@ -1,5 +1,6 @@
 # Mechanical, idempotent Xcode target wiring; run with CocoaPods' GEM_HOME.
 require 'xcodeproj'
+require_relative 'trusted_extension_references'
 root = File.expand_path('..', __dir__)
 project = Xcodeproj::Project.open(File.join(root, 'ios/Runner.xcodeproj'))
 runner = project.targets.find { |target| target.name == 'Runner' }
@@ -7,8 +8,7 @@ raise 'Runner missing' unless runner
 name = 'TrustedIdentityLiveActivity'
 extension = project.targets.find { |target| target.name == name }
 extension ||= project.new_target(:app_extension, name, :ios, '16.1')
-group = project.main_group.groups.find { |item| item.name == name }
-group ||= project.main_group.new_group(name, name)
+group = TrustedExtensionReferences.group(project, root, name)
 def reference(group, path)
   group.files.find { |item| item.path == path } || group.new_file(path)
 end
@@ -51,8 +51,7 @@ extension.build_configurations.each do |config|
   config.build_settings['DEVELOPMENT_TEAM'] = team if team
 end
 runner.add_dependency(extension) unless runner.dependencies.any? { |dependency| dependency.target == extension }
-phase = runner.copy_files_build_phases.find { |item| item.name == 'Embed App Extensions' }
-phase ||= runner.new_copy_files_build_phase('Embed App Extensions')
+phase = TrustedExtensionReferences.embed_phase(runner, extension.product_reference)
 phase.dst_subfolder_spec = '13'
 phase.add_file_reference(extension.product_reference, true).settings = { 'ATTRIBUTES' => ['RemoveHeadersOnCopy'] }
 thin = runner.build_phases.find { |item| item.display_name == 'Thin Binary' }
@@ -60,10 +59,10 @@ raise 'Flutter Thin Binary phase missing' unless thin
 runner.build_phases.delete(phase)
 runner.build_phases.insert(runner.build_phases.index(thin), phase)
 [runner, extension].each do |target|
-  # Existing projects may refer to the same source through different groups.
-  target.source_build_phase.files.group_by { |file| file.file_ref.real_path.to_s }.each_value do |files|
-    files.drop(1).each(&:remove_from_project)
-  end
+  TrustedExtensionReferences.deduplicate(target.source_build_phase)
 end
+TrustedExtensionReferences.deduplicate(extension.resources_build_phase)
+TrustedExtensionReferences.deduplicate(phase)
+
 project.save
 puts 'Trusted identity extension target wired for Debug/Profile/Release'

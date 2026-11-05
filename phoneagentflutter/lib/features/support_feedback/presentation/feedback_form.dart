@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/design/native_action_style.dart';
 import '../../../../core/design/shell_tokens.dart';
 import 'feedback_images.dart';
 import 'feedback_state.dart';
@@ -150,17 +151,12 @@ class FeedbackForm extends StatelessWidget {
             ),
           ),
         const SizedBox(height: 12),
-        SizedBox(
-          height: 48,
+        DecoratedBox(
+          decoration: NativeActionStyle.decoration(enabled: !state.busy),
           child: FilledButton(
             key: const Key('feedback-submit'),
             onPressed: state.busy ? null : onSubmit,
-            style: FilledButton.styleFrom(
-              backgroundColor: ShellTokens.accent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
+            style: NativeActionStyle.buttonStyle(context),
             child: Text(state.busy && !state.processing ? '提交中…' : '提交反馈'),
           ),
         ),

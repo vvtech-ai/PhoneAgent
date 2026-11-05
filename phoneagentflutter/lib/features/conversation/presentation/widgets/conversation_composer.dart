@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design/ai_content_notice.dart';
 import '../../../../core/design/conversation_tokens.dart';
 import 'voice_composer_binding.dart';
 import 'native_keyboard_mode_icon.dart';
@@ -233,15 +234,23 @@ class _ComposerState extends State<ConversationComposer> {
   @override
   Widget build(BuildContext context) {
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final noticeAdjustment = AiContentNotice.iosSafeAreaAdjustment(context);
+    // Scaffold removes consumed viewInsets from its body after resizing. Read
+    // the owning view only to detect the keyboard, never to add its height again.
+    final keyboardVisible =
+        MediaQuery.viewInsetsOf(context).bottom > 0 ||
+        View.of(context).viewInsets.bottom > 0;
     return AnimatedPadding(
       duration: reduceMotion
           ? Duration.zero
           : ConversationTokens.motionDuration,
       padding: EdgeInsets.fromLTRB(
-        18,
+        16,
         0,
-        18,
-        MediaQuery.viewInsetsOf(context).bottom > 0 ? 8 : 28,
+        16,
+        keyboardVisible
+            ? AiContentNotice.keyboardSpacing
+            : AiContentNotice.bottomSpacing - noticeAdjustment,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -254,7 +263,7 @@ class _ComposerState extends State<ConversationComposer> {
           ),
           const SizedBox(height: 8),
           _controls(),
-          const SizedBox(height: 8),
+          SizedBox(height: 8 + noticeAdjustment),
           const ConversationAiContentNotice(),
         ],
       ),

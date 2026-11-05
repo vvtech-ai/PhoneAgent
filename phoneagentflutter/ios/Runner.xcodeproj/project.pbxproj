@@ -18,7 +18,6 @@
 		35394BE7E2C7FE0F8D846A99 /* TrustedIdentityActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D67A865E025AAB00BDB8807 /* TrustedIdentityActivityManager.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		55EAA4EAD4DA0ABCD5CD53F4 /* TrustedIdentityActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38538B1F0A582B2FB2B3E3B0 /* TrustedIdentityActivityAttributes.swift */; };
-		5644D86B75E6453B808504FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67E4178B2EBFE0D6FEA3584B /* Assets.xcassets */; };
 		5D8335E36FE1F82550B73F02 /* TrustedNotificationCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633775AD071DFEA83FA0375D /* TrustedNotificationCompletion.swift */; };
 		62013E86617D3E3CBD9B290B /* TrustedIdentityActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38538B1F0A582B2FB2B3E3B0 /* TrustedIdentityActivityAttributes.swift */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
@@ -117,19 +116,15 @@
 		1A117E000000000000000001 /* InviteChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteChannel.swift; sourceTree = "<group>"; };
 		1A18A1000000000000000001 /* NativeParagraphChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeParagraphChannel.swift; sourceTree = "<group>"; };
 		1E6A10000000000000000001 /* LegalDocumentChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalDocumentChannel.swift; sourceTree = "<group>"; };
-		2DE5786E1A6B7E98A713B982 /* Extension.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Extension.xcconfig; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3735F38D339E770CA67E8AF5 /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
 		38538B1F0A582B2FB2B3E3B0 /* TrustedIdentityActivityAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrustedIdentityActivityAttributes.swift; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
-		4010717FE477FB236126D4C2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4077C7E3436657468B55A2C5 /* SipRouteChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SipRouteChannel.swift; sourceTree = "<group>"; };
 		539A700359F81F7FD22383C8 /* Extension.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Extension.xcconfig; sourceTree = "<group>"; };
-		5BBA16EC82FD4343F897C578 /* TrustedNotificationPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrustedNotificationPolicy.swift; sourceTree = "<group>"; };
 		633775AD071DFEA83FA0375D /* TrustedNotificationCompletion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrustedNotificationCompletion.swift; sourceTree = "<group>"; };
 		6535573652603F6EF7A9C746 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		67E4178B2EBFE0D6FEA3584B /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		731465308298B3A989AFF983 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		73F33EC64F2417DD5A5985E3 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		747E0929FB2FEA7AF0540FFC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -138,7 +133,6 @@
 		7A3114E1FFF5F068FE2FBC8E /* TrustedNotificationPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrustedNotificationPolicy.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		7E1D9B5BA1193B5472844AFD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		89B48E9D2714D270E8B1D73A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9197487D85304B5BA4774BC3 /* TrustedIdentityLiveActivity.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TrustedIdentityLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		940675A777CDF77395B63256 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9620778E3082D44D000A27DE /* RunnerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunnerDebug.entitlements; sourceTree = "<group>"; };
@@ -150,17 +144,14 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99AB4055299CABCAD38C51D0 /* Extension.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Extension.xcconfig; sourceTree = "<group>"; };
-		9A65A68343B6139F98429219 /* Extension.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Extension.xcconfig; sourceTree = "<group>"; };
 		9AD7A4DEEACDF2B52F08E4D9 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		A18370000000000000000001 /* CommercePaymentChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommercePaymentChannel.swift; sourceTree = "<group>"; };
 		A7606E998567A6F9FEABA2AE /* TrustedIdentityLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrustedIdentityLiveActivity.swift; sourceTree = "<group>"; };
 		A76600300000000000000001 /* TaskFileChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFileChannel.swift; sourceTree = "<group>"; };
 		A76610500000000000000001 /* CallRecordingPlayerChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallRecordingPlayerChannel.swift; sourceTree = "<group>"; };
 		A76610500000000000000003 /* RecordingWaveformTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingWaveformTap.swift; sourceTree = "<group>"; };
-		ABA2FD9AFCB21D5C5CF82576 /* TrustedNotificationCompletion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrustedNotificationCompletion.swift; sourceTree = "<group>"; };
 		B17984D3DF5A1B10C47CD129 /* TrustedIdentityActivityAdmission.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrustedIdentityActivityAdmission.swift; sourceTree = "<group>"; };
 		BC5A93ABBC699C9B40E92DCC /* NotificationService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		BCC7805D370CA2AF319EB115 /* TrustedIdentityLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrustedIdentityLiveActivity.swift; sourceTree = "<group>"; };
 		BF5D0011DB88A92D651749AF /* TrustedCallerNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TrustedCallerNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C068FCAC7F0127E176791705 /* DomesticModelConfigurationChannel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DomesticModelConfigurationChannel.swift; sourceTree = "<group>"; };
 		C071AC750000000000000001 /* ContactsChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsChannel.swift; sourceTree = "<group>"; };
@@ -176,14 +167,12 @@
 		C071AC750000000000000015 /* PcmOutputChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PcmOutputChannel.swift; sourceTree = "<group>"; };
 		C071AC750000000000000091 /* AppInfoChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoChannel.swift; sourceTree = "<group>"; };
 		C071AC750000000000000093 /* IosUpdateChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosUpdateChannel.swift; sourceTree = "<group>"; };
-		C12BC48E37CB57C2F7A220A1 /* TrustedIdentityActivityAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrustedIdentityActivityAttributes.swift; sourceTree = "<group>"; };
 		C7655A7D4CD7C4B93C907F2C /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		D1A690570000000000000001 /* DiagnosticDirectoryChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticDirectoryChannel.swift; sourceTree = "<group>"; };
 		D1A690580000000000000001 /* LocalStorageChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageChannel.swift; sourceTree = "<group>"; };
 		D7D1803A3CBB2BDB601A65F3 /* TrustedIdentityActivityProjection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrustedIdentityActivityProjection.swift; sourceTree = "<group>"; };
 		DB168E865A895E495937CD0C /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		E50381CAEF6C468EF39503B3 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8C45D03B5A15063D019734D /* NotificationService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		FEBBC029431686330ABABE87 /* DomesticRecordingChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomesticRecordingChannel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -243,19 +232,6 @@
 			path = RunnerTests;
 			sourceTree = "<group>";
 		};
-		5DE42149F89D9D3FDCB469FF /* TrustedIdentityLiveActivity */ = {
-			isa = PBXGroup;
-			children = (
-				C12BC48E37CB57C2F7A220A1 /* TrustedIdentityActivityAttributes.swift */,
-				BCC7805D370CA2AF319EB115 /* TrustedIdentityLiveActivity.swift */,
-				67E4178B2EBFE0D6FEA3584B /* Assets.xcassets */,
-				89B48E9D2714D270E8B1D73A /* Info.plist */,
-				9A65A68343B6139F98429219 /* Extension.xcconfig */,
-			);
-			name = TrustedIdentityLiveActivity;
-			path = TrustedIdentityLiveActivity;
-			sourceTree = "<group>";
-		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,8 +254,6 @@
 				A0BABFF42419D0F787CCA07B /* Frameworks */,
 				2953F4B7F8DE263DDAE830DC /* TrustedIdentityLiveActivity */,
 				FE037E2AA204F1684B3F4921 /* TrustedCallerNotificationService */,
-				5DE42149F89D9D3FDCB469FF /* TrustedIdentityLiveActivity */,
-				E15BE8B51ACD99B47027CEF5 /* TrustedCallerNotificationService */,
 			);
 			sourceTree = "<group>";
 		};
@@ -360,19 +334,6 @@
 				FAC4D467FF0D5E43857404C9 /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E15BE8B51ACD99B47027CEF5 /* TrustedCallerNotificationService */ = {
-			isa = PBXGroup;
-			children = (
-				F8C45D03B5A15063D019734D /* NotificationService.swift */,
-				5BBA16EC82FD4343F897C578 /* TrustedNotificationPolicy.swift */,
-				ABA2FD9AFCB21D5C5CF82576 /* TrustedNotificationCompletion.swift */,
-				4010717FE477FB236126D4C2 /* Info.plist */,
-				2DE5786E1A6B7E98A713B982 /* Extension.xcconfig */,
-			);
-			name = TrustedCallerNotificationService;
-			path = TrustedCallerNotificationService;
 			sourceTree = "<group>";
 		};
 		FAC4D467FF0D5E43857404C9 /* iOS */ = {
@@ -485,7 +446,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1510;
+				LastUpgradeCheck = 2720;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					331C8080294A63A400263BE5 = {
@@ -532,7 +493,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F037105FD018F7708496B3BA /* Assets.xcassets in Resources */,
-				5644D86B75E6453B808504FE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

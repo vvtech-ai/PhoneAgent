@@ -1,9 +1,11 @@
+import '../../../../core/design/native_action_style.dart';
 import '../../../../core/design/native_business_dialog.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/config/migration_previews.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../app/contact_providers.dart';
 import '../../../../core/design/shell_tokens.dart';
+import '../../../../core/design/native_page_header.dart';
 import '../../../../core/design/native_confirmation_dialog.dart';
 import '../../../../core/design/native_page_background.dart';
 import '../../../../core/design/native_notice.dart';
@@ -32,28 +34,36 @@ class _ContactsRouteState extends ConsumerState<ContactsRoute> {
     }
     final preview = _preview;
     if (preview == null) {
-      return ListView(
-        padding: const EdgeInsets.fromLTRB(22, 20, 22, 128),
+      return Column(
         children: [
-          const Text('联系人', style: ShellTokens.title),
-          const SizedBox(height: 28),
-          const Text('浏览器无法读取手机系统通讯录。', style: ShellTokens.subtitle),
-          const SizedBox(height: 12),
-          const Text(
-            'Android / iOS 使用手机通讯录；不会自动上传整本通讯录。',
-            style: ShellTokens.subtitle,
+          const NativePageHeader(title: '联系人', showBack: false),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.fromLTRB(22, 20, 22, 128),
+              children: [
+                const Text('浏览器无法读取手机系统通讯录。', style: ShellTokens.subtitle),
+                const SizedBox(height: 12),
+                const Text(
+                  'Android / iOS 使用手机通讯录；不会自动上传整本通讯录。',
+                  style: ShellTokens.subtitle,
+                ),
+                if (migrationPreviewsEnabled) ...[
+                  const SizedBox(height: 24),
+                  NativeActionSurface(
+                    child: FilledButton(
+                      onPressed: () =>
+                          setState(() => _preview = PreviewContacts()),
+                      child: const Text('进入联系人交互演练（MOCK）'),
+                    ),
+                  ),
+                  const Text(
+                    '演练使用内存中的合成联系人与备注，不写入真实账户。',
+                    style: ShellTokens.subtitle,
+                  ),
+                ],
+              ],
+            ),
           ),
-          if (migrationPreviewsEnabled) ...[
-            const SizedBox(height: 24),
-            FilledButton(
-              onPressed: () => setState(() => _preview = PreviewContacts()),
-              child: const Text('进入联系人交互演练（MOCK）'),
-            ),
-            const Text(
-              '演练使用内存中的合成联系人与备注，不写入真实账户。',
-              style: ShellTokens.subtitle,
-            ),
-          ],
         ],
       );
     }

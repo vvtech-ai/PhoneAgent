@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/commerce_diagnostics.dart';
 import '../../domain/commerce_catalog.dart';
+import '../../domain/membership_purchase_eligibility.dart';
 import '../../domain/commerce_repository.dart';
 import '../../domain/payment_launcher.dart';
 import 'catalog_read_result.dart';
@@ -70,8 +71,14 @@ class CatalogState {
   bool purchaseEnabled(ProductOffer product) =>
       !loading && error.isEmpty && _salesEnabled(product);
 
+  // Keep ongoing checkout/account checks independent of new-purchase eligibility.
+  bool newPurchaseEnabled(ProductOffer product) =>
+      purchaseEnabled(product) &&
+      (product.productType != 'MEMBERSHIP' ||
+          MembershipPurchaseEligibility.resolve(membership, product).allowed);
+
   bool purchasable(ProductOffer p) =>
-      purchaseEnabled(p) &&
+      newPurchaseEnabled(p) &&
       p.available &&
       channelAvailable &&
       (!requiresPlatformProducts ||
@@ -99,9 +106,10 @@ class CatalogState {
     bool? channelAvailable,
     PlatformProductsStatus? platformStatus,
     Map<String, PlatformProduct>? platformProducts,
+    MembershipCurrent? membership,
   }) => CatalogState(
     catalog: catalog,
-    membership: membership,
+    membership: membership ?? this.membership,
     loading: loading,
     error: error ?? this.error,
     selectedLevel: selectedLevel ?? this.selectedLevel,
@@ -126,6 +134,31 @@ class CatalogController extends StateNotifier<CatalogState> {
   final PaymentLauncher launcher;
   final bool requiresPlatformProducts;
   int _revision = 0;
+  int _membershipRevision = 0;
+
+  /// Refresh only current-account rights; keep the active selection and Apple quote UI.
+  Future<bool> refreshMembership() async {
+    if (!mounted || state.loading) return false;
+    final revision = _revision, membershipRevision = ++_membershipRevision;
+    try {
+      final membership = await repository.membership();
+      if (!mounted ||
+          revision != _revision ||
+          membershipRevision != _membershipRevision) {
+        return false;
+      }
+      state = state.copy(membership: membership);
+      return true;
+    } catch (error) {
+      diagnostics?.event(
+        CommerceStage.catalog,
+        DiagnosticResult.failed,
+        error: error,
+      );
+      return false;
+    }
+  }
+
   Future<void> load() async {
     final revision = ++_revision;
     final timer = Stopwatch()..start();

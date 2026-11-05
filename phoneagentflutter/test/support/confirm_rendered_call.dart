@@ -14,5 +14,5 @@ void markCallCardPresented(ConversationController controller) {
 
 void confirmRenderedCall(ConversationController controller) {
   markCallCardPresented(controller);
-  expect(controller.send('确认拨打'), isTrue);
+  expect(controller.calls!.confirm('确认拨打'), isTrue);
 }

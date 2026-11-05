@@ -31,12 +31,13 @@ ProductOffer _offer({
   String level = 'BASIC',
   String type = 'MEMBERSHIP',
   bool apple = false,
+  int months = 1,
 }) => ProductOffer(
   productId: 'm1',
   name: '真实商品',
   productType: type,
   level: level,
-  months: 1,
+  months: months,
   cashAmountFen: 3901,
   basePoints: 0,
   bonusPoints: 0,
@@ -111,24 +112,49 @@ void main() {
       controller.dispose();
     });
   }
+  test('same real level and months is rejected before confirmation', () async {
+    final repo = _Quotes();
+    final controller = PurchaseController(
+      repo,
+      FakePaymentLauncher(),
+      paymentChannel: 'ALIPAY',
+    );
+    final result = await MembershipCheckout(controller).buy(
+      _offer(),
+      _catalog(level: 'BASIC', months: 1, agreed: true),
+      confirm: (_) async => fail('Duplicate purchase must not confirm'),
+      isCurrent: () => true,
+    );
+    expect(result, CheckoutOutcome.error);
+    expect(repo.quoteCalls, 0);
+    expect(repo.createCalls, 0);
+    controller.dispose();
+  });
   test(
-    'same real level and months confirms renewal without creating on cancel',
+    'same-level longer cycle retains original RENEW payment handling',
     () async {
-      final repo = _Quotes();
+      final repo = _Quotes()..type = 'RENEW';
+      final native = FakePaymentLauncher();
       final controller = PurchaseController(
         repo,
-        FakePaymentLauncher(),
+        native,
         paymentChannel: 'ALIPAY',
       );
-      final result = await MembershipCheckout(controller).buy(
-        _offer(),
-        _catalog(level: 'BASIC', months: 1, agreed: true),
-        confirm: (_) async => false,
+      final checkout = MembershipCheckout(controller);
+      final result = await checkout.buy(
+        _offer(months: 3),
+        _catalog(level: 'BASIC', months: 1),
+        confirm: (quote) async {
+          expect(quote.purchaseType, 'RENEW');
+          return true;
+        },
         isCurrent: () => true,
       );
-      expect(result, CheckoutOutcome.canceled);
+      expect(result, CheckoutOutcome.purchase);
+      expect(checkout.upgrade, isFalse);
       expect(repo.quoteCalls, 1);
-      expect(repo.createCalls, 0);
+      expect(repo.createCalls, 1);
+      expect(native.launches, 1);
       controller.dispose();
     },
   );

@@ -34,7 +34,6 @@ class NativeCloneEntry extends StatelessWidget {
             pricePoints: pricePoints,
             buttonKey: const ValueKey('model-create-clone'),
             minimumWidth: 148,
-            horizontalPadding: 18,
             onPressed: onTap == null ? null : () => _open(context),
           );
           final action = Semantics(

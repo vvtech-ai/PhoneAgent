@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_navigation_backdrop.dart';
+import '../../../../core/design/native_page_header.dart';
 import '../../../../core/design/shell_tokens.dart';
 import '../../domain/contact_records.dart';
 import '../controller/contacts_controller.dart';
@@ -23,17 +25,7 @@ class ContactsPage extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      const Padding(
-        padding: EdgeInsets.fromLTRB(22, 8, 22, 10),
-        child: Text(
-          '联系人',
-          style: TextStyle(
-            fontSize: 31,
-            fontWeight: FontWeight.w800,
-            color: ShellTokens.ink,
-          ),
-        ),
-      ),
+      const NativePageHeader(title: '联系人', showBack: false),
       if (state.deviceLoading) const LinearProgressIndicator(minHeight: 2),
       Expanded(
         child: LayoutBuilder(
@@ -42,8 +34,16 @@ class ContactsPage extends StatelessWidget {
             child: _showAuthorizedEmpty
                 ? SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
+                    padding: EdgeInsets.only(
+                      bottom: NativeNavigationBackdrop.contentInsetOf(context),
+                    ),
                     child: SizedBox(
-                      height: constraints.maxHeight,
+                      height:
+                          (constraints.maxHeight -
+                                  NativeNavigationBackdrop.contentInsetOf(
+                                    context,
+                                  ))
+                              .clamp(0.0, double.infinity),
                       child: const Center(
                         child: Text(
                           '暂无联系人',
@@ -59,7 +59,12 @@ class ContactsPage extends StatelessWidget {
                 : ListView.builder(
                     key: const PageStorageKey('contacts-list'),
                     physics: const AlwaysScrollableScrollPhysics(),
-                    padding: const EdgeInsets.fromLTRB(18, 0, 18, 16),
+                    padding: EdgeInsets.fromLTRB(
+                      16,
+                      0,
+                      16,
+                      16 + NativeNavigationBackdrop.contentInsetOf(context),
+                    ),
                     itemCount: _headers.length + state.contacts.length,
                     itemBuilder: (context, index) {
                       final headers = _headers;

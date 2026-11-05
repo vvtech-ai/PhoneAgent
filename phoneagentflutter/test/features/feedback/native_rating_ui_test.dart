@@ -70,9 +70,28 @@ void main() {
       );
       expect(submit.onPressed, isNull);
       expect(
-        submit.style!.backgroundColor!.resolve({WidgetState.disabled}),
-        const Color(0xFFB4D6F2),
+        (submit.style ??
+                FilledButtonTheme.of(
+                  tester.element(find.widgetWithText(FilledButton, '提交评价')),
+                ).style)!
+            .backgroundColor!
+            .resolve({WidgetState.disabled}),
+        Colors.transparent,
       );
+      final disabledSurface = tester
+          .widgetList<DecoratedBox>(
+            find.ancestor(
+              of: find.widgetWithText(FilledButton, '提交评价'),
+              matching: find.byType(DecoratedBox),
+            ),
+          )
+          .map((w) => w.decoration)
+          .whereType<BoxDecoration>()
+          .firstWhere((d) => d.gradient != null);
+      expect(disabledSurface.gradient!.colors, const [
+        Color(0xFFEEF2F7),
+        Color(0xFFE8EDF5),
+      ]);
       final score = find.byKey(const ValueKey('rating-understanding-1'));
       final scoreText = tester.widget<Text>(
         find.descendant(of: score, matching: find.byType(Text)),

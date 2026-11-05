@@ -40,7 +40,7 @@ class MembershipBalanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CommerceCard(
     marginBottom: 0,
-    contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+    contentPadding: const EdgeInsets.all(16),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

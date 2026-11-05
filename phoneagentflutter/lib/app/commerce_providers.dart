@@ -18,6 +18,7 @@ import '../features/commerce/presentation/controller/orders_controller.dart';
 import '../features/commerce/presentation/controller/purchase_controller.dart';
 import 'business_providers.dart';
 import 'apple_cancellation_outbox_provider.dart';
+import 'apple_transaction_providers.dart';
 import 'call_model_refresh_providers.dart';
 import 'points_providers.dart';
 import 'diagnostics_providers.dart';
@@ -52,9 +53,11 @@ final commerceRepositoryProvider = Provider.autoDispose<CommerceRepository>((
       : DiagnosticCommerceRepository(repository, diagnostics);
 });
 final paymentLauncherProvider = Provider<PaymentLauncher>(
-  (ref) => DevicePaymentLauncher(
-    diagnostics: ref.watch(commerceDiagnosticsProvider),
-  ),
+  (ref) =>
+      ref.watch(appleTransactionCoordinatorProvider) ??
+      DevicePaymentLauncher(
+        diagnostics: ref.watch(commerceDiagnosticsProvider),
+      ),
 );
 final applePaymentAttemptStoreProvider = Provider<ApplePaymentAttemptStore?>((
   ref,
@@ -212,6 +215,16 @@ final iosCommerceRecoveryProvider = Provider.autoDispose<void>((ref) {
     return;
   }
   final controller = ref.watch(purchaseControllerProvider.notifier);
+  final coordinator = ref.watch(appleTransactionCoordinatorProvider);
+  final settlements = coordinator?.settledTransactions.listen((_) {
+    // No original account data crosses this event. All reads use the current login.
+    ref.read(pointsWalletControllerProvider.notifier).refresh();
+    unawaited(ref.read(catalogControllerProvider.notifier).refreshMembership());
+    ref.invalidate(translationDirectoryProvider);
+    ref.read(callModelRefreshProvider)();
+    controller.requestAppleRecovery();
+  });
+  ref.onDispose(() => unawaited(settlements?.cancel()));
   ref.listen(purchaseControllerProvider, (before, after) {
     if (before?.order?.fulfillmentState != 'SUCCEEDED' &&
         after.order?.paymentState == 'SUCCEEDED' &&

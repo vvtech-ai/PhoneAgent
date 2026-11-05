@@ -1,3 +1,6 @@
+import 'support/local_storage_channel_fake.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'support/contact_remark_test_actions.dart';
 import 'support/pump_ui_transitions.dart';
 import 'package:phone_agent/features/contacts/presentation/pages/contact_detail_page.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,10 @@ import '../tool/previews/shell_conversation_ports.dart';
 import '../tool/previews/workbench_catalog.dart';
 
 void main() {
+  setUp(() {
+    FlutterSecureStorage.setMockInitialValues({});
+    installLocalStorageChannelFake();
+  });
   testWidgets(
     'unsupported normal Web path does not read injected device ports',
     (tester) async {
@@ -82,24 +89,45 @@ void main() {
         await key('tab-1');
         expect(find.text('浏览器无法读取手机系统通讯录。'), findsNothing);
         await tap(find.bySemanticsLabel('演示联系人，2025550101'));
-        await text('编辑');
+        await openRetainedRemarkEditor(tester);
         await tester.enterText(
           find.byKey(const ValueKey('contact-remark-input')),
           '只在下午联系',
         );
         await text('保存');
-        expect(find.text('只在下午联系'), findsOneWidget);
-        await text('编辑');
+        expect(find.text('只在下午联系'), findsNothing);
+        expect(
+          tester
+              .widget<ContactDetailPage>(find.byType(ContactDetailPage))
+              .state
+              .remark,
+          '只在下午联系',
+        );
+        await openRetainedRemarkEditor(tester);
         await tester.enterText(
           find.byKey(const ValueKey('contact-remark-input')),
           '取消的修改',
         );
         await text('取消');
         expect(find.text('取消的修改'), findsNothing);
-        expect(find.text('只在下午联系'), findsOneWidget);
+        expect(find.text('只在下午联系'), findsNothing);
+        expect(
+          tester
+              .widget<ContactDetailPage>(find.byType(ContactDetailPage))
+              .state
+              .remark,
+          '只在下午联系',
+        );
         await backToContacts();
         await tap(find.bySemanticsLabel('演示联系人，2025550102'));
-        expect(find.text('暂无备注'), findsOneWidget);
+        expect(find.text('暂无备注'), findsNothing);
+        expect(
+          tester
+              .widget<ContactDetailPage>(find.byType(ContactDetailPage))
+              .state
+              .remark,
+          isEmpty,
+        );
         final dialDraft = container.read(dialerControllerProvider);
         await text('拨打电话');
         expect(container.read(dialerControllerProvider), same(dialDraft));
@@ -157,21 +185,44 @@ void main() {
         await key('close-conversation');
         await key('tab-1');
         await tap(find.bySemanticsLabel('演示联系人，2025550101'));
-        expect(find.text('只在下午联系'), findsOneWidget);
+        expect(find.text('只在下午联系'), findsNothing);
+        expect(
+          tester
+              .widget<ContactDetailPage>(find.byType(ContactDetailPage))
+              .state
+              .remark,
+          '只在下午联系',
+        );
         await backToContacts();
         await key('tab-3');
         await key('settings-logout');
         await text('退出');
+        expect(
+          container.read(sessionControllerProvider).phase.name,
+          'signedOut',
+        );
         await tester.enterText(
           find.byKey(const ValueKey('loginPhone')),
           '13800000000',
         );
-        await tester.enterText(find.byKey(const ValueKey('loginCode')), '123456');
+        await tester.ensureVisible(find.byKey(const ValueKey('loginCode')));
+        await tester.pumpUntilUiSettled();
+        await tester.enterText(
+          find.byKey(const ValueKey('loginCode')),
+          '123456',
+        );
         await key('loginAgreement');
         await key('loginBtn');
         await key('tab-1');
         await tap(find.bySemanticsLabel('演示联系人，2025550101'));
-        expect(find.text('暂无备注'), findsOneWidget);
+        expect(find.text('暂无备注'), findsNothing);
+        expect(
+          tester
+              .widget<ContactDetailPage>(find.byType(ContactDetailPage))
+              .state
+              .remark,
+          isEmpty,
+        );
         expect(container.read(shellContactsPortsProvider), isNot(same(ports)));
         expect(
           container.read(shellContactsPortsProvider).openedNumbers,
@@ -182,7 +233,14 @@ void main() {
         await key('scene-app');
         await key('tab-1');
         await tap(find.bySemanticsLabel('演示联系人，2025550101'));
-        expect(find.text('暂无备注'), findsOneWidget);
+        expect(find.text('暂无备注'), findsNothing);
+        expect(
+          tester
+              .widget<ContactDetailPage>(find.byType(ContactDetailPage))
+              .state
+              .remark,
+          isEmpty,
+        );
         await key('workbench-home');
         await tester.pumpWidget(const SizedBox());
         await tester.pumpUntilUiSettled();

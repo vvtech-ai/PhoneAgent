@@ -22,7 +22,7 @@ class MemoryOverview extends StatelessWidget {
   final ValueChanged<MemoryEntry> onEdit;
   @override
   Widget build(BuildContext context) => ListView(
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     children: list
         ? [
             const Padding(
@@ -63,7 +63,7 @@ class MemoryOverview extends StatelessWidget {
                         for (final indexed in snapshot.entries.indexed) ...[
                           if (indexed.$1 > 0)
                             const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 22),
+                              padding: EdgeInsets.symmetric(horizontal: 16),
                               child: Divider(
                                 height: 1,
                                 color: MemoryColors.divider,
@@ -75,7 +75,7 @@ class MemoryOverview extends StatelessWidget {
                               constraints: const BoxConstraints(minHeight: 82),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 22,
+                                  horizontal: 16,
                                 ),
                                 child: Row(
                                   children: [
@@ -107,7 +107,7 @@ class MemoryOverview extends StatelessWidget {
                       ],
                     ),
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 24),
             Center(
               child: TextButton(
                 onPressed: busy ? null : onAdd,
@@ -126,8 +126,8 @@ class MemoryOverview extends StatelessWidget {
             MemoryCard(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 22,
-                  vertical: 18,
+                  horizontal: 16,
+                  vertical: 16,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,14 +163,14 @@ class MemoryOverview extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
             MemoryCard(
               child: InkWell(
                 onTap: busy ? null : onList,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(minHeight: 76),
                   child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 22),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Row(
                       children: [
                         Expanded(

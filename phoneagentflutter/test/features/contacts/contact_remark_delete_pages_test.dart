@@ -1,3 +1,4 @@
+import '../../support/contact_remark_test_actions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -78,24 +79,18 @@ void main() {
           find.byKey(const ValueKey('contact-remark-delete')),
           findsNothing,
         );
-        await press(tester, find.text('编辑'));
+        await openRetainedRemarkEditor(tester);
         await tester.enterText(
           find.byKey(const ValueKey('contact-remark-input')),
           'ui-remark',
         );
         await press(tester, find.text('保存'));
-        await press(
-          tester,
-          find.byKey(const ValueKey('contact-remark-delete')),
-        );
+        await requestRetainedRemarkDeletion(tester);
         expect(find.text('本机通讯录联系人不会被删除。'), findsOneWidget);
         await press(tester, find.text('取消'));
         expect(controller.state.remark, 'ui-remark');
         expect(find.byType(ContactDetailPage), findsOneWidget);
-        await press(
-          tester,
-          find.byKey(const ValueKey('contact-remark-delete')),
-        );
+        await requestRetainedRemarkDeletion(tester);
         final confirm = find.descendant(
           of: find.byType(NativeConfirmationDialog),
           matching: find.widgetWithText(TextButton, '删除'),
@@ -112,13 +107,8 @@ void main() {
           find.byKey(const ValueKey('contact-remark-delete')),
           findsNothing,
         );
-        await tester.scrollUntilVisible(
-          find.text('暂无备注'),
-          150,
-          scrollable: find.byType(Scrollable).last,
-        );
-        await tester.pumpAndSettle();
-        expect(find.text('暂无备注'), findsOneWidget);
+        expect(controller.state.remark, isEmpty);
+        expect(find.text('暂无备注'), findsNothing);
         expect(
           find.byKey(const ValueKey('contact-remark-delete')),
           findsNothing,
@@ -144,7 +134,7 @@ void main() {
     );
     await tester.pumpAndSettle();
     await press(tester, find.bySemanticsLabel('演示联系人，2025550101'));
-    await press(tester, find.byKey(const ValueKey('contact-remark-delete')));
+    await requestRetainedRemarkDeletion(tester);
     await press(
       tester,
       find.descendant(
@@ -156,7 +146,8 @@ void main() {
     expect(port.deletes, 1);
     await press(tester, find.text('确定'));
     expect(find.byType(ContactDetailPage), findsOneWidget);
-    expect(find.text('保留备注'), findsOneWidget);
+    expect(controller.state.remark, '保留备注');
+    expect(find.text('保留备注'), findsNothing);
     expect(port.deletes, 1);
     expect(tester.takeException(), isNull);
   });

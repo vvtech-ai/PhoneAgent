@@ -27,6 +27,7 @@ Future<CommerceOrder?> recoverBeforeApplePurchase(
         .timeout(ios?.recoveryLimit ?? const Duration(seconds: 15));
     if (!current()) return null;
     if (order == null) {
+      if (verifier.settledForeign(result)) continue;
       throw const CommerceFailure('MEMBERSHIP_PAYMENT_UNKNOWN');
     }
     recovered = order;

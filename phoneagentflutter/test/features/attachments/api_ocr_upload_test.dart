@@ -9,6 +9,7 @@ import 'package:phone_agent/features/attachments/data/api_ocr_attachment_reposit
 import 'package:phone_agent/features/attachments/domain/ocr_attachment.dart';
 import 'package:phone_agent/features/attachments/domain/ocr_persistence.dart';
 import 'ocr_test_support.dart';
+import 'package:phone_agent/features/conversation/domain/agent_protocol.dart';
 
 void main() {
   late OcrTestSession session;
@@ -30,6 +31,22 @@ void main() {
     );
   });
   tearDown(() => api.close());
+  test('intent and completion carry identical frozen entry context', () async {
+    const contact = SelectedContactContext(
+      name: '合成联系人',
+      phone: '+15555550100',
+    );
+    await repository.upload(
+      ocrUpload(skillId: 'business_event_invitation', contact: contact),
+    );
+    final intent = jsonDecode(utf8.decode(adapter.bodies.first)) as Map;
+    final complete = jsonDecode(utf8.decode(adapter.bodies.last)) as Map;
+    expect(intent['initialSkillId'], 'business_event_invitation');
+    expect(intent['selectedContact'], contact.toJson());
+    expect(complete['metadata']['initialSkillId'], intent['initialSkillId']);
+    expect(complete['metadata']['selectedContact'], intent['selectedContact']);
+    expect(intent.containsKey('memoryUse'), false);
+  });
   test(
     'intent and complete preserve identity; object PUT has no credentials',
     () async {
@@ -42,6 +59,8 @@ void main() {
       expect(body['attachmentId'], ocrTestId);
       expect(body['checksumSha256'], matches(RegExp(r'^[a-f0-9]{64}$')));
       expect(body['fileName'], 'synthetic.png');
+      expect(body.containsKey('initialSkillId'), false);
+      expect(body.containsKey('selectedContact'), false);
       expect(objects.requests.single.method, 'PUT');
       expect(
         objects.requests.single.headers.containsKey('Authorization'),

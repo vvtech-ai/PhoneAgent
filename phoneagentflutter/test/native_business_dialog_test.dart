@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:phone_agent/core/design/native_business_dialog.dart';
+import 'package:phone_agent/core/design/native_gradient_action.dart';
 
 const _captureDir = String.fromEnvironment('CAPTURE_DIALOG_DIR');
 const _captureKey = Key('dialog-preview');
@@ -20,6 +21,74 @@ void main() {
       );
     await loader.load();
   });
+
+  for (final configuration in [
+    (false, true),
+    (true, true),
+    (false, false),
+    (true, false),
+  ]) {
+    testWidgets(
+      'default action palettes remain unchanged danger=${configuration.$1} enabled=${configuration.$2}',
+      (tester) async {
+        final danger = configuration.$1;
+        final enabled = configuration.$2;
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: NativeBusinessDialog(
+                title: '默认弹窗',
+                confirmLabel: '确定',
+                dismissLabel: '取消',
+                kind: NativeDialogKind.confirmation,
+                danger: danger,
+                onConfirm: enabled ? () {} : null,
+                onDismiss: enabled ? () {} : null,
+              ),
+            ),
+          ),
+        );
+        for (final label in ['取消', '确定']) {
+          final action = find.widgetWithText(NativeGradientAction, label);
+          final box =
+              tester
+                      .widget<DecoratedBox>(
+                        find
+                            .descendant(
+                              of: action,
+                              matching: find.byType(DecoratedBox),
+                            )
+                            .first,
+                      )
+                      .decoration
+                  as BoxDecoration;
+          final expected = !enabled
+              ? const [Color(0xFFEEF2F7), Color(0xFFE8EDF5)]
+              : label == '取消'
+              ? const [Color(0xFFF2F4F7), Color(0xFFE8ECF2)]
+              : danger
+              ? const [Color(0xFFF36E68), Color(0xFFE14D46)]
+              : const [Color(0xFF0A84FF), Color(0xFF0071EB)];
+          expect(box.color, isNull);
+          expect((box.gradient! as LinearGradient).colors, expected);
+          final button = tester.widget<TextButton>(
+            find.widgetWithText(TextButton, label),
+          );
+          expect(
+            button.style!.foregroundColor!.resolve(
+              enabled ? {} : {WidgetState.disabled},
+            ),
+            !enabled
+                ? const Color(0xFF9CA7B5)
+                : label == '取消'
+                ? const Color(0xFF344054)
+                : Colors.white,
+          );
+        }
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
 
   for (final platform in [TargetPlatform.android, TargetPlatform.iOS]) {
     testWidgets('$platform long text keeps equal actions accessible at 2x', (

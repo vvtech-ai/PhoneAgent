@@ -66,7 +66,10 @@ void main() {
       addTearDown(repo.close);
       final snapshot = await repo.load();
       expect(snapshot.builtin, isTrue);
-      expect(snapshot.cards.first.opening, '想订哪家餐厅？告诉我时间和人数就行，有其他要求也可以一起说。');
+      expect(
+        snapshot.cards.singleWhere((c) => c.id == 'restaurant_booking').opening,
+        '想订哪家餐厅？告诉我时间和人数就行，有其他要求也可以一起说。',
+      );
       await network.started.future;
       network.complete(publishedHome(), status: 500);
       await repo.refreshPublished();
@@ -82,13 +85,15 @@ void main() {
       final network = SnapshotNetwork();
       final repo = snapshotRepository(store, network);
       addTearDown(repo.close);
-      expect((await repo.load()).version, 'v1');
+      final old = await repo.load();
+      expect(old.version, 'v1');
       await network.started.future;
       network.complete(publishedHome(version: 'v2', opening: '下一次开场'));
       await store.publishedWriteStarted.future;
-      final old = await repo.load();
-      expect(old.version, 'v1');
+      final fresh = await repo.load();
+      expect(fresh.version, 'v2');
       expect(old.cards.single.opening, '缓存正式开场');
+      expect(fresh.cards.single.opening, '下一次开场');
       expect(network.requests, hasLength(1));
       store.writeGate!.complete();
       await repo.refreshPublished();
@@ -202,7 +207,7 @@ void main() {
       expect(network.responses, hasLength(1));
       network.complete(publishedHome(version: 'v2', opening: '下一任务开场'));
       await t.pumpAndSettle();
-      expect(home.state.config.version, 'builtin-1');
+      expect(home.state.config.version, 'v2');
       expect(find.text(opening), findsOneWidget);
       expect(fixture.players.single.sentences, [opening]);
       expect(

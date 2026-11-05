@@ -30,7 +30,13 @@ class ApiOcrAttachmentRepository implements OcrAttachmentRepository {
       throw const OcrCommitFailure(OcrFailure.cloudCommit);
     }
     final identity = item.id.substring(4);
+    final initialContext = {
+      if (input.initialSkillId != null) 'initialSkillId': input.initialSkillId,
+      if (input.selectedContact != null)
+        'selectedContact': input.selectedContact!.toJson(),
+    };
     final metadata = {
+      ...initialContext,
       'attachmentId': item.id,
       'commandId': 'ocr-command-$identity',
       'idempotencyKey': 'ocr:${input.sessionId}:${item.id}',
@@ -59,6 +65,7 @@ class ApiOcrAttachmentRepository implements OcrAttachmentRepository {
               'contentType': input.mimeType,
               'fileSize': input.bytes.length,
               'checksumSha256': checksum,
+              ...initialContext,
             },
             exposedCodes: const {'OCR_AI_REFINEMENT_FAILED'},
           ),

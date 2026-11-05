@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_card_style.dart';
 import '../../../../core/design/native_page_header.dart';
 import '../../domain/invite_entry_presentation.dart';
 import '../controller/invite_records_controller.dart';
@@ -42,11 +43,8 @@ class InviteRecordsPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 14, 16, 24),
           child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(22),
-            ),
-            padding: const EdgeInsets.all(18),
+            decoration: NativeCardStyle.decoration,
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: [
                 Row(

@@ -112,10 +112,17 @@ final class TrustedIdentityActivityManager {
 
   private func compressedAvatar(_ data: Data) -> Data {
     guard data.count <= 32768, let image = UIImage(data: data) else { return Data() }
-    let renderer = UIGraphicsImageRenderer(size: CGSize(width: 40, height: 40))
-    let thumbnail = renderer.image { _ in image.draw(in: CGRect(x: 0, y: 0, width: 40, height: 40)) }
-    for quality in [0.6, 0.35, 0.15] {
-      if let result = thumbnail.jpegData(compressionQuality: quality), result.count <= 1536 { return result }
+    // Explicit pixels keep output independent of the device's screen scale.
+    // Always draw from the decoded source, not a previously reduced candidate.
+    for pixels in [120, 80, 60] {
+      let side = CGFloat(pixels)
+      let format = UIGraphicsImageRendererFormat()
+      format.scale = 1
+      let renderer = UIGraphicsImageRenderer(size: CGSize(width: side, height: side), format: format)
+      let thumbnail = renderer.image { _ in image.draw(in: CGRect(x: 0, y: 0, width: side, height: side)) }
+      for quality in [0.6, 0.35, 0.15] {
+        if let result = thumbnail.jpegData(compressionQuality: quality), result.count <= 1536 { return result }
+      }
     }
     return Data()
   }

@@ -81,7 +81,7 @@ def snapshot(workspace, config):
 
 
 def build(options):
-    config, _ = private_inputs(ROOT, options.environment)
+    config, _ = private_inputs(ROOT, options.environment, options.build_mode)
     if config['development'] and not options.device:
         raise InviteConfigurationError('开发签名构建必须指定已连接的目标设备。')
     if options.device:
@@ -109,6 +109,8 @@ def build(options):
     public = run(['python3', '-B', source / 'scripts/ios_invite_config.py', 'settings',
                   '--environment', config['environment']], capture=True).stdout
     xcconfig.write_bytes(public + ('\nTRUSTED_CALLER_APNS_ENVIRONMENT=' + config['apns'] + '\n').encode())
+    with xcconfig.open('a') as build_config:
+        build_config.write('\nDEBUG_INFORMATION_FORMAT = dwarf-with-dsym\nGCC_GENERATE_DEBUGGING_SYMBOLS = YES\n')
     env['XCODE_XCCONFIG_FILE'] = str(xcconfig)
     print('BUILD', config['environment'], config['mode'], config['apns'], 'main + 2 extensions', flush=True)
     run([FLUTTER, 'build', 'ios', '--' + config['mode'], '--no-codesign', '--pub',
@@ -174,7 +176,7 @@ def build(options):
 def verify(options):
     workspace = Path(options.workspace)
     source, app = workspace / 'source', workspace / 'Payload/Runner.app'
-    config, _ = private_inputs(source, options.environment)
+    config, _ = private_inputs(source, options.environment, options.build_mode)
     info = plistlib.loads((app / 'Info.plist').read_bytes())
     if info['CFBundleShortVersionString'] != options.build_name or str(info['CFBundleVersion']) != str(options.build_number):
         raise InviteConfigurationError('最终版本不匹配。')
@@ -207,7 +209,7 @@ def verify(options):
     manifest = load_manifest(manifest_path)
     validate_package(workspace / 'PhoneAgent.ipa', manifest_path, config['environment'],
                      options.build_name, options.build_number, manifest['artifact']['sha256'], options.device,
-                     artifact_name=options.artifact_name)
+                     artifact_name=options.artifact_name, expected_mode=config['mode'])
     provenance = json.loads((workspace / 'provenance.json').read_text())
     if manifest['source'] != provenance['source'] or manifest['inputs'] != provenance['inputs']:
         raise InviteConfigurationError('清单与本次构建快照来源不符。')
@@ -219,7 +221,10 @@ def main():
     parser.add_argument('--environment', choices=['dev', 'test', 'pro', 'prod'], required=True)
     parser.add_argument('--build-name', required=True)
     parser.add_argument('--build-number', type=int, required=True)
-    parser.add_argument('--device', help='Physical device UDID; required for dev/test.')
+    parser.add_argument('--build-mode', choices=['debug', 'profile', 'release'],
+                        help='Explicit mode; dev also permits profile for standalone launch.')
+    parser.add_argument('--device', help='Physical device UDID; required for dev/test. '
+                        'For pro/prod, selects Ad Hoc direct install; omit for App Store.')
     parser.add_argument('--phase', choices=['build', 'verify'], help=argparse.SUPPRESS)
     parser.add_argument('--workspace', help=argparse.SUPPRESS)
     parser.add_argument('--artifact-name', help=argparse.SUPPRESS)
@@ -233,14 +238,14 @@ def main():
             parser.error('阶段缺少本次交付文件名。')
         (build if args.phase == 'build' else verify)(args)
         return
-    config, _ = private_inputs(ROOT, args.environment)
+    config, _ = private_inputs(ROOT, args.environment, args.build_mode)
     common = ['--environment', args.environment, '--build-name', args.build_name,
-              '--build-number', str(args.build_number)]
+              '--build-number', str(args.build_number), '--build-mode', config['mode']]
     if args.device:
         common += ['--device', args.device]
     command = [sys.executable, '-B', str(Path(__file__).resolve()), *common, '--workspace', '{workspace}']
     stamp = datetime.now(ZoneInfo('Asia/Shanghai')).strftime('%Y%m%d_%H%M%S')
-    name = f'Phone_Agent_{config["credential"].upper()}_{args.build_name}_{args.build_number}_{config["credential"]}_{stamp}.ipa'
+    name = f'Phone_Agent_{config["credential"].upper()}_{args.build_name}_{args.build_number}_{config["credential"]}_{config["mode"]}_{stamp}.ipa'
     command += ['--artifact-name', name]
     run([sys.executable, '-B', ROOT / 'scripts/run-test-build.py',
          '--build-command', json.dumps(command + ['--phase', 'build']),

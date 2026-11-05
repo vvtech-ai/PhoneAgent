@@ -50,7 +50,7 @@ class TaskRecordCard extends StatelessWidget {
           BoxShadow(
             color: Color(0x14101114),
             blurRadius: 10,
-            offset: Offset(0, 6),
+            offset: Offset(0, 4),
           ),
         ],
       ),

@@ -227,6 +227,22 @@ class ConversationSpeechController extends ChangeNotifier {
     }
   }
 
+  /// Only called for an applied live fact; restore/backfill never grants speech.
+  void acceptConfirmationSupplement(LedgerEvent fact) {
+    if (!_eligible ||
+        _sealed ||
+        fact.sessionId != _resultSession ||
+        fact.schemaVersion != 1 ||
+        fact.type != 'CALL_CONFIRMATION_SUPPLEMENT') {
+      return;
+    }
+    final key = 'supplement:${fact.sessionId}:${fact.eventId}';
+    final text = ConversationMessages.text(fact.payload, 'assistantText');
+    if (!_spokenConfirmations.contains(key) && _enqueue(text)) {
+      _spokenConfirmations.add(key);
+    }
+  }
+
   bool _enqueue(String text, {bool ordinary = false}) {
     final speakable = ordinary
         ? SpeechTextPolicy.cleanStreamingSegment(text)

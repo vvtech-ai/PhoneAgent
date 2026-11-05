@@ -48,6 +48,7 @@ CommerceOrder oldOrder(String type) => CommerceOrder(
 class BoundAppleRepository extends SlowQuoteRepository {
   BoundAppleRepository() : super('PACK');
   final verified = <String, String>{};
+  bool completed = false;
   @override
   Future<CommerceOrder> verifyApple(NativePaymentResult result) async {
     verified[result.transactionId!] = result.appAccountToken!;
@@ -58,7 +59,7 @@ class BoundAppleRepository extends SlowQuoteRepository {
       productType: 'POINTS_PACK',
       productName: 'synthetic',
       paymentState: 'SUCCEEDED',
-      fulfillmentState: 'PROCESSING',
+      fulfillmentState: completed ? 'SUCCEEDED' : 'PROCESSING',
       cashAmountFen: 600,
       cashPaidFen: 600,
       currency: 'USD',
@@ -107,6 +108,9 @@ void main() {
         'old-transaction': 'old-token',
         'new-transaction': 'new-token',
       });
+      expect(native.acknowledgements, 0);
+      repo.completed = true;
+      await controller.query('old-order');
       expect(native.acknowledgements, 2);
       controller.dispose();
     },

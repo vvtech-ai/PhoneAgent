@@ -50,7 +50,7 @@ void main() {
   });
 
   for (final level in ['BASIC', 'PLUS', 'PREMIUM']) {
-    test('same SKU $level reaches confirmation after page agreement', () async {
+    test('same SKU $level is blocked before quote and confirmation', () async {
       final repo = FakeCommerceRepository();
       final native = FakePaymentLauncher();
       final controller = PurchaseController(
@@ -91,9 +91,9 @@ void main() {
           return false;
         },
       );
-      expect(result, CheckoutOutcome.canceled);
-      expect(confirmed, 1);
-      expect(repo.quoteCalls, 1);
+      expect(result, CheckoutOutcome.error);
+      expect(confirmed, 0);
+      expect(repo.quoteCalls, 0);
       expect(repo.createCalls, 0);
       expect(native.launches, 0);
       controller.dispose();

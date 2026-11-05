@@ -1,3 +1,4 @@
+import '../../../../core/design/native_action_style.dart';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
@@ -58,28 +59,12 @@ class TranslationHistoryLoadState extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
-                FilledButton(
-                  key: const ValueKey('retry-translation'),
-                  onPressed: onRetry,
-                  style: FilledButton.styleFrom(
-                    backgroundColor: const Color(0xFF0A84FF),
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(64, 48),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    textStyle: const TextStyle(
-                      fontSize: 14,
-                      height: 17 / 14,
-                      letterSpacing: 0,
-                      fontWeight: FontWeight.w500,
-                    ),
+                NativeActionSurface(
+                  child: FilledButton(
+                    key: const ValueKey('retry-translation'),
+                    onPressed: onRetry,
+                    child: const Text('重试'),
                   ),
-                  child: const Text('重试'),
                 ),
               ],
             ),

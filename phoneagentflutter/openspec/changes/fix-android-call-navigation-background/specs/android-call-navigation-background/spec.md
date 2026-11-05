@@ -1,0 +1,14 @@
+## ADDED Requirements
+### Requirement: Android通话背景覆盖系统导航区域
+Android任务通话与实时翻译通话 MUST 将各自深色背景延伸至透明系统导航栏下，手势指示条为浅色；原操作区SafeArea只避让一次，Flutter控件、20dp说明间距及iOS原布局保持。
+#### Scenario: 手势与三键导航
+- **WHEN** Android两类通话在不同底部系统inset下展示
+- **THEN** 导航区域不透出白色宿主，按钮和说明不被遮挡且不因重复padding上移
+### Requirement: 系统栏模式按通话页面生命周期恢复
+客户端 MUST 按可见通话owner管理edge-to-edge，最后owner退出或其他业务页覆盖后恢复既有系统栏模式；弹层与晚到释放不得错误恢复当前通话。
+#### Scenario: 弹层和返回
+- **WHEN** 打开/关闭音源弹层，或进入其他业务页面后返回/结束通话
+- **THEN** 弹层不释放当前通话模式，业务页覆盖时释放，返回重新获取，结束恢复正常页面，无颜色残留
+#### Scenario: 非Android
+- **WHEN** iOS或Web渲染相同共用页面
+- **THEN** 不调用Android系统栏模式、不新增Scaffold或背景分支，不改变原安全区或业务回调

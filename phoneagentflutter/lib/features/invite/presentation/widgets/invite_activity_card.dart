@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_action_style.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../app/invite_providers.dart';
 import '../../domain/invite.dart';
@@ -279,26 +280,28 @@ class InvitePrimaryAction extends StatelessWidget {
     super.key,
     required this.label,
     this.onPressed,
-    this.background = inviteBlue,
+    this.background,
     this.foreground = Colors.white,
   });
   final String label;
   final VoidCallback? onPressed;
-  final Color background, foreground;
+  final Color? background;
+  final Color foreground;
   @override
-  Widget build(BuildContext context) => FilledButton(
-    onPressed: onPressed,
-    style: FilledButton.styleFrom(
+  Widget build(BuildContext context) => DecoratedBox(
+    decoration: NativeActionStyle.decoration(
+      enabled: onPressed != null,
       backgroundColor: background,
-      foregroundColor: foreground,
-      disabledBackgroundColor: const Color(0xFFE4E8EF),
-      minimumSize: const Size(double.infinity, 48),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-      textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w700,
-      ),
     ),
-    child: Text(label, textAlign: TextAlign.center),
+    child: FilledButton(
+      onPressed: onPressed,
+      style: NativeActionStyle.buttonStyle(context, foregroundColor: foreground)
+          .copyWith(
+            minimumSize: const WidgetStatePropertyAll(
+              Size(double.infinity, 50),
+            ),
+          ),
+      child: Text(label, textAlign: TextAlign.center),
+    ),
   );
 }

@@ -119,6 +119,7 @@ void main() {
           var bought = 0;
           final state = CatalogState(
             catalog: await repo.catalog(),
+            membership: await repo.membership(),
             channelAvailable: true,
           );
           await tester.pumpWidget(

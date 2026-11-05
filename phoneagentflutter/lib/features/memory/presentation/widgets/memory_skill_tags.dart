@@ -20,6 +20,19 @@ class MemorySkillTags extends StatelessWidget {
   final VoidCallback onOpen;
   @override
   Widget build(BuildContext context) {
+    final labelPainter = TextPainter(
+      text: TextSpan(
+        text: '＋ 添加',
+        style: DefaultTextStyle.of(context).style.copyWith(fontSize: 14),
+      ),
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+      locale: Localizations.maybeLocaleOf(context),
+      textHeightBehavior: DefaultTextStyle.of(context).textHeightBehavior,
+      maxLines: 1,
+    )..layout();
+    final controlHeight = labelPainter.height + 20;
+    labelPainter.dispose();
     final tags = [
       if (scope == MemoryScope.all) const MemorySkill('', '全部任务', true),
       for (final id in ids)
@@ -44,9 +57,11 @@ class MemorySkillTags extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 8,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             for (final tag in tags)
               Container(
+                height: controlHeight,
                 decoration: BoxDecoration(
                   color: tag.enabled
                       ? MemoryColors.lightBlue
@@ -94,16 +109,21 @@ class MemorySkillTags extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 key: const Key('memory-open-skills'),
                 onTap: enabled ? onOpen : null,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 10,
-                  ),
-                  child: Text(
-                    tags.isEmpty ? '选择适用任务' : '＋ 添加',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: MemoryColors.secondary,
+                child: SizedBox(
+                  height: controlHeight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    child: Center(
+                      widthFactor: 1,
+                      child: Text(
+                        tags.isEmpty ? '选择适用任务' : '＋ 添加',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: MemoryColors.secondary,
+                        ),
+                      ),
                     ),
                   ),
                 ),

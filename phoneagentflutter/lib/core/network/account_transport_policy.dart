@@ -15,6 +15,7 @@ abstract final class AccountTransportPolicy {
     'api/commerce',
     'api/membership',
     'api/account/settings',
+    'api/account/cancellation',
     'api/points',
     'api/invite',
     'api/agent',

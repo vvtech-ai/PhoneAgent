@@ -78,7 +78,7 @@ void main() {
       coordinator.submit('问题', scope, (_, result) => applied.add(result));
       repository.pending.single.completeError(StateError('unavailable'));
       await Future<void>.delayed(Duration.zero);
-      expect(applied.single.decision, CallReplyDecision.unclear);
+      expect(applied.single.unavailable, isTrue);
       coordinator.submit('确认', scope, (_, result) => applied.add(result));
       coordinator.invalidate();
       repository.pending.last.complete(
@@ -97,11 +97,11 @@ void main() {
     CallReply? reply;
     coordinator.submit('问题', scope, (_, result) => reply = result);
     await tester.pump(const Duration(seconds: 12));
-    expect(reply?.decision, CallReplyDecision.unclear);
+    expect(reply?.unavailable, isTrue);
     repository.pending.single.complete(
       const CallReply(CallReplyDecision.confirm),
     );
     await tester.pump();
-    expect(reply?.decision, CallReplyDecision.unclear);
+    expect(reply?.unavailable, isTrue);
   });
 }

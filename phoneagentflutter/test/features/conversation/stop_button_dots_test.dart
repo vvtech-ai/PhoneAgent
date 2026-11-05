@@ -31,13 +31,41 @@ void main() {
               );
 
           final stop = find.byKey(const ValueKey('stop-current-processing'));
+          void expectOriginalColor() {
+            final button = tester.widget<IconButton>(stop);
+            expect(
+              button.style!.backgroundColor!.resolve(const {}),
+              voiceControl ? Colors.transparent : const Color(0xFFE7EAEE),
+            );
+            final decoration =
+                tester
+                        .widget<DecoratedBox>(
+                          find
+                              .descendant(
+                                of: find.byType(NativeTaskSubmitButton),
+                                matching: find.byType(DecoratedBox),
+                              )
+                              .first,
+                        )
+                        .decoration
+                    as BoxDecoration;
+            expect(
+              decoration.gradient?.colors,
+              voiceControl
+                  ? const [Color(0xFF2196F3), Color(0xFF1976D2)]
+                  : null,
+            );
+          }
+
           await show(stopping: false, hasStop: true);
+          expectOriginalColor();
           expect(find.byIcon(Icons.stop_rounded), findsOneWidget);
           expect(find.byType(NativeVoiceFinalizingDots), findsNothing);
           await tester.tap(stop);
           expect(stopCalls, 1);
 
           await show(stopping: true, hasStop: true);
+          expectOriginalColor();
           expect(stop, findsOneWidget);
           expect(find.byIcon(Icons.stop_rounded), findsNothing);
           expect(find.byType(NativeVoiceFinalizingDots), findsOneWidget);

@@ -32,6 +32,29 @@ class Notifications extends FakePaymentLauncher
 
 void main() {
   test(
+    'empty discovery and discovery or verification failures remain distinguishable',
+    () async {
+      final repo = VerifyRepo();
+      final native = FakePaymentLauncher();
+      final verifier = AppleTransactionVerifier(repo, native, () => true);
+      expect((await verifier.recover(() => true)).failed, false);
+      native.restoreError = StateError('discovery');
+      expect((await verifier.recover(() => true)).failed, true);
+      native.restoreError = null;
+      native.restored = [material];
+      repo.verification = Completer();
+      final failedVerification = verifier.recover(() => true);
+      await Future<void>.delayed(Duration.zero);
+      repo.verification!.completeError(StateError('verification'));
+      expect((await failedVerification).failed, true);
+      repo.verification = null;
+      repo.current = appleOrder(fulfillment: 'SUCCEEDED');
+      final recovered = await verifier.recover(() => true);
+      expect(recovered.failed, false);
+      expect(recovered.orders.single.orderNo, 'order-1');
+    },
+  );
+  test(
     'iOS scans Apple updates even while viewing a historical Alipay order',
     () async {
       final repo = VerifyRepo()..current = sampleOrder();
@@ -56,7 +79,7 @@ void main() {
   );
 
   test(
-    'duplicate transaction serializes verification; finish once after trusted payment even while crediting',
+    'duplicate transaction serializes verification; crediting waits until fulfillment before finish',
     () async {
       final repo = VerifyRepo()..verification = Completer();
       final native = FakePaymentLauncher();
@@ -66,8 +89,12 @@ void main() {
       expect(repo.verifies, 1);
       repo.verification!.complete(appleOrder());
       await Future.wait([first, second]);
+      expect(native.acknowledgements, 0);
+      repo.verification = null;
+      repo.current = appleOrder(fulfillment: 'SUCCEEDED');
       await verifier.verify(material);
-      expect(repo.verifies, 1);
+      await verifier.verify(material);
+      expect(repo.verifies, 2);
       expect(native.acknowledgements, 1);
     },
   );
@@ -83,7 +110,7 @@ void main() {
         expectedOrderNo: 'different-order',
       );
       final rejection = expectLater(active, throwsFormatException);
-      repo.verification!.complete(appleOrder());
+      repo.verification!.complete(appleOrder(fulfillment: 'SUCCEEDED'));
       await recovery;
       await rejection;
       expect(repo.verifies, 1);
@@ -132,7 +159,7 @@ void main() {
       await expectLater(work, throwsStateError);
       expect(native.acknowledgements, 0);
       repo.verification = null;
-      repo.current = appleOrder();
+      repo.current = appleOrder(fulfillment: 'SUCCEEDED');
       await verifier.verify(material);
       expect(native.acknowledgements, 1);
     },

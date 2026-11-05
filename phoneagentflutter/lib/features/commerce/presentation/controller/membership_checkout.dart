@@ -27,7 +27,7 @@ class MembershipCheckout {
     if (directory == null || purchase.snapshot.busy) {
       return CheckoutOutcome.error;
     }
-    if (!catalog.purchaseEnabled(product)) return CheckoutOutcome.error;
+    if (!catalog.newPurchaseEnabled(product)) return CheckoutOutcome.error;
     final apple = catalog.platformProducts[product.platformProductId];
     if (catalog.requiresPlatformProducts &&
         (!catalog.purchasable(product) ||

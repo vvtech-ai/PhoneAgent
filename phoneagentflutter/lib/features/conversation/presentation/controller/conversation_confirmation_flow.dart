@@ -73,35 +73,22 @@ class ConversationConfirmationFlow {
   bool? handle(String text, bool Function() continueConversation) {
     final call = calls();
     if (call == null) return null;
-    final intent = CallConfirmationPolicy.classify(text);
-    if (intent == CallConfirmationIntent.confirm &&
-        {
+    if ({
           CallLaunchPhase.waiting,
           CallLaunchPhase.checking,
           CallLaunchPhase.submitting,
           CallLaunchPhase.submitted,
           CallLaunchPhase.uncertain,
-        }.contains(call.snapshot.launch.phase)) {
+        }.contains(call.snapshot.launch.phase) &&
+        text.trim() == call.confirmationText.trim()) {
       return false;
     }
-    if (intent != CallConfirmationIntent.confirm) call.pausePreparation();
+    call.pausePreparation();
     final scope = _scope();
     if (scope == null) return null;
     if (!call.cardPresented) {
       notice('请先查看当前任务确认信息，再确认拨打。');
       return false;
-    }
-    if (intent == CallConfirmationIntent.confirm) {
-      _replies?.invalidate();
-      return call.confirm(text);
-    }
-    if (intent == CallConfirmationIntent.ambiguous) {
-      _supplement(scope, text, _reprompt);
-      return true;
-    }
-    if (CallConfirmationPolicy.editOrCancel(text)) {
-      _replies?.invalidate();
-      return continueConversation();
     }
     final replies = _replies;
     if (replies == null) {
@@ -121,19 +108,15 @@ class ConversationConfirmationFlow {
     bool Function() continueConversation,
   ) {
     if (_scope() != scope || calls()?.cardPresented != true) return;
+    if (reply.unavailable) {
+      notice('暂时无法识别确认，请重试；当前未拨打。');
+      return;
+    }
     switch (reply.decision) {
       case CallReplyDecision.confirm:
-        if (CallConfirmationPolicy.blocking(user)) {
-          _supplement(scope, user, _reprompt);
-        } else {
-          calls()?.confirm(user);
-        }
+        calls()?.confirm(user);
       case CallReplyDecision.edit:
-        if (CallConfirmationPolicy.noEditAnswer(user)) {
-          _supplement(scope, user, _reprompt);
-        } else {
-          continueConversation();
-        }
+        continueConversation();
       case CallReplyDecision.cancel:
       case CallReplyDecision.newRequest:
         continueConversation();
@@ -144,7 +127,7 @@ class ConversationConfirmationFlow {
           reply.answer.isEmpty ? _reprompt : '${reply.answer}\n$_reprompt',
         );
       case CallReplyDecision.wait:
-        _supplement(scope, user, '好的，暂不拨打。需要拨打时请说“确认拨打”。');
+        _supplement(scope, user, '好的，暂不拨打。准备好后请确认当前任务。');
       case CallReplyDecision.unclear:
         _supplement(scope, user, _reprompt);
     }

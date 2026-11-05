@@ -1,4 +1,5 @@
 #import "IdentityCapturePlugin.h"
+#import "IdentityCaptureSDKInitialization.h"
 #import "IdentityCaptureAudioConfiguration.h"
 #import "IdentityCaptureLoadingController.h"
 #import "ClonePreviewAudioSession.h"
@@ -95,9 +96,11 @@ static IdentityCapturePlugin *captureOwner;
     @catch (NSException *exception) { /* Optional observation cannot block SDK preparation. */ }
     [self note:@"prepare.claimed" session:session code:0];
     @try {
-        [self note:@"sdk.init.enter" session:session code:0];
-        [AliyunFaceAuthFacade initSDK];
-        [self note:@"sdk.init.exit" session:session code:0];
+        [IdentityCaptureSDKInitialization ensureInitialized:^{
+            [self note:@"sdk.init.enter" session:session code:0];
+            [AliyunFaceAuthFacade initSDK];
+            [self note:@"sdk.init.exit" session:session code:0];
+        }];
         [self note:@"sdk.meta.enter" session:session code:0];
         NSDictionary *meta = [AliyunFaceAuthFacade getMetaInfo];
         [self note:@"sdk.meta.exit" session:session code:0];

@@ -91,7 +91,7 @@ class _CommerceOrdersPageState extends State<CommerceOrdersPage> {
         onRefresh: widget.onRefresh,
         child: ListView(
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(16),
           children: [
             if (state.items.isNotEmpty)
               Row(

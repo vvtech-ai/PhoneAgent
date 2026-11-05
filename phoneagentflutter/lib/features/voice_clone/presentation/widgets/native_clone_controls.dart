@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_action_style.dart';
 
 const cloneInk = Color(0xFF111827);
 const cloneSecondary = Color(0xFF6B7280);
@@ -112,42 +113,29 @@ class ClonePrimaryAction extends StatelessWidget {
   final VoidCallback? onPressed;
   final bool result, loading;
   @override
-  Widget build(BuildContext context) => FilledButton(
-    onPressed: onPressed,
-    style: FilledButton.styleFrom(
-      minimumSize: const Size(double.infinity, 48),
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      backgroundColor: result
-          ? const Color(0xFF1488F5)
-          : const Color(0xFF0A84FF),
-      disabledBackgroundColor:
-          (result ? const Color(0xFF1488F5) : const Color(0xFF0A84FF))
-              .withValues(alpha: loading ? 1 : .45),
-      foregroundColor: Colors.white,
-      disabledForegroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(result ? 9 : 12),
+  Widget build(BuildContext context) => DecoratedBox(
+    decoration: NativeActionStyle.decoration(enabled: onPressed != null),
+    child: FilledButton(
+      onPressed: onPressed,
+      style: NativeActionStyle.buttonStyle(context).copyWith(
+        minimumSize: const WidgetStatePropertyAll(Size(double.infinity, 50)),
       ),
-      textStyle: TextStyle(
-        fontSize: result ? 15 : 16,
-        fontWeight: result ? FontWeight.w600 : FontWeight.w700,
-      ),
-    ),
-    child: loading
-        ? Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox.square(
-                dimension: 18,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: 2,
+      child: loading
+          ? Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox.square(
+                  dimension: 18,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Flexible(child: Text(label, textAlign: TextAlign.center)),
-            ],
-          )
-        : Text(label, textAlign: TextAlign.center),
+                const SizedBox(width: 8),
+                Flexible(child: Text(label, textAlign: TextAlign.center)),
+              ],
+            )
+          : Text(label, textAlign: TextAlign.center),
+    ),
   );
 }

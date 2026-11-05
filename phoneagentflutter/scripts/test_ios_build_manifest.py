@@ -44,6 +44,9 @@ class ManifestTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.ipa = Path(self.temp.name) / 'test.ipa';self.ipa.write_bytes(b'synthetic signed archive')
+        self.app = Path(self.temp.name) / 'Runner.app'
+        aot = self.app / 'Frameworks/App.framework/App'
+        aot.parent.mkdir(parents=True);aot.write_bytes(b'synthetic AOT binary')
         self.path = Path(str(self.ipa) + '.build.json');self.data = fixture(self.ipa);self.save()
 
     def save(self):
@@ -63,13 +66,32 @@ class ManifestTests(unittest.TestCase):
 
     def test_valid_schema_and_frozen_inventory_match(self):
         self.assertEqual(load_manifest(self.path), self.data)
-        with patch('ios_build_manifest.extract_ipa', return_value=Path('/synthetic/app')), patch(
+        with patch('ios_build_manifest.extract_ipa', return_value=self.app), patch(
                 'ios_build_manifest.bundle_inventory', return_value=self.data['bundles']):
             self.assertEqual(self.check(expected_source='c' * 64), self.data)
 
+    def test_dev_profile_keeps_dev_inputs_and_requires_selected_mode(self):
+        self.data.update(environment='dev')
+        self.data['inputs']['defines']['path'] = policy('dev')['defines']
+        self.data['inputs']['trusted_caller']['key_prefix'] = 'trustedCaller.ios.dev'
+        self.save()
+        with patch('ios_build_manifest.extract_ipa', return_value=self.app), patch(
+                'ios_build_manifest.bundle_inventory', return_value=self.data['bundles']):
+            self.assertEqual(self.check(environment='dev', expected_mode='profile'), self.data)
+        with patch('ios_build_manifest.extract_ipa') as extract:
+            with self.assertRaises(InviteConfigurationError):
+                self.check(environment='dev', expected_mode='debug')
+            extract.assert_not_called()
+
+    def test_profile_missing_aot_binary_is_rejected(self):
+        (self.app / 'Frameworks/App.framework/App').unlink()
+        with patch('ios_build_manifest.extract_ipa', return_value=self.app), patch(
+                'ios_build_manifest.bundle_inventory', return_value=self.data['bundles']):
+            with self.assertRaises(InviteConfigurationError):self.check()
+
     def test_creation_records_current_inputs_and_never_copies_credentials(self):
         import plistlib
-        app = Path(self.temp.name) / 'Runner.app';app.mkdir()
+        app = self.app
         (app / 'Info.plist').write_bytes(plistlib.dumps({'CFBundleShortVersionString': '1.0.52', 'CFBundleVersion': '45'}))
         with patch('ios_build_manifest.bundle_inventory', return_value=self.data['bundles']):
             data = create_manifest(self.ipa, self.ipa.name, policy('test'), self.data['source'],
@@ -113,7 +135,7 @@ class ManifestTests(unittest.TestCase):
 
     def test_actual_signed_inventory_cannot_be_replaced_by_manifest(self):
         facts = deepcopy(self.data['bundles']);facts[0]['profile_sha256'] = '0' * 64
-        with patch('ios_build_manifest.extract_ipa', return_value=Path('/synthetic/app')), patch(
+        with patch('ios_build_manifest.extract_ipa', return_value=self.app), patch(
                 'ios_build_manifest.bundle_inventory', return_value=facts):
             with self.assertRaises(InviteConfigurationError):self.check()
 

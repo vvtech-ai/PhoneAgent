@@ -17,7 +17,7 @@ class AccountPage extends StatelessWidget {
               NativePageHeader(title: '账号管理', onBack: onBack),
               Expanded(
                 child: ListView(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(16),
                   children: [_DeletionRow(onTap: onDelete)],
                 ),
               ),

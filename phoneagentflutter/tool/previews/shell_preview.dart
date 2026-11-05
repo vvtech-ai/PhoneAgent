@@ -1,3 +1,8 @@
+import 'package:phone_agent/app/task_draft_cleanup.dart';
+import 'package:phone_agent/app/task_draft_cleanup_providers.dart';
+import 'package:phone_agent/features/account_cancellation/domain/account_cancellation.dart';
+import 'shell_cancellation_ports.dart';
+import 'package:phone_agent/features/account_cancellation/presentation/cancellation_providers.dart';
 import 'package:phone_agent/app/home_notification_providers.dart';
 import 'package:phone_agent/features/task_notifications/data/secure_home_notification_read_store.dart';
 import 'package:phone_agent/app/call_model_quality_providers.dart';
@@ -62,8 +67,14 @@ class ShellPreviewPage extends StatefulWidget {
     this.nativeSystemVoices = false,
     this.modelQuality,
     this.commerce,
+    this.cancellation,
+    this.sessionStore,
+    this.accountCleanup,
   });
   final CommerceRepository? commerce;
+  final CancellationGateway? cancellation;
+  final SessionStore? sessionStore;
+  final TaskDraftCleanup? accountCleanup;
   final CallModelQualityRepository? modelQuality;
   final bool sessionControls;
   final bool errorControls;
@@ -133,6 +144,13 @@ class _ShellPreviewPageState extends State<ShellPreviewPage> {
         ...shellReceiptOverrides(context),
         ...shellContactsOverrides(),
         ...shellSettingsOverrides(),
+        if (widget.accountCleanup != null)
+          taskDraftAccountStoreProvider.overrideWithValue(
+            widget.accountCleanup,
+          ),
+        cancellationGatewayProvider.overrideWithValue(
+          widget.cancellation ?? PreviewCancellationGateway(),
+        ),
         ...shellHistoryOverrides(context),
         ..._translation.overrides,
         ...shellCloneOverrides(_clones, formal: widget.formalClone),
@@ -143,7 +161,7 @@ class _ShellPreviewPageState extends State<ShellPreviewPage> {
           AppConfig.parse(environment: 'local', apiBaseUrl: ''),
         ),
         authGatewayProvider.overrideWithValue(_auth),
-        sessionStoreProvider.overrideWithValue(_auth),
+        sessionStoreProvider.overrideWithValue(widget.sessionStore ?? _auth),
         networkAvailabilitySourceProvider.overrideWithValue(
           const UnknownNetworkAvailability(),
         ),

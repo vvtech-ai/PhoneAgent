@@ -33,9 +33,11 @@ class SecureHomeLocalStore implements HomeLocalStore {
       _storage.write(key: '$namespace.$key', value: value);
 }
 
-class DioHomeRepository implements HomeRepository, HomeRepositoryStatus {
+class DioHomeRepository
+    implements HomeRepository, HomeRepositoryStatus, HomePublishedSnapshots {
   DioHomeRepository(AppConfig config, this._store, {Dio? client, this.signing})
     : _base = config.sdkApiBaseUri ?? config.apiBaseUri,
+      initialSnapshot = bundledHomeFor(config.environment),
       _client = client ?? Dio() {
     _client.options = BaseOptions(
       connectTimeout: const Duration(seconds: 15),
@@ -54,18 +56,29 @@ class DioHomeRepository implements HomeRepository, HomeRepositoryStatus {
   bool _closed = false;
   Future<void>? _refreshing;
   Map<String, dynamic>? _cachedDocument;
+  HomeConfig? _snapshot;
+  final _published = StreamController<HomeConfig>.broadcast(sync: true);
+  @override
+  final HomeConfig initialSnapshot;
+  @override
+  Stream<HomeConfig> get publishedSnapshots => _published.stream;
   void close() {
     _closed = true;
     _client.close(force: true);
+    unawaited(_published.close());
   }
 
   @override
   Future<HomeConfig> load() async {
     final base = _base;
-    if (base == null || _closed) return builtinHome;
+    if (base == null || _closed) return _snapshot ?? initialSnapshot;
+    if (_snapshot != null) {
+      unawaited(refreshPublished());
+      return _snapshot!;
+    }
     final mapper = HomeConfigMapper(base);
     Map<String, dynamic>? cache;
-    HomeConfig snapshot = builtinHome;
+    HomeConfig snapshot = initialSnapshot;
     try {
       final raw = await _store.read('published');
       if (raw != null) {
@@ -75,12 +88,14 @@ class DioHomeRepository implements HomeRepository, HomeRepositoryStatus {
     } catch (_) {
       cache = null;
     }
-    _cachedDocument = cache;
+    if (_closed) return snapshot;
+    _cachedDocument ??= cache;
+    _snapshot ??= snapshot;
     unawaited(refreshPublished());
-    return snapshot;
+    return _snapshot!;
   }
 
-  /// Refreshes the persisted snapshot; callers keep their current entry frozen.
+  /// Publishes valid home updates; existing conversation entries remain frozen.
   Future<void> refreshPublished() {
     final base = _base;
     if (_closed || base == null) return Future<void>.value();
@@ -122,12 +137,14 @@ class DioHomeRepository implements HomeRepository, HomeRepositoryStatus {
         return;
       }
       final data = HomeConfigMapper.object(AccountApi.unwrap(response.data));
-      mapper.parse(data);
+      final snapshot = mapper.parse(data);
+      final changed = jsonEncode(_cachedDocument?['data']) != jsonEncode(data);
+      final document = {'data': data, 'etag': response.headers.value('etag')};
+      _cachedDocument = document;
+      _snapshot = snapshot;
+      if (changed) _published.add(snapshot);
       try {
-        await _store.write(
-          'published',
-          jsonEncode({'data': data, 'etag': response.headers.value('etag')}),
-        );
+        await _store.write('published', jsonEncode(document));
       } catch (_) {
         /* Keep the current snapshot if background cache persistence fails. */
       }

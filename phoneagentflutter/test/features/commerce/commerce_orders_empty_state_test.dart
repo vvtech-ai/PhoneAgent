@@ -28,13 +28,13 @@ void main() {
     tester,
   ) async {
     await show(tester, const OrdersState());
-    expect(find.text('暂无更多数据'), findsOneWidget);
+    expect(find.text('暂无订单'), findsOneWidget);
     expect(find.textContaining('暂不支持自助退款'), findsNothing);
     expect(find.text('左右滑动查看支付渠道与状态'), findsNothing);
     expect(find.byIcon(Icons.chevron_right), findsNothing);
-    expect(find.byIcon(Icons.keyboard_arrow_left), findsOneWidget); // page back only
+    expect(find.bySemanticsLabel('返回'), findsOneWidget); // shared page back
     for (final heading in ['类型', '日期', '金额', '支付渠道', '状态', '操作']) {
-      expect(find.text(heading), findsOneWidget);
+      expect(find.text(heading), findsNothing);
     }
   });
 
@@ -47,7 +47,7 @@ void main() {
       (tester) async {
         await show(tester, state);
         expect(find.byIcon(Icons.chevron_right), findsNothing);
-        expect(find.text('暂无更多数据'), findsNothing);
+        expect(find.text('暂无订单'), findsNothing);
         if (state.error.isNotEmpty) {
           expect(find.text(state.error), findsOneWidget);
           expect(find.text('重试'), findsOneWidget);

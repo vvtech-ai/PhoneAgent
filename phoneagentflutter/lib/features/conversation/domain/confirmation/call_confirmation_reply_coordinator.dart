@@ -46,7 +46,7 @@ class CallConfirmationReplyCoordinator {
     try {
       reply = await repository.classify(scope, text).timeout(timeout);
     } catch (_) {
-      reply = const CallReply(CallReplyDecision.unclear);
+      reply = const CallReply(CallReplyDecision.unclear, '', true);
     }
     if (_revision != revision) return;
     _inFlight = null;

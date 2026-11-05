@@ -1,3 +1,4 @@
+import 'package:phone_agent/features/auth/presentation/widgets/auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -80,8 +81,26 @@ void main() {
           '确认注销',
         );
         await tester.pump();
+        await tap('account-entry-confirmation-submit');
+        expect(store.saved, isNotNull);
+        await tester.enterText(
+          find.byKey(const Key('verification-code-input')),
+          '123456',
+        );
+        await tester.pump();
+        await tester.pumpUntilUiSettled();
+        expect(store.saved, isNotNull);
         await tap('account-confirmation-submit');
         expect(store.saved, isNull);
+        expect(find.text('已提交注销申请'), findsOneWidget);
+        final surface = find.byKey(const ValueKey('nativeNoticeSurface'));
+        expect(
+          tester.getCenter(surface).dy,
+          closeTo(tester.getCenter(find.byType(AuthFrame)).dy, 20),
+        );
+        await tester.pump(const Duration(seconds: 3));
+        await tester.pumpUntilUiSettled();
+        expect(find.text('已提交注销申请'), findsNothing);
         expect(find.byKey(const ValueKey('loginPhone')), findsOneWidget);
         expect(find.byType(AccountRoute), findsNothing);
         expect(tester.takeException(), isNull);

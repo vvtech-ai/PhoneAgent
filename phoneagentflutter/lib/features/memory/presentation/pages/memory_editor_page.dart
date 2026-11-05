@@ -157,9 +157,11 @@ class _MemoryEditorPageState extends ConsumerState<MemoryEditorPage> {
                 disabledBackgroundColor: const Color(0xFFE7EAF0),
                 disabledForegroundColor: const Color(0xFFABB2BF),
                 minimumSize: const Size(64, 38),
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   horizontal: 16,
-                  vertical: 8,
+                  vertical:
+                      ((38 - MediaQuery.textScalerOf(context).scale(14)) / 2)
+                          .clamp(0.0, 8.0),
                 ),
                 shape: const StadiumBorder(),
               ),
@@ -171,13 +173,14 @@ class _MemoryEditorPageState extends ConsumerState<MemoryEditorPage> {
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
+                  height: 1,
                 ),
               ),
             ),
           ),
         ),
         body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           children: [
             MemorySkillTags(
               scope: _scope,
@@ -193,12 +196,12 @@ class _MemoryEditorPageState extends ConsumerState<MemoryEditorPage> {
               }),
               onOpen: () => _selectSkills(state.snapshot?.skills ?? []),
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 24),
             MemoryCard(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minHeight: 280),
                 child: Padding(
-                  padding: const EdgeInsets.all(22),
+                  padding: const EdgeInsets.all(16),
                   child: TextField(
                     controller: _text,
                     enabled: !state.busy,

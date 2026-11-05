@@ -30,7 +30,7 @@ MembershipCurrent member(String level) => MembershipCurrent(
 void main() {
   for (final platform in [TargetPlatform.android, TargetPlatform.iOS]) {
     testWidgets(
-      '$platform refreshed active membership changes displayed relationship',
+      '$platform refreshed active membership never adds relationship labels',
       (tester) async {
         final repository = LabelRepository();
         await tester.pumpWidget(host(platform, repository));
@@ -39,7 +39,8 @@ void main() {
         final container = ProviderScope.containerOf(context);
         container.read(catalogControllerProvider.notifier).selectLevel('PLUS');
         await tester.pump();
-        expect(find.text('升级'), findsNWidgets(3));
+        expect(find.text('升级'), findsNothing);
+        expect(find.text('续购'), findsNothing);
         repository.level = 'PLUS';
         repository.gate = Completer();
         final refresh = container
@@ -51,37 +52,43 @@ void main() {
         repository.gate!.complete(member('PLUS'));
         await refresh;
         await tester.pumpAndSettle();
-        expect(find.text('续购'), findsNWidgets(3));
+        expect(find.text('续购'), findsNothing);
+        expect(find.text('升级'), findsNothing);
+        expect(
+          container.read(catalogControllerProvider).membership?.level,
+          'PLUS',
+        );
       },
     );
 
-    testWidgets('$platform late old account response cannot replace new tags', (
-      tester,
-    ) async {
-      final epoch = StateProvider<int>((ref) => 1);
-      final repository = LabelRepository()..gate = Completer();
-      final old = repository.gate!;
-      await tester.pumpWidget(host(platform, repository, epoch: epoch));
-      await tester.pumpAndSettle();
-      expect(find.text('升级'), findsNothing);
-      expect(find.text('续购'), findsNothing);
-      final container = ProviderScope.containerOf(
-        tester.element(find.byType(MembershipPriceOptions)),
-      );
-      repository.gate = null;
-      repository.level = 'PLUS';
-      container.read(epoch.notifier).state = 2;
-      await tester.pumpAndSettle();
-      expect(find.text('续购'), findsNWidgets(3));
-      old.complete(member('BASIC'));
-      await tester.pumpAndSettle();
-      expect(find.text('续购'), findsNWidgets(3));
-      expect(find.text('升级'), findsNothing);
-      expect(
-        container.read(catalogControllerProvider).membership?.level,
-        'PLUS',
-      );
-    });
+    testWidgets(
+      '$platform late old account response cannot replace current membership or add labels',
+      (tester) async {
+        final epoch = StateProvider<int>((ref) => 1);
+        final repository = LabelRepository()..gate = Completer();
+        final old = repository.gate!;
+        await tester.pumpWidget(host(platform, repository, epoch: epoch));
+        await tester.pumpAndSettle();
+        expect(find.text('升级'), findsNothing);
+        expect(find.text('续购'), findsNothing);
+        final container = ProviderScope.containerOf(
+          tester.element(find.byType(MembershipPriceOptions)),
+        );
+        repository.gate = null;
+        repository.level = 'PLUS';
+        container.read(epoch.notifier).state = 2;
+        await tester.pumpAndSettle();
+        expect(find.text('续购'), findsNothing);
+        old.complete(member('BASIC'));
+        await tester.pumpAndSettle();
+        expect(find.text('续购'), findsNothing);
+        expect(find.text('升级'), findsNothing);
+        expect(
+          container.read(catalogControllerProvider).membership?.level,
+          'PLUS',
+        );
+      },
+    );
   }
 }
 

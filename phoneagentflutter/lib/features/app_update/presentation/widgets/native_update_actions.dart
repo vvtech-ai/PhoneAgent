@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_gradient_action.dart';
 
 /// OTA actions own their clipping and background; the gap is never painted.
 class NativeUpdateActions extends StatelessWidget {
@@ -39,50 +40,18 @@ class NativeUpdateActions extends StatelessWidget {
     VoidCallback? callback,
     bool primary,
   ) {
-    final enabled = callback != null;
-    final radius = BorderRadius.circular(18);
-    return Material(
-      color: Colors.transparent,
-      borderRadius: radius,
-      clipBehavior: Clip.antiAlias,
-      child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: radius,
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: primary && enabled
-                ? const [Color(0xFF0A84FF), Color(0xFF0071EB)]
-                : const [Color(0xFFF2F4F7), Color(0xFFE8ECF2)],
-          ),
-        ),
-        child: TextButton(
-          key: key,
-          onPressed: callback == null
-              ? null
-              : () {
-                  if (context.mounted &&
-                      ModalRoute.of(context)?.isCurrent == true) {
-                    callback();
-                  }
-                },
-          style: TextButton.styleFrom(
-            minimumSize: const Size(0, 48),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            shape: RoundedRectangleBorder(borderRadius: radius),
-            side: BorderSide.none,
-            foregroundColor: primary ? Colors.white : const Color(0xFF344054),
-            disabledForegroundColor: const Color(0xFF9CA7B5),
-            textStyle: const TextStyle(
-              fontSize: 15,
-              height: 20 / 15,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          child: Text(label, textAlign: TextAlign.center),
-        ),
-      ),
+    return NativeGradientAction(
+      actionKey: key,
+      tone: primary ? NativeActionTone.primary : NativeActionTone.secondary,
+      onPressed: callback == null
+          ? null
+          : () {
+              if (context.mounted &&
+                  ModalRoute.of(context)?.isCurrent == true) {
+                callback();
+              }
+            },
+      label: label,
     );
   }
 }

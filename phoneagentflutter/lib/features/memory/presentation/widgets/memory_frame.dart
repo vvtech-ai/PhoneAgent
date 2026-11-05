@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/design/native_page_header.dart';
+import '../../../../core/design/native_card_style.dart';
+import '../../../../core/design/native_page_background.dart';
 
 abstract final class MemoryColors {
   static const background = Color(0xFFF7F8FB),
@@ -33,44 +35,48 @@ class MemoryFrame extends StatelessWidget {
     canPop: !busy,
     child: Scaffold(
       backgroundColor: MemoryColors.background,
-      body: SafeArea(
-        child: Column(
-          children: [
-            NativePageHeader(
-              title: title,
-              onBack: busy ? null : onBack ?? () => Navigator.maybePop(context),
-              trailing: action,
-            ),
-            if (error.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 4,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        error,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: MemoryColors.red,
-                        ),
-                      ),
-                    ),
-                    if (onRetry != null)
-                      TextButton(
-                        onPressed: busy ? null : onRetry,
-                        child: Text(
-                          retryLabel,
-                          style: const TextStyle(color: MemoryColors.blue),
-                        ),
-                      ),
-                  ],
-                ),
+      body: NativePageBackground(
+        child: SafeArea(
+          child: Column(
+            children: [
+              NativePageHeader(
+                title: title,
+                onBack: busy
+                    ? null
+                    : onBack ?? () => Navigator.maybePop(context),
+                trailing: action,
               ),
-            Expanded(child: body),
-          ],
+              if (error.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 4,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          error,
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: MemoryColors.red,
+                          ),
+                        ),
+                      ),
+                      if (onRetry != null)
+                        TextButton(
+                          onPressed: busy ? null : onRetry,
+                          child: Text(
+                            retryLabel,
+                            style: const TextStyle(color: MemoryColors.blue),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              Expanded(child: body),
+            ],
+          ),
         ),
       ),
     ),
@@ -81,10 +87,13 @@ class MemoryCard extends StatelessWidget {
   const MemoryCard({super.key, required this.child});
   final Widget child;
   @override
-  Widget build(BuildContext context) => Material(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(24),
-    clipBehavior: Clip.antiAlias,
-    child: child,
+  Widget build(BuildContext context) => DecoratedBox(
+    decoration: NativeCardStyle.decoration,
+    child: Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(24),
+      clipBehavior: Clip.antiAlias,
+      child: child,
+    ),
   );
 }

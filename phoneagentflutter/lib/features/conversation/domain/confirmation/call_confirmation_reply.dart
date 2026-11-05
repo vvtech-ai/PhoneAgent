@@ -10,9 +10,10 @@ typedef CallReplyScope = ({
 });
 
 class CallReply {
-  const CallReply(this.decision, [this.answer = '']);
+  const CallReply(this.decision, [this.answer = '', this.unavailable = false]);
   final CallReplyDecision decision;
   final String answer;
+  final bool unavailable;
 }
 
 abstract interface class CallConfirmationReplyRepository {

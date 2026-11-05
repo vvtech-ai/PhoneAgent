@@ -44,7 +44,7 @@ class IdentityPage extends StatelessWidget {
         ),
         Expanded(
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(18, 12, 18, 28),
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 28),
             children: [
               IdentityStatusContent(
                 state: state,

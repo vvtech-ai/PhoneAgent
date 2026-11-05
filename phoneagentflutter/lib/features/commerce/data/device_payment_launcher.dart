@@ -8,9 +8,11 @@ class DevicePaymentLauncher
   const DevicePaymentLauncher({
     this.channel = const MethodChannel('phone_agent/commerce_payment'),
     this.diagnostics,
+    this.discoverWithoutPurchasePermission = false,
   });
   final MethodChannel channel;
   final CommerceDiagnostics? diagnostics;
+  final bool discoverWithoutPurchasePermission;
   static final Stream<void> _transactions = const EventChannel(
     'phone_agent/commerce_transactions',
   ).receiveBroadcastStream().map((_) {});
@@ -147,7 +149,7 @@ class DevicePaymentLauncher
 
   @override
   Future<List<NativePaymentResult>> restore() async {
-    if (!await available()) return [];
+    if (!discoverWithoutPurchasePermission && !await available()) return [];
     final clock = Stopwatch()..start();
     try {
       final results = await channel.invokeListMethod<Object?>('restore');

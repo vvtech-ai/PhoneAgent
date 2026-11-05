@@ -54,7 +54,8 @@ class AuthRequestDiagnostics {
   static DiagnosticAuthOutcome _failure(AuthFailure failure) =>
       switch (failure) {
         AuthFailure.unavailable => DiagnosticAuthOutcome.unavailable,
-        AuthFailure.rejected => DiagnosticAuthOutcome.rejected,
+        AuthFailure.rejected ||
+        AuthFailure.accountCancelled => DiagnosticAuthOutcome.rejected,
         AuthFailure.network ||
         AuthFailure.timeout ||
         AuthFailure.offline => DiagnosticAuthOutcome.network,

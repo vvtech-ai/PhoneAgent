@@ -16,7 +16,7 @@ import 'request_signing_providers.dart';
 // Epoch changes on login/restore/sign-out, not on an access-token refresh.
 final loginEpochProvider = Provider<int?>((ref) {
   ref.watch(sessionControllerProvider);
-  return ref.read(sessionControllerProvider.notifier).credentials?.epoch;
+  return ref.read(sessionControllerProvider.notifier).identityEpoch;
 });
 final accountApiProvider = Provider.autoDispose<AccountApi>((ref) {
   ref.watch(loginEpochProvider);

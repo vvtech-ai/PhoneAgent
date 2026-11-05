@@ -191,6 +191,8 @@ final conversationControllerProvider = StateNotifierProvider.autoDispose
             controller.isOpen &&
             accountSession.credentials?.epoch == epoch,
         initialOpening: () => controller.pendingInitialOpening,
+        initialSkillId: () => controller.pendingInitialEntry?.skillId,
+        selectedContact: () => controller.pendingInitialEntry?.selectedContact,
       );
       controller = ConversationController(
         entry: entry,

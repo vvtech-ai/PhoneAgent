@@ -25,10 +25,7 @@ void main() {
             data: MediaQueryData(textScaler: TextScaler.linear(2)),
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: SizedBox(
-                width: 70,
-                child: AiContentNotice(style: TextStyle(fontSize: 13)),
-              ),
+              child: SizedBox(width: 40, child: AiContentNotice.dark()),
             ),
           ),
         ),
@@ -41,8 +38,8 @@ void main() {
     );
     expect(boxes.map((box) => box.top).toSet().length, greaterThan(1));
     expect(paragraph.didExceedMaxLines, isFalse);
-    expect(paragraph.textScaler.scale(13), 26);
-    expect(tester.getSize(notice).width, lessThanOrEqualTo(70));
+    expect(paragraph.textScaler.scale(11), 11);
+    expect(tester.getSize(notice).width, lessThanOrEqualTo(40));
     expect(tester.getSemantics(notice).getSemanticsData().label, '内容由AI生成');
     expect(
       tester
@@ -110,17 +107,21 @@ void main() {
             final labelText = tester.widget<Text>(label);
             expect(
               noticeText.style,
-              labelText.style!.copyWith(
-                fontSize: (labelText.style!.fontSize! * .7).roundToDouble(),
-                color: const Color(0xFF999999),
-                fontWeight: FontWeight.normal,
+              const TextStyle(
+                fontSize: 11,
+                color: Color.fromRGBO(255, 255, 255, .34),
+                fontWeight: FontWeight.w400,
                 fontStyle: FontStyle.normal,
               ),
             );
-            expect(noticeText.style!.fontSize, translation ? 9 : 8);
-            expect(noticeText.style!.fontFamily, isNull);
             expect(labelText.style!.fontSize, translation ? 13 : 12);
-            expect(noticeText.textAlign, labelText.textAlign);
+            final labelParagraph = tester.renderObject<RenderParagraph>(label);
+            expect(
+              labelParagraph.textScaler.scale(labelText.style!.fontSize!),
+              labelText.style!.fontSize! * scale,
+            );
+            expect(noticeText.textAlign, TextAlign.center);
+            expect(noticeText.textScaler, TextScaler.noScaling);
             expect(noticeText.maxLines, isNull);
             expect(noticeText.overflow, isNot(TextOverflow.ellipsis));
             final paragraph = tester.renderObject<RenderParagraph>(notice);
@@ -143,6 +144,14 @@ void main() {
             expect(hangups, 1);
             await render(true);
             expect(notice, findsOneWidget);
+            expect(
+              tester.widget<Text>(notice).style!.color,
+              const Color.fromRGBO(255, 255, 255, .34),
+            );
+            expect(
+              find.ancestor(of: notice, matching: find.byType(Opacity)),
+              findsNothing,
+            );
             await tester.tap(button);
             expect(hangups, 1);
             expect(tester.takeException(), isNull);

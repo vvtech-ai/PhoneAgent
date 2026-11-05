@@ -272,28 +272,31 @@ class InvoiceSheet extends StatelessWidget {
                 if (state.busy) const LinearProgressIndicator(),
                 Padding(
                   padding: const EdgeInsets.only(top: 12),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: CommerceAction(
-                          '关闭',
-                          secondary: true,
-                          onPressed: state.busy ? null : onClose,
+                  child: IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: CommerceAction(
+                            '关闭',
+                            secondary: true,
+                            onPressed: state.busy ? null : onClose,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        flex: 2,
-                        child: CommerceAction(
-                          invoice == null && allowApply ? '提交申请' : '查询状态',
-                          onPressed: state.busy
-                              ? null
-                              : invoice == null && allowApply
-                              ? onSubmit
-                              : onRefresh,
+                        const SizedBox(width: 10),
+                        Expanded(
+                          flex: 2,
+                          child: CommerceAction(
+                            invoice == null && allowApply ? '提交申请' : '查询状态',
+                            onPressed: state.busy
+                                ? null
+                                : invoice == null && allowApply
+                                ? onSubmit
+                                : onRefresh,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

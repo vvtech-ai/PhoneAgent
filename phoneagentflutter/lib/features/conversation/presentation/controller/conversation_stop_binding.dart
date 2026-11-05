@@ -32,6 +32,7 @@ class ConversationStopBinding {
     int Function()? generation,
     this.onBatchRecovery,
     this.onBatchCompleted,
+    this.onProgressEvent,
     this.diagnostics,
   }) {
     _foreground = ConversationForegroundBatchRecovery(
@@ -196,6 +197,7 @@ class ConversationStopBinding {
         );
         for (final event in snapshot.events) {
           batch.accept(event, _command);
+          onProgressEvent?.call(event, _command);
         }
         batch.progressRead();
         messages.batch(_command, batch.snapshot());
@@ -315,6 +317,7 @@ class ConversationStopBinding {
       },
       batchAccepted: (id) {
         _batchId = id;
+        _observedStopAccepted?.call(id, _flow?.retryBatchId == null);
         onBatchRecovery?.call(id);
         _recovery?.start(id);
       },
@@ -476,6 +479,8 @@ class ConversationStopBinding {
   bool _hasProgress = false;
   final void Function(String)? onBatchRecovery;
   final void Function()? onBatchCompleted;
+  final void Function(AgentEvent, String)? onProgressEvent;
+  void Function(String, bool)? _observedStopAccepted;
   final DiagnosticSink? diagnostics;
   void _record(
     DiagnosticBatchResultStage stage,
@@ -587,5 +592,29 @@ class ConversationStopBinding {
   Future<void> stop(Future<bool> Function(String) confirmBatch) async {
     if (batch.active && batch.batchId.isNotEmpty) _batchId ??= batch.batchId;
     await _flow?.stop(_command, confirmBatch);
+  }
+
+  /// The call-page hangup is explicit consent; retain the normal stop owner.
+  Future<bool> stopObservedBatch(String id) async {
+    if (!current() ||
+        !batch.active ||
+        batch.batchId != id ||
+        _flow == null ||
+        busy) {
+      return false;
+    }
+    final accepted = Completer<bool>();
+    void receive(String batchId, bool success) {
+      if (batchId == id && !accepted.isCompleted) accepted.complete(success);
+    }
+
+    _observedStopAccepted = receive;
+    unawaited(
+      stop((batchId) async => batchId == id).whenComplete(() {
+        if (!accepted.isCompleted) accepted.complete(false);
+        if (_observedStopAccepted == receive) _observedStopAccepted = null;
+      }),
+    );
+    return accepted.future;
   }
 }

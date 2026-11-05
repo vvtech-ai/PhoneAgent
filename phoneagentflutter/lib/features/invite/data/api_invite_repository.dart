@@ -10,6 +10,7 @@ import '../../../../core/diagnostics/diagnostic_event.dart';
 import 'invite_resolve_diagnostics.dart';
 
 const inviteErrorCodes = {
+  'INVITER_ACCOUNT_CANCELLED',
   'ACTIVITY_DISABLED',
   'ACTIVITY_UNAVAILABLE',
   'ACTIVITY_RETIRED',

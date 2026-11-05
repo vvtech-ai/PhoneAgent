@@ -1,4 +1,10 @@
 import 'home_config.dart';
+import '../../../core/config/app_config.dart';
+import 'home_test_snapshot.dart';
+
+// Other environments keep their confirmed snapshot until independently updated.
+HomeConfig bundledHomeFor(AppEnvironment? environment) =>
+    environment == AppEnvironment.test ? testHomeSnapshot : builtinHome;
 
 // Card snapshot: v66 a0bedb12 HomeConfigDefaults. Openings are copied verbatim
 // from the same revision's backend/src/main/resources/skills frontmatter:

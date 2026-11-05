@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/design/shell_tokens.dart';
+import '../../../../core/design/native_navigation_backdrop.dart';
+import '../../../../core/design/native_page_header.dart';
 import '../../../../core/design/native_setting_controls.dart';
 import '../widgets/settings_logout_button.dart';
 import '../../../invite/domain/invite_entry_presentation.dart';
@@ -39,21 +40,15 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-        child: Text(
-          '设置',
-          style: TextStyle(
-            fontSize: 28,
-            height: 40 / 28,
-            fontWeight: FontWeight.w800,
-            color: ShellTokens.ink,
-          ),
-        ),
-      ),
+      const NativePageHeader(title: '设置', showBack: false),
       Expanded(
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 16),
+          padding: EdgeInsets.fromLTRB(
+            16,
+            10,
+            16,
+            16 + NativeNavigationBackdrop.contentInsetOf(context),
+          ),
           children: [
             _entry(SettingsDestination.memory, '记忆', '管理在任务中使用的背景与偏好'),
             _entry(

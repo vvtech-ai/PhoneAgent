@@ -61,7 +61,7 @@ void main() {
     },
   );
   test(
-    'foreground Apple query accepts unfinished transaction before finish and retains crediting',
+    'foreground Apple query retains crediting without finishing unfulfilled transaction',
     () async {
       final repository = FakeCommerceRepository()
         ..current = CommerceOrder(
@@ -93,7 +93,7 @@ void main() {
       await controller.query('order-1');
       await controller.query('order-1');
       expect(controller.state.order?.appState, OrderAppState.crediting);
-      expect(launcher.acknowledgements, 1);
+      expect(launcher.acknowledgements, 0);
       controller.dispose();
     },
   );

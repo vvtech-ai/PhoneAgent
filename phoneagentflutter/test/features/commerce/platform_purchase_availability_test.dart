@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:phone_agent/features/commerce/data/commerce_dto.dart';
+import 'package:phone_agent/features/commerce/domain/commerce_catalog.dart';
 import 'package:phone_agent/features/commerce/presentation/controller/catalog_controller.dart';
 import 'package:phone_agent/features/commerce/presentation/controller/membership_checkout.dart';
 import 'package:phone_agent/features/commerce/presentation/controller/purchase_controller.dart';
@@ -79,7 +80,17 @@ void main() {
   for (final member in [true, false]) {
     for (final points in [true, false]) {
       test('catalog independent flags $member/$points govern purchasable', () {
-        final state = platformState(member: member, points: points);
+        final fixture = platformState(member: member, points: points);
+        final state = CatalogState(
+          catalog: fixture.catalog,
+          membership: const MembershipCurrent(
+            level: 'FREE',
+            entitlementVersionId: 1,
+            benefits: {},
+            terms: [],
+          ),
+          channelAvailable: true,
+        );
         expect(state.purchasable(state.catalog!.products[0]), member);
         expect(state.purchasable(state.catalog!.products[1]), points);
       });
@@ -124,6 +135,12 @@ void main() {
       ..remove('pointsPackEnabled');
     final state = CatalogState(
       catalog: CommerceDto.catalog(raw),
+      membership: const MembershipCurrent(
+        level: 'FREE',
+        entitlementVersionId: 1,
+        benefits: {},
+        terms: [],
+      ),
       channelAvailable: true,
     );
     expect(state.catalog!.products.every(state.purchasable), isTrue);

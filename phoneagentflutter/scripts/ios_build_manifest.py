@@ -37,7 +37,7 @@ def validate_schema(data):
                   'version', 'source', 'inputs', 'target_device_sha256', 'artifact', 'bundles'])
     if type(data['schema_version']) is not int or data['schema_version'] != 1:
         raise InviteConfigurationError('不支持的构建清单版本。')
-    config = policy(data['environment'])
+    config = policy(data['environment'], data['build_mode'])
     if data['environment'] != config['environment'] or data['sdk_environment'] != config['sdk'] or data['build_mode'] != config['mode']:
         raise InviteConfigurationError('清单环境或构建模式冲突。')
     _exact(data['version'], ['name', 'number'])
@@ -162,12 +162,14 @@ def create_manifest(ipa, name, config, source, inputs, device, app):
 
 
 def validate_package(ipa, manifest_path, environment, version, number, expected_sha256, device=None,
-                     artifact_name=None, expected_source=None):
+                     artifact_name=None, expected_source=None, expected_mode=None):
     ipa = Path(ipa)
     if ipa.is_symlink() or not ipa.is_file():
         raise InviteConfigurationError('IPA 缺失或为链接。')
     data = load_manifest(manifest_path)
-    config = policy(environment)
+    config = policy(environment, expected_mode)
+    if expected_mode is not None and data['build_mode'] != config['mode']:
+        raise InviteConfigurationError('IPA 构建模式与明确选择不符；禁止安装。')
     if (data['environment'] != config['environment'] or data['version'] != {'name': version, 'number': number} or
             data['artifact']['file'] != (artifact_name or ipa.name)):
         raise InviteConfigurationError('IPA 清单与明确选择的环境、版本或文件名不符。')
@@ -180,6 +182,8 @@ def validate_package(ipa, manifest_path, environment, version, number, expected_
         raise InviteConfigurationError('此构建清单对应其他目标设备。')
     with tempfile.TemporaryDirectory(prefix='ios-manifest-verify-') as temporary:
         app = extract_ipa(ipa, Path(temporary))
+        if data['build_mode'] != 'debug' and not (app / 'Frameworks/App.framework/App').is_file():
+            raise InviteConfigurationError('AOT 构建缺少 App.framework 二进制。')
         if bundle_inventory(app, config['environment'], device) != data['bundles']:
             raise InviteConfigurationError('清单与实际主包/扩展签名内容不符。')
     return data

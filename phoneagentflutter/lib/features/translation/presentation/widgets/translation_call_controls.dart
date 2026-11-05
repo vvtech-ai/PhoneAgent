@@ -16,8 +16,21 @@ class TranslationCallControls extends StatelessWidget {
     required this.onPad,
     required this.onDigit,
     required this.onHangup,
+    this.includeAiNotice = true,
   });
+  final bool includeAiNotice;
   final TranslationCallView state;
+
+  TranslationCallControls get actionsOnly => TranslationCallControls(
+    key: key,
+    state: state,
+    onMute: onMute,
+    onSpeaker: onSpeaker,
+    onPad: onPad,
+    onDigit: onDigit,
+    onHangup: onHangup,
+    includeAiNotice: false,
+  );
   final VoidCallback onMute, onSpeaker, onPad, onHangup;
   final ValueChanged<String> onDigit;
   @override
@@ -90,12 +103,12 @@ class TranslationCallControls extends StatelessWidget {
           state.terminal || state.stopping ? null : onHangup,
           danger: true,
         ),
-        const SizedBox(height: _labelGap),
-        AiContentNotice(
-          style: _labelStyle.copyWith(
-            fontSize: (_labelStyle.fontSize! * .7).roundToDouble(),
+        if (includeAiNotice) ...[
+          SizedBox(
+            height: _labelGap + AiContentNotice.iosSafeAreaAdjustment(context),
           ),
-        ),
+          const AiContentNotice.dark(),
+        ],
       ],
     );
   }

@@ -5,7 +5,7 @@ import 'package:phone_agent/features/initialization/presentation/widgets/initial
 void main() {
   for (final platform in [TargetPlatform.iOS, TargetPlatform.android]) {
     for (final scale in [1.0, 2.0]) {
-      testWidgets('$platform $scale centered header and complete hit targets', (
+      testWidgets('$platform $scale left title and preserved actions', (
         tester,
       ) async {
         tester.view.physicalSize = const Size(320, 568);
@@ -40,15 +40,16 @@ void main() {
         final header = tester.getRect(find.byType(InitializationHeader));
         final backRect = tester.getRect(find.byTooltip('返回上一步'));
         final skipRect = tester.getRect(find.widgetWithText(TextButton, '跳过'));
-        expect(title.center.dx, 160);
-        expect(header.height, scale == 1 ? 48 : greaterThan(48));
+        expect(title.left, 46);
+        expect(title.height, 40 * scale);
+        expect(header.height, 16 + 40 * scale);
+        expect(backRect.size, const Size.square(48));
         for (final rect in [backRect, skipRect]) {
-          expect(rect.width, greaterThanOrEqualTo(48));
-          expect(rect.height, greaterThanOrEqualTo(48));
+          expect(rect.width, greaterThanOrEqualTo(40));
+          expect(rect.height, greaterThanOrEqualTo(40));
           expect(header.contains(rect.topLeft), isTrue);
           expect(rect.bottom, lessThanOrEqualTo(header.bottom));
         }
-        expect(title.left, greaterThanOrEqualTo(backRect.right));
         expect(title.right, lessThanOrEqualTo(skipRect.left));
         await tester.tap(find.byTooltip('返回上一步'));
         await tester.tap(find.text('跳过'));

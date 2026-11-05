@@ -21,25 +21,33 @@ void showNativeNotice(
   Duration duration = const Duration(milliseconds: 1800),
   OverlayState? overlay,
   Object? owner,
+  bool centered = false,
 }) {
   if (message.isEmpty || !context.mounted) return;
   final hostOverlay = overlay ?? Overlay.of(context);
   if (!hostOverlay.mounted) return;
   if (_noticeQueue?.overlay != hostOverlay) dismissNativeNotice();
   final queue = _noticeQueue ??= _NativeNoticeQueue(hostOverlay);
-  queue.add(message, duration, owner);
+  queue.add(message, duration, owner, centered);
 }
 
 class _NativeNoticeQueue {
   _NativeNoticeQueue(this.overlay);
   final OverlayState overlay;
   final _pending =
-      Queue<({String message, Duration duration, Object? owner})>();
+      Queue<
+        ({String message, Duration duration, Object? owner, bool centered})
+      >();
   OverlayEntry? _entry;
   Object? _entryOwner;
 
-  void add(String message, Duration duration, Object? owner) {
-    _pending.add((message: message, duration: duration, owner: owner));
+  void add(String message, Duration duration, Object? owner, bool centered) {
+    _pending.add((
+      message: message,
+      duration: duration,
+      owner: owner,
+      centered: centered,
+    ));
     _showNext();
   }
 
@@ -60,6 +68,7 @@ class _NativeNoticeQueue {
     entry = OverlayEntry(
       builder: (_) => _NativeNotice(
         message: request.message,
+        centered: request.centered,
         duration: request.duration,
         onDismiss: () => _finish(entry),
         onDisposed: () {
@@ -96,11 +105,13 @@ class _NativeNoticeQueue {
 class _NativeNotice extends StatefulWidget {
   const _NativeNotice({
     required this.message,
+    required this.centered,
     required this.duration,
     required this.onDismiss,
     required this.onDisposed,
   });
   final String message;
+  final bool centered;
   final Duration duration;
   final VoidCallback onDismiss;
   final VoidCallback onDisposed;
@@ -153,15 +164,19 @@ class _NativeNoticeState extends State<_NativeNotice>
         child: SafeArea(
           bottom: false,
           child: Padding(
-            padding: EdgeInsets.only(bottom: bottom),
+            padding: EdgeInsets.only(bottom: widget.centered ? 0 : bottom),
             child: Align(
-              alignment: Alignment.bottomCenter,
+              alignment: widget.centered
+                  ? Alignment.center
+                  : Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: DecoratedBox(
                   key: const ValueKey('nativeNoticeSurface'),
                   decoration: BoxDecoration(
-                    color: const Color(0xFAFFFFFF),
+                    color: widget.centered
+                        ? const Color(0xE6333333)
+                        : const Color(0xFAFFFFFF),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: const Color(0xFFD1D1D1)),
                     boxShadow: const [
@@ -180,15 +195,16 @@ class _NativeNoticeState extends State<_NativeNotice>
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Image.asset(
-                          'assets/images/auth_brand_logo.png',
-                          key: const ValueKey('nativeNoticeBrand'),
-                          width: 22,
-                          height: 22,
-                          fit: BoxFit.contain,
-                          excludeFromSemantics: true,
-                        ),
-                        const SizedBox(width: 8),
+                        if (!widget.centered)
+                          Image.asset(
+                            'assets/images/auth_brand_logo.png',
+                            key: const ValueKey('nativeNoticeBrand'),
+                            width: 22,
+                            height: 22,
+                            fit: BoxFit.contain,
+                            excludeFromSemantics: true,
+                          ),
+                        if (!widget.centered) const SizedBox(width: 8),
                         Flexible(
                           child: Text.rich(
                             TextSpan(
@@ -207,12 +223,14 @@ class _NativeNoticeState extends State<_NativeNotice>
                               ],
                             ),
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: TextStyle(
                               inherit: false,
                               decoration: TextDecoration.none,
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1A1A1A),
+                              color: widget.centered
+                                  ? Colors.white
+                                  : const Color(0xFF1A1A1A),
                             ),
                           ),
                         ),

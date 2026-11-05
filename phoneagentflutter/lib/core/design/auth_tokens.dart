@@ -7,8 +7,10 @@ abstract final class AuthTokens {
   static const secondary = Color(0xFF8B8FA3);
   static const hint = Color(0xFFB0B4C3);
   static const field = Color(0xFFF5F7FA);
+  static const codeField = Color(0xFFE8EDF3);
+  static const codeBorder = Color(0xFFB5C0CE);
   static const radius = 12.0;
-  static const horizontalPadding = 24.0;
+  static const horizontalPadding = 16.0;
   static const formMaxWidth = 320.0;
   static const fieldHeight = 48.0;
   static const ctaHeight = 50.0;

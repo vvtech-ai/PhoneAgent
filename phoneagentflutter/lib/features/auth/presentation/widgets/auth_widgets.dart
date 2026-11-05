@@ -1,6 +1,9 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/design/auth_tokens.dart';
+import '../../../../core/design/native_action_style.dart';
+import '../../../../core/design/native_page_background.dart';
 
 class AuthFrame extends StatelessWidget {
   const AuthFrame({required this.child, super.key});
@@ -8,8 +11,7 @@ class AuthFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: DecoratedBox(
-      decoration: const BoxDecoration(gradient: AuthTokens.background),
+    body: NativePageBackground(
       child: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -72,8 +74,16 @@ class AuthBrand extends StatelessWidget {
 }
 
 class AuthInputGroup extends StatefulWidget {
-  const AuthInputGroup({required this.child, super.key});
+  const AuthInputGroup({
+    required this.child,
+    this.focused,
+    this.backgroundColor = AuthTokens.field,
+    this.borderColor = Colors.transparent,
+    super.key,
+  });
   final Widget child;
+  final bool? focused;
+  final Color backgroundColor, borderColor;
   @override
   State<AuthInputGroup> createState() => _AuthInputGroupState();
 }
@@ -86,10 +96,12 @@ class _AuthInputGroupState extends State<AuthInputGroup> {
     child: Container(
       constraints: const BoxConstraints(minHeight: AuthTokens.fieldHeight),
       decoration: BoxDecoration(
-        color: AuthTokens.field,
+        color: widget.backgroundColor,
         borderRadius: BorderRadius.circular(AuthTokens.radius),
         border: Border.all(
-          color: _focused ? AuthTokens.accent : Colors.transparent,
+          color: (widget.focused ?? _focused)
+              ? AuthTokens.accent
+              : widget.borderColor,
         ),
       ),
       child: widget.child,
@@ -109,22 +121,112 @@ class AuthPrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SizedBox(
     width: double.infinity,
-    child: FilledButton(
-      style: FilledButton.styleFrom(
-        minimumSize: const Size(0, AuthTokens.ctaHeight),
-        padding: const EdgeInsets.symmetric(vertical: 13),
-        backgroundColor: AuthTokens.accent,
-        disabledBackgroundColor: AuthTokens.accent.withValues(alpha: 0.45),
-        foregroundColor: Colors.white,
-        disabledForegroundColor: Colors.white,
-        textStyle: AuthTokens.cta,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AuthTokens.radius),
-        ),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    child: DecoratedBox(
+      decoration: NativeActionStyle.decoration(enabled: onPressed != null),
+      child: FilledButton(
+        style: NativeActionStyle.buttonStyle(context),
+        onPressed: onPressed,
+        child: Text(label, textAlign: TextAlign.center),
       ),
-      onPressed: onPressed,
-      child: Text(label),
     ),
   );
+}
+
+/// One input owns paste/autofill; six existing-style surfaces render its digits.
+class AuthCodeInput extends StatelessWidget {
+  const AuthCodeInput({
+    required this.controller,
+    required this.onChanged,
+    this.enabled = true,
+    this.focusNode,
+    this.autofocus = false,
+    super.key,
+  });
+  final TextEditingController controller;
+  final ValueChanged<String> onChanged;
+  final bool enabled;
+  final FocusNode? focusNode;
+  final bool autofocus;
+  @override
+  Widget build(BuildContext context) => SizedBox(
+    height: AuthTokens.fieldHeight,
+    child: Stack(
+      children: [
+        Positioned.fill(
+          child: Semantics(
+            label: '6位验证码',
+            child: Opacity(
+              opacity: 0,
+              alwaysIncludeSemantics: true,
+              child: TextField(
+                key: const Key('verification-code-input'),
+                controller: controller,
+                focusNode: focusNode,
+                autofocus: autofocus,
+                enabled: enabled,
+                keyboardType: TextInputType.number,
+                autofillHints: const [AutofillHints.oneTimeCode],
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(6),
+                ],
+                onChanged: onChanged,
+                style: AuthTokens.input,
+                showCursor: false,
+                decoration: null,
+              ),
+            ),
+          ),
+        ),
+        Positioned.fill(
+          child: ExcludeSemantics(
+            child: IgnorePointer(
+              child: AnimatedBuilder(
+                animation: Listenable.merge([
+                  controller,
+                  if (focusNode != null) focusNode!,
+                ]),
+                builder: (_, __) => Row(
+                  children: [
+                    for (var i = 0; i < 6; i++) ...[
+                      if (i > 0) const SizedBox(width: 8),
+                      Expanded(
+                        child: AuthInputGroup(
+                          focused: focusNode == null ? null : _active(i),
+                          backgroundColor: AuthTokens.codeField,
+                          borderColor: AuthTokens.codeBorder,
+                          child: Center(
+                            child: _active(i) && controller.text.length <= i
+                                ? const SizedBox(
+                                    height: 20,
+                                    child: VerticalDivider(
+                                      width: 2,
+                                      thickness: 2,
+                                      color: AuthTokens.foreground,
+                                    ),
+                                  )
+                                : Text(
+                                    controller.text.length > i
+                                        ? controller.text[i]
+                                        : '',
+                                    style: AuthTokens.input,
+                                  ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+
+  bool _active(int index) =>
+      enabled &&
+      focusNode?.hasFocus == true &&
+      index == controller.text.length.clamp(0, 5);
 }

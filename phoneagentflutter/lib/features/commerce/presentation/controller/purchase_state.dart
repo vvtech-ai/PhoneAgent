@@ -12,6 +12,7 @@ class PurchaseState {
     this.error = '',
     this.recoveryMessage = '',
     this.recoveredPreviousPurchase = false,
+    this.foreignAppleTransactionSettled = false,
     this.nativeResultStatus,
     this.nativeOutcome,
   });
@@ -19,6 +20,7 @@ class PurchaseState {
   final CommerceOrder? order;
   final RecoveryPreview? recovery;
   final bool busy, waitingForApple, recoveredPreviousPurchase;
+  final bool foreignAppleTransactionSettled;
   bool get purchaseBlocked => busy || waitingForApple;
   bool get showPaymentOverlay => busy || waitingForApple;
   final String error, recoveryMessage;

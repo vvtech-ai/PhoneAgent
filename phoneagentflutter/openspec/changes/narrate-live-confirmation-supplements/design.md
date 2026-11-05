@@ -1,0 +1,7 @@
+# 设计与范围
+
+事件分发在ledger应用成功、当前代次仍有效且事件首次到达时通知onLiveCommitted；不会遍历REST补查的旧事实。绑定层核对事实commandId/recordId与当前输入、pendingToolCallId与当前待确认卡。SpeechController仅接受同会话v1确认补充，使用原_enqueue、静音/前后台/打断/封口门禁与事件身份去重；不新建音频队列，不修改结果说明的terminal关联。
+
+相同文案不同事件可分别播报，重复事件无第二次资格。静音、历史恢复、离页或旧代次不补播，历史文本仍显示。恢复pending与实际拨打保持原业务owner。
+
+改动限conversation_event_flow.dart、conversation_event_binding.dart及conversation_speech_controller.dart三个单一职责接线点。SpeechController原已超过500行，本次作为单职责Bug修复例外，仅增加短补充接收方法；不加入网络/显示/拨号判断，也不扩大结果播报规则。资格复杂度若继续增加再独立提取策略，避免为本次制造第二个播放owner。回归须覆盖正常播报、单/多路确认和结果播报。

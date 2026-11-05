@@ -53,8 +53,8 @@ class _MembershipActivationRulesState extends State<MembershipActivationRules> {
               children: [
                 Text(
                   preview.queued
-                      ? '预计日期按当前已购套餐测算。以后购买更高等级套餐，可能使本套餐顺延；首期积分在实际生效时到账。'
-                      : '支付成功后立即生效。以后购买更高等级套餐，本套餐剩余权益会暂停保留，待更高等级套餐使用完后按顺序恢复；已到账积分仍可使用。',
+                      ? '预计日期按当前已购套餐测算。以后购买更高等级或同等级更长周期套餐，可能使本套餐顺延；首期积分在实际生效时到账。'
+                      : '支付成功后立即生效。以后购买更高等级或同等级更长周期套餐，本套餐剩余权益会暂停保留，待这些套餐使用完后按顺序恢复；已到账积分仍可使用。',
                   style: style,
                 ),
                 for (final item in preview.precedingEntitlements)

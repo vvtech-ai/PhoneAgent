@@ -58,9 +58,12 @@ Future<PurchaseController> mount(
 }
 
 Future<void> buy(WidgetTester tester) async {
-  await tester.ensureVisible(find.text('购买会员'));
+  // Use an eligible higher-tier offer; duplicate BASIC purchases are now blocked.
+  await tester.tap(find.text('中级'));
   await tester.pumpAndSettle();
-  await tester.tap(find.text('购买会员'));
+  await tester.ensureVisible(find.text('升级会员'));
+  await tester.pumpAndSettle();
+  await tester.tap(find.text('升级会员'));
   await tester.pumpAndSettle();
 }
 

@@ -4,6 +4,7 @@ import '../../../domain/receipts/call_dialogue.dart';
 import '../../../domain/receipts/call_receipt.dart';
 import '../../../domain/receipts/call_receipt_status.dart';
 import '../../../domain/receipts/native_call_receipt_presentation.dart';
+import '../call_receipt_phone_mask.dart';
 import 'receipt_sections.dart';
 
 bool _isDiagnosticField(ReceiptField field) {
@@ -155,7 +156,7 @@ class CallReceiptCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
+                maskCallReceiptPhoneNumbers(title),
                 style: ReceiptTokens.title.copyWith(
                   color: tint,
                   height: 18 / 14,
@@ -165,7 +166,7 @@ class CallReceiptCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Text(
-                    reasonOnlyText,
+                    maskCallReceiptPhoneNumbers(reasonOnlyText),
                     style: const TextStyle(
                       fontSize: 13,
                       height: 18 / 13,
@@ -177,17 +178,26 @@ class CallReceiptCard extends StatelessWidget {
                 if (structured)
                   for (final field in receipt.fields)
                     if (!protectTaskReason || _showTaskField(field))
-                      ReceiptFieldRow(field.label, field.value),
+                      ReceiptFieldRow(
+                        maskCallReceiptPhoneNumbers(field.label),
+                        maskCallReceiptPhoneNumbers(field.value),
+                      ),
                 ReceiptFieldRow('状态', status, color: tint),
                 if (!structured &&
                     plan.showContact &&
                     receipt.targetName.isNotEmpty)
-                  ReceiptFieldRow(plan.targetLabel, receipt.targetName),
+                  ReceiptFieldRow(
+                    plan.targetLabel,
+                    maskCallReceiptPhoneNumbers(receipt.targetName),
+                  ),
                 if (!structured &&
                     !plan.booking &&
                     plan.showContact &&
                     receipt.phoneNumber.isNotEmpty)
-                  ReceiptFieldRow('电话', receipt.phoneNumber),
+                  ReceiptFieldRow(
+                    '电话',
+                    maskCallReceiptPhoneNumbers(receipt.phoneNumber),
+                  ),
                 if ((protectTaskReason
                         ? !plan.executionError && shortHeadline.isNotEmpty
                         : (!structured || plan.terminalIncomplete) &&
@@ -201,8 +211,10 @@ class CallReceiptCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: SelectableText(
-                      receipt.headline,
-                      semanticsLabel: receipt.headline,
+                      maskCallReceiptPhoneNumbers(receipt.headline),
+                      semanticsLabel: maskCallReceiptPhoneNumbers(
+                        receipt.headline,
+                      ),
                       style: ReceiptTokens.body,
                     ),
                   ),
@@ -215,8 +227,10 @@ class CallReceiptCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: SelectableText(
-                      receipt.detail,
-                      semanticsLabel: receipt.detail,
+                      maskCallReceiptPhoneNumbers(receipt.detail),
+                      semanticsLabel: maskCallReceiptPhoneNumbers(
+                        receipt.detail,
+                      ),
                       style: ReceiptTokens.body,
                     ),
                   ),
@@ -238,7 +252,7 @@ class CallReceiptCard extends StatelessWidget {
                           ),
                         ),
                         SelectableText(
-                          displayReason,
+                          maskCallReceiptPhoneNumbers(displayReason),
                           style: ReceiptTokens.body,
                         ),
                       ],
@@ -250,7 +264,10 @@ class CallReceiptCard extends StatelessWidget {
                     !reasonInFields &&
                     displayReason != status &&
                     displayReason != title)
-                  ReceiptFieldRow('原因', displayReason),
+                  ReceiptFieldRow(
+                    '原因',
+                    maskCallReceiptPhoneNumbers(displayReason),
+                  ),
               ],
               if (receipt.billing case final billing?)
                 ReceiptBillingSection(billing: billing),

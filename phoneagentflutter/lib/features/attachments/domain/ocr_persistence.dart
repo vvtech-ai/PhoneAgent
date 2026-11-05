@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import '../../conversation/domain/agent_protocol.dart';
 import 'ocr_attachment.dart';
 
 const ocrMaxImageBytes = 10 * 1024 * 1024;
@@ -22,12 +23,16 @@ class OcrUpload {
     required this.mimeType,
     required this.recognition,
     this.initialOpening,
+    this.initialSkillId,
+    this.selectedContact,
   });
   final String sessionId, fileName, mimeType;
   final OcrAttachment attachment;
   final Uint8List bytes;
   final OcrRecognition recognition;
   final String? initialOpening;
+  final String? initialSkillId;
+  final SelectedContactContext? selectedContact;
 }
 
 class PersistedOcrAttachment {

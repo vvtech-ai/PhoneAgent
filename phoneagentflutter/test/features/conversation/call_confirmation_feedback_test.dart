@@ -12,6 +12,8 @@ import 'package:phone_agent/features/conversation/presentation/controller/conver
 import 'package:phone_agent/features/conversation/presentation/controller/conversation_state.dart';
 import 'package:phone_agent/features/conversation/presentation/pages/conversation_page.dart';
 import '../../support/confirm_rendered_call.dart';
+import '../../support/confirmation_reply_stub.dart';
+import 'package:phone_agent/features/conversation/domain/confirmation/call_confirmation_policy.dart';
 
 Widget _page(ConversationState state, {bool awaiting = false}) => MaterialApp(
   home: Scaffold(
@@ -46,6 +48,7 @@ void main() {
           history: ports,
           callAdmission: ports.admission,
           callSessions: ports,
+          confirmationReplies: const ConfirmationReplyStub(),
           nextId: () => 'feedback-${id++}',
         );
         addTearDown(c.dispose);
@@ -66,6 +69,7 @@ void main() {
                 ),
           isTrue,
         );
+        await tester.pump();
         final echo = c.state.messages.where(
           (m) => m.role == MessageRole.user && m.text == text,
         );
@@ -113,6 +117,9 @@ void main() {
           history: ports,
           callAdmission: ports.admission,
           callSessions: ports,
+          confirmationReplies: const ConfirmationReplyStub(
+            decisions: {'先不要拨打': CallReplyDecision.cancel},
+          ),
         );
         addTearDown(c.dispose);
         c.send('创建合成任务');
@@ -131,6 +138,7 @@ void main() {
         );
         markCallCardPresented(c);
         expect(c.send('确认拨打'), isTrue);
+        await tester.pump();
         expect(c.state.preparingCall, isTrue);
         expect(
           c.state.messages.where(

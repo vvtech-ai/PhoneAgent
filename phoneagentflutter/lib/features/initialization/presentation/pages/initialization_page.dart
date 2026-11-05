@@ -42,7 +42,7 @@ class InitializationPage extends StatelessWidget {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 22,
+                      horizontal: 16,
                       vertical: 20,
                     ),
                     child: _body(context),
@@ -54,7 +54,7 @@ class InitializationPage extends StatelessWidget {
         ),
         if (state.ready)
           Padding(
-            padding: const EdgeInsets.fromLTRB(22, 12, 22, 36),
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 36),
             child: SizedBox(
               width: double.infinity,
               child: IdentityAction(

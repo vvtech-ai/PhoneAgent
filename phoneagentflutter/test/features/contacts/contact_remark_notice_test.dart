@@ -1,3 +1,5 @@
+import 'package:phone_agent/features/contacts/presentation/pages/contact_detail_page.dart';
+import '../../support/contact_remark_test_actions.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,7 +48,14 @@ void main() {
           if (outcome == 'accepted') {
             expect(find.byType(TextFormField), findsNothing);
             expect(find.text(_notice), findsOneWidget);
-            expect(find.text('合成备注'), findsOneWidget);
+            expect(
+              tester
+                  .widget<ContactDetailPage>(find.byType(ContactDetailPage))
+                  .state
+                  .remark,
+              '合成备注',
+            );
+            expect(find.text('合成备注'), findsNothing);
             // The overlay does not block navigation and expires independently.
             await tester.tap(find.byTooltip('返回联系人'));
             await tester.pump(const Duration(milliseconds: 400));
@@ -106,7 +115,7 @@ Future<void> _openEditor(
   await tester.pumpAndSettle();
   await tester.tap(find.bySemanticsLabel('演示联系人，2025550101'));
   await tester.pumpAndSettle();
-  await tester.tap(find.text('编辑'));
+  await openRetainedRemarkEditor(tester);
   await tester.pumpAndSettle();
 }
 

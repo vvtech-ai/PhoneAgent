@@ -1,5 +1,7 @@
 import 'dart:async';
 import '../../support/confirm_rendered_call.dart';
+import '../../support/confirmation_reply_stub.dart';
+import 'package:phone_agent/features/conversation/domain/confirmation/call_confirmation_policy.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:phone_agent/features/calls/data/preview_call_flow.dart';
 import 'package:phone_agent/features/calls/domain/call_admission_service.dart';
@@ -34,6 +36,9 @@ ConversationController _controller(_BalanceFlow ports) {
     history: ports,
     callAdmission: ports.admission,
     callSessions: ports,
+    confirmationReplies: const ConfirmationReplyStub(
+      defaultDecision: CallReplyDecision.edit,
+    ),
     nextId: () => 'id-${id++}',
   );
 }
@@ -58,6 +63,7 @@ void main() {
         addTearDown(c.dispose);
         await _firstNotice(tester, c);
         expect(c.send('修改需求，第二次修改需求，原始输入'), isTrue);
+        await tester.pump();
         expect(c.send('修改需求，不应并发发送'), isFalse);
         await tester.pump();
         expect(ports.commands.length, 1);

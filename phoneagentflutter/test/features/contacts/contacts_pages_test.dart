@@ -1,3 +1,4 @@
+import '../../support/contact_remark_test_actions.dart';
 import 'package:phone_agent/features/contacts/presentation/pages/contact_detail_page.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -32,26 +33,28 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(ContactDetailPage), findsOneWidget);
       expect(find.byTooltip('返回联系人'), findsOneWidget);
-      await tester.tap(find.text('编辑'));
+      await openRetainedRemarkEditor(tester);
       await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextFormField), '未保存的备注');
       await tester.tap(find.text('取消'));
       await tester.pumpAndSettle();
       expect(find.text('未保存的备注'), findsNothing);
-      await tester.tap(find.text('编辑'));
+      await openRetainedRemarkEditor(tester);
       await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextFormField), ' 新备注 ');
       await tester.tap(find.text('保存'));
       await tester.pumpAndSettle();
       expect(find.byType(TextFormField), findsNothing);
-      expect(find.text('新备注'), findsOneWidget);
+      expect(c.state.remark, '新备注');
+      expect(find.text('新备注'), findsNothing);
       await tester.tap(find.byTooltip('返回联系人'));
       await tester.pumpAndSettle();
       expect(find.bySemanticsLabel('演示联系人，2025550102'), findsOneWidget);
       expect(c.state.selected, isNull);
       await tester.tap(find.bySemanticsLabel('演示联系人，2025550102'));
       await tester.pumpAndSettle();
-      expect(find.text('暂无备注'), findsOneWidget);
+      expect(c.state.remark, isEmpty);
+      expect(find.text('暂无备注'), findsNothing);
       expect(tester.takeException(), isNull);
     });
   }
@@ -71,7 +74,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.bySemanticsLabel('演示联系人，2025550101'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('编辑'));
+    await openRetainedRemarkEditor(tester);
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextFormField), '草稿');
     await tester.pump();
@@ -83,7 +86,7 @@ void main() {
     expect(c.state.draft, isEmpty);
     expect(directory.saves, 0);
     expect(find.byType(ContactDetailPage), findsOneWidget);
-    await tester.tap(find.text('编辑'));
+    await openRetainedRemarkEditor(tester);
     await tester.pumpAndSettle();
     expect(find.text('草稿'), findsNothing);
     expect(find.text('编辑备注'), findsOneWidget);
@@ -104,7 +107,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.bySemanticsLabel('演示联系人，2025550101'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('编辑'));
+    await openRetainedRemarkEditor(tester);
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextFormField), '保留草稿');
     directory.gate = Completer<ContactDirectoryEntry>();
@@ -125,7 +128,8 @@ void main() {
     await tester.tap(find.text('保存'));
     await tester.pumpAndSettle();
     expect(find.byType(TextFormField), findsNothing);
-    expect(find.text('保留草稿'), findsOneWidget);
+    expect(c.state.remark, '保留草稿');
+    expect(find.text('保留草稿'), findsNothing);
     expect(directory.saves, 2);
   });
 
@@ -192,16 +196,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.bySemanticsLabel('演示联系人，2025550101'));
     await tester.pumpAndSettle();
-    await tester.scrollUntilVisible(
-      find.text('编辑'),
-      100,
-      scrollable: find.descendant(
-        of: find.byType(ContactDetailPage),
-        matching: find.byType(Scrollable),
-      ),
-    );
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('编辑'));
+    await openRetainedRemarkEditor(tester);
     await tester.pumpAndSettle();
     tester.view.viewInsets = const FakeViewPadding(bottom: 280);
     addTearDown(tester.view.resetViewInsets);

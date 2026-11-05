@@ -107,36 +107,36 @@ After downloading, allow your browser or file manager to install unknown apps, t
 
 ## Quick Start
 
-### Requirements
-
-- JDK 11
-- Android Studio or Android SDK command-line tools
-- Android SDK 33
-- A physical device running Android 8.0 (API 26) or later
-
-### Build the Debug APK
-
-Windows:
+The project uses Flutter 3.32.0 and Dart 3.8.0. Dependencies are locked in `pubspec.lock`. The Android template uses Gradle 8.12, AGP 8.7.3, and Kotlin 2.1.0. Gradle runs on JBR 21 on the local machine. The initial iOS deployment target is 15.5, and some plugins have yet to be integrated. Development and testing on macOS use the configured Xcode 15.2 installation. App Store release toolchain readiness has yet to be verified.
 
 ```powershell
-Copy-Item local.properties.example local.properties
-.\gradlew.bat :app:assembleProdDebug
+flutter pub get --enforce-lockfile
+./scripts/verify.ps1
+flutter run --debug
 ```
 
-macOS / Linux:
+No API endpoints are configured by default. The startup verification screen displays a message when configuration is missing, and the app makes no requests to backend services. For testing, use a local parameter file excluded from version control. The following command shows the equivalent options with placeholder URLs.
 
-```bash
-cp local.properties.example local.properties
-./gradlew :app:assembleProdDebug
+```powershell
+flutter run --debug --dart-define=APP_ENV=dev --dart-define=API_BASE_URL=https://your-agent.example --dart-define=SDK_API_BASE_URL=https://your-sdk.example --dart-define=RUNTIME_API_BASE_URL=https://your-runtime.example
 ```
 
-Set the Android SDK path in `local.properties` before building. The APK is generated in:
+The example URLs are placeholders. When integrating the login module with an existing environment, document only the non-secret configuration. APP_ENV accepts only local, dev, or prod. In prod, URLs must use HTTPS. URLs must not contain embedded credentials, query strings, or fragments. The app must not send requests to backend services without valid configuration.
 
-```text
-app/build/outputs/apk/prod/debug/
-```
+In the current v71 task, runtime-netty handles ASR and TTS. Set `RUNTIME_API_BASE_URL` to the HTTP(S) deployment root. The client converts the scheme to 
 
-See [Build and Configuration](docs/BUILD_AND_CONFIGURATION.md) for detailed setup instructions.
+### Platform Identity and Security
+
+On Android, the debug application ID is `com.vvtech.aiassistant.dev`, minSdk is 26, and the production application ID is `com.vvtech.aiassistant`. The B0 gate blocks release tasks until production signing, OTA metadata, and migration of existing user data pass acceptance checks. The current build must not overwrite users’ production installations.
+
+On iOS, the bundle ID is `com.chaken.phoneagent.test` for Debug and Profile builds and `com.chaken.phoneagent` for Release builds. The signing team is supplied through local configuration. Both platforms are portrait-only. OTA updates are out of scope for iOS. The current app icon and launch screen are placeholders from the SDK template project.
+
+### Mac Verification
+
+After loading the local Flutter, Xcode, and Ruby environments, run bash `scripts/verify-ios.sh`. The script verifies the dependency lockfile, runs static analysis and tests, and builds an unsigned iOS debug build. Verify signing and installation on a physical device separately.
+
+Use the same Git commit and dependency lockfile on Windows and Mac. Record any source patches applied on the Mac. Before the initial commit, you may verify using an isolated source snapshot with a SHA-256 checksum. Do not copy `build/` or `.dart_tool/` from Windows.
+
 
 ## Request an Invite Code
 

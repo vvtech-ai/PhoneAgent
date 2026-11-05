@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../domain/receipts/call_dialogue.dart';
+import '../call_receipt_phone_mask.dart';
 
 /// Native batch transcript columns; single-call presentation stays independent.
 class NativeBatchTranscript extends StatelessWidget {
@@ -39,8 +40,8 @@ class NativeBatchTranscript extends StatelessWidget {
                 child: Semantics(
                   container: true,
                   child: SelectableText(
-                    line.text,
-                    semanticsLabel: line.text,
+                    maskCallReceiptPhoneNumbers(line.text),
+                    semanticsLabel: maskCallReceiptPhoneNumbers(line.text),
                     strutStyle: StrutStyle.disabled,
                     textHeightBehavior: const TextHeightBehavior(
                       applyHeightToFirstAscent: false,

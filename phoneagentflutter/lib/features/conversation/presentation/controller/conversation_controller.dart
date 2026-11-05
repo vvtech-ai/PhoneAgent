@@ -87,6 +87,9 @@ class ConversationController extends StateNotifier<ConversationState> {
       calls = bindConversationCalls(
         admission: callAdmission,
         sessions: callSessions,
+        stopBatch: stopRepository == null
+            ? null
+            : (id) => _stopping.stopObservedBatch(id),
         accountId: accountId,
         current: () => isOpen,
         read: () => state,
@@ -163,6 +166,8 @@ class ConversationController extends StateNotifier<ConversationState> {
     cancelReplies: () => _confirmation.flow.invalidate(),
     interruptSpeech: () => speech?.pauseForResult(),
     onBatchRecovery: (id) => speech?.waitForBatch(id),
+    onProgressEvent: (event, command) =>
+        calls?.acceptBatchProgress(event, command),
     onBatchCompleted: () => onTaskResultChanged?.call(),
     synchronize: () => _outcomes.sync(_generation),
     generation: () => _generation,
@@ -204,6 +209,8 @@ class ConversationController extends StateNotifier<ConversationState> {
       _submissions.initialSent || state.entry.opening.isEmpty
       ? null
       : state.entry.opening;
+  ConversationEntry? get pendingInitialEntry =>
+      _submissions.initialSent ? null : state.entry;
   final String accountId;
   final ConversationEventStream _stream;
   final DetachedBatchStreams? detachedBatches;
@@ -418,7 +425,11 @@ class ConversationController extends StateNotifier<ConversationState> {
       isCurrent: () => _current(generation),
       afterProjected: _stopping.restored,
       onRestored: (restored) {
-        _submissions.initialSent = true;
+        _submissions.initialSent =
+            restored.ledger == null ||
+            restored.ledger!.events.any(
+              (event) => event.type == 'USER_TURN_ACCEPTED',
+            );
         calls?.restoreHistory(restored);
         taskErrors?.restored(restored.detail.status);
         apology = restoreApologyBinding(apology, restored, _createApology);

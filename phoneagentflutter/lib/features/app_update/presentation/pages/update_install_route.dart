@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_page_header.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../app/business_providers.dart';
 import '../../../../app/update_install_providers.dart';
@@ -25,7 +26,10 @@ class _UpdateInstallRouteState extends ConsumerState<UpdateInstallRoute> {
   Widget build(BuildContext context) {
     if (_owner != ref.watch(loginEpochProvider)) {
       return Scaffold(
-        appBar: AppBar(title: const Text('会话已变化')),
+        appBar: NativePageAppBar(
+          title: '会话已变化',
+          textScaler: MediaQuery.textScalerOf(context),
+        ),
         body: const Center(child: Text('请返回后重新进入')),
       );
     }

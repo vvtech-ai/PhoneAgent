@@ -80,3 +80,8 @@ abstract interface class HomeRepository {
 abstract interface class HomeRepositoryStatus {
   bool get loadFailed;
 }
+
+abstract interface class HomePublishedSnapshots {
+  HomeConfig get initialSnapshot;
+  Stream<HomeConfig> get publishedSnapshots;
+}

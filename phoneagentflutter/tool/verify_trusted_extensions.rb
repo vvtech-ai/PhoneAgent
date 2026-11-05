@@ -8,8 +8,11 @@ extensions = {
   'TrustedIdentityLiveActivity' => 'KXLiveActivityExtension',
   'TrustedCallerNotificationService' => 'KXPushServiceExtension'
 }
-phase = runner.copy_files_build_phases.find { |item| item.name == 'Embed App Extensions' }
-raise 'Missing Embed phase' unless phase
+phases = runner.copy_files_build_phases.select do |item|
+  item.files_references.any? { |file| extensions.key?(File.basename(file.path, '.appex')) }
+end
+raise 'Missing or ambiguous Embed phase' unless phases.length == 1
+phase = phases.first
 extensions.each do |name, suffix|
   target = project.targets.find { |item| item.name == name }
   raise 'Missing extension' unless target

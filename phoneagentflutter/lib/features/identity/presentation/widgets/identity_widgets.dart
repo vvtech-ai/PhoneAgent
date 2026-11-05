@@ -2,6 +2,7 @@ import '../../../../core/design/native_confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/design/native_gradient_action.dart';
+import '../../../../core/design/native_card_style.dart';
 
 /// Shared MyIdentityProfileComponents / AIIdentityInit presentation.
 abstract final class IdentityStyle {
@@ -18,32 +19,26 @@ abstract final class IdentityStyle {
 class IdentityCard extends StatelessWidget {
   const IdentityCard({
     required this.child,
-    this.padding = const EdgeInsets.all(18),
+    this.padding,
     this.editor = false,
     super.key,
   });
   final Widget child;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final bool editor;
   @override
   Widget build(BuildContext context) => DecoratedBox(
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(editor ? 18 : 22),
-      border: Border.all(
-        color: editor ? const Color(0x143C3C43) : const Color(0xC7FFFFFF),
-      ),
-      boxShadow: editor
-          ? null
-          : const [
-              BoxShadow(
-                color: Color(0x14000000),
-                blurRadius: 10,
-                offset: Offset(0, 4),
-              ),
-            ],
+    decoration: editor
+        ? BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(color: const Color(0x143C3C43)),
+          )
+        : NativeCardStyle.decoration,
+    child: Padding(
+      padding: padding ?? EdgeInsets.all(editor ? 18 : 16),
+      child: child,
     ),
-    child: Padding(padding: padding, child: child),
   );
 }
 

@@ -12,7 +12,10 @@ class OutboundNumberRoute extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     if (!ref.watch(developerModeProvider)) {
       return Scaffold(
-        appBar: const NativePageAppBar(title: '固定外呼号码'),
+        appBar: NativePageAppBar(
+          title: '固定外呼号码',
+          textScaler: MediaQuery.textScalerOf(context),
+        ),
         body: const Center(child: Text('开发者入口尚未解锁')),
       );
     }

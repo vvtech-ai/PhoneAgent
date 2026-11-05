@@ -34,9 +34,11 @@ class VerificationGateRepo extends AcceptingAppleRepo {
 }
 
 class FulfillmentGateRepo extends AcceptingAppleRepo {
+  bool released = false;
   @override
   Future<CommerceOrder> verifyApple(NativePaymentResult result) async {
     await super.verifyApple(result);
+    if (released) return current;
     current = CommerceOrder(
       orderNo: 'order-1',
       quoteId: 'quote-1',
@@ -151,10 +153,12 @@ void main() {
     expect(controller.snapshot.order?.paymentState, 'SUCCEEDED');
     expect(controller.snapshot.order?.fulfillmentState, 'PROCESSING');
     expect(paymentAttemptFeedback(controller.snapshot).title, '已支付，权益处理中');
-    expect(native.acknowledgements, 1);
+    expect(native.acknowledgements, 0);
+    (repo as FulfillmentGateRepo).released = true;
     repo.current = appleOriginal(payment: 'SUCCEEDED');
     await controller.query('order-1');
     expect(paymentAttemptFeedback(controller.snapshot).completed, isTrue);
+    expect(native.acknowledgements, 1);
     // The old polling continuation must not replace the explicit query result.
     await Future<void>.delayed(const Duration(milliseconds: 1050));
     expect(paymentAttemptFeedback(controller.snapshot).completed, isTrue);

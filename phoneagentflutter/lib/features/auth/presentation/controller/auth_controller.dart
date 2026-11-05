@@ -1,3 +1,4 @@
+import '../../../account_cancellation/domain/account_cancellation.dart';
 import '../../../invite/domain/invite.dart';
 import '../../../invite/domain/invite_link_policy.dart';
 import '../../../invite/presentation/controller/pending_invite_controller.dart';
@@ -21,6 +22,7 @@ class AuthState {
     this.retryPhone = '',
     this.retrySeconds = 0,
     this.outcome,
+    this.cancellation,
   });
 
   final String phone, code, invite, challenge, notice, retryPhone;
@@ -28,6 +30,7 @@ class AuthState {
   final AuthBusy busy;
   final int retrySeconds;
   final LoginOutcome? outcome;
+  final CancellationPendingLogin? cancellation;
   bool get working => busy != AuthBusy.none;
   int get visibleRetrySeconds => phone == retryPhone ? retrySeconds : 0;
 
@@ -42,6 +45,8 @@ class AuthState {
     String? retryPhone,
     int? retrySeconds,
     LoginOutcome? outcome,
+    CancellationPendingLogin? cancellation,
+    bool clearCancellation = false,
   }) => AuthState(
     phone: phone ?? this.phone,
     code: code ?? this.code,
@@ -53,6 +58,7 @@ class AuthState {
     retryPhone: retryPhone ?? this.retryPhone,
     retrySeconds: retrySeconds ?? this.retrySeconds,
     outcome: outcome ?? this.outcome,
+    cancellation: clearCancellation ? null : cancellation ?? this.cancellation,
   );
 }
 
@@ -72,6 +78,7 @@ class AuthController extends StateNotifier<AuthState> {
   final Future<void> Function(LoginOutcome)? _onAuthenticated;
   LoginOutcome? _pendingSuccess;
   bool _saving = false;
+  String? _revokeId;
   int _inviteEdits = 0;
   Future<bool> _inviteSaved = Future.value(true);
   Timer? _ticker;
@@ -80,6 +87,7 @@ class AuthController extends StateNotifier<AuthState> {
 
   void changePhone(String value) {
     if (state.working) return;
+    if (state.cancellation != null) keepCancellation();
     final phone = sanitizeLoginPhone(value, state.phone);
     final changed = phone != state.phone;
     if (changed) {
@@ -169,7 +177,7 @@ class AuthController extends StateNotifier<AuthState> {
   }
 
   Future<void> submit() async {
-    if (state.working) return;
+    if (state.working || state.cancellation != null) return;
     if (_pendingSuccess != null) {
       await _completeLogin(_pendingSuccess!, ++_generation);
       return;
@@ -218,7 +226,15 @@ class AuthController extends StateNotifier<AuthState> {
       );
       final result = await _gateway.login(submission);
       if (!_isCurrent(generation)) return;
-      if (result.inviteRequired) {
+      if (result.cancellation != null) {
+        _revokeId = cancellationOperationId();
+        state = state.copyWith(
+          cancellation: result.cancellation,
+          busy: AuthBusy.none,
+          code: '',
+          notice: '',
+        );
+      } else if (result.inviteRequired) {
         pendingInvite?.finish();
         state = state.copyWith(
           phone: result.phone,
@@ -243,6 +259,47 @@ class AuthController extends StateNotifier<AuthState> {
         if (_isCurrent(generation)) {
           _showError(error, fallback: '登录失败，请稍后重试');
         }
+      }
+    }
+  }
+
+  void keepCancellation() {
+    if (state.working) return;
+    _generation++;
+    _revokeId = null;
+    _pendingSuccess = null;
+    state = state.copyWith(clearCancellation: true, code: '', notice: '');
+  }
+
+  Future<void> continueCancellation() async {
+    final pending = state.cancellation;
+    final gateway = _gateway;
+    if (state.working ||
+        pending == null ||
+        gateway is! CancellationAuthGateway) {
+      return;
+    }
+    final generation = ++_generation;
+    state = state.copyWith(busy: AuthBusy.loggingIn, notice: '');
+    try {
+      final result = await (gateway as CancellationAuthGateway)
+          .revokeCancellation(
+            pending,
+            _revokeId ??= cancellationOperationId(),
+            state.phone,
+          );
+      if (!_isCurrent(generation)) return;
+      if (result.cancellation != null ||
+          result.inviteRequired ||
+          !result.toSession().valid) {
+        throw AuthFailure.invalidResponse;
+      }
+      _pendingSuccess = result;
+      state = state.copyWith(clearCancellation: true);
+      await _completeLogin(result, generation);
+    } catch (error) {
+      if (_isCurrent(generation)) {
+        _showError(error, fallback: '撤销结果暂未确认，请重试或重新验证登录');
       }
     }
   }
@@ -282,8 +339,12 @@ class AuthController extends StateNotifier<AuthState> {
   bool _isCurrent(int generation) => mounted && generation == _generation;
 
   void _showError(Object error, {required String fallback}) {
+    if (error == AuthFailure.challengeExpired && state.invitation) {
+      state = state.copyWith(invitation: false, challenge: '', code: '');
+    }
     final message = switch (error) {
       InviteFailure e => e.message,
+      AuthFailure.accountCancelled => '该账号已注销，无法恢复',
       AuthFailure.unavailable => '登录服务尚未接入，请稍后再试',
       AuthFailure.rejected => '验证失败，请检查输入后重试',
       AuthFailure.incorrectCode => '验证码不正确',

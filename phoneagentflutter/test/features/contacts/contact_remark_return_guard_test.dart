@@ -1,3 +1,4 @@
+import '../../support/contact_remark_test_actions.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,7 +44,7 @@ void main() {
         final entry = tester
             .widget<ContactDetailPage>(find.byType(ContactDetailPage))
             .onEdit;
-        await tester.tap(find.text('编辑'));
+        await openRetainedRemarkEditor(tester);
         await tester.pumpAndSettle();
         final oldCancel = tester
             .widget<ContactRemarkEditorAction>(
@@ -61,7 +62,7 @@ void main() {
         if (action != 'entry' && action != 'saving') {
           await tester.tap(find.text('取消'));
           await tester.pumpAndSettle();
-          await tester.tap(find.text('编辑'));
+          await openRetainedRemarkEditor(tester);
           await tester.pumpAndSettle();
         }
         await tester.enterText(

@@ -2,6 +2,7 @@ import '../../domain/receipts/call_receipt.dart';
 import '../../domain/receipts/call_receipt_status.dart';
 import '../../domain/receipts/call_dialogue.dart';
 import '../../domain/receipts/batch_receipt.dart';
+import 'call_receipt_phone_mask.dart';
 
 /// Plain-text projection retained for regression/export callers; shared cards
 /// reuse the billing formatter without exposing transport metadata.
@@ -18,22 +19,26 @@ abstract final class CallReceiptText {
       '状态：业务结果无法确认'
     else if (receipt.isExecutionError)
       '状态：执行异常',
-    if (receipt.headline.isNotEmpty) receipt.headline,
+    if (receipt.headline.isNotEmpty)
+      maskCallReceiptPhoneNumbers(receipt.headline),
     if (receipt.detail.isNotEmpty && receipt.detail != receipt.headline)
-      receipt.detail,
+      maskCallReceiptPhoneNumbers(receipt.detail),
     if (!receipt.isRunning && receipt.items.isNotEmpty)
       receipt.businessResultUnavailable
           ? '${receipt.items.length} 路执行记录'
           : '${receipt.items.length} 路结果 · ${receipt.successCount} 路完成 · ${receipt.items.length - receipt.successCount} 路需关注',
     for (final item in receipt.items) ...[
-      '\n${item.targetName.isEmpty ? item.phoneNumber : item.targetName}',
+      '\n${maskCallReceiptPhoneNumbers(item.targetName.isEmpty ? item.phoneNumber : item.targetName)}',
       if (item.phoneNumber.isNotEmpty && item.targetName.isNotEmpty)
-        item.phoneNumber,
-      '状态：${_batchLabel(item)}',
-      if (item.headline.isNotEmpty) item.headline,
-      if (item.detail.isNotEmpty && item.detail != item.headline) item.detail,
-      for (final field in item.fields) '${field.label}：${field.value}',
-      if (item.transcript.isNotEmpty) '通话记录：\n${item.transcript}',
+        maskCallReceiptPhoneNumbers(item.phoneNumber),
+      '状态：${maskCallReceiptPhoneNumbers(_batchLabel(item))}',
+      if (item.headline.isNotEmpty) maskCallReceiptPhoneNumbers(item.headline),
+      if (item.detail.isNotEmpty && item.detail != item.headline)
+        maskCallReceiptPhoneNumbers(item.detail),
+      for (final field in item.fields)
+        '${maskCallReceiptPhoneNumbers(field.label)}：${maskCallReceiptPhoneNumbers(field.value)}',
+      if (item.transcript.isNotEmpty)
+        '通话记录：\n${maskCallReceiptPhoneNumbers(item.transcript)}',
       for (final (index, bill) in item.billing.indexed) ...[
         if (item.billing.length > 1) '第 ${index + 1} 次结算',
         ...billingRows(bill),
@@ -62,19 +67,22 @@ abstract final class CallReceiptText {
     return [
       '通话结果',
       '状态：${CallReceiptStatus.label(receipt)}',
-      if (receipt.targetName.isNotEmpty) '联系人：${receipt.targetName}',
-      if (receipt.phoneNumber.isNotEmpty) '电话：${receipt.phoneNumber}',
+      if (receipt.targetName.isNotEmpty)
+        '联系人：${maskCallReceiptPhoneNumbers(receipt.targetName)}',
+      if (receipt.phoneNumber.isNotEmpty)
+        '电话：${maskCallReceiptPhoneNumbers(receipt.phoneNumber)}',
       if (receipt.headline.isNotEmpty &&
           receipt.headline != receipt.status &&
           receipt.headline != CallReceiptStatus.label(receipt))
-        receipt.headline,
+        maskCallReceiptPhoneNumbers(receipt.headline),
       if (receipt.detail.isNotEmpty && receipt.detail != receipt.headline)
-        receipt.detail,
-      for (final field in receipt.fields) '${field.label}：${field.value}',
+        maskCallReceiptPhoneNumbers(receipt.detail),
+      for (final field in receipt.fields)
+        '${maskCallReceiptPhoneNumbers(field.label)}：${maskCallReceiptPhoneNumbers(field.value)}',
       if (dialogue.isNotEmpty) ...[
         '\n通话转写',
         for (final line in dialogue)
-          '${line.role == CallDialogueRole.assistant ? 'AI' : '对方'}：${line.text}',
+          '${line.role == CallDialogueRole.assistant ? 'AI' : '对方'}：${maskCallReceiptPhoneNumbers(line.text)}',
       ],
       if (receipt.billing case final billing?) ...billingRows(billing),
     ].join('\n');

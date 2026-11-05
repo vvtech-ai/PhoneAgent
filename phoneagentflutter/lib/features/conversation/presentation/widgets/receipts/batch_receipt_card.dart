@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/design/receipt_tokens.dart';
 import '../../../domain/receipts/batch_receipt.dart';
 import '../../../domain/receipts/call_dialogue.dart';
+import '../call_receipt_phone_mask.dart';
 import 'receipt_sections.dart';
 import 'native_batch_receipt_shell.dart';
 import 'native_batch_item_header.dart';
@@ -18,7 +19,10 @@ class BatchReceiptCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (receipt.pointsRejected) {
-      return Text(receipt.headline, style: ReceiptTokens.body);
+      return Text(
+        maskCallReceiptPhoneNumbers(receipt.headline),
+        style: ReceiptTokens.body,
+      );
     }
     if (receipt.items.isEmpty && receipt.isExecutionError) {
       final explanation = receipt.detail.isNotEmpty
@@ -29,7 +33,10 @@ class BatchReceiptCard extends StatelessWidget {
       return NativeBatchReceiptShell(
         title: '执行结果',
         status: '执行异常',
-        child: Text(explanation, style: ReceiptTokens.body),
+        child: Text(
+          maskCallReceiptPhoneNumbers(explanation),
+          style: ReceiptTokens.body,
+        ),
       );
     }
     final waitingForFinal = receipt.status.trim().toUpperCase() == 'VERIFYING';
@@ -59,7 +66,10 @@ class BatchReceiptCard extends StatelessWidget {
             children: [
               if (waitingForFinal ||
                   receipt.items.any((item) => item.status == 'VERIFYING'))
-                Text(receipt.headline, style: ReceiptTokens.caption),
+                Text(
+                  maskCallReceiptPhoneNumbers(receipt.headline),
+                  style: ReceiptTokens.caption,
+                ),
               TweenAnimationBuilder<double>(
                 tween: Tween(begin: progress, end: progress),
                 duration: MediaQuery.disableAnimationsOf(context)
@@ -137,9 +147,11 @@ class BatchReceiptCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        receipt.headline.isEmpty
-                            ? '本轮批量任务已结束'
-                            : receipt.headline,
+                        maskCallReceiptPhoneNumbers(
+                          receipt.headline.isEmpty
+                              ? '本轮批量任务已结束'
+                              : receipt.headline,
+                        ),
                         style: ReceiptTokens.body.copyWith(
                           fontSize: 13,
                           height: 18 / 13,
@@ -149,7 +161,10 @@ class BatchReceiptCard extends StatelessWidget {
                       if (receipt.detail.isNotEmpty &&
                           receipt.detail != receipt.headline) ...[
                         const SizedBox(height: 4),
-                        Text(receipt.detail, style: ReceiptTokens.caption),
+                        Text(
+                          maskCallReceiptPhoneNumbers(receipt.detail),
+                          style: ReceiptTokens.caption,
+                        ),
                       ],
                       const SizedBox(height: 4),
                       Text(
@@ -271,9 +286,9 @@ class _BatchReceiptItemCardState extends State<BatchReceiptItemCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NativeBatchItemHeader(
-            name: name,
-            summary: summary,
-            label: resultLabel,
+            name: maskCallReceiptPhoneNumbers(name),
+            summary: maskCallReceiptPhoneNumbers(summary),
+            label: maskCallReceiptPhoneNumbers(resultLabel),
             tint: tint,
           ),
           for (final (index, billing) in item.billing.indexed)

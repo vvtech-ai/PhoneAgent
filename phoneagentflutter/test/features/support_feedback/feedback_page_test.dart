@@ -70,7 +70,16 @@ void main() {
       final surface = tester.widget<Material>(
         find.descendant(of: button, matching: find.byType(Material)).first,
       );
-      expect(surface.color, const Color(0xFF0A84FF));
+      expect(surface.color, Colors.transparent);
+      final gradient = tester
+          .widgetList<DecoratedBox>(
+            find.ancestor(of: button, matching: find.byType(DecoratedBox)),
+          )
+          .map((w) => w.decoration)
+          .whereType<BoxDecoration>()
+          .firstWhere((d) => d.gradient != null)
+          .gradient!;
+      expect(gradient.colors, const [Color(0xFF0A84FF), Color(0xFF0071EB)]);
     }, variant: platforms);
   }
   testWidgets('logs are opt in and the whole row toggles them', (tester) async {

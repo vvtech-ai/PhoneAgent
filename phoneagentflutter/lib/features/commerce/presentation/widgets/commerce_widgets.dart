@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../core/design/native_page_header.dart';
+import '../../../../core/design/native_action_style.dart';
+import '../../../../core/design/native_card_style.dart';
+import '../../../../core/design/native_page_background.dart';
 
 class CommerceScaffold extends StatelessWidget {
   const CommerceScaffold({
@@ -18,17 +21,20 @@ class CommerceScaffold extends StatelessWidget {
     data: Theme.of(context).copyWith(
       colorScheme: Theme.of(
         context,
-      ).colorScheme.copyWith(primary: const Color(0xFF1677FF)),
+      ).colorScheme.copyWith(primary: const Color(0xFF0A84FF)),
     ),
-    child: Scaffold(
-      backgroundColor: const Color(0xFFF6F7F9),
-      appBar: NativePageAppBar(
-        title: title,
-        onBack: onBack,
-        backgroundColor: Colors.white,
-        trailing: action,
+    child: NativePageBackground(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: NativePageAppBar(
+          title: title,
+          textScaler: MediaQuery.textScalerOf(context),
+          onBack: onBack,
+          backgroundColor: Colors.transparent,
+          trailing: action,
+        ),
+        body: SafeArea(child: child),
       ),
-      body: SafeArea(child: child),
     ),
   );
 }
@@ -38,29 +44,33 @@ class CommerceCard extends StatelessWidget {
     super.key,
     required this.child,
     this.padding = 16,
-    this.marginBottom = 12,
+    this.marginBottom = 10,
     this.contentPadding,
+    this.offer = false,
   });
   final Widget child;
   final double padding;
   final double marginBottom;
   final EdgeInsetsGeometry? contentPadding;
+  final bool offer;
   @override
   Widget build(BuildContext context) => Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: marginBottom),
     padding: contentPadding ?? EdgeInsets.all(padding),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(20),
-      boxShadow: const [
-        BoxShadow(
-          color: Color(0x0E0F172A),
-          blurRadius: 18,
-          offset: Offset(0, 5),
-        ),
-      ],
-    ),
+    decoration: offer
+        ? const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0x0E0F172A),
+                blurRadius: 18,
+                offset: Offset(0, 5),
+              ),
+            ],
+          )
+        : NativeCardStyle.decoration,
     child: child,
   );
 }
@@ -73,7 +83,7 @@ class CommerceAction extends StatelessWidget {
     this.secondary = false,
     this.busy = false,
     this.backgroundColor,
-    this.minHeight = 46,
+    this.minHeight = 50,
   });
   final String label;
   final VoidCallback? onPressed;
@@ -84,46 +94,45 @@ class CommerceAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SizedBox(
     width: double.infinity,
-    child: FilledButton(
-      style: FilledButton.styleFrom(
-        minimumSize: Size(0, minHeight),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
-          height: 1.4,
-        ),
-        backgroundColor:
-            backgroundColor ??
-            (secondary ? const Color(0xFFEEF3FB) : const Color(0xFF1677FF)),
-        foregroundColor: secondary ? const Color(0xFF1767CA) : Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    child: DecoratedBox(
+      decoration: NativeActionStyle.decoration(
+        enabled: !busy && onPressed != null,
+        tone: secondary ? NativeActionTone.secondary : NativeActionTone.primary,
+        backgroundColor: backgroundColor,
       ),
-      onPressed: busy ? null : onPressed,
-      child: busy
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                ),
-                const SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    label,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontWeight: FontWeight.w700),
+      child: FilledButton(
+        style: NativeActionStyle.buttonStyle(
+          context,
+          tone: secondary
+              ? NativeActionTone.secondary
+              : NativeActionTone.primary,
+        ).copyWith(minimumSize: WidgetStatePropertyAll(Size(0, minHeight))),
+        onPressed: busy ? null : onPressed,
+        child: busy
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
                   ),
-                ),
-              ],
-            )
-          : Text(
-              label,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      label,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ],
+              )
+            : Text(
+                label,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+      ),
     ),
   );
 }

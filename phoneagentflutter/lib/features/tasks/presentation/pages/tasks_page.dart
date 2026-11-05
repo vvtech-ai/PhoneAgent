@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/design/shell_tokens.dart';
+import '../../../../core/design/native_navigation_backdrop.dart';
+import '../../../../core/design/native_page_header.dart';
 import '../../domain/task_records.dart';
 import '../controller/task_controller.dart';
 import 'task_record_card.dart';
@@ -44,34 +45,17 @@ class TasksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
     children: [
-      Padding(
-        padding: const EdgeInsets.fromLTRB(22, 8, 22, 10),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Text(
-                '任务',
-                style: const TextStyle(
-                  fontSize: 31,
-                  height: 32 / 31,
-                  fontWeight: FontWeight.w800,
-                  color: ShellTokens.ink,
-                ),
+      NativePageHeader(
+        title: '任务',
+        showBack: false,
+        trailing: onClearUnread == null
+            ? null
+            : TaskClearUnreadButton(
+                onPressed:
+                    state.hasUnread && !state.busy.contains('clear-unread')
+                    ? onClearUnread
+                    : null,
               ),
-            ),
-            if (onClearUnread != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 2),
-                child: TaskClearUnreadButton(
-                  onPressed:
-                      state.hasUnread && !state.busy.contains('clear-unread')
-                      ? onClearUnread
-                      : null,
-                ),
-              ),
-          ],
-        ),
       ),
       Expanded(
         child: TaskPaginationScrollHost(
@@ -85,7 +69,12 @@ class TasksPage extends StatelessWidget {
                 controller: scrollController,
                 physics: const AlwaysScrollableScrollPhysics(),
                 // Keep the first card's shadow inside the clipped scroll viewport.
-                padding: const EdgeInsets.fromLTRB(28, 16, 28, 16),
+                padding: EdgeInsets.fromLTRB(
+                  16,
+                  16,
+                  16,
+                  16 + NativeNavigationBackdrop.contentInsetOf(context),
+                ),
                 children: [
                   if (state.notice.isNotEmpty)
                     Padding(
@@ -107,10 +96,13 @@ class TasksPage extends StatelessWidget {
                     ),
                   if (state.loading && state.catalog.records.isEmpty)
                     SizedBox(
-                      height: (constraints.maxHeight - 32).clamp(
-                        0,
-                        double.infinity,
-                      ),
+                      height:
+                          (constraints.maxHeight -
+                                  32 -
+                                  NativeNavigationBackdrop.contentInsetOf(
+                                    context,
+                                  ))
+                              .clamp(0, double.infinity),
                       child: const TaskInitialLoading(),
                     ),
                   if (state.catalog.records.isEmpty &&

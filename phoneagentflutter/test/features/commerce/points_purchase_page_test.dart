@@ -48,7 +48,7 @@ void main() {
     });
   }
   testWidgets(
-    'busy action suppresses a supplied callback inside original button size',
+    'busy action suppresses a supplied callback inside standard button size',
     (tester) async {
       var calls = 0;
       await tester.pumpWidget(
@@ -66,7 +66,7 @@ void main() {
         ),
         findsOneWidget,
       );
-      expect(tester.getSize(button).height, 46);
+      expect(tester.getSize(button).height, 50);
       expect(tester.widget<FilledButton>(button).onPressed, isNull);
       await tester.tap(button);
       await tester.tap(button);
@@ -84,10 +84,10 @@ void main() {
     );
     final button = find.widgetWithText(FilledButton, 'buy');
     expect(find.byType(CircularProgressIndicator), findsNothing);
-    expect(tester.getSize(button).height, 46);
+    expect(tester.getSize(button).height, 50);
     expect(
       tester.widget<FilledButton>(button).style?.backgroundColor?.resolve({}),
-      const Color(0xFF1677FF),
+      Colors.transparent,
     );
     await tester.tap(button);
     expect(calls, 1);

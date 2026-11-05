@@ -36,6 +36,8 @@ class _OverlayState extends State<TrustedIdentityOverlayApp> {
     final identity = _identity;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      builder: (context, child) =>
+          TooltipVisibility(visible: false, child: child!),
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(

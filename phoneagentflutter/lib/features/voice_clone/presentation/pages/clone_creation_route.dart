@@ -97,7 +97,10 @@ class _CloneCreationRouteState extends ConsumerState<CloneCreationRoute> {
     ref.watch(cloneCreationPortProvider);
     if (epoch != _owner) {
       return Scaffold(
-        appBar: const NativePageAppBar(title: '会话已变化'),
+        appBar: NativePageAppBar(
+          title: '会话已变化',
+          textScaler: MediaQuery.textScalerOf(context),
+        ),
         body: const Center(child: Text('请返回后重新进入')),
       );
     }

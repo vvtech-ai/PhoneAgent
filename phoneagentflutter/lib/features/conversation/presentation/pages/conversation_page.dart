@@ -293,7 +293,7 @@ class ConversationPage extends StatelessWidget {
           for (final item in precheck!.items) ...[item.detail, item.state],
       ],
     ),
-    padding: EdgeInsets.fromLTRB(18, compact ? 14 : 10, 18, 12),
+    padding: EdgeInsets.fromLTRB(16, compact ? 14 : 10, 16, 12),
     children: [
       if (precheck?.visible == true && !empty)
         NativeConversationPrecheckCard(

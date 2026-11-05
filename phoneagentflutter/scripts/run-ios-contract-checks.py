@@ -33,6 +33,10 @@ def native_checks():
         gems = sorted(p.parent.parent for root in roots for p in root.glob('*/libexec/gems/xcodeproj-*'))
         if gems:
             env['GEM_HOME'] = str(gems[-1])
+    run([sys.executable, '-B', '-m', 'unittest', 'discover', '-s', 'tool',
+         '-p', 'test_trusted_identity_extension_wiring.py', '-v'], env)
+    run([sys.executable, '-B', '-m', 'unittest', 'discover', '-s', 'tool',
+         '-p', 'test_trusted_notification_extension_wiring.py', '-v'], env)
     run(['ruby', 'tool/verify_trusted_extensions.rb'], env)
     cases = {'push_binding_state': ['TrustedCallerPushBindingState.m'],
              'push_binding_driver': ['TrustedCallerPushBindingState.m', 'TrustedCallerPushBindingDriver.m',

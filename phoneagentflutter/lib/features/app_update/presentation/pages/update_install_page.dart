@@ -1,4 +1,8 @@
+import '../../../../core/design/native_page_background.dart';
+import '../../../../core/design/native_action_style.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_card_style.dart';
+import '../../../../core/design/native_page_header.dart';
 import '../../../../core/design/shell_tokens.dart';
 import '../controller/update_install_controller.dart';
 import '../widgets/native_update_dialog.dart';
@@ -177,88 +181,92 @@ class _UpdateInstallPageState extends State<UpdateInstallPage>
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) _close();
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('安装更新'),
-          automaticallyImplyLeading: false,
-          leading: release.forceUpdate
-              ? null
-              : BackButton(onPressed: _closing ? null : _close),
-        ),
-        body: SafeArea(
-          child: ListView(
-            padding: const EdgeInsets.all(22),
-            children: [
-              if (widget.previewControls != null) ...[
-                const Text('MOCK · 下载与安装演练', style: ShellTokens.section),
-                const Text('仅合成状态，不下载文件、不申请权限、不安装应用。'),
-                const SizedBox(height: 16),
-              ],
-              Container(
-                padding: const EdgeInsets.all(18),
-                decoration: ShellTokens.cardDecoration,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      '新版本 ${release.versionName}',
-                      style: ShellTokens.cardTitle,
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      release.releaseNotes.isEmpty
-                          ? '体验优化与问题修复'
-                          : release.releaseNotes,
-                    ),
-                    if (release.forceUpdate) const Text('重要更新：请完成更新后继续使用'),
-                  ],
+      child: NativePageBackground(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: NativePageAppBar(
+            title: '安装更新',
+            textScaler: MediaQuery.textScalerOf(context),
+            showBack: !release.forceUpdate,
+            onBack: _closing ? null : _close,
+          ),
+          body: SafeArea(
+            child: ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                if (widget.previewControls != null) ...[
+                  const Text('MOCK · 下载与安装演练', style: ShellTokens.section),
+                  const Text('仅合成状态，不下载文件、不申请权限、不安装应用。'),
+                  const SizedBox(height: 16),
+                ],
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: NativeCardStyle.decoration,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        '新版本 ${release.versionName}',
+                        style: ShellTokens.cardTitle,
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        release.releaseNotes.isEmpty
+                            ? '体验优化与问题修复'
+                            : release.releaseNotes,
+                      ),
+                      if (release.forceUpdate) const Text('重要更新：请完成更新后继续使用'),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                description,
-                key: const Key('update-install-status'),
-                style: ShellTokens.cardTitle,
-              ),
-              const SizedBox(height: 12),
-              if (_state.busy || _state.progress != null)
-                LinearProgressIndicator(value: _state.progress),
-              if (_state.progress != null)
-                Text('${(_state.progress! * 100).round()}%'),
-              if (_state.error.isNotEmpty) ...[
+                const SizedBox(height: 24),
+                Text(
+                  description,
+                  key: const Key('update-install-status'),
+                  style: ShellTokens.cardTitle,
+                ),
                 const SizedBox(height: 12),
-                Text(_state.error, key: const Key('update-install-error')),
+                if (_state.busy || _state.progress != null)
+                  LinearProgressIndicator(value: _state.progress),
+                if (_state.progress != null)
+                  Text('${(_state.progress! * 100).round()}%'),
+                if (_state.error.isNotEmpty) ...[
+                  const SizedBox(height: 12),
+                  Text(_state.error, key: const Key('update-install-error')),
+                ],
+                const SizedBox(height: 22),
+                NativeActionSurface(
+                  child: FilledButton(
+                    key: const Key('update-install-primary'),
+                    onPressed: actionable && !_state.busy && !_closing
+                        ? refresh
+                              ? widget.onRefresh
+                              : widget.controller.primary
+                        : null,
+                    child: Text(
+                      _state.busy
+                          ? '处理中…'
+                          : refresh
+                          ? '刷新下载信息'
+                          : action,
+                    ),
+                  ),
+                ),
+                if (!release.forceUpdate)
+                  TextButton(
+                    key: const Key('update-install-close'),
+                    onPressed: _closing ? null : _close,
+                    child: Text(_closing ? '正在关闭…' : '稍后更新'),
+                  ),
+                const SizedBox(height: 12),
+                const Text(
+                  '交接系统安装器不代表更新成功。取消安装后可继续安装；退出本页会取消本次更新任务。',
+                  style: ShellTokens.subtitle,
+                ),
+                if (widget.previewControls != null)
+                  widget.previewControls!(_state),
               ],
-              const SizedBox(height: 22),
-              FilledButton(
-                key: const Key('update-install-primary'),
-                onPressed: actionable && !_state.busy && !_closing
-                    ? refresh
-                          ? widget.onRefresh
-                          : widget.controller.primary
-                    : null,
-                child: Text(
-                  _state.busy
-                      ? '处理中…'
-                      : refresh
-                      ? '刷新下载信息'
-                      : action,
-                ),
-              ),
-              if (!release.forceUpdate)
-                TextButton(
-                  key: const Key('update-install-close'),
-                  onPressed: _closing ? null : _close,
-                  child: Text(_closing ? '正在关闭…' : '稍后更新'),
-                ),
-              const SizedBox(height: 12),
-              const Text(
-                '交接系统安装器不代表更新成功。取消安装后可继续安装；退出本页会取消本次更新任务。',
-                style: ShellTokens.subtitle,
-              ),
-              if (widget.previewControls != null)
-                widget.previewControls!(_state),
-            ],
+            ),
           ),
         ),
       ),

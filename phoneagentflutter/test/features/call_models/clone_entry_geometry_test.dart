@@ -48,14 +48,14 @@ void main() {
                 find.descendant(of: button, matching: find.byType(Material)),
               )
               .height,
-          44,
+          50,
         );
-        expect(tester.getSize(button).height, greaterThanOrEqualTo(48));
+        expect(tester.getSize(button).height, greaterThanOrEqualTo(50));
         final star = find.text('✦');
         final normal = tester.getSize(star).height;
         await show(2);
         expect(tester.getSize(star).height, greaterThan(normal * 1.8));
-        expect(tester.getSize(button).height, greaterThanOrEqualTo(48));
+        expect(tester.getSize(button).height, greaterThanOrEqualTo(50));
         await tester.tap(find.bySemanticsLabel('声音克隆，价格暂不可用'));
         await tester.pump();
         expect(creates, 1);
@@ -94,14 +94,14 @@ void main() {
         of: action,
         matching: find.byType(Material),
       );
-      expect(tester.getSize(surface).height, 44);
-      expect(tester.getSize(action).height, greaterThanOrEqualTo(48));
+      expect(tester.getSize(surface).height, 50);
+      expect(tester.getSize(action).height, greaterThanOrEqualTo(50));
       final star = find.text('✦');
       final normal = tester.getSize(star).height;
       expect(tester.widget<Text>(star).style!.color, const Color(0xFFFFC400));
       await show(2);
       expect(tester.getSize(star).height, greaterThan(normal * 1.8));
-      expect(tester.getSize(action).height, greaterThanOrEqualTo(48));
+      expect(tester.getSize(action).height, greaterThanOrEqualTo(50));
       expect(tester.takeException(), isNull);
     });
   }

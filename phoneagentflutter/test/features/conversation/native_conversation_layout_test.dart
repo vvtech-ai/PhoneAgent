@@ -69,7 +69,7 @@ void main() {
           expect(initialWave.bottom, lessThanOrEqualTo(header.bottom));
           expect(initialWave.size, const Size(26, 27));
           expect(bubble.top, closeTo(header.bottom + 10, .01));
-          expect(bubble.left, closeTo(18, .01));
+          expect(bubble.left, closeTo(16, .01));
           Rect decorated(String id) => tester.getRect(
             find
                 .descendant(

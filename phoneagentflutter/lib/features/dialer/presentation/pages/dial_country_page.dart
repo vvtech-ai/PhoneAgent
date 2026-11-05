@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_page_header.dart';
 import '../widgets/dial_country_rows.dart';
 import '../widgets/dial_country_index.dart';
 import '../../domain/dial_country.dart';
@@ -65,36 +66,7 @@ class _DialCountryPageState extends State<DialCountryPage> {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 18, 20, 10),
-              child: Row(
-                children: [
-                  Semantics(
-                    container: true,
-                    button: true,
-                    enabled: true,
-                    label: '返回',
-                    onTap: _finish,
-                    excludeSemantics: true,
-                    child: IconButton(
-                      tooltip: '返回',
-                      onPressed: _finish,
-                      icon: const Icon(Icons.arrow_back_ios_new, size: 19),
-                    ),
-                  ),
-                  const Expanded(
-                    child: Text(
-                      '选择国家或地区',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF111318),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            NativePageHeader(title: '选择国家或地区', onBack: _finish),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: TextField(

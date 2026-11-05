@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_action_style.dart';
 
 class MembershipConfirmationPayment extends StatelessWidget {
   const MembershipConfirmationPayment({
@@ -77,69 +78,51 @@ class MembershipConfirmationPayment extends StatelessWidget {
           ],
         ),
       ),
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 76,
-            child: OutlinedButton(
-              onPressed: submitting ? null : onCancel,
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size(0, 46),
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  height: 1.4,
+      IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              width: 76,
+              child: DecoratedBox(
+                decoration: NativeActionStyle.decoration(
+                  enabled: !submitting,
+                  tone: NativeActionTone.secondary,
                 ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 12,
+                child: OutlinedButton(
+                  onPressed: submitting ? null : onCancel,
+                  style: NativeActionStyle.buttonStyle(
+                    context,
+                    tone: NativeActionTone.secondary,
+                  ),
+                  child: const Text('取消', textAlign: TextAlign.center),
                 ),
-                backgroundColor: const Color(0xFFF0F2F5),
-                side: BorderSide.none,
-                foregroundColor: const Color(0xFF515862),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: const Text('取消', textAlign: TextAlign.center),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: FilledButton(
-              onPressed: accepted && selected && available && !submitting
-                  ? onConfirm
-                  : null,
-              style: FilledButton.styleFrom(
-                minimumSize: const Size(0, 46),
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  height: 1.4,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 12,
-                ),
-                backgroundColor: const Color(0xFF1677FF),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: Text(
-                submitting
-                    ? '支付处理中…'
-                    : displayPrice == null
-                    ? '确认并支付'
-                    : '支付 $displayPrice',
-                textAlign: TextAlign.center,
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 12),
+            Expanded(
+              child: DecoratedBox(
+                decoration: NativeActionStyle.decoration(
+                  enabled: accepted && selected && available && !submitting,
+                ),
+                child: FilledButton(
+                  onPressed: accepted && selected && available && !submitting
+                      ? onConfirm
+                      : null,
+                  style: NativeActionStyle.buttonStyle(context),
+                  child: Text(
+                    submitting
+                        ? '支付处理中…'
+                        : displayPrice == null
+                        ? '确认并支付'
+                        : '支付 $displayPrice',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     ],
   );

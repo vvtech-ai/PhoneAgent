@@ -1,3 +1,4 @@
+import '../../../../core/design/native_action_style.dart';
 import 'package:flutter/material.dart';
 
 class NativeTaskRatingSuccess extends StatelessWidget {
@@ -92,21 +93,12 @@ class NativeTaskRatingSuccess extends StatelessWidget {
                 const SizedBox(height: 26),
                 SizedBox(
                   width: double.infinity,
-                  height: 48,
-                  child: FilledButton(
-                    onPressed: onDismiss,
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFF1687F8),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+
+                  child: NativeActionSurface(
+                    child: FilledButton(
+                      onPressed: onDismiss,
+                      child: const Text('完成'),
                     ),
-                    child: const Text('完成'),
                   ),
                 ),
               ],

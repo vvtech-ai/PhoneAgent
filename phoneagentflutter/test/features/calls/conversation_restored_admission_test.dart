@@ -1,5 +1,7 @@
 import 'dart:async';
 import '../../support/confirm_rendered_call.dart';
+import '../../support/confirmation_reply_stub.dart';
+import 'package:phone_agent/features/conversation/domain/confirmation/call_confirmation_policy.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:phone_agent/features/calls/data/preview_call_flow.dart';
 import 'package:phone_agent/features/calls/domain/call_admission_service.dart';
@@ -98,6 +100,9 @@ ConversationController _controller(_RestoredFlow ports) =>
       history: ports,
       callAdmission: ports.admission,
       callSessions: ports,
+      confirmationReplies: const ConfirmationReplyStub(
+        defaultDecision: CallReplyDecision.edit,
+      ),
     );
 
 void main() {
@@ -145,6 +150,8 @@ void main() {
         final ports = _RestoredFlow();
         ports.fixture.keys.add('restored-session:pending');
         ports.fixture.refreshed = balance;
+        final refresh = Completer<int?>();
+        ports.fixture.onRefresh = () => refresh.future;
         final c = _controller(ports);
         addTearDown(c.dispose);
         await c.restore();
@@ -155,7 +162,9 @@ void main() {
         expect(c.calls!.snapshot.launch.phase.name, 'restored');
         expect(c.calls!.snapshot.showCall, isFalse);
         c.send('修改需求，原始输入');
+        await tester.pump();
         expect(c.send('重复输入'), isFalse);
+        refresh.complete(balance);
         await tester.pump();
         expect(ports.fixture.refreshes, 1);
         expect(ports.commands.length, balance == 0 ? 0 : 1);

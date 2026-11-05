@@ -9,6 +9,8 @@ import '../../domain/points_admission_rejection.dart';
 import '../../domain/call_launch_coordinator.dart';
 import '../../domain/call_launch_request.dart';
 import '../../domain/call_session.dart';
+import '../../domain/batch_call_session_repository.dart';
+import 'batch_single_call_controller.dart';
 import '../../../conversation/domain/agent_protocol.dart';
 import '../../../conversation/domain/agent_failure.dart';
 import '../../../conversation/domain/conversation_messages.dart';
@@ -45,6 +47,8 @@ class ConversationCallController extends StateNotifier<ConversationCallState> {
     this.onOutcomeUnconfirmed,
     this.diagnostics,
     Stopwatch? elapsed,
+    String sessionId = '',
+    Future<bool> Function(String)? stopBatch,
   }) : _admission = admission,
        _sessions = sessions,
        _elapsed = elapsed ?? Stopwatch(),
@@ -54,6 +58,23 @@ class ConversationCallController extends StateNotifier<ConversationCallState> {
       submit: submit,
       onState: _applyLaunch,
     );
+    if (sessions is BatchCallSessionRepositoryFactory && sessionId.isNotEmpty) {
+      _batchCall = BatchSingleCallController(
+        sessionId: sessionId,
+        repositories: sessions as BatchCallSessionRepositoryFactory,
+        changed: () {
+          if (!mounted || _closed) return;
+          // Notify the host without handing batch outcomes to the single-call owner.
+          state = ConversationCallState(
+            launch: state.launch,
+            call: state.call,
+            showCall: state.showCall,
+            seconds: state.seconds,
+          );
+        },
+        stopBatch: stopBatch,
+      );
+    }
   }
   final CallSessionRepository _sessions;
   final CallAdmissionService _admission;
@@ -75,6 +96,7 @@ class ConversationCallController extends StateNotifier<ConversationCallState> {
   void Function()? _remove;
   Timer? _clock, _outcomeTimer, _unregisteredDeadline, _registeredDeadline;
   final Stopwatch _elapsed;
+  BatchSingleCallController? _batchCall;
   bool _hasConnected = false;
   int _observation = 0;
   bool _closed = false;
@@ -90,7 +112,23 @@ class ConversationCallController extends StateNotifier<ConversationCallState> {
   String _outcomeReadId = '';
   int _registeredSyncObservation = -1;
   String? _confirmationCommandId;
-  ConversationCallState get snapshot => state;
+  ConversationCallState get snapshot {
+    final batch = _batchCall;
+    if (_call == null && batch?.call != null) {
+      return ConversationCallState(
+        launch: state.launch,
+        call: batch!.call,
+        showCall: batch.showCall,
+        seconds: batch.seconds,
+      );
+    }
+    return state;
+  }
+
+  void acceptBatchProgress(AgentEvent event, String commandId) {
+    if (!_closed && _call == null) _batchCall?.accept(event, commandId);
+  }
+
   Future<void> acceptPointsRejection(
     AgentEvent event, {
     String? commandId,
@@ -767,9 +805,12 @@ class ConversationCallController extends StateNotifier<ConversationCallState> {
     }
   }
 
-  Future<bool> hangUp() async => await _call?.hangUp() ?? false;
+  Future<bool> hangUp() async => _call != null
+      ? await _call!.hangUp()
+      : await _batchCall?.hangUp() ?? false;
 
   bool acceptProgress(AgentEvent event, {String? commandId}) {
+    acceptBatchProgress(event, commandId ?? '');
     final request = activeRequest;
     if (_closed ||
         _call == null ||
@@ -885,6 +926,12 @@ class ConversationCallController extends StateNotifier<ConversationCallState> {
 
   /// Physical call status and result code alone cannot close result observation.
   void acceptReceipts(Iterable<ConversationMessage> messages) {
+    for (final message in messages) {
+      final batch = message.batchReceipt;
+      if (batch != null && batch.stopSettled && batch.explicitId.isNotEmpty) {
+        _batchCall?.finish(batch.explicitId);
+      }
+    }
     if (_closed) return;
     final items = messages.toList();
     _knownCallIds.addAll(
@@ -1024,6 +1071,7 @@ class ConversationCallController extends StateNotifier<ConversationCallState> {
   void close() {
     if (_closed) return;
     _closed = true;
+    _batchCall?.dispose();
     _launch.close();
     dismissCall();
     _retiredOutcomes.clear();

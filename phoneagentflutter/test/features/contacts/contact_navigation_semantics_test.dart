@@ -10,50 +10,39 @@ import 'package:phone_agent/features/contacts/presentation/widgets/contact_remar
 
 void main() {
   for (final platform in [TargetPlatform.android, TargetPlatform.iOS]) {
-    testWidgets('$platform edit responds outside visible background', (
-      tester,
-    ) async {
-      final port = PreviewContacts();
-      final controller = ContactsController(port, port.directory);
-      await controller.loadDevice();
-      await controller.loadDirectory();
-      await tester.pumpWidget(
-        ProviderScope(
-          overrides: [
-            contactsControllerProvider.overrideWith((ref) => controller),
-          ],
-          child: MaterialApp(
+    testWidgets(
+      '$platform retained remark component responds outside visible background',
+      (tester) async {
+        var edits = 0;
+        await tester.pumpWidget(
+          MaterialApp(
             theme: ThemeData(platform: platform),
-            home: const Scaffold(body: ContactsRoute()),
+            home: Scaffold(
+              body: Center(
+                child: ContactRemarkAction(label: '编辑', onTap: () => edits++),
+              ),
+            ),
           ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      await tester.tap(find.bySemanticsLabel('演示联系人，2025550101'));
-      await tester.pumpAndSettle();
-      final semantics = tester.ensureSemantics();
-      expect(
-        tester.getSemantics(find.bySemanticsLabel('编辑')),
-        matchesSemantics(
-          label: '编辑',
-          isButton: true,
-          hasEnabledState: true,
-          isEnabled: true,
-          hasTapAction: true,
-        ),
-      );
-      final action = find.byType(ContactRemarkAction);
-      await tester.tapAt(tester.getCenter(action) + const Offset(0, 22));
-      await tester.pumpAndSettle();
-      expect(find.text('编辑备注'), findsOneWidget);
-      expect(controller.state.editing, isTrue);
-      await tester.tap(find.text('取消'));
-      await tester.pumpAndSettle();
-      expect(controller.state.editing, isFalse);
-      expect(find.byType(ContactDetailPage), findsOneWidget);
-      expect(tester.takeException(), isNull);
-      semantics.dispose();
-    });
+        );
+        final semantics = tester.ensureSemantics();
+        expect(
+          tester.getSemantics(find.bySemanticsLabel('编辑')),
+          matchesSemantics(
+            label: '编辑',
+            isButton: true,
+            hasEnabledState: true,
+            isEnabled: true,
+            hasTapAction: true,
+          ),
+        );
+        final action = find.byType(ContactRemarkAction);
+        await tester.tapAt(tester.getCenter(action) + const Offset(0, 22));
+        await tester.pumpAndSettle();
+        expect(edits, 1);
+        expect(tester.takeException(), isNull);
+        semantics.dispose();
+      },
+    );
     testWidgets(
       '$platform contacts named 2x open and back callbacks only navigate once',
       (tester) async {

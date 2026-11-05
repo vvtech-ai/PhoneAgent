@@ -1,12 +1,34 @@
 import '../../../core/network/account_api.dart';
 import '../../../core/network/account_session.dart';
 import '../domain/call_session.dart';
+import '../domain/batch_call_session_repository.dart';
+import 'api_batch_call_session_repository.dart';
 
-class ApiCallSessionRepository implements CallSessionRepository {
+class ApiCallSessionRepository
+    implements CallSessionRepository, BatchCallSessionRepositoryFactory {
   ApiCallSessionRepository(this._api, this._accountId);
   final AccountApi _api;
   final String _accountId;
   static const _base = 'api/assistant/realtime/call';
+
+  @override
+  CallSessionRepository forBatch(
+    String sessionId,
+    String batchId,
+    String attemptId,
+  ) => ApiBatchCallSessionRepository(
+    _api,
+    _accountId,
+    sessionId,
+    batchId,
+    attemptId,
+    this,
+  );
+
+  static CallSessionSnapshot decodeSnapshot(
+    Object? value,
+    CallSessionTarget target,
+  ) => _snapshot(value, target);
 
   Map<String, Object?> _body(CallSessionTarget target) {
     if (_accountId.trim().isEmpty || !target.isValid) {

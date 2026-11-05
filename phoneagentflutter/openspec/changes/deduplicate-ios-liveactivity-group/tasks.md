@@ -1,0 +1,8 @@
+- [x] 核对当前修改并保存输入快照/hash。
+- [x] 先重现path-only/重复group问题（原实现四项fixture失败）。
+- [x] 引用合并及幂等修复，不删除真实文件。
+- [x] 五项定向测试、85项Python合同、APNs合同、四个Foundation程序和扩展接线检查。
+- [x] Xcode 27.2 Debug/dev、Release/prod无签名编译及三个Release匹配UUID符号文件核对。
+- [x] 输入保留、业务/Android/依赖不变检查和阶段交付。
+- [ ] 独立测试角色复核（侧聊禁止子代理，未执行）。
+- [ ] 真机Live Activity/通知与SDK回归（未安装、未调用真实业务）。

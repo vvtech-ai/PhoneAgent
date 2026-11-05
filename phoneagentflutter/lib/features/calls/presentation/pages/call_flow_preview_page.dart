@@ -106,7 +106,7 @@ class _CallFlowPreviewPageState extends State<CallFlowPreviewPage>
                 child: const Text('发送合成需求'),
               ),
               TextButton(
-                onPressed: () => _conversation.send('确认拨打'),
+                onPressed: () => _conversation.calls?.confirm('确认拨打'),
                 child: const Text('确认合成拨打'),
               ),
               TextButton(

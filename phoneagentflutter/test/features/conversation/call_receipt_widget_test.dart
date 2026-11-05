@@ -6,6 +6,41 @@ import 'package:phone_agent/features/conversation/presentation/widgets/call_rece
 import 'package:phone_agent/features/conversation/presentation/widgets/conversation_message_tile.dart';
 
 void main() {
+  test(
+    'plain call receipt masks spoken and written mobile numbers but keeps ordinary figures',
+    () {
+      final privateReceipt = CallReceipt(
+        attemptId: 'privacy-fixture',
+        status: 'COMPLETED',
+        phoneNumber: '13800002222',
+        headline: '请回拨 13800002222',
+        detail: '下午2点，4人，预付100元',
+        transcript: 'AI：号码一三八零零零零二二二二\n对方：另一个 138-0000-2222',
+      );
+      final text = CallReceiptText.format(privateReceipt);
+      expect(text, contains('尾号 2222'));
+      expect(text, isNot(contains('1380000')));
+      expect(text, isNot(contains('一三八零零')));
+      expect(text, contains('下午2点，4人，预付100元'));
+      expect(privateReceipt.phoneNumber, '13800002222');
+    },
+  );
+
+  test(
+    'uncertain spoken number hides the entire candidate without guessing a suffix',
+    () {
+      final privateReceipt = CallReceipt(
+        attemptId: 'privacy-uncertain',
+        status: 'COMPLETED',
+        transcript: 'AI：电话号码幺三八百零零零零二二二二',
+      );
+      final text = CallReceiptText.format(privateReceipt);
+      expect(text, contains('电话号码已隐藏'));
+      expect(text, isNot(contains('幺三八百')));
+      expect(text, isNot(contains('尾号 2222')));
+    },
+  );
+
   final receipt = CallReceipt.fromResult({
     'status': 'COMPLETED',
     'headline': '已结束',
@@ -20,6 +55,7 @@ void main() {
     ],
     'billingSummary': {
       'billingSessionId': 'private-id',
+      'billingState': 'SETTLED',
       'displayDurationSeconds': 12,
       'firstMinutePoints': 5,
       'blockDurationMs': 10000,

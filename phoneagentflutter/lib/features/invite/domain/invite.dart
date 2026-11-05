@@ -2,6 +2,7 @@ class InviteFailure implements Exception {
   const InviteFailure(this.code);
   final String code;
   String get message => switch (code) {
+    'INVITER_ACCOUNT_CANCELLED' => '邀请码无效',
     'ACTIVITY_RETIRED' ||
     'INVITE_ACTIVITY_RETIRED' => '本期邀请活动已结束，无法使用此邀请码完成注册。已有账号请返回登录。',
     'CONFIG_SYNCING' || 'CONFIG_SYNC_PENDING' => '活动规则正在同步，请稍后重试',

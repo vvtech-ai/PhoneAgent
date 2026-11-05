@@ -1,4 +1,6 @@
 import '../../../../core/design/native_system_chrome.dart';
+import '../../../../core/design/android_call_surface.dart';
+import '../../../../core/design/ai_content_notice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../domain/call_transcript.dart';
@@ -38,113 +40,123 @@ class CallSessionPage extends StatelessWidget {
     final issue = CallPresentation.issue(state.issue);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: NativeSystemChrome.dark,
-      child: DecoratedBox(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFF101114), Color(0xFF151922), Color(0xFF0B0D12)],
+      child: AndroidCallSurface(
+        backgroundColor: const Color(0xFF0B0D12),
+        child: DecoratedBox(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFF101114), Color(0xFF151922), Color(0xFF0B0D12)],
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final compact = constraints.maxHeight < 520;
-                final header = Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 26, bottom: 36),
-                      child: Text(
-                        modelName,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Color(0xB8FFFFFF),
-                          fontSize: 13,
-                          height: 16 / 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      name.isEmpty ? '正在读取通话信息' : name,
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    if (number.isNotEmpty)
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final compact = constraints.maxHeight < 520;
+                  final header = Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 8),
+                        padding: const EdgeInsets.only(top: 26, bottom: 36),
                         child: Text(
-                          number,
-                          textAlign: TextAlign.center,
+                          modelName,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                            color: Color(0xB3FFFFFF),
-                            fontSize: 15,
+                            color: Color(0xB8FFFFFF),
+                            fontSize: 13,
+                            height: 16 / 13,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12, bottom: 14),
-                      child: Text(
-                        CallPresentation.status(state, seconds),
+                      Text(
+                        name.isEmpty ? '正在读取通话信息' : name,
                         textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          color: Color(0xEBFFFFFF),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
-                    ),
-                  ],
-                );
-                return Column(
-                  children: [
-                    if (previewHeader != null) previewHeader!,
-                    if (!compact) header,
-                    if (issue.isNotEmpty) _notice(issue),
-                    Expanded(
-                      child: CallTranscriptViewport(
-                        revision: state.transcript.lines
-                            .map((line) => '${line.speaker.name}:${line.text}')
-                            .join('\n'),
-                        children: [
-                          if (compact) header,
-                          if (state.transcript.lines.isEmpty && state.connected)
-                            _card('实时对话记录', '等待实时通话转写…'),
-                          for (final line in state.transcript.lines)
-                            _card(
-                              line.speaker == CallSpeaker.assistant
-                                  ? 'AI'
-                                  : '对方',
-                              line.text,
+                      if (number.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Text(
+                            number,
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: Color(0xB3FFFFFF),
+                              fontSize: 15,
                             ),
-                        ],
+                          ),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12, bottom: 14),
+                        child: Text(
+                          CallPresentation.status(state, seconds),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Color(0xEBFFFFFF),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 18),
-                      child: CallControls(
-                        call: state,
-                        monitor: monitor,
-                        onMonitor: onMonitor,
-                        onHangup: onHangup,
-                        onSource: onSource,
+                    ],
+                  );
+                  return Column(
+                    children: [
+                      if (previewHeader != null) previewHeader!,
+                      if (!compact) header,
+                      if (issue.isNotEmpty) _notice(issue),
+                      Expanded(
+                        child: CallTranscriptViewport(
+                          revision: state.transcript.lines
+                              .map(
+                                (line) => '${line.speaker.name}:${line.text}',
+                              )
+                              .join('\n'),
+                          children: [
+                            if (compact) header,
+                            if (state.transcript.lines.isEmpty &&
+                                state.connected)
+                              _card('实时对话记录', '等待实时通话转写…'),
+                            for (final line in state.transcript.lines)
+                              _card(
+                                line.speaker == CallSpeaker.assistant
+                                    ? 'AI'
+                                    : '对方',
+                                line.text,
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              },
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom:
+                              AiContentNotice.bottomSpacing -
+                              AiContentNotice.iosSafeAreaAdjustment(context),
+                        ),
+                        child: CallControls(
+                          call: state,
+                          monitor: monitor,
+                          onMonitor: onMonitor,
+                          onHangup: onHangup,
+                          onSource: onSource,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),

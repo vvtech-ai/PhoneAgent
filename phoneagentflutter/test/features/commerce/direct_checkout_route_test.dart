@@ -178,8 +178,8 @@ void main() {
       await tester.ensureVisible(find.byType(Checkbox));
       await tester.tap(find.byType(Checkbox));
       await tester.pump();
-      await tester.ensureVisible(find.text('购买会员'));
-      await tester.tap(find.text('购买会员'));
+      await tester.ensureVisible(find.text('升级会员'));
+      await tester.tap(find.text('升级会员'));
       await tester.pumpAndSettle();
       expect(find.text('确认升级会员？'), findsOneWidget);
       expect(find.text('中级会员·月卡'), findsOneWidget);
@@ -411,8 +411,8 @@ void main() {
         await tester.ensureVisible(find.byType(Checkbox));
         await tester.tap(find.byType(Checkbox));
         await tester.pump();
-        await tester.ensureVisible(find.text('购买会员'));
-        await tester.tap(find.text('购买会员'));
+        await tester.ensureVisible(find.text('升级会员'));
+        await tester.tap(find.text('升级会员'));
         await tester.pumpAndSettle();
         expect(find.text('确认升级会员？'), findsOneWidget);
         expect(repo.createCalls, 0);

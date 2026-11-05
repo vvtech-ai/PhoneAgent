@@ -15,6 +15,7 @@ import '../controller/shell_welfare_navigation.dart';
 import '../../../trusted_caller/presentation/widgets/trusted_caller_home_guide_host.dart';
 import '../../../../app/translation_archive_providers.dart';
 import '../../../../core/design/native_page_background.dart';
+import '../../../../core/design/native_navigation_backdrop.dart';
 import '../../../settings/presentation/pages/settings_route.dart';
 import '../../../call_models/domain/call_models.dart';
 import '../../../call_models/presentation/pages/call_models_page.dart';
@@ -407,10 +408,13 @@ class _ShellRouteState extends ConsumerState<ShellRoute>
               child: Stack(
                 children: [
                   Positioned.fill(
-                    bottom: _panel == null
-                        ? FloatingNavigation.contentInset(context)
-                        : 0,
-                    child: _behindModelSheet(page),
+                    child: _behindModelSheet(
+                      NativeNavigationBackdrop(
+                        visible: _panel == null,
+                        contentInset: FloatingNavigation.contentInset(context),
+                        child: page,
+                      ),
+                    ),
                   ),
                   if (_panel == null)
                     Positioned(

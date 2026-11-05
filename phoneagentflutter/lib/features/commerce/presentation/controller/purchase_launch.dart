@@ -20,7 +20,7 @@ Future<void> runPurchaseLaunch({
   required void Function(Object) onError,
   void Function()? onAppleWaiting,
   void Function(CommerceOrder)? onVerifiedOrder,
-  void Function(CommerceOrder original, CommerceOrder currentOrder)?
+  void Function(CommerceOrder? original, CommerceOrder currentOrder)?
   onRecoveredOrder,
   PlatformProduct? confirmed,
   bool Function()? entryCurrent,
@@ -76,7 +76,8 @@ Future<void> runPurchaseLaunch({
           .verify(result)
           .timeout(ios?.recoveryLimit ?? const Duration(seconds: 15));
       if (!current()) return;
-      if (original == null || original.orderNo == order.orderNo) {
+      if ((original == null && !verifier.settledForeign(result)) ||
+          original?.orderNo == order.orderNo) {
         throw const CommerceFailure('MEMBERSHIP_PAYMENT_UNKNOWN');
       }
       // Ends only the new local flow. The server retains its token for any late payment.

@@ -1,3 +1,4 @@
+import '../../support/cancellation_scenario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:phone_agent/features/settings/presentation/widgets/account_confirmation_dialog.dart';
@@ -27,7 +28,12 @@ void main() {
                 builder: (context) => Scaffold(
                   body: TextButton(
                     onPressed: () async {
-                      result = await showAccountConfirmation(context, '');
+                      result = await showAccountConfirmation(
+                        context,
+                        '',
+                        confirmation: CancellationScenario().confirmationData,
+                        openAgreement: () async {},
+                      );
                     },
                     child: const Text('open'),
                   ),
@@ -37,16 +43,13 @@ void main() {
           );
           await tester.tap(find.text('open'));
           await tester.pumpAndSettle();
-          expect(find.textContaining('—', findRichText: true), findsOneWidget);
-          expect(find.bySemanticsLabel(RegExp('输入确认注销以继续')), findsOneWidget);
-          final field = find.byKey(const Key('account-confirmation-input'));
-          await tester.ensureVisible(field);
-          await tester.enterText(field, '确认注销');
-          await tester.pump();
+          expect(find.byType(TextField), findsNothing);
+          expect(find.byType(Checkbox), findsNothing);
           final submit = find.byKey(const Key('account-confirmation-submit'));
           await tester.ensureVisible(submit);
           await tester.pumpAndSettle();
           expect(tester.getBottomRight(submit).dy, lessThanOrEqualTo(338));
+          await tester.ensureVisible(find.text('取消'));
           await tester.tap(find.text('取消'));
           await tester.pumpAndSettle();
           expect(result, false);
@@ -66,7 +69,12 @@ void main() {
           builder: (context) => Scaffold(
             body: TextButton(
               onPressed: () async {
-                result = await showAccountConfirmation(context, '13800000000');
+                result = await showAccountConfirmation(
+                  context,
+                  '13800000000',
+                  confirmation: CancellationScenario().confirmationData,
+                  openAgreement: () async {},
+                );
               },
               child: const Text('open'),
             ),

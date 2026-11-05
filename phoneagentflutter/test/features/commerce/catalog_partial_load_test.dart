@@ -49,7 +49,9 @@ void main() {
       await c.load();
       expect(c.state.catalog, isNotNull);
       expect(c.state.error, isEmpty);
-      expect(c.state.purchasable(c.state.catalog!.products.first), isTrue);
+      // The lower-tier membership is now forbidden; the independent pack recovers.
+      expect(c.state.purchasable(c.state.catalog!.products.first), isFalse);
+      expect(c.state.purchasable(c.state.catalog!.products.last), isTrue);
     },
   );
 
@@ -63,7 +65,7 @@ void main() {
       expect(c.state.catalog?.products.length, 2);
       expect(c.state.membership, isNull);
       expect(c.state.error, contains('会员服务暂不可用'));
-      final product = c.state.catalog!.products.first;
+      final product = c.state.catalog!.products.last;
       expect(c.state.purchaseEnabled(product), isFalse);
       expect(c.state.purchasable(product), isFalse);
       repository.membershipFails = false;

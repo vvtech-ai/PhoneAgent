@@ -52,7 +52,7 @@ class OriginalAudioPage extends ConsumerWidget {
               ),
               Expanded(
                 child: ListView(
-                  padding: const EdgeInsets.all(14),
+                  padding: const EdgeInsets.all(16),
                   children: [
                     if (state.loading) const LinearProgressIndicator(),
                     if (state.error.isNotEmpty) ...[

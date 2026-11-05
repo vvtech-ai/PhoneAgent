@@ -63,6 +63,18 @@ ConversationEventFlow bindConversationEvents({
   signal: signal,
   assistant: assistant,
   onFinalResponse: onFinalResponse,
+  onLiveCommitted: (fact, command) {
+    final state = read();
+    if (fact.commandId == command &&
+        fact.payload['recordId'] == command &&
+        fact.payload['pendingToolCallId'] == state.pendingToolCallId &&
+        state.messages.any(
+          (message) =>
+              message.id == 'confirmation-supplement:$command:assistant',
+        )) {
+      speech()?.acceptConfirmationSupplement(fact);
+    }
+  },
   publish: publish,
   batchFinished: batchFinished,
   failed: (generation, failure) {
@@ -109,6 +121,9 @@ ConversationEventFlow bindConversationEvents({
   },
   done: done,
   status: (event, command, generation) {
+    if (event.kind == AgentEventKind.toolStart) {
+      calls()?.acceptBatchProgress(event, command);
+    }
     if (event.eventName == 'task_cancelled') cancelled();
     if (event.kind == AgentEventKind.status &&
             calls()?.acceptProgress(event, commandId: command) == true ||

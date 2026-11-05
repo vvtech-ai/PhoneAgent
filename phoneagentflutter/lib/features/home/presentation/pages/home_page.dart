@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_navigation_backdrop.dart';
+import '../../../../core/design/native_card_style.dart';
 import '../../../../core/design/shell_tokens.dart';
 import '../../domain/home_config.dart';
 import '../controller/home_controller.dart';
 import '../widgets/home_hero.dart';
 import '../widgets/home_card_illustration.dart';
+import '../widgets/home_card_extent.dart';
 import '../../../points/presentation/widgets/points_balance_badge.dart';
 
 class HomePage extends StatelessWidget {
@@ -81,7 +84,9 @@ class HomePage extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final scrollHeader =
-            constraints.maxHeight < 700 &&
+            constraints.maxHeight -
+                    NativeNavigationBackdrop.viewportInsetOf(context) <
+                700 &&
             MediaQuery.textScalerOf(context).scale(14) > 21;
         final scroll = RefreshIndicator(
           onRefresh: onRefresh,
@@ -102,15 +107,14 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 sliver: SliverLayoutBuilder(
                   builder: (context, constraints) {
-                    // Text scaling must not overflow a fixed design-height card.
-                    final height =
-                        126 +
-                        ((MediaQuery.textScalerOf(context).scale(18) / 18 - 1)
-                                .clamp(0, 3) *
-                            70);
+                    final height = homeCardExtent(
+                      context,
+                      gridWidth: constraints.crossAxisExtent,
+                      cards: cards,
+                    );
                     return SliverGrid(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) => _SkillCard(
@@ -143,7 +147,12 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-              const SliverToBoxAdapter(child: SizedBox(height: 16)),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height:
+                      16 + NativeNavigationBackdrop.homeContentInsetOf(context),
+                ),
+              ),
             ],
           ),
         );
@@ -177,10 +186,7 @@ class _SkillCard extends StatelessWidget {
       button: true,
       enabled: enabled,
       child: Container(
-        decoration: ShellTokens.cardDecoration.copyWith(
-          color: const Color(0xCCFFFFFF),
-          border: Border.all(color: const Color(0xC7FFFFFF)),
-        ),
+        decoration: NativeCardStyle.decoration,
         child: Material(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(24),
@@ -247,7 +253,7 @@ class _SkillCard extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 6),
                       Expanded(
                         child: Text(
                           card.subtitle,

@@ -2,6 +2,7 @@ import 'dart:async';
 import '../../data/commerce_diagnostics.dart';
 import '../../domain/apple_cancellation_outbox.dart';
 import '../../domain/apple_payment_attempt.dart';
+import '../../domain/apple_transaction_settlement.dart';
 import '../../domain/commerce_order.dart';
 import '../../domain/commerce_repository.dart';
 import '../../domain/payment_launcher.dart';
@@ -12,7 +13,11 @@ class ApplePaymentWaitExpired extends CommerceFailure {
 }
 
 /// Account-scoped StoreKit work survives page waits and verification deadlines.
-class IosPaymentRuntime implements PaymentLauncher, AppleTransactionUpdates {
+class IosPaymentRuntime
+    implements
+        PaymentLauncher,
+        AppleTransactionUpdates,
+        AppleTransactionSettlement {
   IosPaymentRuntime({
     required this.inner,
     required this.store,
@@ -224,12 +229,9 @@ class IosPaymentRuntime implements PaymentLauncher, AppleTransactionUpdates {
   @override
   Future<List<NativePaymentResult>> restore() => _restore();
 
-  Future<List<NativePaymentResult>> restoreForPurchase() =>
-      _restore(requireDiscovery: true);
+  Future<List<NativePaymentResult>> restoreForPurchase() => _restore();
 
-  Future<List<NativePaymentResult>> _restore({
-    bool requireDiscovery = false,
-  }) async {
+  Future<List<NativePaymentResult>> _restore() async {
     if (!current) return [];
     diagnostics?.event(CommerceStage.attemptRecover, DiagnosticResult.started);
     try {
@@ -279,7 +281,7 @@ class IosPaymentRuntime implements PaymentLauncher, AppleTransactionUpdates {
         DiagnosticResult.failed,
         error: e,
       );
-      if (requireDiscovery) rethrow;
+      rethrow;
     }
     return current ? results.values.toList() : [];
   }
@@ -337,5 +339,14 @@ class IosPaymentRuntime implements PaymentLauncher, AppleTransactionUpdates {
       }
     }
     _notify();
+  }
+
+  @override
+  Future<bool> settleTransaction(NativePaymentResult evidence) async {
+    if (inner is! AppleTransactionSettlement) return false;
+    final settled = await (inner as AppleTransactionSettlement)
+        .settleTransaction(evidence);
+    if (settled && current) _lateTransactions.remove(evidence.transactionId);
+    return settled;
   }
 }

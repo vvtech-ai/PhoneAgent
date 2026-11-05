@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'native_gradient_action.dart';
+import 'native_dialog_body.dart';
 
 /// Shared non-sheet surface. Business owners retain route and request state.
 enum NativeDialogKind { explanation, confirmation }
@@ -23,6 +24,10 @@ class NativeBusinessDialog extends StatelessWidget {
     this.dismissKey,
     this.surfaceKey,
     this.actions,
+    this.dismissBackgroundColor,
+    this.dismissForegroundColor,
+    this.confirmBackgroundColor,
+    this.confirmForegroundColor,
   });
 
   final String title, message, error, confirmLabel, dismissLabel;
@@ -32,6 +37,8 @@ class NativeBusinessDialog extends StatelessWidget {
   final bool danger, allowBack, showDismiss;
   final Key? confirmKey, dismissKey, surfaceKey;
   final Widget? actions;
+  final Color? dismissBackgroundColor, dismissForegroundColor;
+  final Color? confirmBackgroundColor, confirmForegroundColor;
 
   VoidCallback? _current(BuildContext context, VoidCallback? action) =>
       action == null
@@ -73,9 +80,8 @@ class NativeBusinessDialog extends StatelessWidget {
               ),
               if (message.isNotEmpty) ...[
                 const SizedBox(height: 8),
-                Text(
+                NativeDialogBody(
                   message,
-                  textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 13,
                     height: 18 / 13,
@@ -123,6 +129,8 @@ class NativeBusinessDialog extends StatelessWidget {
                               actionKey: dismissKey,
                               label: dismissLabel,
                               tone: NativeActionTone.secondary,
+                              backgroundColor: dismissBackgroundColor,
+                              foregroundColor: dismissForegroundColor,
                               onPressed: _current(context, onDismiss),
                             ),
                           ),
@@ -132,6 +140,8 @@ class NativeBusinessDialog extends StatelessWidget {
                           child: NativeGradientAction(
                             actionKey: confirmKey,
                             label: confirmLabel,
+                            backgroundColor: confirmBackgroundColor,
+                            foregroundColor: confirmForegroundColor,
                             tone:
                                 kind == NativeDialogKind.confirmation && danger
                                 ? NativeActionTone.danger

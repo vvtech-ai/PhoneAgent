@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/design/native_action_style.dart';
 
 /// Shared native clone label/cost; callers own authorization and route guards.
 class ClonePointsButton extends StatelessWidget {
@@ -8,7 +9,7 @@ class ClonePointsButton extends StatelessWidget {
     this.pricePoints,
     this.buttonKey,
     this.minimumWidth = 145,
-    this.horizontalPadding = 16,
+    this.horizontalPadding = 14,
   });
   final VoidCallback? onPressed;
   final Key? buttonKey;
@@ -20,47 +21,53 @@ class ClonePointsButton extends StatelessWidget {
   final double minimumWidth, horizontalPadding;
 
   @override
-  Widget build(BuildContext context) => FilledButton(
-    key: buttonKey,
-    onPressed: onPressed,
-    style: FilledButton.styleFrom(
-      backgroundColor: const Color(0xFF0A84FF),
-      minimumSize: Size(minimumWidth, 44),
-      tapTargetSize: MaterialTapTargetSize.padded,
-      visualDensity: VisualDensity.standard,
-      padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
-        vertical: 11,
+  Widget build(BuildContext context) => DecoratedBox(
+    decoration: NativeActionStyle.decoration(enabled: onPressed != null),
+    child: FilledButton(
+      key: buttonKey,
+      onPressed: onPressed,
+      style: NativeActionStyle.buttonStyle(context).copyWith(
+        minimumSize: WidgetStatePropertyAll(Size(minimumWidth, 50)),
+        padding: WidgetStatePropertyAll(
+          EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 14),
+        ),
       ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-    ),
-    child: Wrap(
-      spacing: 8,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        Text(
-          '声音克隆',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              '✦',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFFFFC400),
+      child: Wrap(
+        spacing: 8,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          Text(
+            '声音克隆',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              height: 20 / 15,
+            ),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '✦',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFFFFC400),
+                ),
               ),
-            ),
-            SizedBox(width: 5),
-            Text(
-              priceLabel,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-      ],
+              SizedBox(width: 5),
+              Text(
+                priceLabel,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  height: 20 / 15,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     ),
   );
 }

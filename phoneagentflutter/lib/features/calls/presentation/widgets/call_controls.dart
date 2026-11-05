@@ -54,15 +54,10 @@ class CallControls extends StatelessWidget {
           ),
         ],
       ),
-      const SizedBox(height: _labelGap),
-      Opacity(
-        opacity: call.canHangUp ? 1 : .38,
-        child: AiContentNotice(
-          style: _labelStyle.copyWith(
-            fontSize: (_labelStyle.fontSize! * .7).roundToDouble(),
-          ),
-        ),
+      SizedBox(
+        height: _labelGap + AiContentNotice.iosSafeAreaAdjustment(context),
       ),
+      const AiContentNotice.dark(),
     ],
   );
   Widget _button(

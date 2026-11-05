@@ -7,7 +7,7 @@ void main() {
   for (final platform in [TargetPlatform.iOS, TargetPlatform.android]) {
     for (final width in [320.0, 390.0, 430.0]) {
       for (final scale in [1.0, 2.0]) {
-        testWidgets('$platform $width scale $scale symmetric actions', (
+        testWidgets('$platform $width scale $scale left title and actions', (
           tester,
         ) async {
           tester.view.devicePixelRatio = 1;
@@ -39,8 +39,8 @@ void main() {
           );
           final heading = find.text(title);
           final titleRect = tester.getRect(heading);
-          expect(titleRect.center.dx, closeTo(width / 2, .01));
-          expect(titleRect.left, closeTo(width - titleRect.right, .01));
+          expect(titleRect.left, 46);
+          expect(titleRect.height, 40 * scale);
           expect(
             titleRect.right,
             lessThanOrEqualTo(tester.getTopLeft(find.byType(TextButton)).dx),
@@ -52,10 +52,10 @@ void main() {
             tester.renderObject<RenderParagraph>(heading).didExceedMaxLines,
             isTrue,
           );
-          expect(tester.getSize(find.byTooltip('返回')), const Size.square(44));
+          expect(tester.getSize(find.byTooltip('返回')), const Size.square(48));
           expect(
             tester.getSize(find.byType(NativePageHeader)).height,
-            greaterThanOrEqualTo(64),
+            16 + 40 * scale,
           );
           await tester.tap(find.byTooltip('返回'));
           await tester.tap(find.text('订单与发票'));
@@ -116,16 +116,11 @@ void main() {
       });
       await tester.pump();
       final next = tester.getRect(find.text('标题'));
-      expect(next.center.dx, initial.center.dx);
+      expect(next.left, initial.left);
       expect(next.width, lessThan(initial.width));
       expect(
         tester
-            .widget<IconButton>(
-              find.ancestor(
-                of: find.byIcon(Icons.keyboard_arrow_left),
-                matching: find.byType(IconButton),
-              ),
-            )
+            .widget<IconButton>(find.widgetWithText(IconButton, '‹'))
             .onPressed,
         isNull,
       );
@@ -146,12 +141,15 @@ void main() {
           appBarTheme: const AppBarTheme(backgroundColor: Colors.pink),
         ),
         home: const Scaffold(
-          appBar: NativePageAppBar(title: '会员与积分'),
+          appBar: NativePageAppBar(
+            title: '会员与积分',
+            textScaler: TextScaler.noScaling,
+          ),
           body: SizedBox.expand(key: ValueKey('body')),
         ),
       ),
     );
-    expect(tester.getTopLeft(find.byKey(const ValueKey('body'))).dy, 94);
+    expect(tester.getTopLeft(find.byKey(const ValueKey('body'))).dy, 86);
     expect(tester.getTopLeft(find.byType(NativePageHeader)).dy, 30);
     expect(find.byTooltip('返回'), findsNothing);
     expect(tester.widget<AppBar>(find.byType(AppBar)).backgroundColor, isNull);
@@ -163,7 +161,13 @@ void main() {
     expect(material.color, Colors.pink);
     await tester.pumpWidget(
       const MaterialApp(
-        home: Scaffold(appBar: NativePageAppBar(title: '操作中', showBack: true)),
+        home: Scaffold(
+          appBar: NativePageAppBar(
+            title: '操作中',
+            showBack: true,
+            textScaler: TextScaler.noScaling,
+          ),
+        ),
       ),
     );
     expect(

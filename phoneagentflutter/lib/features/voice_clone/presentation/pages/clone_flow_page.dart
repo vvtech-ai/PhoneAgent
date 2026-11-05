@@ -1,3 +1,4 @@
+import '../../../../core/design/native_action_style.dart';
 import 'dart:async';
 import '../../../../core/design/native_notice.dart';
 import 'package:flutter/material.dart';
@@ -260,16 +261,18 @@ class _CloneFlowPageState extends State<CloneFlowPage>
                       ],
                       if (!candidateResult &&
                           recovery != CloneFlowRecovery.none)
-                        FilledButton(
-                          onPressed: ui.busy
-                              ? null
-                              : recovery == CloneFlowRecovery.restart
-                              ? _controller.restartAuthentication
-                              : _controller.synchronize,
-                          child: Text(
-                            recovery == CloneFlowRecovery.restart
-                                ? '返回重新认证'
-                                : '同步本次状态',
+                        NativeActionSurface(
+                          child: FilledButton(
+                            onPressed: ui.busy
+                                ? null
+                                : recovery == CloneFlowRecovery.restart
+                                ? _controller.restartAuthentication
+                                : _controller.synchronize,
+                            child: Text(
+                              recovery == CloneFlowRecovery.restart
+                                  ? '返回重新认证'
+                                  : '同步本次状态',
+                            ),
                           ),
                         ),
                       if (_state.resetCleanupPending)
@@ -363,15 +366,20 @@ class _CloneFlowPageState extends State<CloneFlowPage>
                               ),
                               if (ui.busy) const LinearProgressIndicator(),
                               if (_state.saveFailed)
-                                OutlinedButton(
-                                  onPressed: ui.busy
-                                      ? null
-                                      : _controller.retrySave,
-                                  child: const Text('仅重试保存认证录音'),
+                                NativeActionSurface(
+                                  tone: NativeActionTone.secondary,
+                                  child: OutlinedButton(
+                                    onPressed: ui.busy
+                                        ? null
+                                        : _controller.retrySave,
+                                    child: const Text('仅重试保存认证录音'),
+                                  ),
                                 ),
-                              FilledButton(
-                                onPressed: ui.busy ? null : _exit,
-                                child: const Text('完成并返回'),
+                              NativeActionSurface(
+                                child: FilledButton(
+                                  onPressed: ui.busy ? null : _exit,
+                                  child: const Text('完成并返回'),
+                                ),
                               ),
                             ],
                           ),

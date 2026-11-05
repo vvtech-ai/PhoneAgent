@@ -19,6 +19,7 @@ import 'stream_client.dart'
     if (dart.library.js_interop) 'stream_client_web.dart';
 
 part 'account_recording_stream.dart';
+part 'account_session_invalidation.dart';
 
 enum AccountIdempotencyHeader { legacy, standard }
 
@@ -413,8 +414,10 @@ class AccountApi {
         watch.elapsedMilliseconds,
         trace,
       );
+      await _checkSessionInvalidation(response, credentials, protected);
       return response;
     } on DioException catch (error) {
+      if (!credentials.sameLogin(_session.credentials)) throw ApiFailure.sessionChanged;
       otaLog.failed(watch.elapsedMilliseconds);
       cloneLog.failed(error, watch.elapsedMilliseconds, trace);
       emitDiagnostic(

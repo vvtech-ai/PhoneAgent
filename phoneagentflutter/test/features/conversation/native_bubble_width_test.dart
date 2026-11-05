@@ -45,10 +45,13 @@ void main() {
               theme: ThemeData(platform: platform),
               home: Scaffold(
                 body: MediaQuery(
-                  data: MediaQueryData(textScaler: TextScaler.linear(scale)),
+                  data: MediaQueryData(
+                    size: Size(width, 1800),
+                    textScaler: TextScaler.linear(scale),
+                  ),
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -84,25 +87,15 @@ void main() {
           final apology = surface('local:apology:models', DecoratedBox);
           final options = surface('local:apology:models', Material);
           final normal = surface('normal-options', Material);
-          final available = width - 36;
+          final available = width - 32;
+          final aiMax = available.clamp(0.0, 260.0);
+          final userMax = available.clamp(0.0, 220.0);
           // Like Compose wrapContent, the longest rendered line may leave
           // less than one glyph of space below the maximum bubble width.
-          expect(
-            ai.width,
-            inInclusiveRange(
-              available.clamp(0, 260) - 14 * scale,
-              available.clamp(0, 260),
-            ),
-          );
-          expect(
-            user.width,
-            inInclusiveRange(
-              available.clamp(0, 220) - 14 * scale,
-              available.clamp(0, 220),
-            ),
-          );
-          expect(ai.left, closeTo(18, .01));
-          expect(user.right, closeTo(width - 18, .01));
+          expect(ai.width, inInclusiveRange(aiMax - 14 * scale, aiMax));
+          expect(user.width, inInclusiveRange(userMax - 14 * scale, userMax));
+          expect(ai.left, closeTo(16, .01));
+          expect(user.right, closeTo(width - 16, .01));
           expect(short.width, lessThan(ai.width));
           expect(short.left, ai.left);
           expect(apology.left, ai.left);

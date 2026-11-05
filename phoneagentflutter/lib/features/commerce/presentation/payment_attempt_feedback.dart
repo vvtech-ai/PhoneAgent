@@ -22,6 +22,13 @@ PaymentAttemptFeedback paymentAttemptFeedback(
   final order = state.order;
   final apple = order?.channel == 'APPLE_IAP';
   final points = apple && order?.productType == 'POINTS_PACK';
+  if (state.foreignAppleTransactionSettled) {
+    return PaymentAttemptFeedback(
+      order?.unresolved == true ? '本次订单状态待确认' : '本次购买流程已结束',
+      state.recoveryMessage,
+      processing: order?.unresolved == true,
+    );
+  }
   if (state.recoveredPreviousPurchase) {
     final completed =
         order?.paymentState == 'SUCCEEDED' &&

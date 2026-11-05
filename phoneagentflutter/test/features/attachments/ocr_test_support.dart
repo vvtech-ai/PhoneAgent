@@ -7,6 +7,7 @@ import 'package:phone_agent/core/network/account_api.dart';
 import 'package:phone_agent/core/network/account_session.dart';
 import 'package:phone_agent/features/attachments/domain/ocr_attachment.dart';
 import 'package:phone_agent/features/attachments/domain/ocr_persistence.dart';
+import 'package:phone_agent/features/conversation/domain/agent_protocol.dart';
 
 const ocrTestSession = 'synthetic-session';
 const ocrTestId = 'ocr-synthetic';
@@ -33,21 +34,27 @@ Map<String, Object?> ocrPayload({
   'sequence': 9,
   'committedAt': '2026-09-17T08:00:00Z',
 };
-OcrUpload ocrUpload({Uint8List? bytes, String sessionId = ocrTestSession}) =>
-    OcrUpload(
-      sessionId: sessionId,
-      attachment: const OcrAttachment(
-        id: ocrTestId,
-        imageRef: 'local-image',
-        anchor: 2,
-        ordinal: 3,
-      ),
-      bytes: bytes ?? ocrTestBytes,
-      fileName: 'C:\\private\\synthetic.png',
-      mimeType: 'image/png',
-      initialOpening: '合成开场',
-      recognition: const OcrRecognition('合成图片文字', ['合成图片文字']),
-    );
+OcrUpload ocrUpload({
+  Uint8List? bytes,
+  String sessionId = ocrTestSession,
+  String? skillId,
+  SelectedContactContext? contact,
+}) => OcrUpload(
+  sessionId: sessionId,
+  attachment: const OcrAttachment(
+    id: ocrTestId,
+    imageRef: 'local-image',
+    anchor: 2,
+    ordinal: 3,
+  ),
+  bytes: bytes ?? ocrTestBytes,
+  fileName: 'C:\\private\\synthetic.png',
+  mimeType: 'image/png',
+  initialOpening: '合成开场',
+  initialSkillId: skillId,
+  selectedContact: contact,
+  recognition: const OcrRecognition('合成图片文字', ['合成图片文字']),
+);
 
 class OcrTestSession implements AccountSession {
   @override

@@ -1,6 +1,8 @@
 import 'package:phone_agent/core/design/native_business_dialog.dart';
 import '../../support/pump_ui_transitions.dart';
 import '../../support/confirm_rendered_call.dart';
+import '../../support/confirmation_reply_stub.dart';
+import 'package:phone_agent/features/conversation/domain/confirmation/call_confirmation_policy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:phone_agent/features/calls/data/preview_call_flow.dart';
@@ -27,6 +29,12 @@ ConversationController conversation(
     history: ports,
     callAdmission: ports.admission,
     callSessions: ports,
+    confirmationReplies: const ConfirmationReplyStub(
+      decisions: {
+        '修改需求，新输入': CallReplyDecision.edit,
+        '合成需求': CallReplyDecision.newRequest,
+      },
+    ),
     onTaskResultChanged: onTaskResultChanged,
     nextId: () => 'id-${next++}',
   );

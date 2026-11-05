@@ -1,3 +1,4 @@
+import '../../../../core/design/native_action_style.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/design/attachment_tokens.dart';
 import '../../domain/document_import.dart';
@@ -137,11 +138,15 @@ class _DocumentImportSheetState extends State<DocumentImportSheet> {
             ],
             const SizedBox(height: 12),
             if (state.phase != DocumentImportPhase.ready)
-              FilledButton(
-                key: const ValueKey('pick-documents'),
-                onPressed: state.busy ? null : _pick,
-                child: Text(
-                  state.phase == DocumentImportPhase.failed ? '重新选择文件' : '选择文件',
+              NativeActionSurface(
+                child: FilledButton(
+                  key: const ValueKey('pick-documents'),
+                  onPressed: state.busy ? null : _pick,
+                  child: Text(
+                    state.phase == DocumentImportPhase.failed
+                        ? '重新选择文件'
+                        : '选择文件',
+                  ),
                 ),
               ),
           ],

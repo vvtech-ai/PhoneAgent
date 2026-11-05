@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../domain/membership_purchase_eligibility.dart';
 import '../controller/catalog_controller.dart';
 import 'commerce_widgets.dart';
 import 'membership_benefit_list.dart';
@@ -40,6 +41,8 @@ class MembershipOffer extends StatelessWidget {
                   ? current?.benefits
                   : null);
     return CommerceCard(
+      offer: true,
+      marginBottom: 12,
       contentPadding: const EdgeInsets.symmetric(horizontal: 17, vertical: 14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,12 +72,21 @@ class MembershipOffer extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             CommerceAction(
-              '购买会员',
-              minHeight: 43,
-              backgroundColor: const Color(0xFF3478F5),
+              MembershipPurchaseEligibility.resolve(current, product).label,
               onPressed: product != null && state.purchasable(product)
                   ? onBuy
                   : null,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 8),
+              child: Text(
+                '升级保留原会员时长，购买更长套餐可延长有效期。',
+                style: TextStyle(
+                  fontSize: 12,
+                  height: 1.65,
+                  color: Color(0xFF858991),
+                ),
+              ),
             ),
             if (onAgreement != null && onLegal != null)
               CommerceAgreement(

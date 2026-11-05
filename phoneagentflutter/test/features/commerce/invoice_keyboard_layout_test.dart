@@ -21,7 +21,7 @@ void main() {
       await loader.load();
     }
   });
-  for (final width in [375.0, 390.0, 430.0]) {
+  for (final width in [300.0, 320.0, 375.0, 390.0, 430.0]) {
     testWidgets('专票大字键盘操作可达且保留输入 $width', (tester) async {
       tester.view.physicalSize = Size(width, 844);
       tester.view.devicePixelRatio = 1;
@@ -77,6 +77,9 @@ void main() {
           ),
         ),
       );
+      final close = find.widgetWithText(FilledButton, '关闭');
+      final submit = find.widgetWithText(FilledButton, '提交申请');
+      expect(tester.getSize(close).height, tester.getSize(submit).height);
       expect(tester.takeException(), isNull);
       expect(tester.getRect(find.text('提交申请')).bottom, lessThan(544));
       final field = find.byKey(const ValueKey('COMPANY-SPECIAL-bankAccount'));

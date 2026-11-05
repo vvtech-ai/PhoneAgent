@@ -312,9 +312,14 @@ class PurchaseController extends StateNotifier<PurchaseState> {
           state = PurchaseState(
             order: currentOrder.unresolved || separatelyPaid
                 ? currentOrder
-                : original,
-            recoveredPreviousPurchase: !separatelyPaid,
-            recoveryMessage: currentOrder.unresolved
+                : original ?? currentOrder,
+            recoveredPreviousPurchase: !separatelyPaid && original != null,
+            foreignAppleTransactionSettled: !separatelyPaid && original == null,
+            recoveryMessage: original == null
+                ? currentOrder.unresolved
+                      ? '原交易已处理，本次订单状态仍需查询，请勿重复支付。'
+                      : '原交易已处理，本次购买流程已结束；请重新发起购买。'
+                : currentOrder.unresolved
                 ? '上次交易已恢复，本次订单状态仍需查询，请勿重复支付。'
                 : '上次交易已恢复，本次购买流程已结束；如 Apple 后续确认付款，将继续处理对应订单。',
           );
@@ -425,9 +430,11 @@ class PurchaseController extends StateNotifier<PurchaseState> {
 
   Future<void> _readOrder(String orderNo, int revision) async {
     try {
+      var recoveryFailed = false;
       if (paymentChannel == 'APPLE_IAP' ||
           state.order?.channel == 'APPLE_IAP') {
-        await _appleVerifier.recover(() => _current(revision));
+        final recovery = await _appleVerifier.recover(() => _current(revision));
+        recoveryFailed = recovery.failed;
         if (!_current(revision)) return;
       }
       final order = await repository.order(orderNo);
@@ -445,6 +452,8 @@ class PurchaseController extends StateNotifier<PurchaseState> {
                   (launcher is! IosPaymentRuntime || order.unresolved) &&
                   order.orderNo == _attemptOrderNo
               ? _attemptError
+              : recoveryFailed
+              ? const CommerceFailure('APPLE_RECOVERY_INCOMPLETE').message
               : '',
         );
         onRecoverySucceeded?.call();
@@ -550,7 +559,9 @@ class PurchaseController extends StateNotifier<PurchaseState> {
     final revision = ++_revision;
     state = PurchaseState(order: state.order, busy: true);
     try {
-      await _appleVerifier.recover(() => _current(revision));
+      final recovery = paymentChannel == 'ALIPAY'
+          ? const AppleRecoveryReport([])
+          : await _appleVerifier.recover(() => _current(revision));
       if (!_current(revision)) return;
       final membership = await repository.membership();
       if (!_current(revision)) return;
@@ -567,7 +578,14 @@ class PurchaseController extends StateNotifier<PurchaseState> {
       if (!_current(revision)) return;
       final unresolved = page.items.where((o) => o.unresolved);
       state = PurchaseState(
-        order: unresolved.isEmpty ? null : unresolved.first,
+        order: unresolved.isEmpty
+            ? recovery.orders
+                  .where((o) => o.paymentState == 'SUCCEEDED')
+                  .firstOrNull
+            : unresolved.first,
+        error: recovery.failed
+            ? const CommerceFailure('APPLE_RECOVERY_INCOMPLETE').message
+            : '',
       );
       onRecoverySucceeded?.call();
     } catch (e) {
